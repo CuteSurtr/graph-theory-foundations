@@ -8,6 +8,7 @@ This is an independent project by Jiho Lee (UCSD) that aims to create a comprehe
 
 ## Status
 Work in progress. Targeting ~20,000 lines by completion.
+
 *UC San Diego — Personal Research, LaTeX & Algorithm Engineering*  
 - Wrote a 3,800+ line LaTeX textbook bridging graph theory with real-world software engineering challenges  
 - Included algorithmic formulations (Eulerian tour detection, De Bruijn sequence generation, TSP heuristics)  
