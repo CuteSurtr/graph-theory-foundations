@@ -3793,6 +3793,675 @@ Not all cubic graphs are Hamiltonian. The Petersen graph is a well-known 3-regul
 \end{center}
 \end{figure}
 
+\begin{definition}[Circulant Graph]
+A circulant graph $\text{Circ}(n; S)$ is a graph with vertex set $\{0, 1, 2, \ldots, n-1\}$ and an edge between vertices $i$ and $j$ if and only if $|i - j| \equiv s \pmod{n}$ for some $s$ in the connection set $S \subseteq \{1, 2, \ldots, \lfloor n/2 \rfloor\}$. In other words, it's a graph where vertices are arranged in a circle, and each vertex is connected to specific vertices at fixed distances around the circle.
+\end{definition}
+
+\begin{definition}[Graph Toughness]
+The toughness $t(G)$ of a graph $G$ is defined as:
+\[t(G) = \min \left\{\frac{|S|}{c(G-S)} : S \subset V(G), c(G-S) > 1 \right\}\]
+where $c(G-S)$ is the number of connected components in the graph after removing vertex set $S$. Intuitively, toughness measures how difficult it is to disconnect a graph by removing vertices.
+\end{definition}
+
+\begin{theorem}[Circulant Graphs and Hamiltonicity]
+The graph shown in Figure 51 is an example of a circulant graph $\text{Circ}(8;\{1,4\})$. A circulant graph with $n$ vertices is Hamiltonian if and only if it is connected.
+\end{theorem}
+
+\begin{problem}
+Show that in the graph of Figure 51, there are exactly 8 distinct Hamiltonian cycles. Hint: Count the cycles that use only the outer edges versus those that must use the "diagonal" connections.
+\end{problem}
+
+\begin{lemma}[Toughness of Regular Graphs]
+The graph in Figure 51 has toughness exactly 1. In general, any $k$-regular graph with $k \geq 2$ has toughness at least $\frac{k}{2}$.
+\end{lemma}
+
+
+\begin{figure}[h!]
+\begin{center}
+\begin{tikzpicture}[scale=1.3]
+    % Center vertex
+    \node[draw, circle, fill=gray!20] (v1) at (0,0) {$v_1$};
+    
+    % Surrounding vertices
+    \node[draw, circle, fill=gray!20] (v2) at (1.5,0) {$v_2$};
+    \node[draw, circle, fill=gray!20] (v3) at (0,1.5) {$v_3$};
+    \node[draw, circle, fill=gray!20] (v4) at (-1.5,0) {$v_4$};
+    \node[draw, circle, fill=gray!20] (v5) at (0,-1.5) {$v_5$};
+    
+    % Edges
+    \draw (v1) -- (v2);
+    \draw (v1) -- (v3);
+    \draw (v1) -- (v4);
+    \draw (v1) -- (v5);
+    \draw (v2) -- (v3);
+    \draw (v3) -- (v4);
+    \draw (v4) -- (v5);
+    
+    % Highlight that v5 has degree 1
+    \node[draw, circle, fill=red!20, thick] at (0,-1.5) {$v_5$};
+    \node at (0,-2.5) {$\deg(v_5) = 1 < \frac{n}{2} = 2.5$};
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+\small Figure 52: A graph that fails to satisfy Dirac's condition. This graph has $n = 5$ vertices, with vertex $v_5$ (highlighted in red) having degree 1, which is less than $\frac{n}{2} = 2.5$. The graph cannot contain a Hamiltonian cycle because any cycle including $v_5$ must use both its only edge (to $v_1$) as entry and exit, making it impossible to continue the cycle. This demonstrates why the minimum degree requirement in Dirac's theorem is necessary.
+\end{center}
+\end{figure}
+
+\begin{lemma}[Connectivity Requirement]
+If a graph $G$ has a Hamiltonian cycle, then $G$ is 2-connected.
+\end{lemma}
+
+\begin{proof}
+Suppose $G$ has a Hamiltonian cycle $C$. If we remove any vertex $v$ from $G$, the cycle $C$ becomes a path that connects all remaining vertices. Therefore, $G-v$ is connected, meaning $G$ is 2-connected.
+\end{proof}
+
+\begin{theorem}[Pendant Vertices]
+Any graph $G$ containing a pendant vertex cannot contain a Hamiltonian cycle.
+\end{theorem}
+
+\begin{proof}
+Let $v$ be a pendant vertex in $G$ with its only neighbor $u$. Any cycle containing $v$ must use the edge $\{u,v\}$ twice: once to enter $v$ and once to exit. Since a cycle can use each edge at most once, this creates a contradiction.
+\end{proof}
+
+\begin{lemma}[Cut Vertices]
+The vertex $v_1$ in Figure 52 is a cut vertex; hence no Hamiltonian cycle can exist in this graph.
+\end{lemma}
+
+\begin{proof}
+Removing $v_1$ disconnects the graph into separate components containing $\{v_3,v_4\}$ and $\{v_2,v_5\}$. By Lemma 1, no Hamiltonian cycle can exist in a graph with a cut vertex.
+\end{proof}
+
+\begin{theorem}[Relaxed Degree Condition]
+If $\delta(G) \geq \frac{n-1}{2}$, then $G$ is either Hamiltonian or isomorphic to $K_m + \overline{K}_m$ with $n = 2m-1$.
+\end{theorem}
+
+\begin{remark}[Wheel-Graph Relation]
+The graph in Figure 52 can be viewed as a wheel graph $W_5$ with one edge removed. This removal causes the graph to fall just below Dirac's threshold, eliminating its Hamiltonian property.
+\end{remark}
+
+\begin{remark}[Dirac-Critical]
+The graph is Dirac-critical: adding edge $\{v_2,v_5\}$ increases the minimum degree to $\lceil n/2 \rceil$ and makes the graph Hamiltonian.
+\end{remark}
+
+\begin{problem}
+Determine which pairs of edges can be added to Figure 52 to meet Dirac's condition, and list all such possible pairs.
+\end{problem}
+\begin{lemma}[Dirac's Condition and Pendant Vertices]
+Let $G$ be the graph in Figure 52 with a pendant vertex $v_5$ of degree 1. Then:
+\begin{enumerate}
+    \item $G$ fails Dirac's condition since $\deg(v_5) = 1 < \frac{n}{2} = 2.5$
+    \item $G$ cannot contain a Hamiltonian cycle
+    \item Adding the edge $\{v_2, v_5\}$ would increase $\deg(v_5)$ to 2, but this still falls short of Dirac's threshold
+    \item $G$ requires at least two additional edges to satisfy Dirac's condition
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+A Hamiltonian cycle requires each vertex to have degree at least 2, which $v_5$ fails to satisfy. Furthermore, $v_1$ is a cut vertex, dividing the graph into two components upon its removal, which prevents any Hamiltonian cycle from existing.
+\end{proof}
+\newpage
+\subsection{Related Results and Extensions}
+\subsubsection{Ore's Theorem}
+
+\begin{theorem}[Ore's Theorem, 1960]
+Let $G$ be a simple graph with $n \geq 3$ vertices. If for every pair of non-adjacent vertices $u$ and $v$ in $G$, 
+\[\deg(u) + \deg(v) \geq n,\]
+then $G$ is Hamiltonian.
+\end{theorem}
+
+\begin{figure}[h!]
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+    % Vertices
+    \node[draw, circle, fill=blue!20, minimum size=0.7cm] (A) at (0,1.5) {$u_1$};
+    \node[draw, circle, fill=blue!20, minimum size=0.7cm] (B) at (1.5,1.5) {$u_2$};
+    \node[draw, circle, fill=blue!20, minimum size=0.7cm] (C) at (2,-0.5) {$u_3$};
+    \node[draw, circle, fill=blue!20, minimum size=0.7cm] (D) at (0,-0.5) {$u_4$};
+    \node[draw, circle, fill=blue!20, minimum size=0.7cm] (E) at (-1,0.5) {$u_5$};
+    
+    % Edges
+    \draw[thick] (A) -- (B);
+    \draw[thick] (B) -- (C);
+    \draw[thick] (C) -- (D);
+    \draw[thick] (D) -- (E);
+    \draw[thick] (E) -- (A);
+    \draw[thick] (A) -- (C);
+    \draw[thick] (B) -- (D);
+    \draw[thick] (B) -- (E);
+    
+    % Hamiltonian cycle
+    \draw[ultra thick, red, ->] (A) to[bend left=10] (B);
+    \draw[ultra thick, red] (B) to[bend left=10] (C);
+    \draw[ultra thick, red] (C) to[bend left=10] (D);
+    \draw[ultra thick, red] (D) to[bend left=10] (E);
+    \draw[ultra thick, red] (E) to[bend left=10] (A);
+    
+    % Missing edge
+    \draw[dashed, blue, thick] (A) -- (D);
+\end{tikzpicture}
+\end{center}
+
+\vspace{0.5cm}
+{\centering
+\small $\deg(u_1) = 3, \deg(u_2) = 4, \deg(u_3) = 3, \deg(u_4) = 3, \deg(u_5) = 3$
+\par}
+
+\vspace{0.3cm}
+{\centering
+\small For non-adjacent vertices $u_1$ and $u_4$: $\deg(u_1) + \deg(u_4) = 3 + 3 = 6 > 5 = n$
+\par}
+
+\begin{center}
+\small Figure 52: A graph with $n = 5$ vertices satisfying Ore's condition. The red path shows a Hamiltonian cycle, and the blue dashed line indicates a non-adjacent vertex pair whose degree sum exceeds $n$.
+\end{center}
+\end{figure}
+\begin{figure}[h!]
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+    % Vertices
+    \node[draw, circle, fill=blue!20, minimum size=0.7cm] (A) at (0,1.5) {$v_1$};
+    \node[draw, circle, fill=blue!20, minimum size=0.7cm] (B) at (1.5,1.5) {$v_2$};
+    \node[draw, circle, fill=blue!20, minimum size=0.7cm] (C) at (2,-0.5) {$v_3$};
+    \node[draw, circle, fill=blue!20, minimum size=0.7cm] (D) at (0,-0.5) {$v_4$};
+    \node[draw, circle, fill=blue!20, minimum size=0.7cm] (E) at (-1,0.5) {$v_5$};
+    
+    % Edges
+    \draw[thick] (A) -- (B);
+    \draw[thick] (B) -- (C);
+    \draw[thick] (C) -- (D);
+    \draw[thick] (A) -- (E);
+    
+    % Non-adjacent vertices with insufficient degree sum
+    \draw[dashed, red, thick] (B) -- (E);
+\end{tikzpicture}
+\end{center}
+
+\vspace{0.5cm}
+{\centering
+\small $\deg(v_1) = 2, \deg(v_2) = 2, \deg(v_3) = 2, \deg(v_4) = 1, \deg(v_5) = 1$
+\par}
+
+\vspace{0.3cm}
+{\centering
+\small For non-adjacent vertices $v_2$ and $v_5$: $\deg(v_2) + \deg(v_5) = 2 + 1 = 3 < 5 = n$
+\par}
+
+\vspace{0.3cm}
+{\centering
+\small No Hamiltonian cycle exists in this graph
+\par}
+
+\begin{center}
+\small Figure 53: A graph with $n = 5$ vertices that fails both Dirac's and Ore's conditions. The red dashed line shows a non-adjacent vertex pair whose degree sum is less than $n$.
+\end{center}
+\end{figure}
+\begin{lemma}[Ore's Condition and Path Graphs]
+Let $P_n$ be a path graph with $n \geq 4$ vertices. Then:
+\begin{enumerate}
+    \item For any non-adjacent vertices $u$ and $v$ in $P_n$, $\deg(u) + \deg(v) \leq 4 < n$
+    \item $P_n$ fails to satisfy Ore's condition
+    \item The graph in Figure 53 contains a path $P_4$ as a subgraph $(v_2, v_3, v_4, v_5)$
+    \item Adding any single edge to Figure 53 is insufficient to satisfy Ore's condition
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+In any path graph $P_n$ with $n \geq 4$, the maximum degree of any vertex is 2. Consider any pair of non-adjacent vertices $u$ and $v$. Their degree sum is at most $2 + 2 = 4$, which is less than $n$. Thus, $P_n$ always fails Ore's condition and cannot be Hamiltonian. The graph in Figure 53 contains the path $(v_2, v_3, v_4, v_5)$ and exhibits similar properties, with vertices $v_4$ and $v_5$ having degree only 1, making it even further from satisfying Ore's condition.
+\end{proof}
+\subsubsection{Chvátal's Theorem}
+
+\begin{theorem}[Chvátal, 1972]
+Let $G$ be a simple graph with $n$ vertices and degree sequence $d_1 \leq d_2 \leq \ldots \leq d_n$. If for all $i < \frac{n}{2}$, 
+\[d_i \leq i \implies d_{n-i} \geq n-i,\]
+then $G$ is Hamiltonian.
+\end{theorem}
+
+
+
+
+\begin{figure}[h!]
+\begin{center}
+\begin{minipage}{0.48\textwidth}
+\centering
+\begin{tikzpicture}[scale=1]
+    % Vertices
+    \node[draw, circle, fill=green!20, minimum size=0.6cm] (A) at (90:1.5) {$a_1$};
+    \node[draw, circle, fill=green!20, minimum size=0.6cm] (B) at (30:1.5) {$a_2$};
+    \node[draw, circle, fill=green!20, minimum size=0.6cm] (C) at (330:1.5) {$a_3$};
+    \node[draw, circle, fill=green!20, minimum size=0.6cm] (D) at (270:1.5) {$a_4$};
+    \node[draw, circle, fill=green!20, minimum size=0.6cm] (E) at (210:1.5) {$a_5$};
+    \node[draw, circle, fill=green!20, minimum size=0.6cm] (F) at (150:1.5) {$a_6$};
+    
+    % Edges for outer cycle
+    \draw[thick] (A) -- (B);
+    \draw[thick] (B) -- (C);
+    \draw[thick] (C) -- (D);
+    \draw[thick] (D) -- (E);
+    \draw[thick] (E) -- (F);
+    \draw[thick] (F) -- (A);
+    
+    % Some additional edges
+    \draw[thick] (A) -- (C);
+    \draw[thick] (A) -- (D);
+    \draw[thick] (B) -- (E);
+    \draw[thick] (C) -- (F);
+    
+    % Hamiltonian cycle
+    \draw[ultra thick, red, ->] (A) to[bend left=5] (B);
+    \draw[ultra thick, red] (B) to[bend left=5] (C);
+    \draw[ultra thick, red] (C) to[bend left=5] (D);
+    \draw[ultra thick, red] (D) to[bend left=5] (E);
+    \draw[ultra thick, red] (E) to[bend left=5] (F);
+    \draw[ultra thick, red] (F) to[bend left=5] (A);
+\end{tikzpicture}
+
+\begin{center}
+\textbf{Example:} Satisfies Chvátal's condition\\
+\small $\deg(a_1) = 4, \deg(a_2) = 3, \deg(a_3) = 4,$\\
+\small $\deg(a_4) = 3, \deg(a_5) = 3, \deg(a_6) = 3$\\
+Degree sequence: $3,3,3,3,4,4$
+
+\begin{tabular}{lcc}
+\toprule
+$i$ & $d_i \leq i?$ & If yes, $d_{n-i} \geq n-i?$ \\
+\midrule
+1 & $3 > 1$ & Not needed \\
+2 & $3 > 2$ & Not needed \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{minipage}
+\hfill
+% Second visualization: A graph that doesn't satisfy the theorem
+\begin{minipage}{0.48\textwidth}
+\centering
+\begin{tikzpicture}[scale=1]
+    % Vertices
+    \node[draw, circle, fill=green!20, minimum size=0.6cm] (A) at (90:1.5) {$b_1$};
+    \node[draw, circle, fill=green!20, minimum size=0.6cm] (B) at (30:1.5) {$b_2$};
+    \node[draw, circle, fill=green!20, minimum size=0.6cm] (C) at (330:1.5) {$b_3$};
+    \node[draw, circle, fill=green!20, minimum size=0.6cm] (D) at (270:1.5) {$b_4$};
+    \node[draw, circle, fill=green!20, minimum size=0.6cm] (E) at (210:1.5) {$b_5$};
+    \node[draw, circle, fill=green!20, minimum size=0.6cm] (F) at (150:1.5) {$b_6$};
+    
+    % Edges
+    \draw[thick] (A) -- (B);
+    \draw[thick] (B) -- (C);
+    \draw[thick] (C) -- (D);
+    \draw[thick] (D) -- (E);
+\end{tikzpicture}
+
+\begin{center}
+\textbf{Counter-example:} Fails Chvátal's condition\\
+\small $\deg(b_1) = 1, \deg(b_2) = 2, \deg(b_3) = 2,$\\
+\small $\deg(b_4) = 2, \deg(b_5) = 1, \deg(b_6) = 0$\\
+Degree sequence: $0,1,1,2,2,2$
+
+\begin{tabular}{lcc}
+\toprule
+$i$ & $d_i \leq i?$ & If yes, $d_{n-i} \geq n-i?$ \\
+\midrule
+1 & $0 < 1$ & $d_5 = 2 < 5$ (Fails) \\
+2 & $1 < 2$ & $d_4 = 2 < 4$ (Fails) \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{minipage}
+\small Figure 54: {Two examples illustrating Chvátal's condition: the left graph satisfies the condition and contains a Hamiltonian cycle (shown in red), while the right graph fails the condition and has no Hamiltonian cycle.}
+\label{fig:53}
+\end{center}
+\end{figure}
+
+
+
+\begin{lemma}[Bondy-Chvátal Closure]
+Let $G$ be a graph with $n$ vertices. The \emph{Chvátal closure} of $G$, denoted $cl(G)$, is obtained by repeatedly adding edges between non-adjacent vertices $u$ and $v$ whenever $\deg(u) + \deg(v) \geq n$. This process is continued until no more edges can be added.
+\end{lemma}
+
+\begin{corollary}[Bondy-Chvátal Theorem]
+A graph $G$ with $n$ vertices is Hamiltonian if and only if its closure $cl(G)$ is Hamiltonian.
+\end{corollary}
+
+\begin{proof}
+The key insight is that adding an edge between vertices $u$ and $v$ where $\deg(u) + \deg(v) \geq n$ preserves the Hamiltonian property. That is, $G$ has a Hamiltonian cycle if and only if $G + uv$ has a Hamiltonian cycle. By repeatedly applying this operation until no more edges can be added, we obtain $cl(G)$, which is Hamiltonian if and only if $G$ is Hamiltonian.
+\end{proof}
+
+\begin{corollary}[Dirac's Theorem]
+Let $G$ be a simple graph with $n \geq 3$ vertices. If $\delta(G) \geq \frac{n}{2}$, where $\delta(G)$ denotes the minimum degree of $G$, then $G$ is Hamiltonian.
+\end{corollary}
+
+\begin{proof}
+Suppose $\delta(G) \geq \frac{n}{2}$. Then for every vertex $v \in G$, we have $\deg(v) \geq \frac{n}{2}$. Consider the degree sequence $d_1 \leq d_2 \leq \ldots \leq d_n$. Since the minimum degree $d_1 \geq \frac{n}{2} > i$ for all $i < \frac{n}{2}$, the condition in Chvátal's theorem is satisfied trivially (the premise is false). Therefore, $G$ is Hamiltonian.
+\end{proof}
+
+\begin{lemma}[Cycle Extension]
+Let $C$ be a cycle in a graph $G$. If there exists a vertex $v \not\in C$ that is adjacent to at least two vertices of $C$, then there exists a cycle $C'$ in $G$ such that $V(C) \cup \{v\} \subseteq V(C')$.
+\end{lemma}
+
+\begin{proof}
+Let $C = v_1, v_2, \ldots, v_k, v_1$ be a cycle in $G$, and let $v \not\in C$ be a vertex adjacent to at least two vertices of $C$, say $v_i$ and $v_j$ with $i < j$. Then we can form a new cycle $C' = v_1, v_2, \ldots, v_i, v, v_j, v_{j+1}, \ldots, v_k, v_1$, which includes all vertices of $C$ plus $v$.
+\end{proof}
+
+\begin{corollary}[Fan's Theorem]
+Let $G$ be a 2-connected graph with $n$ vertices. If $\max\{\deg(u), \deg(v)\} \geq \frac{n}{2}$ for every pair of vertices $u$ and $v$ with distance $d(u,v) = 2$, then $G$ is Hamiltonian.
+\end{corollary}
+
+\begin{lemma}[Pancyclicity]
+If $G$ is a graph with $n$ vertices and contains a Hamiltonian cycle, and if $\deg(u) + \deg(v) \geq n+1$ for every pair of non-adjacent vertices $u$ and $v$, then $G$ is pancyclic (i.e., contains cycles of all lengths from 3 to $n$).
+\end{lemma}
+
+\begin{corollary}[Hamiltonian-Connected]
+If $G$ is a graph with $n$ vertices and $\delta(G) \geq \frac{n+1}{2}$, then $G$ is Hamiltonian-connected (i.e., for any two vertices $u$ and $v$, there exists a Hamiltonian path from $u$ to $v$).
+\end{corollary}
+
+\begin{remark}
+These sufficient conditions create a hierarchy:
+\[Dirac \Rightarrow Ore \Rightarrow \text{Chv\'{a}tal}\]
+That is, Dirac's condition implies Ore's condition, which in turn implies Chvátal's condition.
+\end{remark}
+
+\begin{remark}[Sharpness]
+All of these conditions are sharp, in the sense that they cannot be improved. For each theorem, there exist non-Hamiltonian graphs that almost satisfy the given condition but fail by the smallest possible margin.
+\end{remark}
+
+\begin{remark}[Computational Complexity]
+Despite these sufficient conditions, determining whether an arbitrary graph is Hamiltonian remains NP-complete. These theorems provide easily verifiable sufficient conditions but not necessary conditions for Hamiltonicity.
+\end{remark}
+
+\begin{remark}[Closure Algorithm]
+The Bondy-Chvátal closure can be computed in $O(n^3)$ time, where $n$ is the number of vertices, by repeatedly checking all pairs of non-adjacent vertices and adding edges when the degree sum condition is met.
+\end{remark}
+
+\begin{theorem}[Necessary Conditions]
+Let $G$ be a graph. If $G$ contains a Hamiltonian cycle, then the following must be true:
+\begin{enumerate}
+    \item $G$ is connected.
+    \item $G$ is 2-connected (has no cut vertices).
+    \item $G$ is 1-tough. That is, for any set $S$ of vertices, removing $S$ from $G$ results in at most $|S|$ connected components.
+    \item If $G$ is bipartite with partite sets of sizes $a$ and $b$, then $a = b$.
+    \item No vertex in $G$ has degree less than 2.
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}
+While these conditions are necessary, they are not sufficient. There exist graphs satisfying all these conditions that still do not contain a Hamiltonian cycle.
+\end{remark}
+
+
+\begin{corollary}
+A vertex of degree 1 cannot be part of any Hamiltonian cycle.
+\end{corollary}
+
+\begin{definition}
+The \textbf{connectivity} of a graph $G$, denoted $\kappa(G)$, is the minimum number of vertices whose removal disconnects the graph. If $G$ is a complete graph $K_n$, then $\kappa(G) = n-1$.
+\end{definition}
+
+\begin{definition}
+The \textbf{independence number} of a graph $G$, denoted $\alpha(G)$, is the size of the largest independent set in $G$, i.e., the maximum number of vertices such that no two are adjacent.
+\end{definition}
+
+\begin{theorem}[Chvátal-Erdős Theorem]
+Let $G$ be a graph with $n \geq 3$ vertices. If the connectivity $\kappa(G)$ and independence number $\alpha(G)$ satisfy $\kappa(G) \geq \alpha(G)$, then $G$ contains a Hamiltonian cycle.
+\end{theorem}
+
+\begin{proof}[Sketch]
+The proof is based on showing that when $\kappa(G) \geq \alpha(G)$, the graph must satisfy Chvátal's condition on its degree sequence. The key insight is that high connectivity relative to the independence number forces a distribution of degrees that ensures Hamiltonicity.
+\end{proof}
+
+\begin{corollary}
+If $\kappa(G) > \alpha(G)$, then $G$ is pancyclic (contains cycles of all lengths from 3 to $n$).
+\end{corollary}
+
+\begin{remark}
+Intuitively, the Chvátal-Erdős theorem states that if a graph is "highly connected" relative to how many vertices can be independent, then it must contain a Hamiltonian cycle. High connectivity prevents the graph from being disconnected too easily, while a low independence number ensures sufficient edge density.
+\end{remark}
+
+\begin{remark}
+This theorem is particularly useful because it can identify Hamiltonian graphs that might not satisfy other conditions like those of Dirac or Ore. For example, the complete bipartite graph $K_{n,n}$ has minimum degree $n$ but might not satisfy Dirac's condition when $n < \frac{n}{2}$. However, it has $\kappa(K_{n,n}) = n$ and $\alpha(K_{n,n}) = n$, so it satisfies the Chvátal-Erdős condition.
+\end{remark}
+
+\begin{remark}
+The lack of simple necessary and sufficient conditions for Hamiltonicity is connected to the computational complexity of the problem. The Hamiltonian cycle problem is NP-complete, which suggests that no easily verifiable characterization exists unless P = NP.
+\end{remark}
+
+\begin{theorem}[Hierarchy of Sufficient Conditions]
+The following implications hold for sufficient conditions of Hamiltonicity:
+\[Dirac \Rightarrow Ore \Rightarrow \text{Chv\'{a}tal} \Leftarrow \text{Chv\'{a}tal-Erd\H{o}s}\]
+\end{theorem}
+
+\begin{remark}
+While there are many sufficient conditions for Hamiltonicity, finding a complete characterization remains an open problem in graph theory.
+\end{remark}
+
+\subsection{Traveling Salesman Problem}
+
+\begin{theorem}[Traveling Salesman Problem (TSP)]
+The \textbf{Traveling Salesman Problem (TSP)} asks for a minimum cost Hamiltonian cycle in a
+weighted graph. This problem is computationally hard; the fastest algorithm on an $n$-vertex graph runs in
+exponential time.
+\end{theorem}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=1.2]
+    % Complete graph example
+    \node[draw, circle, fill=blue!20] (A) at (0,2) {$v_1$};
+    \node[draw, circle, fill=blue!20] (B) at (2,2) {$v_2$};
+    \node[draw, circle, fill=blue!20] (C) at (3,0) {$v_3$};
+    \node[draw, circle, fill=blue!20] (D) at (1,-1) {$v_4$};
+    \node[draw, circle, fill=blue!20] (E) at (-1,0) {$v_5$};
+    
+    % Edge weights
+    \draw[thick] (A) -- node[above] {7} (B);
+    \draw[thick] (B) -- node[above right] {4} (C);
+    \draw[thick] (C) -- node[right] {3} (D);
+    \draw[thick] (D) -- node[below] {5} (E);
+    \draw[thick] (E) -- node[left] {6} (A);
+    \draw[thick] (A) -- node[above left] {9} (C);
+    \draw[thick] (A) -- node[left] {5} (D);
+    \draw[thick] (B) -- node[right] {8} (D);
+    \draw[thick] (B) -- node[above left] {10} (E);
+    \draw[thick] (C) -- node[below] {11} (E);
+    
+    % Optimal tour
+    \draw[ultra thick, red, ->] (A) to[bend left=10] (B);
+    \draw[ultra thick, red] (B) to[bend left=10] (C);
+    \draw[ultra thick, red] (C) to[bend left=10] (D);
+    \draw[ultra thick, red] (D) to[bend left=10] (E);
+    \draw[ultra thick, red] (E) to[bend left=10] (A);
+\end{tikzpicture}
+\begin{center}
+\small Figure 55: Complete graph with edge weights. The red arrows indicate an optimal TSP tour with cost $7 + 4 + 3 + 5 + 6 = 25$.
+\end{center}
+\label{fig:55}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=1.1]
+    % Grid for Euclidean distances
+    \draw[gray!30, step=1] (0,0) grid (10,8);
+    \draw[->] (-0.5,0) -- (10.5,0) node[right] {$x$};
+    \draw[->] (0,-0.5) -- (0,8.5) node[above] {$y$};
+    
+    % Cities with coordinates
+    \node[draw, circle, fill=blue!20] (A) at (1,7) {A};
+    \node[draw, circle, fill=blue!20] (B) at (2,5) {B};
+    \node[draw, circle, fill=blue!20] (C) at (5,6) {C};
+    \node[draw, circle, fill=blue!20] (D) at (7,4) {D};
+    \node[draw, circle, fill=blue!20] (E) at (8,1) {E};
+    \node[draw, circle, fill=blue!20] (F) at (3,2) {F};
+    
+    % Coordinates as labels
+    \node[font=\footnotesize] at (1,6.5) {(1,7)};
+    \node[font=\footnotesize] at (2,4.5) {(2,5)};
+    \node[font=\footnotesize] at (5,5.5) {(5,6)};
+    \node[font=\footnotesize] at (7,3.5) {(7,4)};
+    \node[font=\footnotesize] at (8,0.5) {(8,1)};
+    \node[font=\footnotesize] at (3,1.5) {(3,2)};
+    
+    % Optimal tour
+    \draw[ultra thick, red, ->] (A) -- (B);
+    \draw[ultra thick, red] (B) -- (F);
+    \draw[ultra thick, red] (F) -- (E);
+    \draw[ultra thick, red] (E) -- (D);
+    \draw[ultra thick, red] (D) -- (C);
+    \draw[ultra thick, red] (C) -- (A);
+\end{tikzpicture}
+\begin{center}
+\small Figure 56: Euclidean TSP instance where cities are points in the plane and distances are Euclidean. The red path shows an optimal tour.
+\end{center}
+\end{figure}
+
+\begin{align}
+\text{Minimize} \quad & \sum_{i=1}^{n} \sum_{j=1}^{n} c_{ij} x_{ij} \\
+\text{Subject to} \quad & \sum_{j=1}^{n} x_{ij} = 1 \quad \forall i \in \{1,2,\ldots,n\} \\
+& \sum_{i=1}^{n} x_{ij} = 1 \quad \forall j \in \{1,2,\ldots,n\} \\
+& \sum_{i,j \in S} x_{ij} \leq |S| - 1 \quad \forall S \subset \{1,2,\ldots,n\}, 2 \leq |S| < n \\
+& x_{ij} \in \{0,1\} \quad \forall i,j \in \{1,2,\ldots,n\}
+\end{align}
+
+where $x_{ij} = 1$ if the path includes the edge from vertex $i$ to vertex $j$, and 0 otherwise.
+
+
+\begin{corollary}
+The Traveling Salesman Problem is a direct extension of the Hamiltonian cycle problem, which is NP-complete.
+\end{corollary}
+
+\begin{proof}
+The Hamiltonian cycle problem can be reduced to TSP by setting all edge weights to 1 for existing edges and $\infty$ for non-existing edges. Finding the minimum weight Hamiltonian cycle would then be equivalent to determining if a Hamiltonian cycle exists.
+\end{proof}
+
+
+\subsubsection{Approximation Algorithms}
+\begin{theorem}[2-Approximation using MST]
+For metric TSP (where edge weights satisfy the triangle inequality), a 2-approximation can be obtained by:
+\begin{enumerate}
+    \item Finding a minimum spanning tree T of the graph
+    \item Performing a preorder traversal of T to get a tour
+\end{enumerate}
+This tour has cost at most twice the optimal tour.
+\end{theorem}
+
+\begin{corollary}
+The Traveling Salesman Problem is a direct extension of the Hamiltonian cycle problem, which is NP-complete. Thus, TSP is also NP-hard.
+\end{corollary}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=1.0, node distance=2.5cm]
+    % MST-based approximation with better spacing
+    \begin{scope}[shift={(-4.5,0)}]
+        % Vertices
+        \node[draw, circle, fill=green!20] (V0) at (0:1.5) {0};
+        \node[draw, circle, fill=green!20] (V1) at (60:1.5) {1};
+        \node[draw, circle, fill=green!20] (V2) at (120:1.5) {2};
+        \node[draw, circle, fill=green!20] (V3) at (180:1.5) {3};
+        \node[draw, circle, fill=green!20] (V4) at (240:1.5) {4};
+        \node[draw, circle, fill=green!20] (V5) at (300:1.5) {5};
+        
+        % MST edges
+        \draw[blue, thick] (V0) -- (V1);
+        \draw[blue, thick] (V1) -- (V2);
+        \draw[blue, thick] (V2) -- (V3);
+        \draw[blue, thick] (V3) -- (V4);
+        \draw[blue, thick] (V4) -- (V5);
+        \draw[blue, thick] (V5) -- (V0);
+        
+        \node[text width=3cm, align=center] at (0,-2.5) {Minimum Spanning Tree};
+    \end{scope}
+    
+    % Final tour with better spacing
+    \begin{scope}[shift={(1.5,0)}]
+        % Vertices
+        \node[draw, circle, fill=green!20] (T0) at (0:1.5) {0};
+        \node[draw, circle, fill=green!20] (T1) at (60:1.5) {1};
+        \node[draw, circle, fill=green!20] (T2) at (120:1.5) {2};
+        \node[draw, circle, fill=green!20] (T3) at (180:1.5) {3};
+        \node[draw, circle, fill=green!20] (T4) at (240:1.5) {4};
+        \node[draw, circle, fill=green!20] (T5) at (300:1.5) {5};
+        
+        % TSP tour
+        \draw[red, thick] (T0) -- (T1);
+        \draw[red, thick] (T1) -- (T2);
+        \draw[red, thick] (T2) -- (T3);
+        \draw[red, thick] (T3) -- (T4);
+        \draw[red, thick] (T4) -- (T5);
+        \draw[red, thick] (T5) -- (T0);
+        
+        \node[text width=3cm, align=center] at (0,-2.5) {Approximated TSP Tour};
+    \end{scope}
+    
+    % Relationship with better spacing and formatting
+    \begin{scope}[shift={(6.5,0)}]
+        \node[align=left, text width=4.5cm] at (0,0) {
+            \textbf{Relationship}\\
+            \rule{4cm}{0.5pt}\\
+            $c(MST) \leq c(OPT)$\\
+            $c(APPROX) \leq 2 \cdot c(MST)$\\
+            $\Rightarrow c(APPROX) \leq 2 \cdot c(OPT)$
+        };
+    \end{scope}
+\end{tikzpicture}
+\begin{center}
+\begin{center}
+\small Figure 57: 2-approximation algorithm for TSP using Minimum Spanning Tree. \textbf{Left:} The MST shown is actually a cycle in this example, connecting all vertices with minimum total edge weight. In a general graph, the MST would be a tree (no cycles) with $n-1$ edges. \textbf{Right:} The approximated TSP tour follows a preorder traversal of the MST, which in this example yields the same path since the MST already forms a cycle. The approximation guarantee works because (1) the MST cost is a lower bound on the optimal TSP tour cost since removing any edge from a tour produces a spanning tree, and (2) doubling the MST and shortcutting (via triangle inequality) produces a tour of cost at most twice optimal.
+\end{center}\end{center}
+\label{fig:tsp-approx}
+\end{figure}
+
+\begin{lemma}[MST Lower Bound]
+For any graph $G$ with metric distances, the cost of a minimum spanning tree $MST(G)$ is a lower bound on the cost of an optimal TSP tour $OPT(G)$.
+\end{lemma}
+
+\begin{proof}
+Let $T^*$ be an optimal TSP tour of $G$. Removing any single edge from $T^*$ produces a spanning path, which is a spanning tree. Since $MST(G)$ is the minimum-cost spanning tree, we have $c(MST(G)) \leq c(T^* - e) < c(T^*) = c(OPT(G))$.
+\end{proof}
+
+\begin{theorem}[Christofides' Algorithm]
+For metric TSP, Christofides' algorithm achieves a $\frac{3}{2}$-approximation by:
+\begin{enumerate}
+    \item Computing an MST of the graph
+    \item Finding a minimum-weight perfect matching of odd-degree vertices in the MST
+    \item Combining the MST and matching to form an Eulerian graph
+    \item Converting the Eulerian tour to a Hamiltonian cycle using shortcuts
+\end{enumerate}
+\end{theorem}
+
+\begin{corollary}[Approximation Hierarchy]
+For metric TSP, the following approximation bounds hold:
+\begin{align}
+1 \leq \frac{c(OPT)}{c(MST)} \leq \frac{c(Christofides)}{c(MST)} \leq \frac{3}{2} < 2 \leq \frac{c(MST\text{-}preorder)}{c(MST)}
+\end{align}
+\end{corollary}
+
+\begin{remark}[Did You Know?]
+The best-known approximation ratio for metric TSP has remained at $\frac{3}{2}$ (Christofides' algorithm, 1976) for over 45 years, despite significant research efforts.
+\end{remark}
+
+\begin{remark}[Did You Know?]
+For the Euclidean TSP (where cities are points in the plane and distances are Euclidean), a polynomial-time approximation scheme (PTAS) exists, allowing approximation to within $(1+\epsilon)$ of optimal for any $\epsilon > 0$.
+\end{remark}
+
+\begin{lemma}[Triangle Inequality]
+The triangle inequality is essential for the 2-approximation guarantee. Without it, TSP cannot be approximated within any constant factor unless P = NP.
+\end{lemma}
+
+\begin{remark}[Special Case]
+The diagram shows a special case where the MST is itself a cycle, making the preorder traversal identical to the MST. In general graphs, the MST will have fewer edges than the tour, requiring the preorder traversal to create a valid Hamiltonian cycle.
+\end{remark}
+
+\begin{theorem}[Tight Example]
+The factor-2 approximation of the MST-based algorithm is tight: there exist graphs where the approximation produces a tour whose cost is arbitrarily close to twice the optimal.
+\end{theorem}
+
+\begin{remark}[Implementation Insight]
+In practice, the MST-based approximation often performs much better than its worst-case factor-2 guarantee, typically producing tours within 15-20\% of optimal on random Euclidean instances.
+\end{remark}
+
+
+
 
 
 
