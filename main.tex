@@ -4460,6 +4460,1491 @@ The factor-2 approximation of the MST-based algorithm is tight: there exist grap
 In practice, the MST-based approximation often performs much better than its worst-case factor-2 guarantee, typically producing tours within 15-20\% of optimal on random Euclidean instances.
 \end{remark}
 
+\subsection{Approximation Algorithms}
+
+While the TSP is NP-hard, several approximation algorithms provide practical solutions with guaranteed bounds on the quality of the result. We begin with an exact algorithm before exploring approximation techniques.
+
+\begin{definition}[Held-Karp Algorithm]
+The Held-Karp algorithm is an exact dynamic programming approach to solving the Traveling Salesman Problem. For a graph $G = (V, E)$ with edge weights $w$, it computes the minimum-cost tour by:
+\begin{enumerate}
+    \item Defining $C(S, i)$ as the cost of the shortest path starting at vertex 1, visiting all vertices in $S$ exactly once, and ending at vertex $i \in S$
+    \item Computing values using the recurrence relation:
+    \begin{equation}
+        C(S, i) = 
+        \begin{cases}
+            w(1,i) & \text{if } S = \{i\} \\
+            \min_{j \in S, j \neq i} \{C(S \setminus \{i\}, j) + w(j,i)\} & \text{otherwise}
+        \end{cases}
+    \end{equation}
+    \item Finding the optimal tour cost as $\min_{i \in V \setminus \{1\}} \{C(V \setminus \{1\}, i) + w(i,1)\}$
+\end{enumerate}
+The algorithm has time complexity $O(n^2 \cdot 2^n)$ and space complexity $O(n \cdot 2^n)$, making it tractable only for instances with approximately 20-25 cities.
+\end{definition}
+
+\begin{algorithm}[H]
+\caption{Held-Karp Algorithm}
+\begin{algorithmic}[1]
+\Require Complete graph $G = (V, E)$ with edge weights $w$
+\Ensure Optimal TSP tour and its cost
+\Function{HeldKarp}{$G = (V, E), w$}
+    \State Initialize $C[\{i\}][i] \leftarrow w(1, i)$ for all $i \in \{2,\ldots,n\}$
+    
+    \For{$s \leftarrow 2$ to $n-1$}
+        \For{all subsets $S \subset \{2,\ldots,n\}$ with $|S| = s$}
+            \For{each $i \in S$}
+                \State $C[S][i] \leftarrow \min_{j \in S, j \neq i} \{C[S \setminus \{i\}][j] + w(j, i)\}$
+            \EndFor
+        \EndFor
+    \EndFor
+    
+    \State $opt\_cost \leftarrow \min_{i=2}^{n} \{C[\{2,\ldots,n\}][i] + w(i, 1)\}$
+    \State $tour \leftarrow$ Reconstruct tour using parent pointers
+    
+    \State \Return $(tour, opt\_cost)$
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\begin{definition}[Approximation Algorithms for TSP]
+For instances where exact solutions are impractical, the following approximation algorithms offer efficient alternatives:
+
+\begin{enumerate}
+    \item \textbf{Christofides Algorithm}: Provides a $\frac{3}{2}$-approximation for metric TSP by augmenting a minimum spanning tree with a minimum-weight perfect matching on odd-degree vertices.
+    
+    \item \textbf{Double-Tree Algorithm}: Achieves a 2-approximation for metric TSP by doubling each edge in a minimum spanning tree to create an Eulerian circuit, then shortcutting to form a tour.
+    
+    \item \textbf{Nearest Neighbor}: A greedy heuristic without general approximation guarantees that iteratively selects the closest unvisited vertex.
+    
+    \item \textbf{k-opt}: A local search method that improves tours by replacing $k$ edges with $k$ different edges, with no general approximation ratio but good practical performance.
+\end{enumerate}
+\end{definition}
+
+\subsection{Problems on Hamiltonian Graphs}
+
+\subsubsection{Easy Problems}
+\begin{enumerate}
+\item Explain the difference between a Hamiltonian path and a Hamiltonian cycle using a simple example.
+
+\item Prove that every complete graph $K_n$ with $n \geq 3$ is Hamiltonian.
+
+\item Explain why a bipartite graph with unequal partition sizes cannot contain a Hamiltonian cycle.
+
+\item Consider a graph with 8 vertices where each vertex has degree 3. Does Dirac's theorem guarantee that this graph is Hamiltonian? Explain your reasoning.
+
+\item Prove that a graph with a pendant vertex (degree 1) cannot have a Hamiltonian cycle.
+
+\item Design an algorithm to verify if a graph satisfies Dirac's condition in $O(n)$ time.
+
+\item If a graph has minimum degree $k=4$, what is the minimum length of a cycle guaranteed to exist in the graph?
+
+\item How many distinct Hamiltonian cycles does $K_5$ contain?
+\end{enumerate}
+
+\subsubsection{Medium Problems}
+\begin{enumerate}\setcounter{enumi}{8}
+\item Consider a graph with 9 vertices. For every pair of non-adjacent vertices, the sum of their degrees is at least 8. Apply Ore's theorem to determine if this graph is Hamiltonian.
+
+\item Given a graph with degree sequence $(2, 2, 3, 3, 3, 5)$, determine whether it satisfies Chvátal's condition for Hamiltonicity.
+
+\item Prove that the Petersen graph is not Hamiltonian using the concept of matchings.
+
+\item Given a graph $G$, explain the process of computing its closure $\text{cl}(G)$ and how this relates to Hamiltonicity.
+
+\item For a graph with 10 vertices, which is stronger: Dirac's condition or Ore's condition? Give an example of a graph that satisfies one but not the other.
+
+\item Prove that if a graph has a Hamiltonian path with endpoints $u$ and $v$, and $\{u,v\} \in E(G)$, then $G$ has a Hamiltonian cycle.
+
+\item Explain the relationship between a graph's toughness and its Hamiltonian properties.
+
+\item Let $G$ be a graph with a cycle $C$ of length $k < n$. Give sufficient conditions for when $G$ contains a cycle of length $k+1$ that includes all vertices of $C$.
+
+\item Prove that the circulant graph $\text{Circ}(n;\{1,2\})$ is Hamiltonian for all $n \geq 3$.
+
+\item Describe how to construct a Hamiltonian cycle in the complete bipartite graph $K_{3,3}$.
+\end{enumerate}
+
+\subsubsection{Hard Problems}
+\begin{enumerate}\setcounter{enumi}{18}
+\item Construct a graph that has minimum degree $\left\lfloor\frac{n}{2}\right\rfloor - 1$ and is not Hamiltonian.
+
+\item Prove that if a graph $G$ has connectivity $\kappa(G) \geq \alpha(G)$ (independence number), then $G$ is Hamiltonian.
+
+\item Prove that the factor-2 approximation of the MST-based algorithm for metric TSP is tight by constructing an example.
+
+\item If a graph $G$ on $n$ vertices is Hamiltonian and $\delta(G) \geq \frac{n+1}{2}$, prove that $G$ contains cycles of all lengths from 3 to $n$.
+
+\item Prove that a graph $G$ is Hamiltonian if and only if its closure $\text{cl}(G)$ is Hamiltonian.
+
+\item Give a complexity analysis for the Held-Karp algorithm for the TSP, explaining why the dynamic programming approach requires $O(n^2 \cdot 2^n)$ time.
+
+\item Prove that an $8 \times 8$ chessboard has a closed knight's tour (a Hamiltonian cycle in the knight's graph).
+
+\item Analyze why Christofides' algorithm achieves a $\frac{3}{2}$-approximation for metric TSP rather than a 2-approximation.
+\end{enumerate}
+
+\subsubsection{Diagram Problems}
+\begin{enumerate}\setcounter{enumi}{26}
+\item Draw a non-Hamiltonian graph with 6 vertices where each vertex has degree at least 2.
+
+\item Draw a graph that is Hamiltonian but not Eulerian, and another graph that is Eulerian but not Hamiltonian. Explain why each has one property but not the other.
+
+\item 
+\begin{enumerate}
+\item Create a weighted graph with 5 vertices.
+\item Find the optimal TSP tour.
+\item Apply the MST-based 2-approximation algorithm.
+\item Compare the results of the optimal solution and the approximation.
+\end{enumerate}
+
+\item Draw a diagram illustrating the key step in Dirac's theorem proof where vertices $u$ and $v$ are non-adjacent but share a common neighbor. Show how this leads to a Hamiltonian cycle.
+\end{enumerate}
+
+\pagebreak
+
+
+\section{Long Cycles}
+
+\subsection{Long Cycles and Hamiltonian}
+
+
+The study of long cycles in graph theory extends our understanding beyond the well-established theory of Hamiltonian cycles, offering both theoretical insights and practical applications:
+
+\begin{itemize}
+    \item \textbf{Extension of Hamiltonian theory:} While Dirac's Theorem and the Bondy-Chvátal Closure Theorem provide sufficient conditions for Hamiltonicity, many graphs fail to meet these conditions. Long cycle theory addresses the natural follow-up question: what is the best we can do when a Hamiltonian cycle doesn't exist?
+    
+    \item \textbf{Connection to the Traveling Salesman Problem:} The TSP seeks optimal Hamiltonian cycles in weighted graphs. However, in contexts where Hamiltonian cycles don't exist, finding the longest possible cycle becomes the natural alternative objective.
+    
+    \item \textbf{Structural guarantees:} The theorem establishing that graphs with minimum degree $k \geq 2$ must contain a cycle of length at least $k+1$ provides a fundamental relationship between local properties (vertex degrees) and global structures (cycle lengths).
+    
+    \item \textbf{Optimality and tightness of bounds:} The complete graph $K_{k+1}$ demonstrates that the bound of $k+1$ is tight—we cannot guarantee longer cycles based solely on minimum degree. This reveals both the power and limitations of the minimum degree parameter.
+    
+    \item \textbf{Bridge to extremal graph theory:} The study of longest cycles connects to broader questions in extremal graph theory: what structural properties guarantee the existence of specific subgraphs or patterns?
+\end{itemize}
+
+This exploration creates a spectrum between graphs containing no cycles and those with Hamiltonian cycles, offering a more nuanced understanding of cycle structures in graphs.
+
+\begin{theorem}[Minimum Degree and Cycle Length]
+If $G$ is a graph with minimum degree $k \geq 2$, it contains a cycle of length at least $k+1$.
+\end{theorem}
+
+\begin{proof}
+    Let $P$ be a longest path in the graph, with endpoints $u$ and $v$. We first observe that:
+    \begin{align}
+        N_G(u) \subseteq V(P) \quad \text{and} \quad N_G(v) \subseteq V(P)
+    \end{align}
+    
+    This must be true, as any neighbor outside $P$ would allow us to extend the path, contradicting its maximality. Since $G$ has minimum degree at least $k$, we know that $|N_G(v)| \geq k$.
+    
+    Let $N_G(v) = \{v_1, v_2, \ldots, v_\ell\}$ where $\ell \geq k$. We can list these neighbors in the order they appear along the path $P$ from $u$ to $v$:
+    \begin{align}
+        v_k, v_{k-1}, \ldots, v_2, v_1
+    \end{align}
+    
+    Now, consider the cycle $C'$ formed by:
+    \begin{itemize}
+        \item The subpath of $P$ from $v_k$ to $v$ (which passes through all vertices $v_{k-1}, \ldots, v_1$)
+        \item The edge $\{v_k, v\}$
+    \end{itemize}
+    
+    This cycle $C'$ contains at least the vertices $\{v, v_1, v_2, \ldots, v_k\}$, so $|V(C')| \geq k + 1$, and therefore $C'$ has length at least $k + 1$.
+    
+    To show this bound is tight, consider the complete graph $K_{k+1}$. It has minimum degree $k$ and its longest cycle has length exactly $k+1$, demonstrating that our bound cannot be improved in general.
+\end{proof}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=1.2]
+    % Draw a 4-cycle with nice formatting
+    \node[draw, circle, fill=blue!20] (v1) at (0,0) {$v_1$};
+    \node[draw, circle, fill=blue!20] (v2) at (2,0) {$v_2$};
+    \node[draw, circle, fill=blue!20] (v3) at (2,2) {$v_3$};
+    \node[draw, circle, fill=blue!20] (v4) at (0,2) {$v_4$};
+    
+    % Draw the edges without labels
+    \draw[thick] (v1) -- (v2);
+    \draw[thick] (v2) -- (v3);
+    \draw[thick] (v3) -- (v4);
+    \draw[thick] (v4) -- (v1);
+    
+    % Highlight the cycle
+    \draw[ultra thick, red, ->] (v1) to[bend right=10] (v2);
+    \draw[ultra thick, red] (v2) to[bend right=10] (v3);
+    \draw[ultra thick, red] (v3) to[bend right=10] (v4);
+    \draw[ultra thick, red] (v4) to[bend right=10] (v1);
+\end{tikzpicture}
+
+\begin{center}
+\small Edges: $(v_1,v_2) = e_1$, $(v_2,v_3) = e_2$, $(v_3,v_4) = e_3$, $(v_4,v_1) = e_4$\\
+Path: $v_1 \xrightarrow{e_1} v_2 \xrightarrow{e_2} v_3 \xrightarrow{e_3} v_4 \xrightarrow{e_4} v_1$\\
+\vspace{0.2cm}
+Figure 58: A cycle $C_4$ where each vertex has degree $k=2$. The cycle length is $4 = k+2$, 
+demonstrating that cycles longer than $k+1$ are possible in specific graphs.
+\end{center}
+\label{fig:58}
+\end{figure}
+
+This $C_4$ example shows that while the theorem guarantees a cycle of length at least $k+1$ (which would be 3 in this case), we can sometimes find longer cycles. Here, the minimum degree is $k=2$, but the cycle has length 4. This illustrates that the theorem provides a lower bound that is tight in general, but specific graph structures may contain even longer cycles.
+
+\begin{example}[Applying the Proof to a Concrete Graph]
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=1.2]
+    % Draw a graph with minimum degree 3
+    \node[draw, circle, fill=blue!20] (u) at (0,0) {$u$};
+    \node[draw, circle, fill=blue!20] (v1) at (2,0) {$v_1$};
+    \node[draw, circle, fill=blue!20] (v2) at (4,0) {$v_2$};
+    \node[draw, circle, fill=blue!20] (v3) at (6,0) {$v_3$};
+    \node[draw, circle, fill=blue!20] (v) at (8,0) {$v$};
+    
+    % Draw the longest path
+    \draw[thick] (u) -- (v1) -- (v2) -- (v3) -- (v);
+    
+    % Connect v back to vertices on the path
+    \draw[blue, thick] (v) to[bend left=40] (v2);
+    \draw[blue, thick] (v) to[bend left=60] (v1);
+    
+    % Label the longest path
+    \node[below] at (4,-1.7) {$P$: Longest path from $u$ to $v$};
+    
+    % Label the neighbors
+    \node[blue] at (5,0.8) {$N_G(v) = \{v_1, v_2, v_3\}$};
+    
+    % Highlight the cycle
+    \draw[red, ultra thick, ->] (v) to[bend right=15] (v3);
+    \draw[red, ultra thick] (v3) -- (v2) -- (v1);
+    \draw[red, ultra thick] (v1) to[bend right=40] (v);
+    
+    % Cycle label
+    \node[red] at (4,-2.5) {Cycle $C'$: $v \to v_3 \to v_2 \to v_1 \to v$ of length 4 = $k+1$ for $k=3$};
+\end{tikzpicture}
+\\
+\small
+Figure 59: Applying the long cycle theorem to a graph with minimum degree 3.
+\label{fig:long-cycle-example}
+\end{figure}
+
+In this example, we illustrate the proof technique on a concrete graph. The vertex $v$ has three neighbors on the longest path $P$: $v_1$, $v_2$, and $v_3$. Following the construction in our proof, we form cycle $C'$ by taking the path from $v_1$ to $v$ along $P$, and then adding the edge $\{v_1, v\}$.
+
+The resulting cycle $C'$ contains vertices $\{v, v_3, v_2, v_1\}$ and thus has length 4, which is exactly $k+1$ where $k=3$ is the minimum degree of the graph. This demonstrates the theorem's guarantee in action, showing that the minimum degree directly determines the length of the longest guaranteed cycle.
+\end{example}
+
+\begin{theorem}[Long Cycle Theorem]
+If $G$ is a graph with minimum degree at least $k \geq 2$, then $G$ contains a cycle of length at least $k + 1$.
+\end{theorem}
+
+\begin{lemma}[Path Extension]
+Let $P$ be a path in a graph $G$. If a vertex $v$ has a neighbor $w \notin V(P)$, then there exists a path $P'$ that is longer than $P$.
+\end{lemma}
+
+\begin{proof}
+We can construct $P'$ by adding the edge $\{v,w\}$ to $P$. Since $w \notin V(P)$, this creates a strictly longer path.
+\end{proof}
+
+\begin{lemma}[Endpoint Neighborhood Containment]
+If $P$ is a longest path in a graph $G$ with endpoints $u$ and $v$, then $N_G(u) \subseteq V(P)$ and $N_G(v) \subseteq V(P)$.
+\end{lemma}
+
+\begin{corollary}[Degree-Length Relationship]
+If $G$ has minimum degree $k$ and $P$ is a longest path with endpoint $v$, then $P$ contains at least $k$ vertices adjacent to $v$.
+\end{corollary}
+
+\begin{remark}
+The Long Cycle Theorem is tight in the sense that for any $k \geq 2$, there exists a graph with minimum degree $k$ whose longest cycle has length exactly $k+1$. The complete bipartite graph $K_{1,k+1}$ (star graph) demonstrates this, as shown in Figure 59.
+\end{remark}
+
+\begin{remark}
+While the theorem guarantees a cycle of length at least $k+1$, specific graph structures may contain longer cycles. For instance, our example with minimum degree $k=3$ contains a cycle of length 4, which equals $k+1$. However, other graphs with minimum degree 3 might contain cycles of length 5 or more.
+\end{remark}
+
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=1.3]
+    % Draw a star with k=5 leaves
+    \node[draw, circle, fill=red!20, thick] (center) at (0,0) {$c$};
+    
+    \node[draw, circle, fill=blue!20, thick] (v1) at (0,2) {$v_1$};
+    \node[draw, circle, fill=blue!20, thick] (v2) at (1.9,0.6) {$v_2$};
+    \node[draw, circle, fill=blue!20, thick] (v3) at (1.2,-1.7) {$v_3$};
+    \node[draw, circle, fill=blue!20, thick] (v4) at (-1.2,-1.7) {$v_4$};
+    \node[draw, circle, fill=blue!20, thick] (v5) at (-1.9,0.6) {$v_5$};
+    
+    % Draw edges with labels
+    \foreach \i in {1,...,5} {
+        \draw[thick] (center) -- (v\i);
+    }
+    
+    % Highlight a longest cycle with directional arrow
+    \draw[red, ultra thick, ->] (v1) to[bend right=15] (center);
+    \draw[red, ultra thick] (center) to[bend right=15] (v2);
+    \draw[red, ultra thick] (v2) to[bend right=15] (v1);
+\end{tikzpicture}
+
+\begin{center}
+\small
+$K_{1,5}$ (Star Graph)\\
+Degree Information: $d(c) = 5$, $d(v_i) = 1$ for all $i$, Minimum degree $k = 1$\\
+Cycle: $v_1 \xrightarrow{} c \xrightarrow{} v_2 \xrightarrow{} v_1$ has length 3 = $k+2$
+\end{center}
+
+\begin{center}
+\small
+Figure 60: A star graph $K_{1,5}$ demonstrating the tightness of the Long Cycle Theorem. 
+The red cycle $C = (v_1, c, v_2, v_1)$ has length 3, which equals $k+2$ where $k=1$ is 
+the minimum degree. This shows the theorem's bound is tight, as no cycle longer than 
+$k+2$ exists in this graph.\\
+\textbf{Example (Star Graph - Tight Bound Example).}
+\end{center}
+\end{figure}
+
+This example demonstrates that the Long Cycle Theorem's bound cannot be improved in general. In the star graph $K_{1,5}$:
+\begin{itemize}
+    \item The center vertex $c$ has degree 5
+    \item Each leaf vertex $v_i$ has degree 1, making the minimum degree $k=1$
+    \item The longest possible cycle has length 3, consisting of the center and any two leaves
+    \item This cycle length equals $k+2=3$, showing we cannot improve the theorem to guarantee cycles longer than $k+1$
+\end{itemize}
+While some graphs with minimum degree $k$ may contain cycles of length greater than $k+1$, this example proves that $k+1$ is the best possible universal guarantee for all graphs with minimum degree $k$.
+
+\begin{remark}[Star Graphs and the Cycle Bound]
+The star graph $K_{1,n}$ provides a valuable extremal case for understanding cycle structure. For any star graph, the minimum degree is always $k=1$ (at the leaves), and the maximum possible cycle length is always 3, regardless of how many leaves are added. This demonstrates that increasing the number of vertices while maintaining the same minimum degree does not necessarily lead to longer cycles.
+\end{remark}
+
+\begin{corollary}[Improved Bound for 2-Connected Graphs]
+If $G$ is a 2-connected graph with minimum degree $k \geq 2$, then $G$ contains a cycle of length at least $\min\{2k, |V(G)|\}$.
+\end{corollary}
+
+\begin{proof}[Sketch]
+In a 2-connected graph, for any vertex $v$, there exists a cycle containing $v$. Consider a longest cycle $C$ and assume for contradiction that $|C| < \min\{2k, |V(G)|\}$. Then either $|C| < 2k$ or $|C| < |V(G)|$. In the latter case, there exists a vertex $w \notin V(C)$. By 2-connectivity, there exist two vertex-disjoint paths from $w$ to $C$, which would allow us to create a longer cycle, contradicting the maximality of $C$. For the former case, a more detailed analysis of neighbor distribution along the cycle leads to a similar contradiction.
+\end{proof}
+
+\begin{theorem}[Extremal Graphs for the Long Cycle Theorem]
+For any $k \geq 1$, the star graph $K_{1,k}$ is an extremal graph for the Long Cycle Theorem in the following sense: it has minimum degree $k$ and maximum cycle length $k+1$, and removing any edge would disconnect the graph and eliminate all cycles.
+\end{theorem}
+
+\subsection{Algorithm for Finding Long Cycles}
+A simple algorithm to find a cycle of length at least $k+1$ in a graph with minimum degree $k \geq 2$:
+
+\begin{algorithm}
+\caption{FindLongCycle: Finding a cycle of length at least $k+1$}
+\begin{algorithmic}[1]
+\Require Graph $G = (V, E)$ with minimum degree $k \geq 2$
+\Ensure A cycle $C$ of length at least $k+1$
+
+\Function{FindLongCycle}{$G = (V, E)$}
+    \State \textbf{/* Phase 1: Find longest path */}
+    \State $P \gets$ longest path $(v_1,\ldots,v_\ell)$ found via DFS from arbitrary start
+    
+    \State \textbf{/* Phase 2: Find neighbors of endpoint */}
+    \State $N \gets \{v_j \in P \setminus \{v_\ell\} : \{v_j, v_\ell\} \in E\}$
+    \Comment{$|N| \geq k$}
+    
+    \State \textbf{/* Phase 3: Sort neighbors by position */}
+    \State Build position map $pos$ where $pos[v_i] = i$ for all $v_i \in P$
+    \State Sort $N$ by increasing position value
+    \State $v_{earliest} \gets$ first vertex in sorted $N$
+    \State $j \gets pos[v_{earliest}]$
+    
+    \State \textbf{/* Phase 4: Build and return cycle */}
+    \State $C \gets (v_j, v_{j+1}, \ldots, v_\ell, v_j)$
+    \State \Return $C$ \Comment{$|C| = \ell - j + 2 \geq k+1$}
+\EndFunction
+
+\Function{FindLongestPath}{$G, start$}
+    \State Initialize $visited \gets \{start\}$, $curr \gets (start)$, $best \gets (start)$
+    \State Call \Call{DFSPathHelper}{$G, start, visited, curr, best$}
+    \State \Return $best$
+\EndFunction
+
+\Function{DFSPathHelper}{$G, v, visited, curr, best$}
+    \For{each neighbor $w$ of $v$ in $G$}
+        \If{$w \notin visited$}
+            \State Add $w$ to $visited$ and append to $curr$
+            \State \Call{DFSPathHelper}{$G, w, visited, curr, best$}
+            \State Remove $w$ from $visited$ and $curr$ \Comment{Backtrack}
+        \EndIf
+    \EndFor
+    \If{$|curr| > |best|$}
+        \State Update $best \gets$ copy of $curr$
+    \EndIf
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\begin{remark}
+DFS and BFS will be covered later in this book. Come back to this section after we cover DFS and BFS to gain a deeper understanding of the path-finding technique employed.
+\end{remark}
+
+\begin{remark}
+While the algorithm is presented using DFS for finding a longest path, it's important to note that finding a truly longest path in a general graph is NP-hard. However, any maximal path (one that cannot be extended further) provides sufficient properties for the algorithm to work correctly.
+\end{remark}
+
+\begin{remark}
+The correctness of this algorithm relies on the theorem that in a graph with minimum degree $k \geq 2$, there exists a cycle of length at least $k+1$. The proof of this theorem follows from the properties of longest paths and the pigeonhole principle.
+\end{remark}
+
+\begin{remark}
+For practical implementations, approximation algorithms for longest paths may be substituted. Even a greedy path-building approach will satisfy our needs, as long as the resulting path is maximal (cannot be extended).
+\end{remark}
+
+\subsection{Problems on Long Cycles in Graphs}
+
+\subsubsection{Easy Problems}
+\begin{enumerate}
+\item State the theorem on minimum cycle length in a graph with minimum degree $k \geq 2$. What is the guaranteed minimum cycle length?
+
+\item In a graph with minimum degree 5, what is the minimum cycle length guaranteed by the long cycle theorem?
+
+\item Prove that a graph with maximum degree 2 cannot have a cycle of length greater than the number of vertices.
+
+\item What is the minimum cycle length in a 3-regular graph with 8 vertices? Is this bound tight? Explain.
+
+\item Explain why the minimum cycle length in a graph must be at least 3.
+
+\item Find the length of the longest cycle in the graph $K_{2,4}$ (complete bipartite graph with partite sets of sizes 2 and 4).
+
+\item Prove that any graph with minimum degree $\delta(G) \geq 2$ must contain at least one cycle.
+\end{enumerate}
+
+\subsubsection{Medium Problems}
+\begin{enumerate}\setcounter{enumi}{7}
+\item Let $P$ be a longest path in a graph $G$ with minimum degree $k \geq 2$. Prove that the endpoints of $P$ have all their neighbors on $P$.
+
+\item Explain why the bound in the long cycle theorem is tight by constructing an example of a graph with minimum degree $k$ where the longest cycle has length exactly $k+1$.
+
+\item Prove that in a 2-connected graph with minimum degree $k \geq 2$, there exists a cycle of length at least $\min\{2k, n\}$.
+
+\item A graph $G$ has minimum degree $k=3$. Describe an algorithm to find a cycle of length at least $k+1=4$ in $G$.
+
+\item Let $G$ be a graph with minimum degree $\delta(G) = 3$. If $G$ has exactly 6 vertices, show that $G$ must contain a cycle of length at least 4.
+
+\item Find the relationship between the length of the longest cycle in a graph $G$ and the length of the longest cycle in its complement $\overline{G}$.
+
+\item Prove that in a Hamiltonian graph, the length of the longest cycle is exactly $n$. Then show that the converse is not true by providing a counterexample.
+\end{enumerate}
+
+\subsubsection{Hard Problems}
+\begin{enumerate}\setcounter{enumi}{14}
+\item Let $G$ be a graph with minimum degree $\delta(G) \geq \frac{n}{r+1} + 1$ where $r \geq 2$. Prove that $G$ contains a cycle of length at least $r+2$.
+
+\item Prove or disprove: if $G$ is a $k$-connected graph with minimum degree $\delta(G) \geq k+1$, then $G$ contains a cycle of length at least $2k+2$.
+
+\item Let $G$ be a graph with minimum degree $k \geq 2$. Prove that if $G$ has girth $g$ (the length of its shortest cycle), then $G$ has a cycle of length at least $\min\{2k, g+k-1\}$.
+
+\item Design an algorithm to find the longest cycle in a graph $G$. Analyze its time complexity and explain why finding the longest cycle is generally an NP-hard problem.
+
+\item Let $G$ be a graph with $n$ vertices and let $\lambda(G)$ denote the length of the longest cycle in $G$. Prove that if $\delta(G) > \frac{n}{2}$, then $\lambda(G) \geq 2\delta(G)$ unless $G$ is Hamiltonian.
+
+\item Prove that if $G$ is a 3-connected cubic graph (3-regular), then $G$ contains a cycle of length at least $4\log n$.
+\end{enumerate}
+
+\subsubsection{Diagram Problems}
+\begin{enumerate}\setcounter{enumi}{20}
+\item Draw a graph with 8 vertices and minimum degree 3 that contains a cycle of length exactly 4 but no longer cycles. Mark the cycle in your diagram.
+
+\item Illustrate the proof technique of the long cycle theorem by drawing:
+\begin{enumerate}
+\item A longest path $P$ in a graph with endpoints $u$ and $v$
+\item The neighbors of $v$ on the path $P$
+\item The earliest neighbor of $v$ on the path
+\item The resulting cycle formed by the theorem
+\end{enumerate}
+Label all relevant vertices and explain each step.
+
+\item Draw a star graph $K_{1,4}$ and explain why the longest cycle in this graph has length 3. Then add one edge to create a cycle of length 4, and explain why this is now the longest possible cycle.
+
+\item Create a sequence of graphs $G_3, G_4, G_5$ where each $G_k$ has minimum degree $k$ and contains a cycle of length exactly $k+1$. Draw each graph and highlight the longest cycle in each.
+
+\item Draw the Petersen graph and identify the longest cycle in it. Explain why this graph does not have a Hamiltonian cycle despite having minimum degree 3.
+
+\item Draw a graph where the bound from the long cycle theorem is not tight, i.e., a graph with minimum degree $k$ where the minimum cycle length is strictly greater than $k+1$. Explain why this happens in your example.
+
+\item Illustrate the relationship between the minimum degree and cycle length by drawing three different graphs with 6 vertices that have minimum degrees 2, 3, and 4 respectively. For each graph, highlight the longest cycle and discuss how the minimum degree affects the cycle length.
+\end{enumerate}
+
+\pagebreak
+\section{Trees and Forests}
+
+\subsection{Tree, Forests, and Bridges}
+
+\begin{definition}[Tree]
+A tree is a connected graph with no cycles.
+\end{definition}
+
+\begin{definition}[Acyclic Graph]
+A graph $G$ is called \textit{acyclic} if it contains no cycles.
+\end{definition}
+
+\begin{definition}[Forest]
+A forest is an acyclic graph, i.e., a graph with no cycles. Equivalently, a forest is a disjoint union of trees.
+\end{definition}
+
+\begin{definition}[Root]
+In a rooted tree, the \textit{root} is a distinguished vertex that serves as the reference point for the hierarchical structure of the tree. From the root, there is a unique path to every other vertex in the tree. The root is the only vertex in a rooted tree that has no parent.
+\end{definition}
+
+\begin{lemma}[Tree Edge Count]
+Let $T$ be a tree with $n$ vertices. Then $T$ has exactly $n-1$ edges.
+\end{lemma}
+
+
+\begin{proof}
+We proceed by induction on $n$. For $n=1$, a tree with one vertex has 0 edges, and $1-1 = 0$.
+
+Assume that for some $k \geq 1$, any tree with $k$ vertices has $k-1$ edges. Consider a tree $T$ with $k+1$ vertices. Choose any edge $e = \{u, v\}$ in $T$. Removing $e$ disconnects $T$ into two components, each of which is a tree. Let $T_1$ have $n_1$ vertices and $T_2$ have $n_2$ vertices, where $n_1 + n_2 = k+1$. By the induction hypothesis, $T_1$ has $n_1 - 1$ edges and $T_2$ has $n_2 - 1$ edges. Therefore, $T$ has $(n_1 - 1) + (n_2 - 1) + 1 = n_1 + n_2 - 1 = (k+1) - 1 = k$ edges.
+\end{proof}
+
+\begin{lemma}[Unique Path in Trees]
+In a tree, there exists exactly one path between any two vertices.
+\end{lemma}
+
+\begin{proof}
+Let $T$ be a tree and let $u$ and $v$ be two distinct vertices in $T$. Since $T$ is connected, there exists at least one path between $u$ and $v$. Suppose for contradiction that there exist two distinct paths $P_1$ and $P_2$ from $u$ to $v$. Then $P_1 \cup P_2$ contains a cycle, which contradicts the definition of a tree. Therefore, there can be only one path between any two vertices in a tree.
+\end{proof}
+
+\begin{lemma}[Leaf Existence]
+Every tree with at least two vertices has at least two leaves (vertices of degree 1).
+\end{lemma}
+
+\begin{proof}
+Let $T$ be a tree with $n \geq 2$ vertices. The sum of all vertex degrees in $T$ is $2(n-1)$ since $T$ has $n-1$ edges and each edge contributes 2 to the total degree sum. If every vertex had degree at least 2, then the sum of degrees would be at least $2n$, which is a contradiction. Therefore, $T$ must have at least one vertex of degree 1.
+
+Now consider a longest path $P$ in $T$. Both endpoints of $P$ must have degree 1 in $T$. If not, then an endpoint would have a neighbor outside $P$, and we could extend $P$ to a longer path, contradicting our choice of $P$. Therefore, $T$ has at least two leaves.
+\end{proof}
+
+\begin{lemma}[Removal of Leaf]
+If $T$ is a tree and $v$ is a leaf in $T$, then $T - v$ is also a tree.
+\end{lemma}
+
+\begin{proof}
+Let $T$ be a tree and $v$ a leaf in $T$. Since $v$ has degree 1, it is connected to exactly one other vertex. Removing $v$ and its incident edge cannot create a cycle. Moreover, $T - v$ remains connected since $v$ is not on any path between other vertices in $T$. Therefore, $T - v$ is a tree.
+\end{proof}
+
+\begin{lemma}[Equivalent Tree Characterizations]
+For a graph $G$ with $n$ vertices, the following statements are equivalent:
+\begin{enumerate}
+    \item $G$ is a tree.
+    \item $G$ is connected and has $n-1$ edges.
+    \item $G$ is acyclic and has $n-1$ edges.
+    \item $G$ is acyclic, and adding any edge creates exactly one cycle.
+    \item $G$ is connected, and removing any edge disconnects the graph.
+\end{enumerate}
+\end{lemma}
+\pagebreak
+
+\begin{lemma}[Forest Component Count]
+If $F$ is a forest with $n$ vertices, $m$ edges, and $c$ components, then $n - m = c$.
+\end{lemma}
+
+\begin{proof}
+Let $F$ be a forest with $c$ components. Each component is a tree. If the $i$-th component has $n_i$ vertices, then it has $n_i - 1$ edges. The total number of vertices is $n = \sum_{i=1}^{c} n_i$, and the total number of edges is $m = \sum_{i=1}^{c} (n_i - 1) = \sum_{i=1}^{c} n_i - c = n - c$. Rearranging, we get $n - m = c$.
+\end{proof}
+
+\begin{lemma}[Bipartiteness of Trees]
+Every tree is bipartite.
+\end{lemma}
+
+\begin{proof}
+Let $T$ be a tree. Choose any vertex $r$ in $T$ as a "root." Partition the vertices of $T$ into two sets: $A$ consists of vertices whose distance from $r$ is even, and $B$ consists of vertices whose distance from $r$ is odd. Since $T$ has a unique path from $r$ to any other vertex, this partition is well-defined. Now, consider any edge $\{u, v\}$ in $T$. The distances of $u$ and $v$ from $r$ differ by exactly 1, so one is even and one is odd. Hence, one vertex is in $A$ and the other is in $B$. Therefore, $T$ is bipartite with partite sets $A$ and $B$.
+\end{proof}
+
+\begin{lemma}[Spanning Trees]
+Every connected graph has at least one spanning tree.
+\end{lemma}
+
+\begin{proof}
+Let $G$ be a connected graph. If $G$ is acyclic, then it is already a tree and thus its own spanning tree. If $G$ contains cycles, we can repeatedly remove edges from cycles until no cycles remain. This process preserves connectivity because removing an edge from a cycle does not disconnect the graph. The resulting subgraph is a tree that spans all vertices of $G$, i.e., a spanning tree of $G$.
+\end{proof}
+
+\begin{lemma}[Forest Edge Bound]
+A graph with $n$ vertices and fewer than $n-1$ edges is not connected. A graph with $n$ vertices and more than $n-1$ edges contains at least one cycle.
+\end{lemma}
+
+\begin{proof}
+Let $G$ be a graph with $n$ vertices and $m$ edges. If $m < n-1$, then $G$ cannot be a tree (which would require exactly $n-1$ edges), and therefore cannot be connected.
+
+If $m > n-1$, suppose for contradiction that $G$ is acyclic. Then $G$ is a forest with $c$ components, where $c \geq 1$. By the formula $n - m = c$, we have $c = n - m < n - (n-1) = 1$, which is a contradiction. Therefore, $G$ must contain at least one cycle.
+\end{proof}
+
+\begin{example}[Trees with at most five vertices]
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=0.8]
+    % Single vertex tree
+    \node[draw, circle, fill=blue!20] (v1) at (0,0) {$v_1$};
+    \node[below] at (0,-0.8) {$n=1$};
+    
+    % Two vertex tree
+    \node[draw, circle, fill=blue!20] (v2) at (3,0) {$v_1$};
+    \node[draw, circle, fill=blue!20] (v3) at (5,0) {$v_2$};
+    \draw[thick] (v2) -- (v3);
+    \node[below] at (4,-0.8) {$n=2$};
+    
+    % Three vertex star
+    \node[draw, circle, fill=blue!20] (v4) at (8,0) {$v_1$};
+    \node[draw, circle, fill=blue!20] (v5) at (10,1) {$v_2$};
+    \node[draw, circle, fill=blue!20] (v6) at (10,-1) {$v_3$};
+    \draw[thick] (v4) -- (v5);
+    \draw[thick] (v4) -- (v6);
+    \node[below] at (9,-1.5) {$n=3$};
+    
+    % Four vertex path
+    \node[draw, circle, fill=blue!20] (v7) at (0,-4) {$v_1$};
+    \node[draw, circle, fill=blue!20] (v8) at (2,-4) {$v_2$};
+    \node[draw, circle, fill=blue!20] (v9) at (4,-4) {$v_3$};
+    \node[draw, circle, fill=blue!20] (v10) at (6,-4) {$v_4$};
+    \draw[thick] (v7) -- (v8) -- (v9) -- (v10);
+    \node[below] at (3,-4.8) {$n=4$ (Path)};
+    
+    % Four vertex star
+    \node[draw, circle, fill=blue!20] (v11) at (9,-4) {$v_1$};
+    \node[draw, circle, fill=blue!20] (v12) at (11,-3) {$v_2$};
+    \node[draw, circle, fill=blue!20] (v13) at (11,-4) {$v_3$};
+    \node[draw, circle, fill=blue!20] (v14) at (11,-5) {$v_4$};
+    \draw[thick] (v11) -- (v12);
+    \draw[thick] (v11) -- (v13);
+    \draw[thick] (v11) -- (v14);
+    \node[below] at (10,-5.5) {$n=4$ (Star)};
+\end{tikzpicture}
+\\
+\small
+Figure 61: Examples of all possible tree structures with 1 to 4 vertices. Notice that each tree with $n$ vertices has exactly $n-1$ edges. As the number of vertices increases, the variety of possible tree structures grows rapidly.
+\end{figure}
+
+This figure shows the fundamental tree structures with small numbers of vertices. For $n=1$, there is only one possible tree: a single isolated vertex. For $n=2$, there is again only one possible structure: two vertices connected by a single edge. Starting from $n=3$, we see multiple possible configurations emerging: a path with three vertices or a star with one central vertex connected to two leaves. For $n=4$, we show two representative structures: a path of length 3 and a star with one central vertex connected to three leaves.Each of these structures satisfies the definition of a tree: they are connected and acyclic. No matter how complex a tree becomes, it will always have exactly $n-1$ edges, where $n$ is the number of vertices.
+\end{example}
+\begin{definition} [Bridge]
+A bridge in a graph $G$ is an edge $e \in E(G)$ such that $G - e$ has more components than $G$.
+If $G$ is connected, then a bridge is an edge whose removal disconnects the graph.
+\end{definition}
+
+\begin{corollary}
+If $G$ is a tree, then every edge is a bridge.
+\end{corollary}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=1.1]
+    % Original graph (left side)
+    \begin{scope}[shift={(-3.5,0)}]
+        % Vertices
+        \node[draw, circle, fill=blue!20] (v1) at (0,0) {$v_1$};
+        \node[draw, circle, fill=blue!20] (v2) at (1.5,0) {$v_2$};
+        \node[draw, circle, fill=blue!20] (v3) at (3,0) {$v_3$};
+        \node[draw, circle, fill=blue!20] (v4) at (0,-1.5) {$v_4$};
+        \node[draw, circle, fill=blue!20] (v5) at (1.5,-1.5) {$v_5$};
+        \node[draw, circle, fill=blue!20] (v6) at (3,-1.5) {$v_6$};
+        
+        % Edges
+        \draw[thick] (v1) -- (v2) -- (v3);
+        \draw[thick] (v1) -- (v4) -- (v5) -- (v6) -- (v3);
+        \draw[thick] (v2) -- (v5);
+        
+        % Bridge highlighted
+        \draw[ultra thick, red] (v2) -- (v3);
+        
+        \node[below] at (1.5,-2.5) {$G$: Connected graph with a bridge};
+        \node[red] at (2.25,0.4) {bridge};
+    \end{scope}
+    
+    % Graph after bridge removal (right side)
+    \begin{scope}[shift={(3.5,0)}]
+        % Vertices
+        \node[draw, circle, fill=blue!20] (w1) at (0,0) {$v_1$};
+        \node[draw, circle, fill=blue!20] (w2) at (1.5,0) {$v_2$};
+        \node[draw, circle, fill=blue!20] (w3) at (3,0) {$v_3$};
+        \node[draw, circle, fill=blue!20] (w4) at (0,-1.5) {$v_4$};
+        \node[draw, circle, fill=blue!20] (w5) at (1.5,-1.5) {$v_5$};
+        \node[draw, circle, fill=blue!20] (w6) at (3,-1.5) {$v_6$};
+        
+        % Edges
+        \draw[thick] (w1) -- (w2);
+        \draw[thick] (w1) -- (w4) -- (w5) -- (w6) -- (w3);
+        \draw[thick] (w2) -- (w5);
+        
+        % Disconnected components highlighted
+        \draw[dashed, blue, thick, rounded corners] (-0.5,-2) rectangle (2,0.5);
+        \draw[dashed, blue, thick, rounded corners] (2.5,-2) rectangle (3.5,0.5);
+        
+        \node[below] at (1.5,-2.5) {$G - e$: Graph with two components};
+        \node[red, font=\small] at (2.2,1) {edge removed};
+    \end{scope}
+\end{tikzpicture}
+\\
+\small
+Figure 62: Illustration of a bridge in a graph. The left shows a connected graph $G$ with a bridge highlighted in red between vertices $v_2$ and $v_3$. The right shows the result after removing this bridge: the graph $G - e$ becomes disconnected with two separate components (outlined in blue). In a tree, every edge is a bridge because removing any edge would disconnect the tree.
+\label{fig:bridge-example}
+\end{figure}
+
+\begin{remark}
+A bridge is also sometimes called a cut-edge or isthmus. The presence of bridges in a graph indicates potential vulnerabilities in network connectivity. In applications such as communication networks, bridges represent critical connections whose failure would partition the network.
+\end{remark}
+
+\subsection{Characterization of Trees}
+
+\begin{lemma}[Tree Characterization]
+For a graph $G$, the following conditions are equivalent:
+\begin{enumerate}
+    \item $G$ is a tree.
+    \item $G$ is connected and acyclic.
+    \item $G$ is connected and every edge is a bridge.
+    \item $G$ is connected and has exactly $|V(G)| - 1$ edges.
+    \item $G$ is acyclic and has exactly $|V(G)| - 1$ edges.
+    \item $G$ is acyclic, and adding any edge creates exactly one cycle.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof} 
+We'll prove the equivalence by showing $(1) \Rightarrow (2) \Rightarrow (3) \Rightarrow (4) \Rightarrow (5) \Rightarrow (1)$ and $(5) \Rightarrow (6) \Rightarrow (2)$.
+
+\begin{enumerate}
+    \item $(1) \Rightarrow (2)$: This follows directly from the definition of a tree.
+    
+    \item $(2) \Rightarrow (3)$: If $G$ is connected and acyclic, then for any edge $e = \{u,v\}$, removing $e$ would disconnect $u$ and $v$. If there were still a path from $u$ to $v$ after removing $e$, then this path together with $e$ would form a cycle, contradicting that $G$ is acyclic.
+    
+    \item $(3) \Rightarrow (4)$: We proceed by induction on $|V(G)|$. 
+    \begin{itemize}
+        \item For $|V(G)| = 1$, the statement is trivial.
+        \item Assume the statement holds for all connected graphs with $n$ vertices where every edge is a bridge.
+        \item Consider a connected graph $G$ with $n+1$ vertices where every edge is a bridge.
+        \item Choose any leaf $v$ (which must exist by the Leaf Existence Lemma) and let $e$ be its incident edge.
+        \item The graph $G-v$ remains connected, has $n$ vertices, and every edge is still a bridge.
+        \item By the induction hypothesis, $G-v$ has $n-1$ edges.
+        \item Therefore, $G$ has $(n-1) + 1 = n = |V(G)| - 1$ edges.
+    \end{itemize}
+    
+    \item $(4) \Rightarrow (5)$: We need to show that if $G$ is connected with $|V(G)| - 1$ edges, then $G$ is acyclic.
+    \begin{itemize}
+        \item Suppose $G$ contains a cycle.
+        \item Removing any edge $e$ from this cycle would preserve connectivity.
+        \item Thus, $G-e$ would be connected with $|V(G)| - 2$ edges.
+        \item This contradicts the fact that a connected graph on $|V(G)|$ vertices needs at least $|V(G)| - 1$ edges.
+    \end{itemize}
+    
+    \item $(5) \Rightarrow (1)$: If $G$ is acyclic with $|V(G)| - 1$ edges, then $G$ has exactly the right number of edges to be a tree.
+    \begin{itemize}
+        \item We need to show that $G$ is connected.
+        \item If $G$ were not connected, with $c > 1$ components, then each component would be a tree.
+        \item If component $i$ has $n_i$ vertices, it would have $n_i - 1$ edges.
+        \item The total number of edges would be $\sum_{i=1}^{c} (n_i - 1) = |V(G)| - c < |V(G)| - 1$, a contradiction.
+    \end{itemize}
+    
+    \item $(5) \Rightarrow (6)$: If $G$ is acyclic with $|V(G)| - 1$ edges, adding any edge $e = \{u,v\}$ would create at most one cycle.
+    \begin{itemize}
+        \item This cycle would be formed by $e$ and the unique path from $u$ to $v$ in $G$.
+        \item We need to show that $G$ is connected so that this path exists.
+        \item The proof is the same as for $(5) \Rightarrow (1)$.
+    \end{itemize}
+    
+    \item $(6) \Rightarrow (2)$: If $G$ is acyclic and adding any edge creates exactly one cycle, then for any two vertices $u$ and $v$ not adjacent in $G$:
+    \begin{itemize}
+        \item Adding the edge $\{u,v\}$ creates a cycle.
+        \item This means there must already be a path from $u$ to $v$ in $G$.
+        \item Since this holds for any two vertices, $G$ is connected.
+    \end{itemize}
+\end{enumerate}
+\end{proof}
+
+\begin{remark}
+\end{remark}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=1.2]
+    % Left: Connected and acyclic
+    \begin{scope}[shift={(-4,0)}]
+        \node[draw, circle, fill=blue!20] (a1) at (0,0) {1};
+        \node[draw, circle, fill=blue!20] (a2) at (1,1) {2};
+        \node[draw, circle, fill=blue!20] (a3) at (2,0) {3};
+        \node[draw, circle, fill=blue!20] (a4) at (1,-1) {4};
+        \node[draw, circle, fill=blue!20] (a5) at (3,0) {5};
+        
+        \draw[thick] (a1) -- (a2) -- (a3) -- (a5);
+        \draw[thick] (a3) -- (a4) -- (a1);
+        
+        \node[below, align=center, text width=4cm] at (1.5,-2) {Not a tree:\\Contains a cycle};
+    \end{scope}
+    
+    % Center: Connected + acyclic = tree
+    \begin{scope}[shift={(0,0)}]
+        \node[draw, circle, fill=green!20] (b1) at (0,0) {1};
+        \node[draw, circle, fill=green!20] (b2) at (1,1) {2};
+        \node[draw, circle, fill=green!20] (b3) at (2,0) {3};
+        \node[draw, circle, fill=green!20] (b4) at (1,-1) {4};
+        \node[draw, circle, fill=green!20] (b5) at (3,0) {5};
+        
+        \draw[thick] (b1) -- (b2) -- (b3) -- (b5);
+        \draw[thick] (b3) -- (b4);
+        
+        \node[below, align=center, text width=4cm] at (1.5,-2) {Tree:\\$n=5$, $e=4$};
+    \end{scope}
+    
+    % Right: Disconnected + acyclic = forest
+    \begin{scope}[shift={(4,0)}]
+        \node[draw, circle, fill=blue!20] (c1) at (0,0) {1};
+        \node[draw, circle, fill=blue!20] (c2) at (1,1) {2};
+        \node[draw, circle, fill=blue!20] (c3) at (2,0) {3};
+        \node[draw, circle, fill=blue!20] (c4) at (1,-1) {4};
+        \node[draw, circle, fill=blue!20] (c5) at (3,0) {5};
+        
+        \draw[thick] (c1) -- (c2);
+        \draw[thick] (c3) -- (c5);
+        \draw[thick] (c3) -- (c4);
+        
+        \node[below, align=center, text width=4cm] at (1.5,-2) {Not a tree:\\Disconnected};
+    \end{scope}
+\end{tikzpicture}
+\\
+\small
+Figure 63: Illustration of tree characterization. Left: A connected graph with a cycle is not a tree. Center: A connected acyclic graph is a tree with $n-1$ edges. Right: A disconnected acyclic graph is a forest, not a tree. The center graph satisfies all conditions from the lemma: it is connected, acyclic, has $n-1$ edges, and every edge is a bridge.
+\label{fig:tree-characterization}
+\end{figure}
+
+\begin{definition} (Spanning Tree)
+A spanning tree of a graph $G$ is a spanning subgraph of $G$ that is a tree.
+\end{definition}
+
+\begin{lemma}[Existence of Spanning Trees]
+Every connected graph has a spanning tree.
+\end{lemma}
+
+\begin{proof}
+Let $G$ be a connected graph. If $G$ has no cycles, then it is already a tree and thus its own spanning tree. If $G$ contains cycles, we can repeatedly remove edges from cycles until no cycles remain. This process preserves connectivity because removing an edge from a cycle does not disconnect the graph. The resulting subgraph is a tree that spans all vertices of $G$, i.e., a spanning tree of $G$.
+\end{proof}
+
+\begin{algorithm}
+\caption{Spanning Tree Construction}
+\begin{algorithmic}[1]
+\Require A connected graph $G = (V,E)$
+\Ensure A spanning tree $T = (V,E')$ of $G$
+\State Initialize $T \gets G$
+\While{$T$ contains a cycle $C$}
+    \State Choose any edge $e \in C$
+    \State Remove $e$ from $T$
+\EndWhile
+\State \Return $T$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=1.0]
+    % Initial graph
+    \begin{scope}[shift={(-5,0)}]
+        \node[draw, circle, fill=blue!20] (a1) at (0,0) {$a$};
+        \node[draw, circle, fill=blue!20] (a2) at (2,0) {$b$};
+        \node[draw, circle, fill=blue!20] (a3) at (1,1.5) {$c$};
+        \node[draw, circle, fill=blue!20] (a4) at (1,-1.5) {$d$};
+        
+        \draw[thick] (a1) -- (a2);
+        \draw[thick] (a1) -- (a3);
+        \draw[thick] (a2) -- (a3);
+        \draw[thick] (a1) -- (a4);
+        \draw[thick] (a2) -- (a4);
+        
+        \node[align=center, text width=4cm] at (1,-2.5) {Original Connected Graph\\(with cycles)};
+    \end{scope}
+    
+    % Step 1
+    \begin{scope}[shift={(0,0)}]
+        \node[draw, circle, fill=blue!20] (b1) at (0,0) {$a$};
+        \node[draw, circle, fill=blue!20] (b2) at (2,0) {$b$};
+        \node[draw, circle, fill=blue!20] (b3) at (1,1.5) {$c$};
+        \node[draw, circle, fill=blue!20] (b4) at (1,-1.5) {$d$};
+        
+        \draw[thick] (b1) -- (b2);
+        \draw[thick] (b1) -- (b3);
+        \draw[thick, red, dashed] (b2) -- (b3);
+        \draw[thick] (b1) -- (b4);
+        \draw[thick] (b2) -- (b4);
+        
+        \node[align=center, text width=4cm] at (1,-2.5) {Step 1: Remove edge in\\triangle $abc$};
+    \end{scope}
+    
+    % Final spanning tree
+    \begin{scope}[shift={(5,0)}]
+        \node[draw, circle, fill=green!20] (c1) at (0,0) {$a$};
+        \node[draw, circle, fill=green!20] (c2) at (2,0) {$b$};
+        \node[draw, circle, fill=green!20] (c3) at (1,1.5) {$c$};
+        \node[draw, circle, fill=green!20] (c4) at (1,-1.5) {$d$};
+        
+        \draw[thick] (c1) -- (c2);
+        \draw[thick] (c1) -- (c3);
+        \draw[thick] (c1) -- (c4);
+        \draw[thick, red, dashed] (c2) -- (c4);
+        
+        \node[align=center, text width=4cm] at (1,-2.5) {Step 2: Remove edge in\\cycle $abd$\\(Final Spanning Tree)};
+    \end{scope}
+\end{tikzpicture}
+\\
+\small
+Figure 64: Construction of a spanning tree from a connected graph. Left: Original connected graph with two cycles ($abc$ and $abd$). Center: After removing edge $bc$ from the first cycle. Right: Final spanning tree after removing edge $bd$ from the second cycle. The result is a connected acyclic subgraph that includes all vertices of the original graph.
+\label{fig:spanning-tree-construction}
+\end{figure}
+
+\begin{example}[Finding a Spanning Tree]
+To find a spanning tree in the graph shown in Figure 62:
+\begin{enumerate}
+    \item We start with the connected graph on the left, which contains cycles.
+    \item First, we identify the cycle formed by vertices $a$, $b$, and $c$, and remove the edge $\{b,c\}$.
+    \item Next, we identify the remaining cycle formed by vertices $a$, $b$, and $d$, and remove the edge $\{b,d\}$.
+    \item After removing these edges, no cycles remain in the graph.
+    \item The resulting structure is a spanning tree of the original graph, with $n-1 = 3$ edges for $n = 4$ vertices.
+\end{enumerate}
+\end{example}
+
+\begin{remark}
+The spanning tree of a graph is not necessarily unique. Different choices of which edges to remove from cycles can lead to different spanning trees of the same graph.
+\end{remark}
+
+\begin{theorem}[Spanning Tree Edge Properties]
+If $T$ is a spanning tree of graph $G$, then:
+\begin{enumerate}
+    \item For any edge $e \in E(G) \setminus E(T)$, the graph $T + e$ contains exactly one cycle.
+    \item For any edge $e \in E(T)$, the graph $T - e$ has exactly two components.
+\end{enumerate}
+\end{theorem}
+
+\subsection{Breadth-First Search and Depth-Frist Search Algorithms}
+
+\begin{definition}
+If $u, v \in V(G)$, then the distance between $u$ and $v$, denoted $d_G(u,v)$, is the length of a shortest $u,v$-path, or infinity if $u$ and $v$ are in different components of $G$.
+\end{definition}
+
+\begin{definition}
+The diameter of a connected graph $G$ is:
+\begin{align*}
+\text{diam}(G) = \max\{d_G(u,v) : u,v \in V(G)\}
+\end{align*}
+\end{definition}
+
+\begin{definition}
+The radius of a connected graph $G$ is:
+\begin{align*}
+\text{rad}(G) = \min_{v \in V(G)} \max_{u \in V(G)} d_G(u,v)
+\end{align*}
+\end{definition}
+
+
+\begin{lemma}[Relationship Between Diameter and Radius]
+For any connected graph $G$:
+\begin{align*}
+\text{rad}(G) \leq \text{diam}(G) \leq 2 \cdot \text{rad}(G)
+\end{align*}
+\end{lemma}
+
+\begin{remark}
+Some common diameter and radius values for standard graphs:
+\begin{itemize}
+    \item Complete Graph $K_n$: $\text{diam}(K_n) = 1$, $\text{rad}(K_n) = 1$
+    \item Path $P_n$: $\text{diam}(P_n) = n-1$, $\text{rad}(P_n) = \lceil\frac{n-1}{2}\rceil$
+    \item Cycle $C_n$: $\text{diam}(C_n) = \lfloor\frac{n}{2}\rfloor$, $\text{rad}(C_n) = \lceil\frac{n}{2}\rceil$
+    \item Star $K_{1,n-1}$: $\text{diam}(K_{1,n-1}) = 2$, $\text{rad}(K_{1,n-1}) = 1$
+\end{itemize}
+\begin{remark}[Applications]
+The diameter and radius have important applications in network analysis:
+\begin{itemize}
+    \item Network Efficiency: Lower diameter and radius indicate more efficient communication networks
+    \item Facility Location: The center of a graph (vertices with eccentricity equal to the radius) represents optimal locations for facilities to minimize maximum distance
+    \item Social Networks: Diameter measures the maximum number of intermediaries needed to connect any two people
+    \item Transportation Networks: Radius helps identify central hubs that provide efficient access to all locations
+\end{itemize}
+\end{remark}
+\end{remark}
+
+\begin{definition}
+The distance between vertices $u, v \in V(G)$, denoted $d_G(u,v)$, is the length of a shortest $u,v$-path, or infinity if $u$ and $v$ are in different components of $G$.
+\end{definition}
+
+\begin{definition}
+The eccentricity of a vertex $v$ in a connected graph $G$, denoted $\text{ecc}(v)$, is the maximum distance from $v$ to any other vertex:
+\begin{align*}
+\text{ecc}(v) = \max_{u \in V(G)} d_G(u,v)
+\end{align*}
+\end{definition}
+
+\begin{definition}
+The diameter of a connected graph $G$ is:
+\begin{align*}
+\text{diam}(G) = \max\{d_G(u,v) : u,v \in V(G)\} = \max_{v \in V(G)} \text{ecc}(v)
+\end{align*}
+In other words, the diameter is the maximum eccentricity of any vertex in $G$.
+\end{definition}
+\begin{definition}
+The radius of a connected graph $G$ is:
+\begin{align*}
+\text{rad}(G) = \min_{v \in V(G)} \text{ecc}(v)
+\end{align*}
+That is, the radius is the minimum eccentricity of any vertex in $G$.
+\end{definition}
+\subsubsection{BFS Algorithm and BFS Tree}
+
+Given a graph $G$ and a starting vertex $v_1$, we can construct a breadth-first search (BFS) tree as follows:
+
+\begin{enumerate}
+\item Designate $v_1$ as the root of the tree.
+\item Initialize a queue $Q$ with $v_1$ and mark $v_1$ as visited.
+\item While $Q$ is not empty:
+   \begin{enumerate}
+   \item Dequeue a vertex $u$ from $Q$.
+   \item For each unvisited neighbor $v$ of $u$:
+      \begin{enumerate}
+      \item Mark $v$ as visited.
+      \item Add edge $\{u,v\}$ to the BFS tree $T$.
+      \item Enqueue $v$ to $Q$.
+      \end{enumerate}
+   \end{enumerate}
+\end{enumerate}
+
+The resulting tree $T$ is a BFS spanning tree of $G$.
+
+\noindent\textbf{Example.}
+Finding a BFS tree in the graph of Figure 65, starting from vertex $a$:
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    vertex/.style={circle, draw, minimum size=0.8cm},
+    scale=1.2
+]
+    % Vertices
+    \node[vertex] (a) at (0,0) {$a$};
+    \node[vertex] (b) at (1,1) {$b$};
+    \node[vertex] (c) at (3,1) {$c$};
+    \node[vertex] (d) at (1,-1) {$d$};
+    \node[vertex] (e) at (2,0) {$e$};
+    \node[vertex] (f) at (3,-1) {$f$};
+    \node[vertex] (g) at (2,-2) {$g$};
+    
+    % Edges
+    \draw (a) -- (b);
+    \draw (a) -- (d);
+    \draw (b) -- (c);
+    \draw (b) -- (d);
+    \draw (b) -- (e);
+    \draw (c) -- (e);
+    \draw (c) -- (f);
+    \draw (d) -- (e);
+    \draw (d) -- (g);
+    \draw (e) -- (f);
+    \draw (e) -- (g);
+    \draw (f) -- (g);
+\end{tikzpicture}
+\\
+\small
+Figure 65: Example diagram for BFS Tree. 
+\label{fig:graph-example1}
+\end{figure}
+
+\begin{enumerate}
+\item $a$ is the root, $V(T) = \{a\}$, BFS ordering: $(a)$
+\item Add $b$: $V(T) = \{a, b\}$, $E(T) = \{\{a, b\}\}$, BFS ordering: $(a, b)$
+\item Add $d$: $V(T) = \{a, b, d\}$, $E(T) = \{\{a, b\}, \{a, d\}\}$, BFS ordering: $(a, b, d)$
+\item Add $c$: $V(T) = \{a, b, d, c\}$, $E(T) = \{\{a, b\}, \{a, d\}, \{b, c\}\}$\\
+   BFS ordering: $(a, b, d, c)$
+\item Add $e$: $V(T) = \{a, b, d, c, e\}$, $E(T) = \{\{a, b\}, \{a, d\}, \{b, c\}, \{b, e\}\}$\\
+   BFS ordering: $(a, b, d, c, e)$
+\item Add $g$: $V(T) = \{a, b, d, c, e, g\}$\\
+   $E(T) = \{\{a, b\}, \{a, d\}, \{b, c\}, \{b, e\}, \{d, g\}\}$\\
+   BFS ordering: $(a, b, d, c, e, g)$
+\item Add $f$: $V(T) = \{a, b, d, c, e, g, f\}$\\
+   $E(T) = \{\{a, b\}, \{a, d\}, \{b, c\}, \{b, e\}, \{d, g\}, \{c, f\}\}$\\
+   BFS ordering: $(a, b, d, c, e, g, f)$
+\end{enumerate}
+\textbf {Final BFS ordering: $(a, b, d, c, e, g, f)$}
+
+Note that some edges from the original graph, such as $\{b, d\}$, $\{c, e\}$, $\{e, f\}$, 
+$\{e, g\}$, and $\{f, g\}$, are not part of the BFS tree because their endpoint vertices 
+were already discovered through other paths when we encountered these edges.
+
+\begin{figure}[h]
+\noindent\textbf{Example.}
+Finding a BFS tree in the graph of Figure 66, starting from vertex $2$:
+
+\centering
+\begin{tikzpicture}[
+    vertex/.style={circle, draw, minimum size=0.8cm},
+    scale=1.2
+]
+    % Vertices
+    \node[vertex] (v1) at (0,0) {$1$};
+    \node[vertex] (v2) at (2,2) {$2$};
+    \node[vertex] (v3) at (4,2) {$3$};
+    \node[vertex] (v4) at (1,1) {$4$};
+    \node[vertex] (v5) at (1,-1) {$5$};
+    \node[vertex] (v6) at (3,3) {$6$};
+    \node[vertex] (v7) at (2,0) {$7$};
+    \node[vertex] (v8) at (3,1) {$8$};
+    \node[vertex] (v9) at (4,0) {$9$};
+    
+    % Edges
+    \draw (v1) -- (v4);
+    \draw (v1) -- (v5);
+    \draw (v2) -- (v6);
+    \draw (v2) -- (v7);
+    \draw (v2) -- (v8);
+    \draw (v3) -- (v8);
+    \draw (v4) -- (v5);
+    \draw (v4) -- (v7);
+    \draw (v5) -- (v7);
+    \draw (v6) -- (v8);
+    \draw (v7) -- (v8);
+    \draw (v8) -- (v9);
+\end{tikzpicture}
+\\
+Figure 66: Example diagram for BFS Tree. 
+
+\label{fig:graph-example2}
+\end{figure}
+\pagebreak
+\begin{enumerate}
+\item $2$ is the root, $V(T) = \{2\}$, BFS ordering: $(2)$
+
+\item Add $6$: $V(T) = \{2, 6\}$, $E(T) = \{\{2, 6\}\}$\\
+   BFS ordering: $(2, 6)$
+   
+\item Add $7$: $V(T) = \{2, 6, 7\}$, $E(T) = \{\{2, 6\}, \{2, 7\}\}$\\
+   BFS ordering: $(2, 6, 7)$
+   
+\item Add $8$: $V(T) = \{2, 6, 7, 8\}$, $E(T) = \{\{2, 6\}, \{2, 7\}, \{2, 8\}\}$\\
+   BFS ordering: $(2, 6, 7, 8)$
+   
+\item Add $4$: $V(T) = \{2, 6, 7, 8, 4\}$, $E(T) = \{\{2, 6\}, \{2, 7\}, \{2, 8\}, \{7, 4\}\}$\\
+   BFS ordering: $(2, 6, 7, 8, 4)$
+   
+\item Add $3$: $V(T) = \{2, 6, 7, 8, 4, 3\}$\\
+   $E(T) = \{\{2, 6\}, \{2, 7\}, \{2, 8\}, \{7, 4\}, \{8, 3\}\}$\\
+   BFS ordering: $(2, 6, 7, 8, 4, 3)$
+   
+\item Add $9$: $V(T) = \{2, 6, 7, 8, 4, 3, 9\}$\\
+   $E(T) = \{\{2, 6\}, \{2, 7\}, \{2, 8\}, \{7, 4\}, \{8, 3\}, \{8, 9\}\}$\\
+   BFS ordering: $(2, 6, 7, 8, 4, 3, 9)$
+   
+\item Add $1$: $V(T) = \{2, 6, 7, 8, 4, 3, 9, 1\}$\\
+   $E(T) = \{\{2, 6\}, \{2, 7\}, \{2, 8\}, \{7, 4\}, \{8, 3\}, \{8, 9\}, \{4, 1\}\}$\\
+   BFS ordering: $(2, 6, 7, 8, 4, 3, 9, 1)$
+   
+\item Add $5$: $V(T) = \{2, 6, 7, 8, 4, 3, 9, 1, 5\}$\\
+   $E(T) = \{\{2, 6\}, \{2, 7\}, \{2, 8\}, \{7, 4\}, \{8, 3\}, \{8, 9\}, \{4, 1\}, \{1, 5\}\}$\\
+   BFS ordering: $(2, 6, 7, 8, 4, 3, 9, 1, 5)$
+\end{enumerate}
+
+\textbf {Final BFS ordering: $(2, 6, 7, 8, 4, 3, 9, 1, 5)$}
+
+Note that edges $\{6, 8\}$, $\{7, 8\}$, $\{4, 5\}$, $\{4, 7\}$, and $\{5, 7\}$ are not 
+part of the BFS tree because their endpoints were already discovered when these edges 
+were encountered. The BFS tree provides a minimum-distance path from the root 
+(vertex $2$) to every other vertex in the graph.
+
+\pagebreak
+
+
+\begin{lemma}
+If $T$ is a BFS tree in a connected graph rooted at $v$, then:
+\begin{align*}
+d_T(v, w) = d_G(v, w)
+\end{align*}
+i.e., BFS tree preserves distances from the root.
+\end{lemma}
+
+\begin{definition}[BFS Layers]
+Let $G$ be a graph and $T$ be a BFS tree of $G$ rooted at vertex $v$. The \textbf{layers} of $T$ are defined as:
+\begin{itemize}
+\item Layer $L_0(v) = \{v\}$ (the root)
+\item Layer $L_i(v) = \{u \in V(G) : d_G(v,u) = i\}$ for $i \geq 1$
+\end{itemize}
+
+That is, the $i^{th}$ layer consists of all vertices at distance exactly $i$ from the root $v$.
+
+The following properties hold:
+\begin{itemize}
+\item[] \begin{enumerate}
+    \item All edges of $G$ connect vertices either within the same layer or in adjacent layers.
+    \item The \textbf{height} of the BFS tree is the index of the largest non-empty layer.
+    \item The \textbf{eccentricity} of vertex $v$ is equal to the height of the BFS tree rooted at $v$.
+    \item The \textbf{radius} of $G$ is the minimum eccentricity among all vertices in $G$.
+    \end{enumerate}
+\end{itemize}
+\end{definition}
+
+\noindent\textbf{Graph with vertices $\{a, b, c, d, e, f, g\}$:}
+
+Let's calculate the eccentricity of each vertex by finding the height of the BFS tree rooted at that vertex:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Vertex} & \textbf{BFS Layers} & \textbf{Height} & \textbf{Eccentricity} \\
+\hline
+$a$ & $L_0 = \{a\}$, $L_1 = \{b, d\}$, $L_2 = \{c, e, g\}$, $L_3 = \{f\}$ & 3 & 3 \\
+\hline
+$b$ & $L_0 = \{b\}$, $L_1 = \{a, c, d, e\}$, $L_2 = \{g, f\}$ & 2 & 2 \\
+\hline
+$c$ & $L_0 = \{c\}$, $L_1 = \{b, e, f\}$, $L_2 = \{a, d, g\}$ & 2 & 2 \\
+\hline
+$d$ & $L_0 = \{d\}$, $L_1 = \{a, b, e, g\}$, $L_2 = \{c, f\}$ & 2 & 2 \\
+\hline
+$e$ & $L_0 = \{e\}$, $L_1 = \{b, c, d, f, g\}$, $L_2 = \{a\}$ & 2 & 2 \\
+\hline
+$f$ & $L_0 = \{f\}$, $L_1 = \{c, e, g\}$, $L_2 = \{b, d\}$, $L_3 = \{a\}$ & 3 & 3 \\
+\hline
+$g$ & $L_0 = \{g\}$, $L_1 = \{d, e, f\}$, $L_2 = \{a, b, c\}$ & 2 & 2 \\
+\hline
+\end{tabular}
+\end{center}
+\noindent\textbf{Properties of Figure 65:}
+\begin{itemize}
+\item \textbf{Radius:} $\text{rad}(G) = \min\{\text{ecc}(v) : v \in V(G)\} = 2$
+\item \textbf{Diameter:} $\text{diam}(G) = \max\{\text{ecc}(v) : v \in V(G)\} = 3$
+\item \textbf{Central Vertices:} $\{b, c, d, e, g\}$ (vertices with eccentricity equal to radius)
+\item \textbf{Peripheral Vertices:} $\{a, f\}$ (vertices with eccentricity equal to diameter)
+\end{itemize}
+
+
+\noindent\textbf{Graph with vertices $\{1, 2, 3, 4, 5, 6, 7, 8, 9\}$:}
+
+Let's examine key vertices to determine the graph's properties:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Vertex} & \textbf{BFS Layers} & \textbf{Height} & \textbf{Eccentricity} \\
+\hline
+$2$ & $L_0 = \{2\}$, $L_1 = \{6, 7, 8\}$, $L_2 = \{3, 4, 9\}$, $L_3 = \{1, 5\}$ & 3 & 3 \\
+\hline
+$7$ & $L_0 = \{7\}$, $L_1 = \{2, 4, 5, 8\}$, $L_2 = \{1, 3, 6, 9\}$ & 2 & 2 \\
+\hline
+$8$ & $L_0 = \{8\}$, $L_1 = \{2, 3, 6, 7, 9\}$, $L_2 = \{4\}$, $L_3 = \{1, 5\}$ & 3 & 3 \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent A full analysis would include all vertices, but we've computed enough to determine the key properties.
+
+\noindent\textbf{Properties of Figure 66:}
+\begin{itemize}
+\item \textbf{Radius:} $\text{rad}(G) = 2$ (achieved by vertex 7)
+\item \textbf{Diameter:} $\text{diam}(G) = 3$ (distance from vertex 1 to vertex 5)
+\item \textbf{A Central Vertex:} Vertex 7 has minimum eccentricity
+\item \textbf{BFS Tree Height from vertex 2:} 3
+\end{itemize}
+\pagebreak
+
+\begin{remark}
+Both graphs share interesting structural properties:
+\begin{itemize}
+\item Both have radius 2 and diameter 3
+\item Both satisfy the theorem that $\text{rad}(G) \leq \text{diam}(G) \leq 2 \cdot \text{rad}(G)$ with equality on the right
+\item Figure 65 has multiple central vertices (5 out of 7 vertices), while Figure 66 has fewer central vertices relative to its size
+\item The BFS trees of both graphs efficiently reveal their distance properties
+\end{itemize}
+\end{remark}
+
+\begin{algorithm}
+\caption{Breadth-First Search (BFS)}
+\begin{algorithmic}[1]
+\Require Graph $G = (V, E)$, starting vertex $s$
+\Ensure Vertices discovered in BFS order and a BFS tree $T$
+\Procedure{BFS}{$G, s$}
+    \State Mark all vertices as unvisited
+    \State Create an empty queue $Q$
+    \State Create an empty tree $T$ with $s$ as its root
+    \State Mark $s$ as visited
+    \State Enqueue $s$ into $Q$
+    \While{$Q$ is not empty}
+        \State Dequeue a vertex $u$ from $Q$
+        \For{each neighbor $v$ of $u$}
+            \If{$v$ is unvisited}
+                \State Mark $v$ as visited
+                \State Add edge $(u,v)$ to tree $T$
+                \State Enqueue $v$ into $Q$
+            \EndIf
+        \EndFor
+    \EndWhile
+    \State \Return discovered vertices and tree $T$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\subsubsection{DFS Algorithm and DFS Tree}
+Given a graph $G$ and a starting vertex $v_1$, we can construct a depth-first search (DFS) tree as follows:
+\begin{enumerate}
+\item Designate $v_1$ as the root of the tree.
+\item Call the recursive procedure $\textsc{DFS-Visit}(v_1)$:
+   \begin{enumerate}
+   \item Mark vertex $v_1$ as visited.
+   \item For each unvisited neighbor $w$ of $v_1$:
+      \begin{enumerate}
+      \item Add edge $\{v_1,w\}$ to the DFS tree $T$.
+      \item Recursively call $\textsc{DFS-Visit}(w)$.
+      \end{enumerate}
+   \end{enumerate}
+\end{enumerate}
+The resulting tree $T$ is a DFS spanning tree of $G$.
+
+\noindent\textbf{DFS Tree Construction for Figure 65, starting from vertex $a$:}
+\begin{enumerate}
+\item $a$ is the root, $V(T) = \{a\}$, DFS ordering: $(a)$
+\item Add $b$: $V(T) = \{a, b\}$, $E(T) = \{\{a, b\}\}$, DFS ordering: $(a, b)$
+\item Add $c$: $V(T) = \{a, b, c\}$, $E(T) = \{\{a, b\}, \{b, c\}\}$\\
+   DFS ordering: $(a, b, c)$
+\item Add $e$: $V(T) = \{a, b, c, e\}$, $E(T) = \{\{a, b\}, \{b, c\}, \{c, e\}\}$\\
+   DFS ordering: $(a, b, c, e)$
+\item Add $f$: $V(T) = \{a, b, c, e, f\}$\\
+   $E(T) = \{\{a, b\}, \{b, c\}, \{c, e\}, \{e, f\}\}$\\
+   DFS ordering: $(a, b, c, e, f)$
+\item Add $g$: $V(T) = \{a, b, c, e, f, g\}$\\
+   $E(T) = \{\{a, b\}, \{b, c\}, \{c, e\}, \{e, f\}, \{f, g\}\}$\\
+   DFS ordering: $(a, b, c, e, f, g)$
+\item Add $d$: $V(T) = \{a, b, c, e, f, g, d\}$\\
+   $E(T) = \{\{a, b\}, \{b, c\}, \{c, e\}, \{e, f\}, \{f, g\}, \{a, d\}\}$\\
+   DFS ordering: $(a, b, c, e, f, g, d)$
+\end{enumerate}
+\textbf {Final DFS ordering: $(a, b, c, e, f, g, d)$}
+
+Note that some edges from the original graph, such as $\{b, d\}$, $\{b, e\}$, $\{c, f\}$, 
+$\{d, e\}$, $\{d, g\}$, and $\{e, g\}$, are not part of the DFS tree because their endpoint vertices 
+were already discovered through other paths when we encountered these edges.
+
+\noindent\textbf{DFS Tree Construction for Figure 66, starting from vertex $2$:}
+\begin{enumerate}
+\item $2$ is the root, $V(T) = \{2\}$, DFS ordering: $(2)$
+\item Add $6$: $V(T) = \{2, 6\}$, $E(T) = \{\{2, 6\}\}$, DFS ordering: $(2, 6)$
+\item Add $8$: $V(T) = \{2, 6, 8\}$, $E(T) = \{\{2, 6\}, \{6, 8\}\}$\\
+   DFS ordering: $(2, 6, 8)$
+\item Add $3$: $V(T) = \{2, 6, 8, 3\}$, $E(T) = \{\{2, 6\}, \{6, 8\}, \{8, 3\}\}$\\
+   DFS ordering: $(2, 6, 8, 3)$
+\item Add $9$: $V(T) = \{2, 6, 8, 3, 9\}$\\
+   $E(T) = \{\{2, 6\}, \{6, 8\}, \{8, 3\}, \{8, 9\}\}$\\
+   DFS ordering: $(2, 6, 8, 3, 9)$
+\item Add $7$: $V(T) = \{2, 6, 8, 3, 9, 7\}$\\
+   $E(T) = \{\{2, 6\}, \{6, 8\}, \{8, 3\}, \{8, 9\}, \{2, 7\}\}$\\
+   DFS ordering: $(2, 6, 8, 3, 9, 7)$
+\item Add $4$: $V(T) = \{2, 6, 8, 3, 9, 7, 4\}$\\
+   $E(T) = \{\{2, 6\}, \{6, 8\}, \{8, 3\}, \{8, 9\}, \{2, 7\}, \{7, 4\}\}$\\
+   DFS ordering: $(2, 6, 8, 3, 9, 7, 4)$
+\item Add $1$: $V(T) = \{2, 6, 8, 3, 9, 7, 4, 1\}$\\
+   $E(T) = \{\{2, 6\}, \{6, 8\}, \{8, 3\}, \{8, 9\}, \{2, 7\}, \{7, 4\}, \{4, 1\}\}$\\
+   DFS ordering: $(2, 6, 8, 3, 9, 7, 4, 1)$
+\item Add $5$: $V(T) = \{2, 6, 8, 3, 9, 7, 4, 1, 5\}$\\
+   $E(T) = \{\{2, 6\}, \{6, 8\}, \{8, 3\}, \{8, 9\}, \{2, 7\}, \{7, 4\}, \{4, 1\}, \{1, 5\}\}$\\
+   DFS ordering: $(2, 6, 8, 3, 9, 7, 4, 1, 5)$
+\end{enumerate}
+\textbf {Final DFS ordering: $(2, 6, 8, 3, 9, 7, 4, 1, 5)$}
+
+Note that some edges from the original graph, such as $\{2, 8\}$, $\{4, 7\}$, $\{5, 7\}$, 
+$\{7, 8\}$, and $\{4, 5\}$, are not part of the DFS tree because their endpoint vertices 
+were already discovered through other paths when we encountered these edges.
+
+\begin{remark}[DFS Properties Comparison]
+Both graphs exhibit interesting structural properties when analyzed through DFS traversal:
+\begin{itemize}
+\item DFS trees for both graphs have a maximum depth of 6 for Figure 65 and 8 for Figure 66
+\item The DFS trees reveal the connectivity patterns differently than BFS, highlighting branch-like structures
+\item In Figure 65, DFS from vertex $a$ explores the $a$-$b$-$c$-$e$-$f$-$g$ branch completely before backtracking to explore $d$
+\item In Figure 66, DFS from vertex $2$ explores the $2$-$6$-$8$-$3$-$9$ branch first before exploring the $2$-$7$-$4$-$1$-$5$ branch
+\item Both DFS trees contain exactly $n-1$ edges where $n$ is the number of vertices
+\item The back edges (edges not in the DFS tree) reveal the cycle structure in both graphs
+\item While BFS trees minimize the distance from the root, DFS trees tend to create longer paths from the root to certain vertices
+\end{itemize}
+\end{remark}
+
+\begin{algorithm}
+\caption{Depth-First Search (DFS) - Recursive}
+\begin{algorithmic}[1]
+\Require Graph $G = (V, E)$, starting vertex $s$
+\Ensure Vertices discovered in DFS order and a DFS tree $T$
+\Procedure{DFS}{$G, s$}
+    \State Mark all vertices as unvisited
+    \State Create an empty tree $T$ with $s$ as its root
+    \State \Call{DFS-Visit}{$G, s, T$}
+    \State \Return discovered vertices and tree $T$
+\EndProcedure
+
+\Procedure{DFS-Visit}{$G, u, T$}
+    \State Mark $u$ as visited
+    \For{each neighbor $v$ of $u$}
+        \If{$v$ is unvisited}
+            \State Add edge $(u,v)$ to tree $T$
+            \State \Call{DFS-Visit}{$G, v, T$}
+        \EndIf
+    \EndFor
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\subsubsection{Comparison of BFS and DFS Traversals}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Graph} & \textbf{BFS Traversal} & \textbf{DFS Traversal} \\
+\hline
+Figure 65 & $(a, b, d, c, e, g, f)$ & $(a, b, c, e, f, g, d)$ \\
+\hline
+Figure 66 & $(2, 6, 7, 8, 4, 3, 9, 1, 5)$ & $(2, 6, 8, 3, 9, 7, 4, 1, 5)$ \\
+\hline
+\end{tabular}
+\caption{Comparison of BFS and DFS traversal orders starting from vertices $a$ and $2$}
+\label{tab:traversal-comparison}
+\end{table}
+
+\begin{remark}[Traversal Pattern Differences]
+The BFS and DFS traversals reveal fundamentally different exploration strategies:
+\begin{itemize}
+\item \textbf{Exploration Pattern:} BFS explores vertices in breadth (layer by layer), while DFS explores in depth (branch by branch).
+
+\item \textbf{Figure 65 Patterns:} 
+  \begin{itemize}
+  \item In BFS, vertices $b$ and $d$ are discovered first (immediate neighbors of $a$), then the next layer ($c$, $e$, $g$), and finally $f$.
+  \item In DFS, the algorithm explores the branch $a$-$b$-$c$-$e$-$f$-$g$ completely before backtracking to explore $d$.
+  \end{itemize}
+  
+\item \textbf{Figure 66 Patterns:}
+  \begin{itemize}
+  \item In BFS, immediate neighbors of $2$ (vertices $6$, $7$, $8$) are explored first, then their neighbors, creating a layered exploration.
+  \item In DFS, the branch $2$-$6$-$8$-$3$-$9$ is fully explored before backtracking to explore $7$ and its branch.
+  \end{itemize}
+\end{itemize}
+\end{remark}
+
+\begin{remark}[Structural Insights from Traversals]
+The traversal trees reveal important structural differences:
+\begin{itemize}
+\item \textbf{Tree Shape:} BFS trees tend to be broader and less deep, while DFS trees are typically deeper with fewer branches.
+
+\item \textbf{Path Lengths:} 
+  \begin{itemize}
+  \item In Figure 65, the BFS tree guarantees shortest paths from $a$ to all vertices, while the DFS tree creates a longer path to $d$ (via $a$ directly versus potentially through other vertices).
+  \item In Figure 66, the BFS path from $2$ to $5$ goes through vertices $7$ and $4$ (shorter), while the DFS path follows a longer route.
+  \end{itemize}
+  
+\item \textbf{Edge Selection:}
+  \begin{itemize}
+  \item BFS includes edges that minimize distance from the root.
+  \item DFS includes edges that extend the current exploration path as far as possible.
+  \item For example, in Figure 65, BFS includes edge $\{a,d\}$ while DFS includes $\{f,g\}$.
+  \end{itemize}
+  
+\item \textbf{Cycle Detection:} Both traversals identify different sets of back edges (edges not in the spanning tree) that form cycles.
+\end{itemize}
+\end{remark}
+
+\begin{remark}[Application Implications]
+The different traversal orders suggest optimal algorithms for different applications:
+\begin{itemize}
+\item \textbf{BFS Applications:} Finding shortest paths, computing graph distances and eccentricity, detecting layers/levels in networks.
+
+\item \textbf{DFS Applications:} Detecting cycles, finding connected components, topological sorting, solving maze-like problems.
+
+\item For Figure 65, BFS would be more appropriate for determining central vertices, while DFS would be better for identifying the cycle formed by vertices $a$-$b$-$d$.
+
+\item For Figure 66, BFS would be better for finding the shortest path from vertex $2$ to vertex $5$, while DFS would be more efficient for detecting all cycles in the graph.
+\end{itemize}
+\end{remark}
+
+\pagebreak
+\subsection{Prim's Algorithm}
 
 
 
