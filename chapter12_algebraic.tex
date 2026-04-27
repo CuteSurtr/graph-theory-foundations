@@ -1,0 +1,1048 @@
+\section{Algebraic Graph Theory: Auxiliary Topics}
+
+This chapter collects auxiliary topics drawn from \emph{algebraic
+combinatorics}---the area where graphs are studied through polynomials,
+group actions, and association-scheme algebras. Each section is
+self-contained and assumes only the spectral and counting techniques
+of Chapter~11. The topics are: the matchings polynomial and its
+real-rootedness (Heilmann--Lieb), equitable partitions and quotient
+interlacing, distance-regular graphs and association schemes, Cayley
+graphs and vertex-transitive graphs, and the Tutte polynomial together
+with the graphic matroid that organizes deletion--contraction
+arguments.
+
+References for further reading: Godsil, \emph{Algebraic Combinatorics};
+Stanley, \emph{Algebraic Combinatorics: Walks, Trees, Tableaux};
+Garsia--Egecioglu, \emph{Lectures in Algebraic Combinatorics};
+Orlik--Welker, \emph{Algebraic Combinatorics}.
+
+%====================================================================
+\subsection{The Matchings Polynomial and the Heilmann--Lieb Theorem}
+%====================================================================
+
+The adjacency-matrix characteristic polynomial $\phi(G, x) = \det(xI - A(G))$
+encodes the spectrum of $G$, but it is highly non-trivial to relate to
+the combinatorial structure of $G$. The \emph{matchings polynomial}
+plays a parallel role for matchings and turns out to coincide with
+$\phi(G, x)$ when $G$ is a forest, while always remaining a polynomial
+with real roots only.
+
+\subsubsection{Definition and Basic Recurrences}
+
+\begin{definition}[Matchings polynomial]\label{def:matchpoly}
+Let $G$ be a graph on $n$ vertices and let $p(G, k)$ denote the number
+of $k$-matchings (sets of $k$ pairwise non-adjacent edges). The
+\textbf{matchings polynomial} of $G$ is
+\[
+  \mu(G, x) \;=\; \sum_{k \ge 0} (-1)^k\, p(G, k)\, x^{n - 2k}.
+\]
+By convention, $p(G, 0) = 1$ and $\mu(\emptyset, x) = 1$.
+\end{definition}
+
+\begin{example}[Small graphs]
+\mbox{}
+\begin{itemize}
+  \item $\mu(K_2, x) = x^2 - 1$.
+  \item $\mu(P_3, x) = x^3 - 2x$.
+  \item $\mu(C_3, x) = x^3 - 3x$ (three edges, no $2$-matching).
+  \item $\mu(C_4, x) = x^4 - 4x^2 + 2$ (two $2$-matchings: opposite-edge pairs).
+\end{itemize}
+\end{example}
+
+\begin{theorem}[Edge and vertex recurrences]\label{thm:matchrec}
+For any edge $e = uv$ and any vertex $u$ of $G$,
+\begin{align*}
+  \mu(G, x) &\;=\; \mu(G \setminus e, x) \;-\; \mu(G \setminus \{u, v\}, x), \\
+  \mu(G, x) &\;=\; x\,\mu(G \setminus u, x) \;-\; \sum_{v \sim u} \mu(G \setminus \{u, v\}, x).
+\end{align*}
+\end{theorem}
+
+\begin{proof}
+For the first identity, partition $k$-matchings of $G$ by whether
+$e \in M$. Matchings not containing $e$ are $k$-matchings of $G \setminus e$,
+contributing $\mu(G \setminus e, x)$. Matchings containing $e$ are
+$(k - 1)$-matchings of $G \setminus \{u, v\}$, contributing
+$x^2 \mu(G \setminus \{u, v\}, x) / x^2 = \mu(G \setminus \{u, v\}, x)$
+once the sign is tracked. The vertex recurrence is the edge recurrence
+summed over all edges incident to $u$.
+\end{proof}
+
+\begin{proposition}[Matching polynomial of a forest]\label{prop:matchforest}
+If $T$ is a forest, then $\mu(T, x) = \phi(T, x) = \det(xI - A(T))$.
+\end{proposition}
+
+\begin{proof}
+The Leibniz formula expresses $\det(xI - A)$ as a sum over permutations
+$\sigma$, which decompose into cycles. In a forest the only cycles
+admissible to a non-zero contribution are fixed points (giving an $x$)
+and $2$-cycles (giving $-1$ via an edge). The non-fixed-point support
+of $\sigma$ thus selects a matching $M$, and the contribution is
+$(-1)^{|M|} x^{n - 2|M|}$. Summing matches Definition~\ref{def:matchpoly}.
+\end{proof}
+
+\subsubsection{The Path-Tree Construction}
+
+The fundamental insight of Godsil and Heilmann--Lieb is that for any
+graph $G$ with a distinguished vertex $u$, one can build a tree
+$T(G, u)$ whose characteristic polynomial controls the matchings
+polynomial of $G$.
+
+\begin{definition}[Path-tree]\label{def:pathtree}
+Let $G$ be a graph and $u \in V(G)$. The \textbf{path-tree}
+$T(G, u)$ is the rooted tree whose vertices are the non-backtracking
+walks $u = v_0 \to v_1 \to \cdots \to v_k$ in $G$ starting at $u$,
+and whose edges connect each walk of length $k$ to its $(k+1)$-step
+extensions in $G$.
+\end{definition}
+
+\begin{theorem}[Godsil's path-tree identity]\label{thm:pathtree}
+For any vertex $u$ of $G$,
+\[
+  \frac{\mu(G \setminus u, x)}{\mu(G, x)}
+  \;=\; \frac{\mu(T(G, u) \setminus u, x)}{\mu(T(G, u), x)}.
+\]
+In words, the ratio is identical to the corresponding ratio for the
+characteristic polynomials of the path-tree.
+\end{theorem}
+
+\begin{corollary}[Reduction to a tree]\label{cor:rootreduce}
+Every root of $\mu(G, x)$ is a root of $\phi(T(G, u), x)$ for any
+choice of $u$. Since $T(G, u)$ is a tree,
+$\phi(T(G, u), x)$ has only real roots; therefore so does
+$\mu(G, x)$.
+\end{corollary}
+
+\subsubsection{The Heilmann--Lieb Theorem}
+
+\begin{theorem}[Heilmann--Lieb, 1972]\label{thm:hl}
+Let $G$ be a graph with maximum degree $\Delta$. Then all roots of
+$\mu(G, x)$ are real, and they lie in the open interval
+$(-2\sqrt{\Delta - 1},\; 2\sqrt{\Delta - 1})$.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Reality follows from Corollary~\ref{cor:rootreduce}. For the bound,
+observe that the path-tree $T(G, u)$ has maximum degree at most
+$\Delta$, so its adjacency spectrum is contained in
+$[-2\sqrt{\Delta - 1}, 2\sqrt{\Delta - 1}]$ by the Alon--Boppana
+analysis of the universal cover. Strict inclusion in the open interval
+follows from the fact that $T(G, u)$ is finite and the spectral radius
+of any finite tree of bounded degree $\Delta$ is strictly less than
+$2\sqrt{\Delta - 1}$.
+\end{proof}
+
+\begin{remark}[Statistical-physics interpretation]
+The matchings polynomial is, up to substitution, the partition function
+of the \emph{monomer--dimer model} on $G$:
+$Z_G(\lambda) = \sum_M \lambda^{|M|}$ where the sum runs over all
+matchings. Theorem~\ref{thm:hl} implies $Z_G(\lambda) > 0$ for all real
+$\lambda \ge 0$, so the monomer--dimer model has \emph{no phase transition}
+on any finite graph.
+\end{remark}
+
+\subsubsection{Special Cases and Classical Polynomials}
+
+\begin{theorem}[Matching polynomials of named graphs]
+\mbox{}
+\begin{itemize}
+  \item $\mu(K_n, x)$ is (up to scaling) the Hermite polynomial $H_n(x)$.
+  \item $\mu(P_n, x)$ is the Chebyshev polynomial of the second kind
+        $U_n(x/2)$.
+  \item $\mu(K_{m, n}, x)$ is (up to scaling) a Laguerre polynomial.
+\end{itemize}
+\end{theorem}
+
+\begin{example}[Matching polynomial of $K_4$]
+$K_4$ has six edges and three perfect matchings. Direct expansion:
+$p(K_4, 0) = 1$, $p(K_4, 1) = 6$, $p(K_4, 2) = 3$. Hence
+\[
+  \mu(K_4, x) \;=\; x^4 - 6 x^2 + 3.
+\]
+The roots are $\pm \sqrt{3 \pm \sqrt{6}}$, all real and inside the
+Heilmann--Lieb interval $(-2\sqrt{2}, 2\sqrt{2}) \approx (-2.83, 2.83)$.
+\end{example}
+
+\subsubsection{Exercises}
+
+\paragraph{Easy Questions.}
+
+\begin{exercise}
+Compute $\mu(C_5, x)$ and $\mu(C_6, x)$ from the recurrence
+$\mu(C_n, x) = \mu(P_n, x) - \mu(P_{n-2}, x)$, which follows from
+Theorem~\ref{thm:matchrec} applied to a single edge of $C_n$.
+\end{exercise}
+
+\begin{exercise}
+Verify Proposition~\ref{prop:matchforest} for the path $P_4$ by
+computing both $\mu(P_4, x)$ from the matching definition and
+$\det(xI - A(P_4))$ from the adjacency matrix.
+\end{exercise}
+
+\paragraph{Medium Questions.}
+
+\begin{exercise}
+Prove $\mu(G, x) = \mu(G \setminus e, x) - \mu(G \setminus \{u, v\}, x)$
+in detail by induction on $|E(G)|$, taking care of the edge-case
+$|M| = 0$.
+\end{exercise}
+
+\begin{exercise}
+Show that $\mu(G \cup H, x) = \mu(G, x) \cdot \mu(H, x)$ for the
+disjoint union of $G$ and $H$. Use this to compute the matchings
+polynomial of the $5$-cube $Q_5$ from $\mu(Q_4, x)$ and $\mu(K_2, x)$
+(Hint: $Q_5 = Q_4 \,\square\, K_2$ requires more work; treat it as
+two copies of $Q_4$ joined by a matching).
+\end{exercise}
+
+\paragraph{Hard Questions.}
+
+\begin{exercise}
+Prove the path-tree identity (Theorem~\ref{thm:pathtree}) by
+applying the vertex recurrence simultaneously to $G$ and to
+$T(G, u)$ at the root, then inducting on the depth of expansion.
+\end{exercise}
+
+\begin{exercise}
+Use the Heilmann--Lieb theorem to deduce that the partition function
+$Z_G(\lambda) = \sum_M \lambda^{|M|}$ has no real positive zeros for
+$\lambda > 0$. Conclude that $\log Z_G(\lambda)$ is real-analytic on
+$(0, \infty)$.
+\end{exercise}
+
+\paragraph{Diagram Questions.}
+
+\begin{exercise}
+Draw the path-tree $T(C_4, v)$ for any vertex $v$ of the $4$-cycle
+$C_4$. Verify that $T(C_4, v)$ is the infinite $2$-regular tree
+truncated to depth at most $4$, and write out the first few terms of
+its characteristic polynomial.
+\end{exercise}
+
+\begin{exercise}
+Mark the roots of $\mu(K_4, x)$ on the real line and shade the
+Heilmann--Lieb interval $(-2\sqrt{2}, 2\sqrt{2})$ to confirm strict
+containment. Compare with the actual adjacency spectrum
+$\{3, -1, -1, -1\}$ of $K_4$ (which lies on $\mathbb{Z}$, not on the
+matching polynomial roots).
+\end{exercise}
+
+%====================================================================
+\subsection{Equitable Partitions and Quotient Interlacing}
+%====================================================================
+
+Equitable partitions provide a systematic way to extract eigenvalues
+from a graph using its symmetries. Every automorphism orbit gives an
+equitable partition, but many graphs admit equitable partitions with
+no automorphism behind them.
+
+\subsubsection{Definition and Basic Theory}
+
+\begin{definition}[Equitable partition]\label{def:equitable}
+A partition $\pi = (V_1, V_2, \ldots, V_k)$ of $V(G)$ is
+\textbf{equitable} if there exist non-negative integers
+$b_{ij}$ ($1 \le i, j \le k$) such that every vertex of $V_i$ has
+exactly $b_{ij}$ neighbors in $V_j$. The $k \times k$ matrix
+$B = (b_{ij})$ is the \textbf{quotient matrix} of the partition.
+\end{definition}
+
+\begin{example}[Trivial partitions]
+\mbox{}
+\begin{itemize}
+  \item The discrete partition into singletons is always equitable;
+        its quotient matrix is the adjacency matrix $A(G)$.
+  \item For a $k$-regular graph, the trivial $1$-cell partition
+        $\pi = (V)$ is equitable with $B = (k)$.
+  \item For a bipartite graph $G = (A \cup B, E)$ where every vertex
+        of $A$ has degree $d_A$ and every vertex of $B$ has degree
+        $d_B$, the partition $(A, B)$ is equitable with
+        $B = \big(\begin{smallmatrix} 0 & d_A \\ d_B & 0 \end{smallmatrix}\big)$.
+\end{itemize}
+\end{example}
+
+\begin{theorem}[Spectrum of the quotient]\label{thm:quotientspec}
+If $\pi$ is an equitable partition of $G$ with quotient matrix $B$,
+then every eigenvalue of $B$ is also an eigenvalue of $A(G)$.
+Specifically, if $By = \lambda y$ then the vector $x \in \mathbb R^V$
+defined by $x_v = y_i$ whenever $v \in V_i$ satisfies $A x = \lambda x$.
+\end{theorem}
+
+\begin{proof}
+Let $S \in \{0, 1\}^{V \times k}$ be the characteristic matrix of
+$\pi$ (column $i$ is the indicator of $V_i$). Equitability means
+$AS = SB$. Hence if $By = \lambda y$, then
+$A(Sy) = S(By) = \lambda(Sy)$. The lifted vector $Sy$ is non-zero
+because the columns of $S$ are linearly independent.
+\end{proof}
+
+\subsubsection{Cauchy Interlacing for Quotients}
+
+\begin{theorem}[Cauchy interlacing for quotients]\label{thm:quotinter}
+Let $A$ be a real symmetric $n \times n$ matrix with eigenvalues
+$\lambda_1 \ge \cdots \ge \lambda_n$, and let $\pi$ be any partition
+(not necessarily equitable) with characteristic matrix $S$. Define the
+\emph{normalized quotient}
+$\hat B = (S^\top S)^{-1} S^\top A S$, a $k \times k$ matrix with
+eigenvalues $\beta_1 \ge \cdots \ge \beta_k$. Then
+\[
+  \lambda_i \;\ge\; \beta_i \;\ge\; \lambda_{n - k + i}
+  \qquad (1 \le i \le k).
+\]
+\end{theorem}
+
+\begin{proof}
+Apply the Courant--Fischer min-max characterization
+(Theorem~\ref{thm:courantfischer}) to $A$ and to $\hat B = S^\top A S$
+on the $k$-dimensional column span of $S$. The Rayleigh quotient on
+this $k$-subspace lies between the top-$k$ and bottom-$k$ eigenvalues
+of $A$.
+\end{proof}
+
+\begin{corollary}[Hoffman-style ratio bound; Haemers, 1995]\label{cor:haemers}
+Let $G$ be a $k$-regular graph with smallest adjacency eigenvalue
+$\lambda_n$. Then
+\[
+  \alpha(G) \;\le\; \frac{-\lambda_n}{k - \lambda_n} \cdot n.
+\]
+\end{corollary}
+
+\begin{proof}
+Let $S \subseteq V(G)$ be a maximum independent set, and consider the
+partition $(S, V \setminus S)$. Compute the normalized quotient: the
+$2 \times 2$ matrix has trace $2 \cdot \frac{e(S, V \setminus S)}{|S|}$
+and determinant relating to the densities. Apply
+Theorem~\ref{thm:quotinter} and solve.
+\end{proof}
+
+\subsubsection{Walk-Regularity and Distance Partitions}
+
+\begin{definition}[Walk-regular]
+A graph $G$ is \textbf{walk-regular} if for every $k \ge 0$, the
+diagonal $(A^k)_{vv}$ is the same for all $v$. Equivalently, the number
+of closed walks of length $k$ at $v$ does not depend on $v$.
+\end{definition}
+
+\begin{theorem}[Vertex-transitive implies walk-regular]
+Every vertex-transitive graph is walk-regular.
+\end{theorem}
+
+\begin{definition}[Distance partition]
+For a vertex $v$ in a connected graph $G$, the \textbf{distance
+partition from $v$} is
+$\pi_v = (G_0(v), G_1(v), G_2(v), \ldots, G_d(v))$, where $G_i(v)$ is
+the set of vertices at distance exactly $i$ from $v$.
+\end{definition}
+
+\begin{theorem}[Distance partition of a distance-regular graph]\label{thm:drgequit}
+A connected graph $G$ is distance-regular (Section~\ref{subsec:drg}
+below) iff for every vertex $v$, the distance partition $\pi_v$ is
+equitable with the same quotient matrix.
+\end{theorem}
+
+This sets up Section~\ref{subsec:drg}, where the quotient matrix is
+the canonical tridiagonal intersection matrix.
+
+\subsubsection{Exercises}
+
+\paragraph{Easy Questions.}
+
+\begin{exercise}
+Show that the orbit partition of any subgroup of $\mathrm{Aut}(G)$ is
+equitable.
+\end{exercise}
+
+\begin{exercise}
+Find an equitable partition of the Petersen graph into two parts
+(outer pentagon and inner pentagram). Write its $2 \times 2$ quotient
+matrix and verify both eigenvalues appear in the Petersen spectrum
+$\{3, 1^{(5)}, -2^{(4)}\}$.
+\end{exercise}
+
+\paragraph{Medium Questions.}
+
+\begin{exercise}
+Prove Theorem~\ref{thm:quotientspec} from the matrix identity
+$AS = SB$. Show further that the $k$ eigenvalues of $B$ are exactly
+the eigenvalues of $A$ whose eigenvectors are constant on each cell
+of $\pi$.
+\end{exercise}
+
+\begin{exercise}
+Apply the Haemers ratio bound (Corollary~\ref{cor:haemers}) to the
+Petersen graph and to the Kneser graph $K(5, 2)$ (which is the
+Petersen graph). Compare with the exact independence number $\alpha(P) = 4$.
+\end{exercise}
+
+\paragraph{Hard Questions.}
+
+\begin{exercise}
+Prove that a connected graph is distance-regular iff every distance
+partition $\pi_v$ ($v \in V$) is equitable with the \emph{same}
+quotient matrix (Theorem~\ref{thm:drgequit}).
+\end{exercise}
+
+\begin{exercise}
+Let $G$ be a graph with an equitable partition $\pi$. Show that the
+spectrum of $G$ decomposes as $\sigma(B) \cup \sigma(A_{\pi^\perp})$,
+where $A_{\pi^\perp}$ is $A$ restricted to vectors that sum to zero on
+each cell. Conclude that all ``new'' eigenvalues of $G$ relative to
+$B$ have eigenvectors orthogonal to the constant-on-cells subspace.
+\end{exercise}
+
+\paragraph{Diagram Questions.}
+
+\begin{exercise}
+Draw the cycle $C_6$ and find an equitable partition into three cells
+of size $2$ each (alternating cells). Write the $3 \times 3$ quotient
+matrix and verify that its eigenvalues $\{2, -1, -1\}$ appear among
+the cycle spectrum $\{2, 1, -1, -2, -1, 1\}$.
+\end{exercise}
+
+\begin{exercise}
+Sketch the distance partition of the cube $Q_3$ from a corner vertex.
+Verify that it is equitable into four cells of sizes $1, 3, 3, 1$, and
+write its tridiagonal quotient matrix.
+\end{exercise}
+
+%====================================================================
+\subsection{Distance-Regular Graphs and Association Schemes}\label{subsec:drg}
+%====================================================================
+
+Distance-regular graphs (DRGs) sit at the algebraic core of extremal
+combinatorics: they include all strongly regular graphs (Section 11.4),
+the Hamming and Johnson graphs (which underlie coding theory and
+the Erd\H{o}s--Ko--Rado problem), and the foundational examples of
+finite geometry. Their unified algebraic theory is the language of
+\emph{association schemes}.
+
+\subsubsection{Distance-Regular Graphs}
+
+\begin{definition}[Distance-regular]\label{def:drg}
+A connected graph $G$ of diameter $d$ is \textbf{distance-regular}
+if there exist integers $b_0, b_1, \ldots, b_{d-1}$ and
+$c_1, c_2, \ldots, c_d$ such that, for every pair $u, v$ at distance
+$i$ in $G$,
+\[
+  c_i \;=\; |N(v) \cap G_{i-1}(u)|,
+  \qquad
+  b_i \;=\; |N(v) \cap G_{i+1}(u)|,
+\]
+i.e.\ the neighbours of $v$ counted by their distance from $u$ depend
+only on $i$. The sequence
+\[
+  \iota(G) \;=\; \{b_0, b_1, \ldots, b_{d-1};\; c_1, c_2, \ldots, c_d\}
+\]
+is the \textbf{intersection array}. The valency is $b_0 = k$.
+\end{definition}
+
+\begin{example}[Familiar distance-regular graphs]
+\mbox{}
+\begin{itemize}
+  \item $K_n$ has intersection array $\{n - 1; 1\}$ (diameter $1$).
+  \item $C_n$ ($n \ge 5$) has intersection array
+        $\{2, 1, 1, \ldots, 1; 1, 1, \ldots, 1, c_d\}$, where the last
+        $c_d \in \{1, 2\}$ depending on parity.
+  \item The Petersen graph has $\iota = \{3, 2; 1, 1\}$ (diameter $2$).
+  \item The Hamming graph $H(n, q)$ (vertices: words in $[q]^n$;
+        edges: words differing in one coordinate) is distance-regular
+        with $b_i = (n - i)(q - 1)$ and $c_i = i$.
+  \item The Johnson graph $J(n, k)$ (vertices: $k$-subsets of $[n]$;
+        edges: subsets sharing $k - 1$ elements) is distance-regular
+        with $b_i = (k - i)(n - k - i)$ and $c_i = i^2$.
+\end{itemize}
+\end{example}
+
+\begin{theorem}[Tridiagonal quotient]\label{thm:drgquot}
+Let $G$ be distance-regular with intersection array
+$\{b_0, \ldots, b_{d-1}; c_1, \ldots, c_d\}$. Set $a_i = k - b_i - c_i$
+for $0 \le i \le d$ (where $b_d = c_0 = 0$). The quotient matrix of
+the distance partition $\pi_v$ from any vertex $v$ is
+\[
+  L_1 \;=\;
+  \begin{pmatrix}
+    a_0 & b_0 & 0 & \cdots & 0 \\
+    c_1 & a_1 & b_1 & \cdots & 0 \\
+    0 & c_2 & a_2 & \cdots & 0 \\
+    \vdots & & \ddots & \ddots & \vdots \\
+    0 & 0 & \cdots & c_d & a_d
+  \end{pmatrix}.
+\]
+By Theorem~\ref{thm:quotientspec}, every eigenvalue of $L_1$ is an
+eigenvalue of $A(G)$; in fact $G$ has \emph{exactly} $d + 1$ distinct
+adjacency eigenvalues, the eigenvalues of $L_1$.
+\end{theorem}
+
+\subsubsection{Association Schemes}
+
+\begin{definition}[Association scheme]\label{def:scheme}
+A (symmetric) \textbf{association scheme} with $d$ classes on a finite
+set $X$ is a partition $\{R_0, R_1, \ldots, R_d\}$ of $X \times X$ such
+that, with $A_i \in \{0, 1\}^{X \times X}$ the indicator matrix of
+$R_i$:
+\begin{enumerate}
+  \item $R_0 = \{(x, x) : x \in X\}$, so $A_0 = I$.
+  \item Each $R_i$ is symmetric: $A_i^\top = A_i$.
+  \item $\sum_{i = 0}^{d} A_i = J$ (the all-ones matrix).
+  \item There exist non-negative integers $p_{ij}^k$ with
+        $A_i A_j = \sum_{k = 0}^{d} p_{ij}^k A_k$.
+\end{enumerate}
+The numbers $p_{ij}^k$ are the \textbf{intersection numbers} of the
+scheme.
+\end{definition}
+
+\begin{theorem}[Bose--Mesner algebra]\label{thm:bosemesner}
+The complex span of $A_0, A_1, \ldots, A_d$ is a commutative algebra
+$\mathfrak A$ under matrix multiplication, called the \textbf{Bose--Mesner
+algebra}. Since the $A_i$ are symmetric and commute pairwise,
+$\mathfrak A$ has a basis of mutually orthogonal idempotents
+$E_0, E_1, \ldots, E_d$ (the \emph{primitive idempotents}). Both
+$\{A_i\}$ and $\{E_j\}$ are bases of $\mathfrak A$, related by the
+\textbf{first} and \textbf{second eigenmatrices} $P, Q$:
+\[
+  A_i = \sum_{j} P_{ji} E_j, \qquad E_j = \frac{1}{|X|} \sum_{i} Q_{ij} A_i.
+\]
+\end{theorem}
+
+\begin{theorem}[Distance-regular = $P$-polynomial]
+A distance-regular graph $G$ defines an association scheme on
+$X = V(G)$ with $R_i = \{(u, v) : d(u, v) = i\}$. The Bose--Mesner
+algebra is generated as a polynomial algebra by $A_1$ (the adjacency
+matrix), so distance-regular schemes are exactly the
+\emph{$P$-polynomial} schemes.
+\end{theorem}
+
+\subsubsection{The Hamming and Johnson Schemes}
+
+\begin{example}[Hamming scheme $H(n, q)$]
+$X = [q]^n$; $(x, y) \in R_i$ iff the Hamming distance is $i$. The
+graph $H(n, q)$ above is the corresponding distance-regular graph.
+The Bose--Mesner algebra is the algebra of symmetric Latin-square
+type schemes; the $P$-matrix entries are values of \emph{Krawtchouk
+polynomials}.
+\end{example}
+
+\begin{example}[Johnson scheme $J(n, k)$]
+$X = \binom{[n]}{k}$; $(A, B) \in R_i$ iff $|A \cap B| = k - i$. The
+$P$-matrix entries are values of \emph{Hahn polynomials}, and the
+LP bounds for codes/cliques in $J(n, k)$ specialize to the
+Erd\H{o}s--Ko--Rado theorem.
+\end{example}
+
+\begin{theorem}[Delsarte LP bound]\label{thm:delsarte}
+Let $\Gamma$ be an association scheme on $X$ with first eigenmatrix
+$P$. The maximum size of a \emph{clique} (a subset $C$ such that any
+two distinct elements of $C$ are in $R_1$) is bounded by the value of
+a linear program in variables $x = (x_0, \ldots, x_d)$ with constraints
+$x \ge 0$, $x_0 = 1$, $\sum_i x_i = |C|$, and $Q^\top x \ge 0$.
+\end{theorem}
+
+The Delsarte LP gives the best-known general bounds on optimal codes
+(in $H(n, q)$), set systems with bounded intersection (in $J(n, k)$),
+and packings in spherical caps (continuous analogue).
+
+\subsubsection{Exercises}
+
+\paragraph{Easy Questions.}
+
+\begin{exercise}
+Verify that the cycle $C_6$ is distance-regular and compute its
+intersection array. Compare with the array of the Petersen graph.
+\end{exercise}
+
+\begin{exercise}
+Show that every strongly regular graph with parameters
+$(n, k, \lambda, \mu)$ is distance-regular of diameter $2$ with
+intersection array $\{k, k - 1 - \lambda; 1, \mu\}$.
+\end{exercise}
+
+\paragraph{Medium Questions.}
+
+\begin{exercise}
+Compute the intersection array of the Hamming graph $H(3, 2) = Q_3$.
+Verify directly using Definition~\ref{def:drg}.
+\end{exercise}
+
+\begin{exercise}
+Verify that for the Johnson scheme $J(5, 2)$, the graph $R_1$ is the
+Petersen graph (vertices: $2$-subsets of $[5]$; edges: disjoint
+$2$-subsets).
+\end{exercise}
+
+\paragraph{Hard Questions.}
+
+\begin{exercise}
+Prove Theorem~\ref{thm:bosemesner}: the matrices $A_0, \ldots, A_d$
+of an association scheme commute pairwise and span a commutative
+algebra. Use the symmetry $A_i^\top = A_i$ and the multiplication rule
+$A_i A_j = \sum_k p_{ij}^k A_k$.
+\end{exercise}
+
+\begin{exercise}
+Use the Delsarte LP bound on the Johnson scheme $J(n, k)$ to recover
+the Erd\H{o}s--Ko--Rado theorem: a family of pairwise-intersecting
+$k$-subsets of $[n]$ ($n \ge 2k$) has size at most $\binom{n-1}{k-1}$.
+\end{exercise}
+
+\paragraph{Diagram Questions.}
+
+\begin{exercise}
+Draw the Hamming graph $H(2, 3)$ (vertices: $\{0, 1, 2\}^2$; edges:
+words differing in one coordinate). Identify it as the rook graph
+$3 \times 3$ and compute its spectrum.
+\end{exercise}
+
+\begin{exercise}
+Sketch the partition $\{R_0, R_1, R_2\}$ of the vertex pairs of $C_5$
+by distance. Verify the intersection numbers $p_{ij}^k$ from the
+multiplication table $A_i A_j = \sum_k p_{ij}^k A_k$.
+\end{exercise}
+
+%====================================================================
+\subsection{Cayley Graphs and Vertex-Transitive Graphs}
+%====================================================================
+
+Cayley graphs encode group structure as graph structure. Their
+eigenvalues are computable from the irreducible characters of the
+group, making them the cleanest available source of explicit
+$d$-regular graphs with prescribed spectral properties (notably,
+expanders).
+
+\subsubsection{Definitions and First Examples}
+
+\begin{definition}[Cayley graph]\label{def:cayley}
+Let $\Gamma$ be a finite group and $S \subseteq \Gamma \setminus \{e\}$
+a symmetric subset (closed under inversion: $s \in S \Rightarrow s^{-1} \in S$).
+The \textbf{Cayley graph} $\mathrm{Cay}(\Gamma, S)$ has vertex set
+$\Gamma$ and edge set $\{\{g, gs\} : g \in \Gamma, s \in S\}$. It is
+$|S|$-regular and connected iff $S$ generates $\Gamma$.
+\end{definition}
+
+\begin{example}[Familiar Cayley graphs]
+\mbox{}
+\begin{itemize}
+  \item $C_n = \mathrm{Cay}(\mathbb Z_n, \{\pm 1\})$.
+  \item Hypercube $Q_n = \mathrm{Cay}(\mathbb Z_2^n, \{e_1, \ldots, e_n\})$.
+  \item Complete graph $K_n = \mathrm{Cay}(\Gamma, \Gamma \setminus \{e\})$
+        for any group $\Gamma$ of order $n$.
+  \item The \emph{circulant} graph $C_n(S)$ for $S \subseteq \{1, 2, \ldots, \lfloor n/2 \rfloor\}$
+        is $\mathrm{Cay}(\mathbb Z_n, S \cup (-S))$.
+\end{itemize}
+\end{example}
+
+\begin{theorem}[Cayley implies vertex-transitive]\label{thm:cayleyvt}
+Every Cayley graph is vertex-transitive: left translation by any
+$h \in \Gamma$ is an automorphism. The converse is false (e.g.\ the
+Petersen graph is vertex-transitive but not Cayley for any group).
+\end{theorem}
+
+\subsubsection{Spectrum from Characters}
+
+\begin{theorem}[Character formula for abelian Cayley spectra]\label{thm:cayleyabelian}
+Let $\Gamma$ be a \emph{finite abelian} group and
+$X = \mathrm{Cay}(\Gamma, S)$. The eigenvalues of $A(X)$ are exactly
+\[
+  \lambda_\chi \;=\; \sum_{s \in S} \chi(s),
+  \qquad \chi \in \widehat{\Gamma},
+\]
+where $\widehat{\Gamma}$ is the group of characters of $\Gamma$. The
+character $\chi$ itself, viewed as a vector $(\chi(g))_{g \in \Gamma}$,
+is the eigenvector.
+\end{theorem}
+
+\begin{proof}
+Since $\Gamma$ is abelian, characters form an orthonormal basis of
+$\mathbb C^\Gamma$. Direct computation:
+\[
+  (A \chi)(g) = \sum_{s \in S} \chi(g s)
+              = \chi(g) \sum_{s \in S} \chi(s)
+              = \lambda_\chi \chi(g).
+\]
+\end{proof}
+
+\begin{example}[Hypercube spectrum]
+For $\Gamma = \mathbb Z_2^n$ the characters are
+$\chi_T(x) = (-1)^{|T \cap x|}$ for $T \subseteq [n]$. The spectrum of
+$Q_n$ is therefore
+\[
+  \lambda_T \;=\; \sum_{i = 1}^{n} \chi_T(e_i) \;=\; n - 2|T|,
+  \qquad T \subseteq [n],
+\]
+giving eigenvalues $n - 2k$ ($0 \le k \le n$) with multiplicity
+$\binom{n}{k}$.
+\end{example}
+
+\begin{example}[Cycle spectrum]
+For $\Gamma = \mathbb Z_n$ the characters are $\chi_j(k) = \omega^{jk}$
+with $\omega = e^{2\pi i/n}$. The spectrum of $C_n = \mathrm{Cay}(\mathbb Z_n, \{\pm 1\})$
+is $\lambda_j = \omega^j + \omega^{-j} = 2\cos(2\pi j/n)$.
+\end{example}
+
+\subsubsection{Non-Abelian Cayley Graphs}
+
+\begin{theorem}[Diaconis--Shahshahani trace formula]
+Let $\Gamma$ be a finite (possibly non-abelian) group and
+$S \subseteq \Gamma$ symmetric. Then the spectrum of
+$\mathrm{Cay}(\Gamma, S)$ consists of the eigenvalues of the matrices
+$\rho(\hat S) = \sum_{s \in S} \rho(s)$ as $\rho$ ranges over the
+irreducible (unitary) representations of $\Gamma$, with multiplicities
+$\dim(\rho)$.
+\end{theorem}
+
+\begin{example}[Random walks on $S_n$]
+The transposition walk on $S_n$ corresponds to
+$\mathrm{Cay}(S_n, S)$ with $S$ the set of all transpositions.
+Diaconis and Shahshahani used the character formula to prove that the
+mixing time is $\frac{1}{2} n \log n$, the canonical example of a
+sharp \emph{cutoff phenomenon} for Markov chains.
+\end{example}
+
+\subsubsection{Vertex-Transitive Graphs and Cayley-ness}
+
+\begin{theorem}[Sabidussi, 1958]
+A vertex-transitive graph $X$ is a Cayley graph iff $\mathrm{Aut}(X)$
+contains a subgroup acting regularly (transitively and freely) on
+$V(X)$.
+\end{theorem}
+
+\begin{example}[Petersen is not Cayley]
+$|\mathrm{Aut}(\text{Petersen})| = 120 = 5!$, with full automorphism
+group $S_5$. There is no subgroup of $S_5$ of order $10$ acting
+regularly on the $10$ vertices, so Petersen fails Sabidussi's
+criterion.
+\end{example}
+
+\subsubsection{Exercises}
+
+\paragraph{Easy Questions.}
+
+\begin{exercise}
+Identify each of the following as a Cayley graph if possible: $K_4$,
+$K_{3,3}$, $C_5$, $Q_3$, the Petersen graph.
+\end{exercise}
+
+\begin{exercise}
+Compute the spectrum of the circulant graph $C_8(\{1, 3\})$ using
+Theorem~\ref{thm:cayleyabelian}.
+\end{exercise}
+
+\paragraph{Medium Questions.}
+
+\begin{exercise}
+Show that $\mathrm{Cay}(\mathbb Z_n, S)$ is connected iff $\gcd(S) = 1$,
+where $\gcd(S)$ is the GCD of the elements of $S \cup (-S) \cup \{n\}$.
+\end{exercise}
+
+\begin{exercise}
+Verify that the Cayley graph $\mathrm{Cay}(D_8, \{r, r^{-1}, s\})$
+(dihedral group with rotation $r$ of order $4$ and reflection $s$) is
+isomorphic to the cube $Q_3$. Use Sabidussi's theorem to conclude that
+$Q_3$ has at least two non-equivalent presentations as a Cayley graph.
+\end{exercise}
+
+\paragraph{Hard Questions.}
+
+\begin{exercise}
+Prove that for any abelian group $\Gamma$ and symmetric generating
+set $S$, the second-largest eigenvalue $\lambda_2$ of $\mathrm{Cay}(\Gamma, S)$
+satisfies
+$\lambda_2 \ge |S| - 2 \pi^2 \cdot (|S|/\mathrm{diam}(X))^2 / 4$.
+Conclude that abelian Cayley graphs cannot be expanders if the
+generating set has bounded size.
+\end{exercise}
+
+\begin{exercise}
+Use the character formula for non-abelian Cayley graphs to compute
+the spectrum of the Cayley graph of $S_3$ with generating set
+$\{(12), (13), (23)\}$. Identify the resulting graph.
+\end{exercise}
+
+\paragraph{Diagram Questions.}
+
+\begin{exercise}
+Draw $\mathrm{Cay}(\mathbb Z_2^3, \{e_1, e_2, e_3\}) = Q_3$ and label
+the eigenvectors $\chi_T$ for each $T \subseteq \{1, 2, 3\}$. Color
+each vertex by the sign $\chi_T(g) = \pm 1$ for $T = \{1, 2\}$ and
+verify that this colouring is balanced and orthogonal to the all-ones
+vector.
+\end{exercise}
+
+\begin{exercise}
+Draw the Cayley graph of $\mathbb Z_5$ with generating set
+$\{\pm 1\}$ (the pentagon $C_5$). Mark the eigenvectors
+$\chi_j(k) = e^{2\pi i j k/5}$ for $j = 1, 2$ and verify that the
+corresponding eigenvalues are $2 \cos(2\pi/5)$ and $2 \cos(4\pi/5)$.
+\end{exercise}
+
+%====================================================================
+\subsection{The Tutte Polynomial and Graphic Matroids}
+%====================================================================
+
+The Tutte polynomial $T_G(x, y)$ is the universal multiplicative
+graph invariant on deletion--contraction. It specializes to the
+chromatic polynomial, the flow polynomial, the all-terminal
+reliability polynomial, the Jones polynomial of an alternating link,
+and the Potts model partition function. Its natural setting is the
+\emph{matroid} of $G$.
+
+\subsubsection{Deletion, Contraction, and the Tutte Polynomial}
+
+\begin{definition}[Deletion and contraction]
+For a graph $G$ and edge $e \in E(G)$:
+\begin{itemize}
+  \item $G \setminus e$ is the graph obtained by removing $e$.
+  \item $G / e$ is the graph obtained by contracting $e$ (identify
+        its two endpoints, removing any loops created).
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Tutte polynomial]\label{def:tutte}
+For a graph $G$ with vertex set $V$, edge set $E$, and rank
+$r(G) = |V| - c(G)$ (where $c(G)$ is the number of connected
+components), the \textbf{Tutte polynomial} is
+\[
+  T_G(x, y) \;=\; \sum_{A \subseteq E} (x - 1)^{r(E) - r(A)} (y - 1)^{|A| - r(A)},
+\]
+where $r(A) = |V| - c(V, A)$ is the rank of the spanning subgraph
+$(V, A)$.
+\end{definition}
+
+\begin{theorem}[Deletion--contraction recursion]\label{thm:tuttedc}
+For an edge $e \in E(G)$:
+\begin{itemize}
+  \item If $e$ is neither a loop nor a bridge:
+        $T_G(x, y) = T_{G \setminus e}(x, y) + T_{G / e}(x, y)$.
+  \item If $e$ is a bridge: $T_G(x, y) = x \cdot T_{G / e}(x, y)$.
+  \item If $e$ is a loop: $T_G(x, y) = y \cdot T_{G \setminus e}(x, y)$.
+  \item If $G$ has no edges: $T_G(x, y) = 1$.
+\end{itemize}
+These four rules determine $T_G$ uniquely.
+\end{theorem}
+
+\begin{example}[Tutte polynomial of small graphs]
+\mbox{}
+\begin{itemize}
+  \item $T_{K_2}(x, y) = x$.
+  \item $T_{K_3}(x, y) = x^2 + x + y$.
+  \item $T_{K_4}(x, y) = x^3 + 3x^2 + 2x + 4xy + 2y + 3y^2 + y^3$.
+\end{itemize}
+\end{example}
+
+\subsubsection{Specializations: Chromatic, Flow, Reliability}
+
+\begin{theorem}[Whitney/Tutte specialization]\label{thm:tuttechrom}
+For any graph $G$ on $n$ vertices,
+\[
+  \chi_G(k) \;=\; (-1)^{r(E)}\, k^{c(G)} \, T_G(1 - k, 0),
+\]
+where $\chi_G(k)$ is the chromatic polynomial counting proper
+$k$-colorings.
+\end{theorem}
+
+\begin{theorem}[Flow polynomial]
+The number of nowhere-zero $\mathbb Z_k$-flows on $G$ (with arbitrary
+edge orientation) is
+\[
+  F_G(k) \;=\; (-1)^{|E| - r(E)}\, T_G(0, 1 - k).
+\]
+\end{theorem}
+
+\begin{theorem}[Reliability polynomial]
+If each edge of $G$ fails independently with probability $1 - p$, the
+probability that the surviving subgraph remains connected (the
+\textbf{all-terminal reliability}) is
+\[
+  R_G(p) \;=\; p^{r(E)} (1 - p)^{|E| - r(E)} \, T_G(1, 1/(1 - p)).
+\]
+\end{theorem}
+
+\subsubsection{Whitney's Broken-Circuit Theorem}
+
+\begin{definition}[Broken circuit]
+Fix a total order on $E(G)$. A \textbf{broken circuit} is a set
+$C \setminus \{e\}$ where $C$ is a cycle of $G$ and $e$ is the largest
+edge of $C$.
+\end{definition}
+
+\begin{theorem}[Whitney's broken-circuit theorem]\label{thm:whitneybc}
+For any total order on $E(G)$,
+\[
+  \chi_G(k) \;=\; \sum_{B \subseteq E,\ B \text{ contains no broken circuit}}
+                  (-1)^{|B|}\, k^{n - |B|}.
+\]
+In particular, $\chi_G(k)$ has alternating-sign integer coefficients.
+\end{theorem}
+
+\begin{theorem}[Huh--Katz, 2012]
+The coefficients of the chromatic polynomial form a \emph{log-concave}
+sequence: if $\chi_G(k) = \sum_{i = 0}^{n} (-1)^i a_i k^{n - i}$, then
+$a_i^2 \ge a_{i - 1} a_{i + 1}$ for $1 \le i \le n - 1$.
+\end{theorem}
+
+The Huh--Katz proof uses Hodge theory of the Chow ring of the
+graphic matroid; this established the Rota--Heron--Welsh conjecture
+in full generality.
+
+\subsubsection{Graphic Matroids and Cycle/Bond Duality}
+
+\begin{definition}[Matroid]\label{def:matroid}
+A \textbf{matroid} on a finite set $E$ is a pair $(E, \mathcal I)$
+where $\mathcal I \subseteq 2^E$ (the \textbf{independent sets})
+satisfies:
+\begin{itemize}
+  \item $\emptyset \in \mathcal I$.
+  \item If $I \in \mathcal I$ and $J \subseteq I$, then $J \in \mathcal I$.
+  \item (\emph{Augmentation}) If $I, J \in \mathcal I$ with $|I| < |J|$,
+        then there exists $e \in J \setminus I$ with $I \cup \{e\} \in \mathcal I$.
+\end{itemize}
+The maximal independent sets are the \textbf{bases}; the rank
+function is $r(A) = \max\{|I| : I \subseteq A,\ I \in \mathcal I\}$.
+\end{definition}
+
+\begin{example}[Graphic matroid]
+For a graph $G$, let $E = E(G)$ and
+$\mathcal I = \{A \subseteq E : (V, A) \text{ is acyclic}\}$. This is
+the \textbf{graphic matroid} $M(G)$. Bases of $M(G)$ are spanning
+forests of $G$; the rank is $|V| - c(G)$.
+\end{example}
+
+\begin{theorem}[Cycle/bond duality on planar graphs]
+For a planar graph $G$ with planar dual $G^*$,
+$M(G^*) = M(G)^*$, where $M(G)^*$ is the matroid dual of $M(G)$.
+Equivalently, cycles in $G$ correspond to bonds (minimal cuts) in
+$G^*$ and vice versa.
+\end{theorem}
+
+\begin{theorem}[Tutte polynomial as matroid invariant]
+The Tutte polynomial extends to all matroids via the same formula:
+$T_M(x, y) = \sum_{A \subseteq E} (x - 1)^{r(E) - r(A)} (y - 1)^{|A| - r(A)}$.
+For graphic matroids $M(G)$, this recovers $T_G(x, y)$. Matroid
+duality interchanges $x$ and $y$:
+$T_{M^*}(x, y) = T_M(y, x)$.
+\end{theorem}
+
+\subsubsection{Connections: Stanley's Chromatic Symmetric Function}
+
+\begin{definition}[Chromatic symmetric function; Stanley, 1995]
+For a graph $G$ on vertex set $V$, define the \textbf{chromatic
+symmetric function}
+\[
+  X_G(x_1, x_2, \ldots) \;=\; \sum_{\kappa : V \to \mathbb Z_{\ge 1}\ \text{proper}}
+                              \prod_{v \in V} x_{\kappa(v)}.
+\]
+\end{definition}
+
+\begin{theorem}[Stanley]
+$X_G$ is a symmetric function in $x_1, x_2, \ldots$, and $X_G(1, 1, \ldots, 1, 0, 0, \ldots) = \chi_G(k)$
+when there are $k$ ones. Thus $X_G$ refines the chromatic polynomial.
+\end{theorem}
+
+\begin{conjecture}[Stanley's tree conjecture, 1995, OPEN]
+If $T_1$ and $T_2$ are non-isomorphic trees on the same number of
+vertices, then $X_{T_1} \ne X_{T_2}$.
+\end{conjecture}
+
+This conjecture has been verified by computer search for trees on up
+to $\sim 30$ vertices but remains open. It would imply, in particular,
+that the chromatic symmetric function distinguishes any pair of
+non-isomorphic trees---a much finer invariant than the chromatic
+polynomial $\chi_T(k) = k(k - 1)^{n - 1}$, which depends only on the
+number of vertices.
+
+\subsubsection{Exercises}
+
+\paragraph{Easy Questions.}
+
+\begin{exercise}
+Compute $T_{C_4}(x, y)$ from Definition~\ref{def:tutte} by enumerating
+all $2^4 = 16$ subsets of edges. Verify your answer against the
+deletion--contraction recursion (Theorem~\ref{thm:tuttedc}).
+\end{exercise}
+
+\begin{exercise}
+Use Theorem~\ref{thm:tuttechrom} to derive the chromatic polynomial
+$\chi_{K_4}(k)$ from $T_{K_4}(x, y)$. Compare with the direct formula
+$\chi_{K_n}(k) = k(k - 1)(k - 2) \cdots (k - n + 1)$.
+\end{exercise}
+
+\paragraph{Medium Questions.}
+
+\begin{exercise}
+Prove the deletion--contraction recursion (Theorem~\ref{thm:tuttedc})
+from Definition~\ref{def:tutte} by partitioning $A \subseteq E$ into
+those containing $e$ and those not.
+\end{exercise}
+
+\begin{exercise}
+Show that $T_G(2, 1) = $ number of spanning forests of $G$,
+$T_G(1, 1) = $ number of spanning trees, and
+$T_G(2, 0) = $ number of acyclic orientations of $G$ (Stanley).
+\end{exercise}
+
+\paragraph{Hard Questions.}
+
+\begin{exercise}
+Prove Whitney's broken-circuit theorem (Theorem~\ref{thm:whitneybc})
+by inclusion--exclusion on the cycles of $G$, ordered by their largest
+edge.
+\end{exercise}
+
+\begin{exercise}
+Show that the chromatic polynomial $\chi_G(k)$ has all real roots iff
+$G$ is a chordal graph. (Hint: chromatic polynomials of chordal graphs
+factor into linear pieces by perfect elimination ordering.)
+\end{exercise}
+
+\paragraph{Diagram Questions.}
+
+\begin{exercise}
+For the planar graph $G = K_4$ minus an edge, draw both $G$ and its
+planar dual $G^*$. Verify directly that $T_{G^*}(x, y) = T_G(y, x)$
+by computing both polynomials and comparing.
+\end{exercise}
+
+\begin{exercise}
+Draw the broken-circuit complex of the triangle $K_3$ with edges
+ordered $e_1 < e_2 < e_3$. Identify the unique broken circuit
+$\{e_1, e_2\}$, and verify
+$\chi_{K_3}(k) = k^3 - 3k^2 + 2k$ from the broken-circuit sum of
+Theorem~\ref{thm:whitneybc}.
+\end{exercise}
+
+%====================================================================
+\subsection{Further Reading and Pointers}
+%====================================================================
+
+\paragraph{Matchings polynomial and rootedness.} Godsil's
+\emph{Algebraic Combinatorics} (1993), Chapters 1, 4, 6, develops the
+path-tree machinery in full and extends to the broader theory of
+\emph{tree-like} walks and characteristic polynomials of covers.
+
+\paragraph{Equitable partitions and walk-regularity.} Godsil--Royle,
+\emph{Algebraic Graph Theory} (2001), Chapters 9--10, are the
+canonical reference. Brouwer--Haemers, \emph{Spectra of Graphs}
+(2012), Chapter 3, contains modern interlacing and Hoffman/Haemers
+bounds.
+
+\paragraph{Distance-regular graphs and association schemes.}
+Brouwer--Cohen--Neumaier, \emph{Distance-Regular Graphs} (1989), is
+the comprehensive reference; Bannai--Ito, \emph{Algebraic
+Combinatorics I} (1984), develops the Bose--Mesner algebra. Delsarte's
+1973 thesis on the LP method remains foundational.
+
+\paragraph{Cayley graphs and expanders.} Hoory--Linial--Wigderson,
+``Expander Graphs and Their Applications'' (\emph{Bull.\ AMS}, 2006),
+surveys both deterministic and probabilistic constructions. Lubotzky,
+\emph{Discrete Groups, Expanding Graphs, and Invariant Measures}
+(1994), connects to representation theory and number theory.
+
+\paragraph{Tutte polynomial and matroids.} Bollob\'as,
+\emph{Modern Graph Theory} (1998), Chapter 10, gives a graph-theoretic
+treatment. Oxley, \emph{Matroid Theory} (2nd ed., 2011), is the
+matroid-side reference. Welsh's
+\emph{Complexity: Knots, Colourings and Counting} (1993) discusses
+the Jones polynomial connection.
+
+\paragraph{Chromatic symmetric function.} Stanley's original paper,
+``A symmetric function generalization of the chromatic polynomial of
+a graph'' (\emph{Adv.\ Math.}, 1995), is short and self-contained.
+Recent partial progress on the tree conjecture is surveyed in
+Crew--Spirkl (2023) and references therein.

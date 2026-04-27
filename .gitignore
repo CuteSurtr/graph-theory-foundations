@@ -1,0 +1,63 @@
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
+*.nav
+*.snm
+*.vrb
+
+# PDFs of reference books (not redistributed)
+Algebraic*.pdf
+Lectures*.pdf
+algebraic combinatorics.pdf
+
+# Scratch files / drafts not part of the book
+graph theory.txt
+combinatorics.txt
+combinatorics1.txt
+combinatorics_algorithms.py
+*.ipynb
+.ipynb_checkpoints/
+
+# Per-chapter scratch copies (master file is graph theory.tex)
+chapter1.tex
+chapter2.tex
+chapter3.tex
+chapter5.tex
+chapter6.tex
+chapter7.tex
+chapter8.tex
+chapter9.tex
+chapter10.tex
+CombinatoricsBookComplete.tex
+CompleteCombinatoricsBook.tex
+expansion*.tex
+mega_expansion*.tex
+massive_expansion*.tex
+ultra_expansion*.tex
+final_expansion.tex
+temp_expansion.tex
+
+# Planning documents
+COMPLETE_CONSOLIDATION_SUMMARY.md
+CONSOLIDATION_SUMMARY.md
+
+# Test scripts
+test_algorithms.py
+
+# Editor / IDE
+.vscode/
+.claude/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
