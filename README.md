@@ -94,7 +94,7 @@ Chapter 12 draws on:
 - Brouwer & Haemers, *Spectra of Graphs* (2012)
 - Oxley, *Matroid Theory* (2nd ed., 2011)
 
-Chapters 1-11 follow the standard graduate sequence and can be paired
+Chapters 1-11 follow the standard undergraduate sequence and can be paired
 with Diestel, *Graph Theory* (5th ed.), Bollobas, *Modern Graph
 Theory*, or West, *Introduction to Graph Theory* (2nd ed.).
 
