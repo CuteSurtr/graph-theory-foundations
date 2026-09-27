@@ -35,10 +35,11 @@ Chapter~11 but freely cites spectral results from \S 11.4.
         chromatic, flow, reliability, Ising, Jones polynomials. The
         matroid framework abstracts cycle/bond duality.
   \item \S 12.6 \textbf{Heaps of pieces.} Walk generating functions on
-        graphs as continued fractions; combinatorial proof of
-        Heilmann--Lieb; bridge to orthogonal polynomial theory.
+        graphs as continued fractions; heap-theoretic view of the
+        matchings polynomial; bridge to orthogonal polynomial theory.
   \item \S 12.7 \textbf{Ihara zeta function.} Graph Riemann zeta whose
-        ``Riemann hypothesis'' equals the Ramanujan property;
+        ``Riemann hypothesis'' equals the Ramanujan property for
+        connected non-bipartite regular graphs;
         Hashimoto non-backtracking matrix is the foundation of modern
         spectral community detection.
   \item \S 12.8 \textbf{Combinatorial Hopf algebras.} Schmitt's graph
@@ -64,7 +65,8 @@ Chapter~11 but freely cites spectral results from \S 11.4.
         algebras of finite type and the Cartan--Killing classification;
         triangulations of surfaces.
   \item \S 12.13 \textbf{Chip-firing, sandpiles, and Riemann--Roch for
-        graphs.} The sandpile (Picard) group of a graph; Baker--Norine
+        graphs.} The sandpile group (the degree-zero Picard group) of a
+        graph; Baker--Norine
         Riemann--Roch theorem; explicit graph-theoretic analogues of
         algebraic-geometric intersection theory.
   \item \S 12.14 \textbf{Random walks via representation theory.}
@@ -862,8 +864,13 @@ $\dim(\rho)$.
 \end{theorem}
 
 \begin{example}[Random walks on $S_n$]
-The transposition walk on $S_n$ corresponds to
-$\mathrm{Cay}(S_n, S)$ with $S$ the set of all transpositions.
+The random transposition walk on $S_n$ is a random walk on
+$\mathrm{Cay}(S_n, S)$ with $S$ the set of all transpositions that
+stays put with probability $1/n$: it chooses two cards independently
+and uniformly and swaps them, so $\mu(\mathrm{id}) = 1/n$ and
+$\mu(\tau) = 2/n^2$ for each transposition $\tau$. (The simple random
+walk on $\mathrm{Cay}(S_n, S)$ alternates between even and odd
+permutations, so it never converges to the uniform distribution.)
 Diaconis and Shahshahani used the character formula to prove that the
 mixing time is $\frac{1}{2} n \log n$, the canonical example of a
 sharp \emph{cutoff phenomenon} for Markov chains.
@@ -1427,9 +1434,9 @@ Riemann zeta function. Originally introduced by Ihara (1966) in the
 context of $p$-adic groups and rediscovered combinatorially by
 Sunada, Hashimoto, Bass, and Stark--Terras, it packages \emph{prime
 non-backtracking closed walks} into a generating function whose
-poles encode spectral properties of the graph. The Ramanujan property
-of \S 11.4 turns out to be exactly the ``Riemann hypothesis'' for the
-Ihara zeta.
+poles encode spectral properties of the graph. For connected
+non-bipartite regular graphs, the Ramanujan property of \S 11.4 turns
+out to be exactly the ``Riemann hypothesis'' for the Ihara zeta.
 
 \subsubsection{Non-Backtracking Walks and Primes}
 
