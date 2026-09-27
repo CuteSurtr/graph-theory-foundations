@@ -19852,7 +19852,8 @@ arguably the deepest body of work in structural graph theory. The
 two central pillars are the \textbf{Graph Minor Theorem}
 (well-quasi-ordering of finite graphs under the minor relation) and
 the \textbf{Graph Minor Structure Theorem} (every graph excluding a
-fixed minor is nearly planar in a precise sense). Alongside these,
+fixed minor is built, in a precise sense, from pieces that nearly embed
+in surfaces of bounded genus). Alongside these,
 \textbf{treewidth} has emerged as the single most important
 parameter for measuring a graph's ``distance to being a tree'' and
 the crux of parameterized algorithm design.
@@ -19876,9 +19877,12 @@ Petersen graph).
 \end{definition}
 
 \begin{proposition}[Subdivisions and maximum degree]
-$H$ is a topological minor of $G$ iff $H$ is a minor of $G$ via branch
-sets that are paths. If $\Delta(H) \le 3$, topological-minor and minor
-coincide.
+If $H$ is a topological minor of $G$, then $H$ is a minor of $G$: in a
+subdivision of $H$ inside $G$, take as branch set of $u$ the branch vertex
+of $u$ together with the interior vertices of the subdivided edges assigned
+to $u$ (each subdivided edge being assigned to one of its ends); each branch
+set is then a subdivided star. If $\Delta(H) \le 3$, the converse also holds,
+so topological-minor and minor coincide.
 \end{proposition}
 
 \begin{theorem}[Kuratowski, 1930]\label{thm:kuratowski}
@@ -20006,9 +20010,11 @@ treewidth.
 
 \begin{definition}[Cops and robber game]
 In the $k$-cop game on $G$, $k$ cops and a robber are placed on
-vertices. Each round: cops may jointly teleport to any vertices, and
-the robber runs along any $(V(G) \setminus \text{new cops})$-avoiding
-path. Cops win if a cop ever lands on the robber. The
+vertices. Each round the cops, currently on a set $X$, announce a new
+position $Y$ with $|Y| \le k$ and fly there by helicopter; while they are
+in the air, the robber (who sees $Y$) may run along any path of $G$ that
+avoids the cops staying in place, i.e.\ the vertices of $X \cap Y$.
+Cops win if a cop ever lands on the robber. The
 \textbf{cop number} is the least $k$ for which cops win.
 \end{definition}
 
@@ -20055,14 +20061,18 @@ $K_k$ as a minor, where $c$ is an absolute constant. Moreover the
 bound is tight up to the constant.
 \end{theorem}
 
-\begin{theorem}[Hadwiger's conjecture]
+\begin{conjecture}[Hadwiger's conjecture]
 Every graph $G$ of chromatic number $k$ contains $K_k$ as a minor.
-\end{theorem}
+\end{conjecture}
 
-Hadwiger is an enormous strengthening of the Four Color Theorem
-(proved for $k = 4$ by Wagner, $k = 5$ by Robertson--Seymour--Thomas,
-and open for $k \ge 6$ in general). Recent progress by Norin--Postle--Song
-gives $O(k (\log \log k)^6)$-chromatic suffices for $K_k$-minor.
+Hadwiger's conjecture is an enormous strengthening of the Four Color
+Theorem. It is easy for $k \le 3$, was proved for $k = 4$ by Hadwiger,
+is equivalent to the Four Color Theorem for $k = 5$ (Wagner), was proved
+for $k = 6$ by Robertson--Seymour--Thomas (1993), and is open for $k \ge 7$.
+Towards a linear bound, Norin--Postle--Song showed that graphs with no
+$K_k$ minor are $O(k (\log k)^{\beta})$-colorable for every $\beta > 1/4$;
+Postle improved this to $O(k (\log \log k)^6)$, and Delcourt--Postle to
+$O(k \log \log k)$.
 
 \subsubsection{The Graph Minor Structure Theorem}
 
@@ -20160,8 +20170,9 @@ fixed number of terminal pairs can be handled in polynomial time.
 
 \begin{exercise}
 Show that every graph with treewidth at most $k$ has at most $kn$
-edges. Deduce that planar graphs, despite allowing up to $3n - 6$
-edges, may still have large treewidth.
+edges. Show that the converse fails badly: planar graphs have at most
+$3n - 6$ edges, yet the $m \times m$ grid (planar, with $n = m^2$ vertices
+and fewer than $2n$ edges) has treewidth $m = \sqrt n$.
 \end{exercise}
 
 \begin{exercise}
@@ -20217,7 +20228,7 @@ decomposition.)
 
 \begin{exercise}
 Prove that every graph with no $K_t$-minor has chromatic number
-$O(t \sqrt{\log t})$. (Use Mader's density bound.)
+$O(t \sqrt{\log t})$. (Use the Kostochka--Thomason density bound.)
 \end{exercise}
 
 \begin{exercise}
@@ -20227,8 +20238,9 @@ relation.
 \end{exercise}
 
 \begin{exercise}
-Prove the grid-minor theorem (Theorem~\ref{thm:gridminor}) with the
-weaker bound $f(k) = 2^{\Theta(k)}$, using an induction on treewidth
+Prove the grid-minor theorem (Theorem~\ref{thm:gridminor}) with a
+weaker, exponential bound such as $f(k) = 2^{O(k^5)}$
+(Robertson--Seymour--Thomas), using an induction on treewidth
 and the separator / tangle machinery.
 \end{exercise}
 
@@ -20236,15 +20248,16 @@ and the separator / tangle machinery.
 
 \begin{exercise}
 For the $3 \times 3$ grid, construct an explicit width-$3$ tree
-decomposition (the upper bound is achieved by a path of $3$ bags,
-each containing one row plus the next). Draw the decomposition
-analogously to Figure~\ref{fig:treewidth}.
+decomposition (the upper bound is achieved by a path of $6$ bags of
+size $4$: list the vertices row by row as $v_1, \dots, v_9$ and take
+$B_t = \{v_t, v_{t+1}, v_{t+2}, v_{t+3}\}$ for $t = 1, \dots, 6$). Draw the
+decomposition analogously to Figure~\ref{fig:treewidth}.
 \end{exercise}
 
 \begin{exercise}
 Draw $K_5$ and $K_{3,3}$ side by side. For each, exhibit a
 $K_5$-minor (resp.\ $K_{3,3}$-minor) inside the Petersen graph by
-choosing four (resp.\ six) connected branch sets and verifying that
+choosing five (resp.\ six) connected branch sets and verifying that
 the required adjacencies hold.
 \end{exercise}
 
@@ -20272,8 +20285,10 @@ no monochromatic triangle and arguing $R(3,3) \le 6$ directly.
 \paragraph{Medium Questions.}
 
 \begin{exercise}
-Using linearity of expectation, show that every tournament on $n$
-vertices contains a Hamiltonian path.
+Show that every tournament on $n$ vertices contains a Hamiltonian path
+(induct on $n$, inserting the new vertex into a Hamiltonian path of the
+rest). Then use linearity of expectation to show that some tournament on
+$n$ vertices has at least $n!/2^{n-1}$ Hamiltonian paths.
 \end{exercise}
 
 \begin{exercise}
@@ -20297,9 +20312,10 @@ and deduce Cayley's formula: $K_n$ has $n^{n-2}$ spanning trees.
 \paragraph{Hard Questions.}
 
 \begin{exercise}
-Show that every graph with treewidth at most $k$ has at most
-$k \cdot n$ edges. Deduce that planar graphs, despite allowing up to
-$3n - 6$ edges, may still have large treewidth.
+Show that every graph with treewidth at most $k$ has at most $kn$
+edges. Show that the converse fails badly: planar graphs have at most
+$3n - 6$ edges, yet the $m \times m$ grid (planar, with $n = m^2$ vertices
+and fewer than $2n$ edges) has treewidth $m = \sqrt n$.
 \end{exercise}
 
 \begin{exercise}
@@ -20312,7 +20328,7 @@ bound requires a connectivity/cops-and-robbers argument.)
 Using the triangle removal lemma, prove the following: for every
 $\eta > 0$ there exists $n_0$ such that any subset of
 $\{1, \dots, n\}$ with $n \ge n_0$ and density at least $\eta$ contains
-a $3$-term arithmetic progression. (Construct the Ruzsa $3$-AP graph.)
+a non-trivial $3$-term arithmetic progression. (Construct the Ruzsa $3$-AP graph.)
 \end{exercise}
 
 %%% NEW CHAPTER 12 FOLLOWS
