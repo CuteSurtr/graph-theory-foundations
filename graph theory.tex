@@ -6570,8 +6570,11 @@ The choice between these algorithms typically depends on the specific graph char
 \end{remark}
 
 \begin{corollary}[Exchange Property]
-If edge $e$ is in an MST $T$ and edge $f$ is not in $T$, then adding $f$ to $T$ creates a unique cycle $C$. If the weight of $f$ is less than the weight of any other edge in $C$, then $(T \setminus \{e\}) \cup \{f\}$ is also an MST.
+Let $T$ be an MST and let $f$ be an edge not in $T$. Adding $f$ to $T$ creates a unique cycle $C$, and $w(f) \geq w(e)$ for every edge $e$ of $C$. Moreover, if $e \neq f$ is an edge of $C$ with $w(e) = w(f)$, then $(T \setminus \{e\}) \cup \{f\}$ is also an MST.
 \end{corollary}
+\begin{proof}
+Let $e \neq f$ be an edge of $C$, and write $w(H)$ for the total weight of the edges of a subgraph $H$. The graph $T' = (T \setminus \{e\}) \cup \{f\}$ is connected, because $e$ lies on the cycle $C$ of $T \cup \{f\}$, and it has $|V| - 1$ edges, so $T'$ is a spanning tree with $w(T') = w(T) - w(e) + w(f)$. Since $T$ is an MST, $w(T') \geq w(T)$, that is, $w(f) \geq w(e)$. If $w(e) = w(f)$, then $w(T') = w(T)$, so $T'$ is also an MST.
+\end{proof}
 
 \begin{corollary}[Growth Property]
 Both algorithms build the MST by adding one edge at a time, never removing an edge once added.
@@ -6623,7 +6626,7 @@ Growth Pattern & Single tree & Forest of trees \\
 \subsection{Dijkstra's Algorithm}
 
 \begin{definition}[Dijkstra's Algorithm]
-Let $G = (V, E)$ be a directed graph with a non-negative weight function $w: E \rightarrow \mathbb{R}^+$, and let $s \in V$ be a source vertex. Dijkstra's algorithm computes $\delta(s, v)$, the weight of the shortest path from $s$ to each vertex $v \in V$, as follows:
+Let $G = (V, E)$ be a directed graph with a non-negative weight function $w: E \rightarrow \mathbb{R}_{\geq 0}$, and let $s \in V$ be a source vertex. Dijkstra's algorithm computes $\delta(s, v)$, the weight of the shortest path from $s$ to each vertex $v \in V$, as follows:
 
 \begin{enumerate}
 \item Initialize $d[s] = 0$ and $d[v] = \infty$ for all other vertices $v \in V$.
@@ -6803,7 +6806,7 @@ Starting with the weighted graph shown in Figure 70, we apply Dijkstra's algorit
 \caption{Dijkstra's Algorithm}
 \begin{algorithmic}[1]
 \Procedure{Dijkstra}{$G = (V, E), w, s$}
-    \State \textbf{Input:} Graph $G$ with vertices $V$ and edges $E$, weight function $w : E \rightarrow \mathbb{R}^+$, source vertex $s \in V$
+    \State \textbf{Input:} Graph $G$ with vertices $V$ and edges $E$, weight function $w : E \rightarrow \mathbb{R}_{\geq 0}$, source vertex $s \in V$
     \State \textbf{Output:} For each vertex $v \in V$, the shortest path distance $d[v]$ from $s$ to $v$
     
     \State $d[v] \gets \infty$ for all $v \in V$ \Comment{Initialize distances to infinity}
@@ -6880,7 +6883,7 @@ The vertex $u$ with the minimum distance value $d[u]$ among all unvisited vertic
 \end{corollary}
 
 \begin{corollary}[Subgraph Property]
-The collection of shortest paths from a source vertex $s$ to all other vertices forms a tree rooted at $s$.
+The shortest paths from a source vertex $s$ to all vertices reachable from $s$ can be chosen so that together they form a tree rooted at $s$, called a \textit{shortest-path tree}; for example, the predecessor pointers $\pi$ computed by Dijkstra's algorithm give such a tree. Since shortest paths need not be unique, an arbitrary collection of shortest paths need not form a tree.
 \end{corollary}
 
 \begin{corollary}[Convergence Time]
@@ -6888,7 +6891,7 @@ For a graph with $n$ vertices, Dijkstra's algorithm converges in exactly $n$ ite
 \end{corollary}
 
 \begin{remark}[Time Complexity]
-The standard implementation of Dijkstra's algorithm using a binary heap has time complexity $O(E \log V)$ for a graph with $V$ vertices and $E$ edges. Using a Fibonacci heap can reduce this to $O(V \log V + E)$.
+The standard implementation of Dijkstra's algorithm using a binary heap has time complexity $O((V + E) \log V)$ for a graph with $V$ vertices and $E$ edges, which is $O(E \log V)$ when every vertex is reachable from the source. Using a Fibonacci heap can reduce this to $O(V \log V + E)$.
 \end{remark}
 
 \begin{remark}[Bidirectional Search]
@@ -6901,7 +6904,7 @@ Dijkstra's algorithm can be extended to the A* algorithm by incorporating a heur
 
 \subsection{Floyd–Warshall Algorithm}
 \begin{definition}[Floyd-Warshall Algorithm]
-Let $G = (V, E)$ be a weighted directed graph with $n$ vertices, where $V = \{1, 2, \ldots, n\}$. The Floyd-Warshall algorithm computes the shortest path distances between all pairs of vertices as follows:
+Let $G = (V, E)$ be a weighted directed graph with $n$ vertices, where $V = \{1, 2, \ldots, n\}$, whose edge weights may be negative but which contains no negative-weight cycle. The Floyd-Warshall algorithm computes the shortest path distances between all pairs of vertices as follows:
 
 \begin{enumerate}
 \item Initialize an $n \times n$ matrix $D^{(0)}$ where:
@@ -7304,7 +7307,7 @@ Let $p = \langle v_0, v_1, \ldots, v_k \rangle$ be a shortest path from $s = v_0
 \end{lemma}
 
 \begin{corollary}[Convergence Property]
-If the graph contains no negative weight cycles reachable from $s$, then after $i$ iterations of the outer loop, the algorithm has correctly computed the shortest paths from $s$ to all vertices reachable via paths with at most $i$ edges.
+If the graph contains no negative weight cycles reachable from $s$, then after $i$ iterations of the outer loop, $d[v] = \delta(s,v)$ for every vertex $v$ that has a shortest path from $s$ with at most $i$ edges. (In general, after $i$ iterations $d[v]$ is at most the weight of a lightest $s$--$v$ path with at most $i$ edges, and it may already be smaller.)
 \end{corollary}
 
 \begin{remark}[Comparison with Dijkstra's Algorithm]
@@ -7368,7 +7371,7 @@ If a graph $G = (V, E)$ contains no negative weight cycles reachable from the so
 \end{theorem}
 
 \begin{theorem}[Floyd-Warshall Optimality Property]
-After the $k$-th iteration of the Floyd-Warshall algorithm, $d[i,j]$ equals the length of the shortest path from vertex $i$ to vertex $j$ using only vertices $\{1, 2, \ldots, k\}$ as intermediate vertices.
+If $G$ contains no negative-weight cycle, then after the $k$-th iteration of the Floyd-Warshall algorithm, $d[i,j]$ equals the length of a shortest path from vertex $i$ to vertex $j$ using only vertices in $\{1, 2, \ldots, k\}$ as intermediate vertices.
 \end{theorem}
 
 \begin{table}[h]
@@ -7404,12 +7407,19 @@ A graph $G = (V, E)$ is bipartite if its vertex set $V$ can be partitioned into 
 \end{definition}
 
 \begin{theorem}[Characterization of Bipartite Graphs]
-A graph is bipartite if and only if it is 2-colorable, i.e., its vertices can be colored using two colors such that no adjacent vertices share the same color.
+For a graph $G$, the following are equivalent:
+\begin{enumerate}[label=(\roman*)]
+\item $G$ is bipartite;
+\item $G$ is 2-colorable, i.e., its vertices can be colored using two colors such that no adjacent vertices share the same color;
+\item $G$ contains no cycle of odd length.
+\end{enumerate}
 \end{theorem}
-\begin{proof}[Proof (Sketch)]
-($\Rightarrow$) Suppose $G$ is bipartite with partite sets $U$ and $W$. Any cycle must alternate between vertices in $U$ and $W$. Since alternating between two sets always creates a path with an even number of edges (when returning to the starting set), any cycle must have even length.
+\begin{proof}
+(i) $\Leftrightarrow$ (ii): If $G$ is bipartite with partite sets $U$ and $W$, color every vertex of $U$ with the first color and every vertex of $W$ with the second; since every edge joins $U$ to $W$, adjacent vertices receive different colors. Conversely, the two color classes of a proper 2-coloring partition $V$, and no edge joins two vertices of the same class, so the color classes are partite sets.
 
-($\Leftarrow$) Suppose $G$ has no odd cycles. Select an arbitrary vertex $v \in V$ and assign it to set $U$. Perform a breadth-first search from $v$, assigning vertices to $U$ or $W$ based on their distance from $v$ (odd distance to $W$, even distance to $U$). If $G$ contains no odd cycles, this assignment creates a valid bipartite partition.
+(i) $\Rightarrow$ (iii): Let $C = v_0 v_1 \cdots v_{\ell-1} v_0$ be a cycle of $G$. Consecutive vertices of $C$ lie in different partite sets, so $v_i$ lies in the same partite set as $v_0$ if and only if $i$ is even. Since $v_{\ell-1}$ is adjacent to $v_0$, the index $\ell-1$ is odd, so $\ell$ is even.
+
+(iii) $\Rightarrow$ (i): Suppose $G$ has no odd cycle. A graph is bipartite if each of its components is, so we may assume that $G$ is connected. Fix a vertex $z$ and let $U = \{x \in V : d(z,x) \text{ is even}\}$ and $W = \{x \in V : d(z,x) \text{ is odd}\}$; these are exactly the two classes produced by a breadth-first search from $z$. Suppose, for a contradiction, that some edge $xy$ has both ends in $U$ or both ends in $W$. Since $|d(z,x) - d(z,y)| \leq 1$ for adjacent $x$ and $y$, and $d(z,x)$ and $d(z,y)$ have the same parity, we get $d(z,x) = d(z,y) = m$. Let $P$ be a shortest $z$--$x$ path, let $Q$ be a shortest $z$--$y$ path, and let $u$ be the last vertex of $P$ that also lies on $Q$. The $z$--$u$ portions of $P$ and of $Q$ are shortest $z$--$u$ paths, so the $u$--$x$ portion $P'$ of $P$ and the $u$--$y$ portion $Q'$ of $Q$ both have length $m - d(z,u)$, and by the choice of $u$ they have only the vertex $u$ in common. Moreover $u \neq x$, for otherwise $x$ would be the vertex of $Q$ at distance $m$ from $z$, namely $y$. Hence $P'$, the edge $xy$, and $Q'$ together form a cycle of length $2(m - d(z,u)) + 1$, which is odd, a contradiction. Therefore every edge joins $U$ and $W$, and $G$ is bipartite.
 \end{proof}
 
 \begin{theorem}[Bipartite Edge Bound]
@@ -7602,8 +7612,8 @@ For an odd cycle, it's impossible to create such a bipartition because the last 
 \small Figure 75:An even cycle ($C_6$) with bipartite coloring. Even-indexed vertices are colored red, and odd-indexed vertices are colored blue.
 \end{figure}
 
-\begin{definition}[Distance Biregular Graph]
-A bipartite graph $G = (X \cup Y, E)$ is distance biregular if all vertices in $X$ have degree $k$ and all vertices in $Y$ have degree $l$, where generally $k \neq l$.
+\begin{definition}[Biregular Graph]
+A bipartite graph $G = (X \cup Y, E)$ is \textit{biregular} (also called \textit{semiregular}) if all vertices in $X$ have degree $k$ and all vertices in $Y$ have degree $l$, where generally $k \neq l$; we then say that $G$ is \textit{$(k,l)$-biregular}.
 \end{definition}
 
 \begin{figure}[h]
@@ -7651,6 +7661,7 @@ A bipartite graph $G = (X \cup Y, E)$ is distance biregular if all vertices in $
 
 \pagebreak
 \newpage
+\clearpage
 
 \subsection{Chapter 5 Exercises}
 
