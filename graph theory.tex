@@ -5523,7 +5523,7 @@ Some common diameter and radius values for standard graphs:
 \begin{itemize}
     \item Complete Graph $K_n$: $\text{diam}(K_n) = 1$, $\text{rad}(K_n) = 1$
     \item Path $P_n$: $\text{diam}(P_n) = n-1$, $\text{rad}(P_n) = \lceil\frac{n-1}{2}\rceil$
-    \item Cycle $C_n$: $\text{diam}(C_n) = \lfloor\frac{n}{2}\rfloor$, $\text{rad}(C_n) = \lceil\frac{n}{2}\rceil$
+    \item Cycle $C_n$: $\text{diam}(C_n) = \lfloor\frac{n}{2}\rfloor$, $\text{rad}(C_n) = \lfloor\frac{n}{2}\rfloor$ (every vertex of $C_n$ has eccentricity $\lfloor\frac{n}{2}\rfloor$)
     \item Star $K_{1,n-1}$: $\text{diam}(K_{1,n-1}) = 2$, $\text{rad}(K_{1,n-1}) = 1$
 \end{itemize}
 \begin{remark}[Applications]
@@ -5581,7 +5581,7 @@ Given a graph $G$ and a starting vertex $v_1$, we can construct a breadth-first 
    \end{enumerate}
 \end{enumerate}
 
-The resulting tree $T$ is a BFS spanning tree of $G$.
+If $G$ is connected, the resulting tree $T$ is a BFS spanning tree of $G$ (in general, $T$ spans the component containing $v_1$).
 
 \noindent\textbf{Example.}
 Finding a BFS tree in the graph of Figure 65, starting from vertex $a$:
@@ -5681,6 +5681,7 @@ Figure 66: Example diagram for BFS Tree.
 \label{fig:graph-example2}
 \end{figure}
 \pagebreak
+\noindent As in the previous example, the neighbors of each vertex are examined in increasing (here, numerical) order.
 \begin{enumerate}
 \item $2$ is the root, $V(T) = \{2\}$, BFS ordering: $(2)$
 
@@ -5696,26 +5697,26 @@ Figure 66: Example diagram for BFS Tree.
 \item Add $4$: $V(T) = \{2, 6, 7, 8, 4\}$, $E(T) = \{\{2, 6\}, \{2, 7\}, \{2, 8\}, \{7, 4\}\}$\\
    BFS ordering: $(2, 6, 7, 8, 4)$
    
-\item Add $3$: $V(T) = \{2, 6, 7, 8, 4, 3\}$\\
-   $E(T) = \{\{2, 6\}, \{2, 7\}, \{2, 8\}, \{7, 4\}, \{8, 3\}\}$\\
-   BFS ordering: $(2, 6, 7, 8, 4, 3)$
+\item Add $5$: $V(T) = \{2, 6, 7, 8, 4, 5\}$\\
+   $E(T) = \{\{2, 6\}, \{2, 7\}, \{2, 8\}, \{7, 4\}, \{7, 5\}\}$\\
+   BFS ordering: $(2, 6, 7, 8, 4, 5)$
    
-\item Add $9$: $V(T) = \{2, 6, 7, 8, 4, 3, 9\}$\\
-   $E(T) = \{\{2, 6\}, \{2, 7\}, \{2, 8\}, \{7, 4\}, \{8, 3\}, \{8, 9\}\}$\\
-   BFS ordering: $(2, 6, 7, 8, 4, 3, 9)$
+\item Add $3$: $V(T) = \{2, 6, 7, 8, 4, 5, 3\}$\\
+   $E(T) = \{\{2, 6\}, \{2, 7\}, \{2, 8\}, \{7, 4\}, \{7, 5\}, \{8, 3\}\}$\\
+   BFS ordering: $(2, 6, 7, 8, 4, 5, 3)$
    
-\item Add $1$: $V(T) = \{2, 6, 7, 8, 4, 3, 9, 1\}$\\
-   $E(T) = \{\{2, 6\}, \{2, 7\}, \{2, 8\}, \{7, 4\}, \{8, 3\}, \{8, 9\}, \{4, 1\}\}$\\
-   BFS ordering: $(2, 6, 7, 8, 4, 3, 9, 1)$
+\item Add $9$: $V(T) = \{2, 6, 7, 8, 4, 5, 3, 9\}$\\
+   $E(T) = \{\{2, 6\}, \{2, 7\}, \{2, 8\}, \{7, 4\}, \{7, 5\}, \{8, 3\}, \{8, 9\}\}$\\
+   BFS ordering: $(2, 6, 7, 8, 4, 5, 3, 9)$
    
-\item Add $5$: $V(T) = \{2, 6, 7, 8, 4, 3, 9, 1, 5\}$\\
-   $E(T) = \{\{2, 6\}, \{2, 7\}, \{2, 8\}, \{7, 4\}, \{8, 3\}, \{8, 9\}, \{4, 1\}, \{1, 5\}\}$\\
-   BFS ordering: $(2, 6, 7, 8, 4, 3, 9, 1, 5)$
+\item Add $1$: $V(T) = \{2, 6, 7, 8, 4, 5, 3, 9, 1\}$\\
+   $E(T) = \{\{2, 6\}, \{2, 7\}, \{2, 8\}, \{7, 4\}, \{7, 5\}, \{8, 3\}, \{8, 9\}, \{4, 1\}\}$\\
+   BFS ordering: $(2, 6, 7, 8, 4, 5, 3, 9, 1)$
 \end{enumerate}
 
-\textbf {Final BFS ordering: $(2, 6, 7, 8, 4, 3, 9, 1, 5)$}
+\textbf {Final BFS ordering: $(2, 6, 7, 8, 4, 5, 3, 9, 1)$}
 
-Note that edges $\{6, 8\}$, $\{7, 8\}$, $\{4, 5\}$, $\{4, 7\}$, and $\{5, 7\}$ are not 
+Note that edges $\{1, 5\}$, $\{4, 5\}$, $\{6, 8\}$, and $\{7, 8\}$ are not 
 part of the BFS tree because their endpoints were already discovered when these edges 
 were encountered. The BFS tree provides a minimum-distance path from the root 
 (vertex $2$) to every other vertex in the graph.
@@ -5794,22 +5795,24 @@ Let's examine key vertices to determine the graph's properties:
 \hline
 \textbf{Vertex} & \textbf{BFS Layers} & \textbf{Height} & \textbf{Eccentricity} \\
 \hline
-$2$ & $L_0 = \{2\}$, $L_1 = \{6, 7, 8\}$, $L_2 = \{3, 4, 9\}$, $L_3 = \{1, 5\}$ & 3 & 3 \\
+$1$ & $L_0 = \{1\}$, $L_1 = \{4, 5\}$, $L_2 = \{7\}$, $L_3 = \{2, 8\}$, $L_4 = \{3, 6, 9\}$ & 4 & 4 \\
+\hline
+$2$ & $L_0 = \{2\}$, $L_1 = \{6, 7, 8\}$, $L_2 = \{3, 4, 5, 9\}$, $L_3 = \{1\}$ & 3 & 3 \\
 \hline
 $7$ & $L_0 = \{7\}$, $L_1 = \{2, 4, 5, 8\}$, $L_2 = \{1, 3, 6, 9\}$ & 2 & 2 \\
 \hline
-$8$ & $L_0 = \{8\}$, $L_1 = \{2, 3, 6, 7, 9\}$, $L_2 = \{4\}$, $L_3 = \{1, 5\}$ & 3 & 3 \\
+$8$ & $L_0 = \{8\}$, $L_1 = \{2, 3, 6, 7, 9\}$, $L_2 = \{4, 5\}$, $L_3 = \{1\}$ & 3 & 3 \\
 \hline
 \end{tabular}
 \end{center}
 
-\noindent A full analysis would include all vertices, but we've computed enough to determine the key properties.
+\noindent A full analysis would include all vertices, but we've computed enough to determine the key properties: no vertex is adjacent to all others, so every eccentricity is at least 2, and $\text{ecc}(7) = 2$; hence $\text{rad}(G) = 2$, so $\text{diam}(G) \leq 2 \cdot \text{rad}(G) = 4$, and $\text{ecc}(1) = 4$ shows $\text{diam}(G) = 4$.
 
 \noindent\textbf{Properties of Figure 66:}
 \begin{itemize}
 \item \textbf{Radius:} $\text{rad}(G) = 2$ (achieved by vertex 7)
-\item \textbf{Diameter:} $\text{diam}(G) = 3$ (distance from vertex 1 to vertex 5)
-\item \textbf{A Central Vertex:} Vertex 7 has minimum eccentricity
+\item \textbf{Diameter:} $\text{diam}(G) = 4$ (for example, $d_G(1,3) = 4$, realized by the path $1$-$4$-$7$-$8$-$3$)
+\item \textbf{A Central Vertex:} Vertex 7 has minimum eccentricity (it is the only central vertex)
 \item \textbf{BFS Tree Height from vertex 2:} 3
 \end{itemize}
 \pagebreak
@@ -5817,9 +5820,9 @@ $8$ & $L_0 = \{8\}$, $L_1 = \{2, 3, 6, 7, 9\}$, $L_2 = \{4\}$, $L_3 = \{1, 5\}$ 
 \begin{remark}
 Both graphs share interesting structural properties:
 \begin{itemize}
-\item Both have radius 2 and diameter 3
-\item Both satisfy the theorem that $\text{rad}(G) \leq \text{diam}(G) \leq 2 \cdot \text{rad}(G)$ with equality on the right
-\item Figure 65 has multiple central vertices (5 out of 7 vertices), while Figure 66 has fewer central vertices relative to its size
+\item Both have radius 2; Figure 65 has diameter 3 and Figure 66 has diameter 4
+\item Both satisfy the theorem that $\text{rad}(G) \leq \text{diam}(G) \leq 2 \cdot \text{rad}(G)$; equality holds on the right for Figure 66 ($4 = 2 \cdot 2$) but not for Figure 65 ($3 < 4$)
+\item Figure 65 has multiple central vertices (5 out of 7 vertices), while Figure 66 has a single central vertex (vertex 7)
 \item The BFS trees of both graphs efficiently reveal their distance properties
 \end{itemize}
 \end{remark}
@@ -5864,9 +5867,9 @@ Given a graph $G$ and a starting vertex $v_1$, we can construct a depth-first se
       \end{enumerate}
    \end{enumerate}
 \end{enumerate}
-The resulting tree $T$ is a DFS spanning tree of $G$.
+If $G$ is connected, the resulting tree $T$ is a DFS spanning tree of $G$ (in general, $T$ spans the component containing $v_1$).
 
-\noindent\textbf{DFS Tree Construction for Figure 65, starting from vertex $a$:}
+\noindent\textbf{DFS Tree Construction for Figure 65, starting from vertex $a$:} (as in the BFS examples, the neighbors of each vertex are examined in alphabetical order)
 \begin{enumerate}
 \item $a$ is the root, $V(T) = \{a\}$, DFS ordering: $(a)$
 \item Add $b$: $V(T) = \{a, b\}$, $E(T) = \{\{a, b\}\}$, DFS ordering: $(a, b)$
@@ -5874,23 +5877,23 @@ The resulting tree $T$ is a DFS spanning tree of $G$.
    DFS ordering: $(a, b, c)$
 \item Add $e$: $V(T) = \{a, b, c, e\}$, $E(T) = \{\{a, b\}, \{b, c\}, \{c, e\}\}$\\
    DFS ordering: $(a, b, c, e)$
-\item Add $f$: $V(T) = \{a, b, c, e, f\}$\\
-   $E(T) = \{\{a, b\}, \{b, c\}, \{c, e\}, \{e, f\}\}$\\
-   DFS ordering: $(a, b, c, e, f)$
-\item Add $g$: $V(T) = \{a, b, c, e, f, g\}$\\
-   $E(T) = \{\{a, b\}, \{b, c\}, \{c, e\}, \{e, f\}, \{f, g\}\}$\\
-   DFS ordering: $(a, b, c, e, f, g)$
-\item Add $d$: $V(T) = \{a, b, c, e, f, g, d\}$\\
-   $E(T) = \{\{a, b\}, \{b, c\}, \{c, e\}, \{e, f\}, \{f, g\}, \{a, d\}\}$\\
-   DFS ordering: $(a, b, c, e, f, g, d)$
+\item Add $d$: $V(T) = \{a, b, c, e, d\}$\\
+   $E(T) = \{\{a, b\}, \{b, c\}, \{c, e\}, \{e, d\}\}$\\
+   DFS ordering: $(a, b, c, e, d)$
+\item Add $g$: $V(T) = \{a, b, c, e, d, g\}$\\
+   $E(T) = \{\{a, b\}, \{b, c\}, \{c, e\}, \{e, d\}, \{d, g\}\}$\\
+   DFS ordering: $(a, b, c, e, d, g)$
+\item Add $f$: $V(T) = \{a, b, c, e, d, g, f\}$\\
+   $E(T) = \{\{a, b\}, \{b, c\}, \{c, e\}, \{e, d\}, \{d, g\}, \{g, f\}\}$\\
+   DFS ordering: $(a, b, c, e, d, g, f)$
 \end{enumerate}
-\textbf {Final DFS ordering: $(a, b, c, e, f, g, d)$}
+\textbf {Final DFS ordering: $(a, b, c, e, d, g, f)$}
 
-Note that some edges from the original graph, such as $\{b, d\}$, $\{b, e\}$, $\{c, f\}$, 
-$\{d, e\}$, $\{d, g\}$, and $\{e, g\}$, are not part of the DFS tree because their endpoint vertices 
+Note that the edges $\{a, d\}$, $\{b, d\}$, $\{b, e\}$, $\{c, f\}$, 
+$\{e, f\}$, and $\{e, g\}$ are not part of the DFS tree because their endpoint vertices 
 were already discovered through other paths when we encountered these edges.
 
-\noindent\textbf{DFS Tree Construction for Figure 66, starting from vertex $2$:}
+\noindent\textbf{DFS Tree Construction for Figure 66, starting from vertex $2$:} (neighbors are examined in increasing numerical order)
 \begin{enumerate}
 \item $2$ is the root, $V(T) = \{2\}$, DFS ordering: $(2)$
 \item Add $6$: $V(T) = \{2, 6\}$, $E(T) = \{\{2, 6\}\}$, DFS ordering: $(2, 6)$
@@ -5898,35 +5901,34 @@ were already discovered through other paths when we encountered these edges.
    DFS ordering: $(2, 6, 8)$
 \item Add $3$: $V(T) = \{2, 6, 8, 3\}$, $E(T) = \{\{2, 6\}, \{6, 8\}, \{8, 3\}\}$\\
    DFS ordering: $(2, 6, 8, 3)$
-\item Add $9$: $V(T) = \{2, 6, 8, 3, 9\}$\\
-   $E(T) = \{\{2, 6\}, \{6, 8\}, \{8, 3\}, \{8, 9\}\}$\\
-   DFS ordering: $(2, 6, 8, 3, 9)$
-\item Add $7$: $V(T) = \{2, 6, 8, 3, 9, 7\}$\\
-   $E(T) = \{\{2, 6\}, \{6, 8\}, \{8, 3\}, \{8, 9\}, \{2, 7\}\}$\\
-   DFS ordering: $(2, 6, 8, 3, 9, 7)$
-\item Add $4$: $V(T) = \{2, 6, 8, 3, 9, 7, 4\}$\\
-   $E(T) = \{\{2, 6\}, \{6, 8\}, \{8, 3\}, \{8, 9\}, \{2, 7\}, \{7, 4\}\}$\\
-   DFS ordering: $(2, 6, 8, 3, 9, 7, 4)$
-\item Add $1$: $V(T) = \{2, 6, 8, 3, 9, 7, 4, 1\}$\\
-   $E(T) = \{\{2, 6\}, \{6, 8\}, \{8, 3\}, \{8, 9\}, \{2, 7\}, \{7, 4\}, \{4, 1\}\}$\\
-   DFS ordering: $(2, 6, 8, 3, 9, 7, 4, 1)$
-\item Add $5$: $V(T) = \{2, 6, 8, 3, 9, 7, 4, 1, 5\}$\\
-   $E(T) = \{\{2, 6\}, \{6, 8\}, \{8, 3\}, \{8, 9\}, \{2, 7\}, \{7, 4\}, \{4, 1\}, \{1, 5\}\}$\\
-   DFS ordering: $(2, 6, 8, 3, 9, 7, 4, 1, 5)$
+\item Add $7$ (after backtracking from $3$ to $8$): $V(T) = \{2, 6, 8, 3, 7\}$\\
+   $E(T) = \{\{2, 6\}, \{6, 8\}, \{8, 3\}, \{8, 7\}\}$\\
+   DFS ordering: $(2, 6, 8, 3, 7)$
+\item Add $4$: $V(T) = \{2, 6, 8, 3, 7, 4\}$\\
+   $E(T) = \{\{2, 6\}, \{6, 8\}, \{8, 3\}, \{8, 7\}, \{7, 4\}\}$\\
+   DFS ordering: $(2, 6, 8, 3, 7, 4)$
+\item Add $1$: $V(T) = \{2, 6, 8, 3, 7, 4, 1\}$\\
+   $E(T) = \{\{2, 6\}, \{6, 8\}, \{8, 3\}, \{8, 7\}, \{7, 4\}, \{4, 1\}\}$\\
+   DFS ordering: $(2, 6, 8, 3, 7, 4, 1)$
+\item Add $5$: $V(T) = \{2, 6, 8, 3, 7, 4, 1, 5\}$\\
+   $E(T) = \{\{2, 6\}, \{6, 8\}, \{8, 3\}, \{8, 7\}, \{7, 4\}, \{4, 1\}, \{1, 5\}\}$\\
+   DFS ordering: $(2, 6, 8, 3, 7, 4, 1, 5)$
+\item Add $9$ (after backtracking from $5$ to $8$): $V(T) = \{2, 6, 8, 3, 7, 4, 1, 5, 9\}$\\
+   $E(T) = \{\{2, 6\}, \{6, 8\}, \{8, 3\}, \{8, 7\}, \{7, 4\}, \{4, 1\}, \{1, 5\}, \{8, 9\}\}$\\
+   DFS ordering: $(2, 6, 8, 3, 7, 4, 1, 5, 9)$
 \end{enumerate}
-\textbf {Final DFS ordering: $(2, 6, 8, 3, 9, 7, 4, 1, 5)$}
+\textbf {Final DFS ordering: $(2, 6, 8, 3, 7, 4, 1, 5, 9)$}
 
-Note that some edges from the original graph, such as $\{2, 8\}$, $\{4, 7\}$, $\{5, 7\}$, 
-$\{7, 8\}$, and $\{4, 5\}$, are not part of the DFS tree because their endpoint vertices 
+Note that the edges $\{2, 7\}$, $\{2, 8\}$, $\{4, 5\}$, and $\{5, 7\}$ are not part of the DFS tree because their endpoint vertices 
 were already discovered through other paths when we encountered these edges.
 
 \begin{remark}[DFS Properties Comparison]
 Both graphs exhibit interesting structural properties when analyzed through DFS traversal:
 \begin{itemize}
-\item DFS trees for both graphs have a maximum depth of 6 for Figure 65 and 8 for Figure 66
+\item The DFS trees of both graphs have maximum depth 6: vertex $f$ is at depth 6 in Figure 65, and vertex $5$ is at depth 6 in Figure 66
 \item The DFS trees reveal the connectivity patterns differently than BFS, highlighting branch-like structures
-\item In Figure 65, DFS from vertex $a$ explores the $a$-$b$-$c$-$e$-$f$-$g$ branch completely before backtracking to explore $d$
-\item In Figure 66, DFS from vertex $2$ explores the $2$-$6$-$8$-$3$-$9$ branch first before exploring the $2$-$7$-$4$-$1$-$5$ branch
+\item In Figure 65, DFS from vertex $a$ never needs to backtrack before every vertex is discovered: the DFS tree is the single path $a$-$b$-$c$-$e$-$d$-$g$-$f$
+\item In Figure 66, DFS from vertex $2$ follows $2$-$6$-$8$-$3$, backtracks to $8$ to explore the branch $8$-$7$-$4$-$1$-$5$, and finally backtracks to $8$ again to reach $9$
 \item Both DFS trees contain exactly $n-1$ edges where $n$ is the number of vertices
 \item The back edges (edges not in the DFS tree) reveal the cycle structure in both graphs
 \item While BFS trees minimize the distance from the root, DFS trees tend to create longer paths from the root to certain vertices
@@ -5965,9 +5967,9 @@ Both graphs exhibit interesting structural properties when analyzed through DFS 
 \hline
 \textbf{Graph} & \textbf{BFS Traversal} & \textbf{DFS Traversal} \\
 \hline
-Figure 65 & $(a, b, d, c, e, g, f)$ & $(a, b, c, e, f, g, d)$ \\
+Figure 65 & $(a, b, d, c, e, g, f)$ & $(a, b, c, e, d, g, f)$ \\
 \hline
-Figure 66 & $(2, 6, 7, 8, 4, 3, 9, 1, 5)$ & $(2, 6, 8, 3, 9, 7, 4, 1, 5)$ \\
+Figure 66 & $(2, 6, 7, 8, 4, 5, 3, 9, 1)$ & $(2, 6, 8, 3, 7, 4, 1, 5, 9)$ \\
 \hline
 \end{tabular}
 \caption{Comparison of BFS and DFS traversal orders starting from vertices $a$ and $2$}
@@ -5982,13 +5984,13 @@ The BFS and DFS traversals reveal fundamentally different exploration strategies
 \item \textbf{Figure 65 Patterns:} 
   \begin{itemize}
   \item In BFS, vertices $b$ and $d$ are discovered first (immediate neighbors of $a$), then the next layer ($c$, $e$, $g$), and finally $f$.
-  \item In DFS, the algorithm explores the branch $a$-$b$-$c$-$e$-$f$-$g$ completely before backtracking to explore $d$.
+  \item In DFS, the algorithm follows the single branch $a$-$b$-$c$-$e$-$d$-$g$-$f$ without backtracking until every vertex has been discovered; the DFS tree is a path.
   \end{itemize}
   
 \item \textbf{Figure 66 Patterns:}
   \begin{itemize}
   \item In BFS, immediate neighbors of $2$ (vertices $6$, $7$, $8$) are explored first, then their neighbors, creating a layered exploration.
-  \item In DFS, the branch $2$-$6$-$8$-$3$-$9$ is fully explored before backtracking to explore $7$ and its branch.
+  \item In DFS, the search follows $2$-$6$-$8$-$3$, backtracks to $8$ to explore the branch $8$-$7$-$4$-$1$-$5$, and then backtracks to $8$ again to discover $9$.
   \end{itemize}
 \end{itemize}
 \end{remark}
@@ -6000,8 +6002,8 @@ The traversal trees reveal important structural differences:
 
 \item \textbf{Path Lengths:} 
   \begin{itemize}
-  \item In Figure 65, the BFS tree guarantees shortest paths from $a$ to all vertices, while the DFS tree creates a longer path to $d$ (via $a$ directly versus potentially through other vertices).
-  \item In Figure 66, the BFS path from $2$ to $5$ goes through vertices $7$ and $4$ (shorter), while the DFS path follows a longer route.
+  \item In Figure 65, the BFS tree guarantees shortest paths from $a$ to all vertices, while the DFS tree reaches $d$ only along the path $a$-$b$-$c$-$e$-$d$ of length 4, although $d$ is adjacent to $a$.
+  \item In Figure 66, the BFS path from $2$ to $5$ is $2$-$7$-$5$, of length $2 = d_G(2,5)$, while the DFS path $2$-$6$-$8$-$7$-$4$-$1$-$5$ has length 6.
   \end{itemize}
   
 \item \textbf{Edge Selection:}
@@ -6011,7 +6013,7 @@ The traversal trees reveal important structural differences:
   \item For example, in Figure 65, BFS includes edge $\{a,d\}$ while DFS includes $\{f,g\}$.
   \end{itemize}
   
-\item \textbf{Cycle Detection:} Both traversals identify different sets of back edges (edges not in the spanning tree) that form cycles.
+\item \textbf{Cycle Detection:} Both traversals identify different sets of non-tree edges (edges not in the spanning tree), each of which closes a cycle with the tree.
 \end{itemize}
 \end{remark}
 
@@ -6022,9 +6024,9 @@ The different traversal orders suggest optimal algorithms for different applicat
 
 \item \textbf{DFS Applications:} Detecting cycles, finding connected components, topological sorting, solving maze-like problems.
 
-\item For Figure 65, BFS would be more appropriate for determining central vertices, while DFS would be better for identifying the cycle formed by vertices $a$-$b$-$d$.
+\item For Figure 65, BFS would be more appropriate for determining central vertices, while DFS would be better for detecting cycles (for example, the non-tree edge $\{a,d\}$ closes the cycle $a$-$b$-$c$-$e$-$d$-$a$ with the DFS tree).
 
-\item For Figure 66, BFS would be better for finding the shortest path from vertex $2$ to vertex $5$, while DFS would be more efficient for detecting all cycles in the graph.
+\item For Figure 66, BFS would be better for finding the shortest path from vertex $2$ to vertex $5$, while DFS would be a natural choice for detecting cycles, since each non-tree edge found by DFS closes a cycle with the DFS tree (for example, $\{4,5\}$ closes the cycle $4$-$1$-$5$-$4$).
 \end{itemize}
 \end{remark}
 
@@ -6073,7 +6075,7 @@ Prim's algorithm is a greedy algorithm that finds a minimum spanning tree for a 
    \item Add vertex $v$ to set $S$: $S = S \cup \{v\}$.
    \item Add edge $(u,v)$ to set $T$: $T = T \cup \{(u,v)\}$.
    \end{enumerate}
-\item The set $T$ of edges forms the minimum spanning tree.
+\item The set $T$ of edges forms a minimum spanning tree.
 \end{enumerate}
 This algorithm can be efficiently implemented using a priority queue to select the minimum-weight edge at each step.
 \end{definition}
@@ -6119,7 +6121,7 @@ Let $G = (V, E)$ be a connected, undirected graph with positive edge weights $w:
 \end{tikzpicture}
 \\
 \small
-Figure 67: Example of a weighed graph
+Figure 67: Example of a weighted graph
 \end{figure}
 
 
@@ -6170,6 +6172,7 @@ Figure 67: Example of a weighed graph
    \begin{itemize}
    \item Edge (0,2) with weight 6445
    \item Edge (0,6) with weight 8543
+   \item Edge (3,2) with weight 8901
    \item Edge (3,5) with weight 7123
    \item Edge (4,5) with weight 5239
    \item \textbf{Add} the minimum weight edge: $(4,5)$ with weight 5239
@@ -6181,6 +6184,7 @@ Figure 67: Example of a weighed graph
    \begin{itemize}
    \item Edge (0,2) with weight 6445
    \item Edge (0,6) with weight 8543
+   \item Edge (3,2) with weight 8901
    \item Edge (5,7) with weight 9764
    \item \textbf{Add} the minimum weight edge: $(0,2)$ with weight 6445
    \item MST vertices: $\{0,1,4,3,5,2\}$
@@ -6269,16 +6273,19 @@ Figure 67: Example of a weighed graph
     \State $V_T \gets \{s\}$ \Comment{Vertices in the MST}
     \State $E_T \gets \emptyset$ \Comment{Edges in the MST}
     \State $PQ \gets \emptyset$ \Comment{Priority queue of edges based on weight}
+    \For{each edge $(s,x) \in E$}
+        \State Insert edge $(s,x)$ into $PQ$ with priority $w(s,x)$
+    \EndFor
     
     \While{$V_T \neq V$}
-        \For{each edge $(u,v) \in E$ where $u \in V_T$ and $v \notin V_T$}
-            \State Insert edge $(u,v)$ into $PQ$ with priority $w(u,v)$
-        \EndFor
-        
-        \State $(u,v) \gets \text{Extract-Min}(PQ)$ \Comment{Extract edge with minimum weight}
-        
-        \State $V_T \gets V_T \cup \{v\}$ \Comment{Add vertex $v$ to the MST}
-        \State $E_T \gets E_T \cup \{(u,v)\}$ \Comment{Add edge $(u,v)$ to the MST}
+        \State $(u,v) \gets \text{Extract-Min}(PQ)$ \Comment{Extract edge with minimum weight; $u \in V_T$}
+        \If{$v \notin V_T$} \Comment{Otherwise both ends are already in the tree: discard the edge}
+            \State $V_T \gets V_T \cup \{v\}$ \Comment{Add vertex $v$ to the MST}
+            \State $E_T \gets E_T \cup \{(u,v)\}$ \Comment{Add edge $(u,v)$ to the MST}
+            \For{each edge $(v,x) \in E$ with $x \notin V_T$}
+                \State Insert edge $(v,x)$ into $PQ$ with priority $w(v,x)$
+            \EndFor
+        \EndIf
     \EndWhile
     
     \State \Return $T = (V, E_T)$
@@ -6286,10 +6293,14 @@ Figure 67: Example of a weighed graph
 \end{algorithmic}
 \end{algorithm}
 \begin{lemma}[Cut Property for Prim's Algorithm]
-At each step of Prim's algorithm, the edge selected is the minimum-weight edge crossing the cut between the vertices already in the MST and those not yet included. This edge must be in some minimum spanning tree of the graph.
+At each step of Prim's algorithm, the edge selected is a minimum-weight edge crossing the cut between the set $S$ of vertices already in the tree and $V \setminus S$. If the set $E_T$ of edges chosen so far is contained in some minimum spanning tree of the graph, then $E_T$ together with the selected edge is also contained in some minimum spanning tree.
 \end{lemma}
 \begin{proof}
-Let $S$ be the set of vertices already included in the MST, and let $e = (u,v)$ be the minimum-weight edge with $u \in S$ and $v \in V \setminus S$. Suppose for contradiction that $e$ is not in any MST. Let $T$ be an MST that doesn't contain $e$. Adding $e$ to $T$ creates a cycle, and this cycle must contain another edge $e'$ that crosses the cut $(S, V \setminus S)$. Removing $e'$ and adding $e$ would create a spanning tree with weight less than $T$ (since $w(e) < w(e')$), contradicting the minimality of $T$.
+Let $e = (u,v)$ be the selected edge, with $u \in S$ and $v \in V \setminus S$, and let $T$ be a minimum spanning tree with $E_T \subseteq E(T)$. If $e \in E(T)$, we are done. Otherwise, adding $e$ to $T$ creates a cycle, and this cycle must contain another edge $e'$ that crosses the cut $(S, V \setminus S)$, because the cycle leaves $S$ through $e$ and must return to $S$. Every edge of $E_T$ has both endpoints in $S$, so $e' \notin E_T$. Removing $e'$ and adding $e$ gives a graph $T' = T - e' + e$ that is connected (since $e'$ lies on a cycle of $T + e$) and has $|V| - 1$ edges, so $T'$ is a spanning tree containing $E_T \cup \{e\}$. Since $e$ has minimum weight among all crossing edges, $w(e) \leq w(e')$, and hence $w(T') = w(T) - w(e') + w(e) \leq w(T)$. Therefore $T'$ is also a minimum spanning tree, and it contains $E_T \cup \{e\}$. (If all edge weights are distinct, then $w(e) < w(e')$, so in fact $e$ lies in every minimum spanning tree.)
+\end{proof}
+
+\begin{proof}[Proof of Prim's Theorem]
+Initially $E_T = \emptyset$, which is contained in every minimum spanning tree. By the Cut Property and induction on the number of iterations, after every iteration the set $E_T$ is contained in some minimum spanning tree. Since $G$ is connected, each iteration adds one new vertex together with one edge joining it to the current tree, so the algorithm stops after $|V| - 1$ iterations with a spanning tree $(V, E_T)$. This tree is contained in some minimum spanning tree $T^*$, and both have $|V| - 1$ edges, so $(V, E_T) = T^*$ is a minimum spanning tree.
 \end{proof}
 
 \begin{lemma}[Uniqueness Condition]
