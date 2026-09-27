@@ -10075,7 +10075,7 @@ Combining the two inequalities yields
 \[
 \alpha(G) + \beta(G) = |V(G)|,
 \]
-as claimed.
+which is the second identity of the lemma. The first identity, $\alpha'(G) + \beta'(G) = |V(G)|$ for graphs without isolated vertices, is proved later in this section.
 \end{proof}
 
 
@@ -10210,7 +10210,7 @@ We have:
 |V(G)| = |C| + |V(G) \setminus C| \leq \beta(G) + \alpha(G) 
 \end{equation}
 
-From (1) and (2), we get:
+Combining the last two displayed inequalities, we get:
 \begin{equation}
 \alpha(G) + \beta(G) = |V(G)|
 \end{equation}
@@ -10274,11 +10274,11 @@ Conversely, let $F \subseteq E(G)$ be a minimum edge cover. Then every edge of $
 
 This means that $F$ is a disjoint union of stars: every component of $F$ is a $K_{1,t}$ (a star graph with one central vertex connected to $t$ leaf vertices).
 
-If $F$ has $k$ components, then $\alpha'(G) \geq k$ (since we can pick one edge from each component to form a matching, and this matching can be extended to a maximum matching).
+If $F$ has $k$ components, then $\alpha'(G) \geq k$ (since picking one edge from each component gives $k$ pairwise disjoint edges, that is, a matching of size $k$).
 
 We have $|E(F)| = |V(G)| - k$ because in a disjoint union of $k$ stars covering all vertices, the number of edges is exactly the number of vertices minus the number of stars. Therefore:
 \begin{align}
-|E(F)| = \beta'(G) = |V(G)| - k \leq |V(G)| - \alpha'(G)
+|E(F)| = \beta'(G) = |V(G)| - k \geq |V(G)| - \alpha'(G)
 \end{align}
 
 So:
@@ -10484,7 +10484,7 @@ Let's verify Hall's condition. For any subset $X \subseteq A$, the vertices in $
 This simplifies to:
 \[|X| \leq |N(X)|\]
 
-Thus, Hall's condition is satisfied for any subset $X \subseteq A$. Therefore, $G$ has a perfect matching.
+Thus, Hall's condition is satisfied for any subset $X \subseteq A$. Moreover, counting the edges of $G$ from each side gives $k|A| = |E(G)| = k|B|$, so $|A| = |B|$ because $k \geq 1$. Therefore, by Hall's Theorem, $G$ has a perfect matching.
 \end{proof}
 
 \begin{example}
