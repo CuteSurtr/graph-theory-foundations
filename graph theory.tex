@@ -11253,7 +11253,7 @@ Since $S_2$ contains only element 3, element 3 must represent $S_2$ in any SDR. 
 \clearpage
 
 \begin{definition}[M-alternating path]
-Let $G$ be a bipartite graph and $M$ a matching in $G$. Then an \textbf{M-alternating path} is a path $P \subseteq G$ with
+Let $G$ be a graph and $M$ a matching in $G$. Then an \textbf{M-alternating path} is a path $P \subseteq G$ with
 \begin{align*}
 E(P) = \{\{v_1, v_2\}, \{v_2, v_3\}, \ldots, \{v_{k-1}, v_k\}\}
 \end{align*}
@@ -12099,7 +12099,7 @@ where $\nu(G)$ denotes the matching number (the size of a maximum matching) and 
 \end{theorem}
 
 \begin{corollary}[Dual Form of König-Egerváry]
-In a bipartite graph $G = (X \cup Y, E)$, the maximum size of a matching equals the maximum size of an independent set:
+In a bipartite graph $G = (X \cup Y, E)$, the maximum size of a matching equals the number of vertices minus the maximum size of an independent set:
 \[
 \nu(G) = |V| - \alpha(G)
 \]
@@ -12127,14 +12127,14 @@ Let $G = (A \cup B, E)$ be a bipartite graph. The following relationship exists 
 
 \begin{align}
 \tau(G) &= \nu(G) & \text{(König-Egerváry)} \\
-\nu(G) &= |A| - \max_{S \subset A} \{|S| - |N(S)|\} & \text{(From König-Ore)}
+\nu(G) &= |A| - \max_{S \subseteq A} \{|S| - |N(S)|\} & \text{(From König-Ore)}
 \end{align}
 
 where:
 \begin{itemize}
     \item $\tau(G)$ is the minimum size of a vertex cover
     \item $\nu(G)$ is the maximum size of a matching
-    \item $\nu(G, A) = \max_{S \subset A} \{|S| - |N(S)|\}$ is the deficiency of $G$ with respect to $A$ (from König-Ore)
+    \item $\nu(G, A) = \max_{S \subseteq A} \{|S| - |N(S)|\}$ is the deficiency of $G$ with respect to $A$ (from König-Ore)
 \end{itemize}
 
 Thus, the maximum matching size can be expressed as:
@@ -12162,7 +12162,7 @@ The dual perspectives of König-Egerváry and König-Ore can be unified:
     \item König-Ore provides a local characterization of deficiency through the "worst" substructures
     \item Together, they show that:
     \[
-    \tau(G) = |A| - \max_{S \subset A} \{|S| - |N(S)|\}
+    \tau(G) = |A| - \max_{S \subseteq A} \{|S| - |N(S)|\}
     \]
 \end{enumerate}
 \end{theorem}
@@ -12171,7 +12171,7 @@ The dual perspectives of König-Egerváry and König-Ore can be unified:
 Both theorems are manifestations of LP duality:
 \begin{itemize}
     \item König-Egerváry reflects that the matching and vertex cover polytopes have integer extreme points in bipartite graphs
-    \item König-Ore formula shows that the dual solution can be constructed from subsets with the maximum deficiency ratio
+    \item König-Ore formula shows that the dual solution can be constructed from subsets with the maximum deficiency
     \item Edmonds' algorithm for non-bipartite graphs addresses precisely the cases where these relationships become more complex due to odd cycles (blossoms)
 \end{itemize}
 \end{remark}
@@ -12184,333 +12184,58 @@ Both theorems are manifestations of LP duality:
 
 \subsubsection{Easy Questions}
 \begin{enumerate}
-\item State the theorem on minimum cycle length in a graph with minimum degree $k \geq 2$. What is the guaranteed minimum cycle length?
+\item Let $G$ be a bipartite graph with parts $A$ and $B$. Show that if $G$ has a matching covering $A$, then $|A| \leq |B|$. Give an example showing that $|A| \leq |B|$ alone does not guarantee such a matching.
 
-\item In a graph with minimum degree 5, what is the minimum cycle length guaranteed by the long cycle theorem?
+\item Find a maximum matching and a minimum vertex cover of the path $P_7$ and of the cycle $C_7$. Verify that $\nu(P_7) = \tau(P_7) = 3$ but $\nu(C_7) = 3 < 4 = \tau(C_7)$, and explain why this does not contradict the König-Egerváry theorem.
 
-\item Prove that a graph with maximum degree 2 cannot have a cycle of length greater than the number of vertices.
+\item Show that $K_{2n}$ has exactly $(2n-1)(2n-3)\cdots 3 \cdot 1$ perfect matchings and that $K_{n,n}$ has exactly $n!$ perfect matchings.
 
-\item What is the minimum cycle length in a 3-regular graph with 8 vertices? Is this bound tight? Explain.
+\item Prove that a tree has at most one perfect matching.
 
-\item Explain why the minimum cycle length in a graph must be at least 3.
+\item Let $M$ be a matching in a graph $G$ and let $P$ be an $M$-augmenting path. Prove that $M \oplus E(P)$ is a matching with $|M| + 1$ edges.
 
-\item Find the length of the longest cycle in the graph $K_{2,4}$ (complete bipartite graph with partite sets of sizes 2 and 4).
+\item Verify Hall's condition for the sets $S_1 = \{1,2\}$, $S_2 = \{2,3\}$, $S_3 = \{1,3\}$, $S_4 = \{3,4\}$, and find an SDR.
 
-\item Prove that any graph with minimum degree $\delta(G) \geq 2$ must contain at least one cycle.
+\item Explain why a graph with an odd number of vertices has no perfect matching, and show that this is the case $S = \emptyset$ of Tutte's condition.
 \end{enumerate}
 
 \subsubsection{Medium Questions}
 \begin{enumerate}[start=8]
-\item Let $P$ be a longest path in a graph $G$ with minimum degree $k \geq 2$. Prove that the endpoints of $P$ have all their neighbors on $P$.
+\item Prove that every $k$-regular bipartite graph with $k \geq 1$ has a perfect matching, and deduce that its edge set can be partitioned into $k$ perfect matchings.
 
-\item Explain why the bound in the long cycle theorem is tight by constructing an example of a graph with minimum degree $k$ where the longest cycle has length exactly $k+1$.
+\item Prove the König-Ore formula $\nu(G) = |A| - \max_{S \subseteq A}\{|S| - |N(S)|\}$ for a bipartite graph $G$ with parts $A$ and $B$. (Hint: add $d = \max_{S \subseteq A}\{|S| - |N(S)|\}$ new vertices to $B$, each adjacent to every vertex of $A$, and apply Hall's theorem.)
 
-\item Prove that in a 2-connected graph with minimum degree $k \geq 2$, there exists a cycle of length at least $\min\{2k, n\}$.
+\item Use the Hungarian algorithm to find a minimum-cost assignment for the cost matrix
+\[
+\begin{pmatrix} 4 & 1 & 3 \\ 2 & 0 & 5 \\ 3 & 2 & 2 \end{pmatrix},
+\]
+where entry $(i,j)$ is the cost of assigning worker $i$ to job $j$. (Answer: worker 1 to job 2, worker 2 to job 1, worker 3 to job 3, with total cost 5.)
 
-\item A graph $G$ has minimum degree $k=3$. Describe an algorithm to find a cycle of length at least $k+1=4$ in $G$.
+\item Show that the Petersen graph has exactly 6 perfect matchings.
 
-\item Let $G$ be a graph with minimum degree $\delta(G) = 3$. If $G$ has exactly 6 vertices, show that $G$ must contain a cycle of length at least 4.
+\item A matching $M$ is \emph{maximal} if no edge of $G$ can be added to it. Prove that every maximal matching $M$ satisfies $|M| \geq \nu(G)/2$, and show that equality can occur in the path $P_4$.
 
-\item Find the relationship between the length of the longest cycle in a graph $G$ and the length of the longest cycle in its complement $\overline{G}$.
-
-\item Prove that in a Hamiltonian graph, the length of the longest cycle is exactly $n$. Then show that the converse is not true by providing a counterexample.
+\item Let $M$ be a matching in a graph $G$ such that $G$ has no $M$-augmenting path of length at most $2k-1$, where $k \geq 1$. Prove that $|M| \geq \frac{k}{k+1}\,\nu(G)$.
 \end{enumerate}
 
 \subsubsection{Hard Questions}
-\begin{enumerate}[start=15]
-\item Let $G$ be a graph with minimum degree $\delta(G) \geq \frac{n}{r+1} + 1$ where $r \geq 2$. Prove that $G$ contains a cycle of length at least $r+2$.
+\begin{enumerate}[start=14]
+\item Prove Petersen's theorem from Tutte's theorem: every 3-regular graph with no bridges has a perfect matching.
 
-\item Prove or disprove: if $G$ is a $k$-connected graph with minimum degree $\delta(G) \geq k+1$, then $G$ contains a cycle of length at least $2k+2$.
+\item Construct a 3-regular graph with no perfect matching and verify that it violates Tutte's condition. (Hint: take $K_4$, subdivide one of its edges by a new vertex $x$, make three copies of this 5-vertex graph, and join the three copies of $x$ to one new vertex.)
 
-\item Let $G$ be a graph with minimum degree $k \geq 2$. Prove that if $G$ has girth $g$ (the length of its shortest cycle), then $G$ has a cycle of length at least $\min\{2k, g+k-1\}$.
+\item Prove the Tutte-Berge formula from Tutte's theorem. (Hint: let $d = \max_{S \subseteq V}\{\text{odd}(G-S) - |S|\}$ and join a complete graph $K_d$ to every vertex of $G$.)
 
-\item Design an algorithm to find the longest cycle in a graph $G$. Analyze its time complexity and explain why finding the longest cycle is generally an NP-hard problem.
+\item Prove Petersen's 2-factor theorem: every $2k$-regular graph with $k \geq 1$ has a 2-factor, i.e.\ a spanning 2-regular subgraph. (Hint: orient each component along an Eulerian circuit, form a bipartite graph with a copy $v^+$ and a copy $v^-$ of each vertex $v$ and an edge $u^+v^-$ for each arc $uv$, and apply Question 8.)
 
-\item Let $G$ be a graph with $n$ vertices and let $\lambda(G)$ denote the length of the longest cycle in $G$. Prove that if $\delta(G) > \frac{n}{2}$, then $\lambda(G) \geq 2\delta(G)$ unless $G$ is Hamiltonian.
-
-\item Prove that if $G$ is a 3-connected cubic graph (3-regular), then $G$ contains a cycle of length at least $4\log n$.
+\item Prove Berge's theorem: a matching $M$ in a graph $G$ is maximum if and only if $G$ has no $M$-augmenting path. (Hint: consider the components of $M \oplus M^*$ for a maximum matching $M^*$.)
 \end{enumerate}
 
 \subsubsection{Diagram Questions}
-\begin{enumerate}[start=21]
-\item Draw a graph with 8 vertices and minimum degree 3 that contains a cycle of length exactly 4 but no longer cycles. Mark the cycle in your diagram.
+\begin{enumerate}[start=19]
+\item Draw a bipartite graph with parts $A = \{a_1, a_2, a_3, a_4\}$ and $B = \{b_1, b_2, b_3, b_4\}$ that has no perfect matching, and mark a set $X \subseteq A$ with $|N(X)| < |X|$.
 
-\begin{center}
-\begin{tikzpicture}[scale=1.2]
-% This is a placeholder for the diagram
-% You would add specific vertices and edges here
-\node (v1) at (0,0) {$v_1$};
-\node (v2) at (1,1) {$v_2$};
-\node (v3) at (2,0) {$v_3$};
-\node (v4) at (1,-1) {$v_4$};
-\node (v5) at (-1,1) {$v_5$};
-\node (v6) at (3,1) {$v_6$};
-\node (v7) at (3,-1) {$v_7$};
-\node (v8) at (-1,-1) {$v_8$};
-
-% Draw edges
-\draw[ultra thick] (v1) -- (v2);
-\draw[ultra thick] (v2) -- (v3);
-\draw[ultra thick] (v3) -- (v4);
-\draw[ultra thick] (v4) -- (v1);
-\draw (v1) -- (v5);
-\draw (v1) -- (v8);
-\draw (v2) -- (v5);
-\draw (v2) -- (v6);
-\draw (v3) -- (v6);
-\draw (v3) -- (v7);
-\draw (v4) -- (v7);
-\draw (v4) -- (v8);
-\end{tikzpicture}
-\end{center}
-
-\item Illustrate the proof technique of the long cycle theorem by drawing:
-\begin{enumerate}
-\item A longest path $P$ in a graph with endpoints $u$ and $v$
-\item The neighbors of $v$ on the path $P$
-\item The earliest neighbor of $v$ on the path
-\item The resulting cycle formed by the theorem
-\end{enumerate}
-Label all relevant vertices and explain each step.
-
-\begin{center}
-\begin{tikzpicture}[scale=1.2]
-% Path
-\node (u) at (0,0) {$u$};
-\node (p1) at (1,0) {$p_1$};
-\node (p2) at (2,0) {$p_2$};
-\node (p3) at (3,0) {$p_3$};
-\node (p4) at (4,0) {$p_4$};
-\node (p5) at (5,0) {$p_5$};
-\node (p6) at (6,0) {$p_6$};
-\node (v) at (7,0) {$v$};
-
-\draw (u) -- (p1) -- (p2) -- (p3) -- (p4) -- (p5) -- (p6) -- (v);
-
-% Neighbors of v
-\draw[dashed, blue] (v) -- (p2);
-\draw[dashed, blue] (v) -- (p4);
-
-% Resulting cycle
-\draw[ultra thick, red] (p2) -- (p3) -- (p4);
-\draw[ultra thick, red] (p2) to[bend right=30] (v);
-\draw[ultra thick, red] (v) to[bend right=30] (p4);
-
-\end{tikzpicture}
-\end{center}
-
-\item Draw a star graph $K_{1,4}$ and explain why the longest cycle in this graph has length 3. Then add one edge to create a cycle of length 4, and explain why this is now the longest possible cycle.
-
-\begin{center}
-\begin{tikzpicture}[scale=1.2]
-% Star graph K_{1,4}
-\node (c) at (0,0) {$c$};
-\node (a) at (-1,1) {$a$};
-\node (b) at (1,1) {$b$};
-\node (d) at (-1,-1) {$d$};
-\node (e) at (1,-1) {$e$};
-
-\draw (c) -- (a);
-\draw (c) -- (b);
-\draw (c) -- (d);
-\draw (c) -- (e);
-
-\node at (0,-2) {Star graph $K_{1,4}$ (no cycle)};
-
-% K_{1,4} with one edge added
-\begin{scope}[xshift=5cm]
-\node (c) at (0,0) {$c$};
-\node (a) at (-1,1) {$a$};
-\node (b) at (1,1) {$b$};
-\node (d) at (-1,-1) {$d$};
-\node (e) at (1,-1) {$e$};
-
-\draw (c) -- (a);
-\draw (c) -- (b);
-\draw (c) -- (d);
-\draw (c) -- (e);
-\draw[ultra thick, red] (a) -- (b) -- (c) -- (a);
-\draw[ultra thick, blue] (a) -- (b) -- (c) -- (d) -- (a);
-
-\node at (0,-2) {$K_{1,4}$ with added edge $(a,b)$};
-\end{scope}
-\end{tikzpicture}
-\end{center}
-
-\item Create a sequence of graphs $G_3, G_4, G_5$ where each $G_k$ has minimum degree $k$ and contains a cycle of length exactly $k+1$. Draw each graph and highlight the longest cycle in each.
-
-\begin{center}
-\begin{tikzpicture}[scale=1.2]
-% G_3 with min degree 3 and cycle of length 4
-\begin{scope}[xshift=0cm]
-\node (v1) at (0,0) {$v_1$};
-\node (v2) at (1,1) {$v_2$};
-\node (v3) at (2,0) {$v_3$};
-\node (v4) at (1,-1) {$v_4$};
-\node (v5) at (3,0) {$v_5$};
-
-\draw[ultra thick, red] (v1) -- (v2) -- (v3) -- (v4) -- (v1);
-\draw (v1) -- (v5);
-\draw (v2) -- (v5);
-\draw (v3) -- (v5);
-\draw (v4) -- (v5);
-
-\node at (1.5,-2) {$G_3$: min degree 3, cycle length 4};
-\end{scope}
-
-% G_4 with min degree 4 and cycle of length 5
-\begin{scope}[xshift=6cm]
-\node (v1) at (0,0) {$v_1$};
-\node (v2) at (0.95,0.31) {$v_2$};
-\node (v3) at (0.59,-0.81) {$v_3$};
-\node (v4) at (-0.59,-0.81) {$v_4$};
-\node (v5) at (-0.95,0.31) {$v_5$};
-\node (v6) at (0,1.5) {$v_6$};
-
-\draw[ultra thick, red] (v1) -- (v2) -- (v3) -- (v4) -- (v5) -- (v1);
-\draw (v1) -- (v6);
-\draw (v2) -- (v6);
-\draw (v3) -- (v6);
-\draw (v4) -- (v6);
-\draw (v5) -- (v6);
-
-\node at (0,-2) {$G_4$: min degree 4, cycle length 5};
-\end{scope}
-\end{tikzpicture}
-\end{center}
-
-\begin{center}
-\begin{tikzpicture}[scale=1.2]
-% G_5 with min degree 5 and cycle of length 6
-\node (v1) at (0,0) {$v_1$};
-\node (v2) at (1,0) {$v_2$};
-\node (v3) at (1.5,0.87) {$v_3$};
-\node (v4) at (1,1.73) {$v_4$};
-\node (v5) at (0,1.73) {$v_5$};
-\node (v6) at (-0.5,0.87) {$v_6$};
-\node (v7) at (0.5,0.87) {$v_7$};
-
-\draw[ultra thick, red] (v1) -- (v2) -- (v3) -- (v4) -- (v5) -- (v6) -- (v1);
-\draw (v1) -- (v7);
-\draw (v2) -- (v7);
-\draw (v3) -- (v7);
-\draw (v4) -- (v7);
-\draw (v5) -- (v7);
-\draw (v6) -- (v7);
-
-\node at (0.5,-1) {$G_5$: min degree 5, cycle length 6};
-\end{tikzpicture}
-\end{center}
-
-\item Draw the Petersen graph and identify the longest cycle in it. Explain why this graph does not have a Hamiltonian cycle despite having minimum degree 3.
-
-\begin{center}
-\begin{tikzpicture}[scale=1.5]
-% Petersen graph
-\foreach \i in {1,...,5} {
-    \node (a\i) at (72*\i+90:1) {$a_\i$};
-    \node (b\i) at (72*\i+90:2) {$b_\i$};
-}
-
-% Outer cycle
-\draw (b1) -- (b2) -- (b3) -- (b4) -- (b5) -- (b1);
-
-% Spokes
-\foreach \i in {1,...,5} {
-    \draw (a\i) -- (b\i);
-}
-
-% Inner pentagram
-\draw (a1) -- (a3) -- (a5) -- (a2) -- (a4) -- (a1);
-
-% Highlight longest cycle
-\draw[ultra thick, red] (a1) -- (b1) -- (b2) -- (a2) -- (a4) -- (a1);
-\draw[ultra thick, red] (a2) -- (b2) -- (b3) -- (a3) -- (a5) -- (a2);
-
-\end{tikzpicture}
-\end{center}
-
-\item Draw a graph where the bound from the long cycle theorem is not tight, i.e., a graph with minimum degree $k$ where the minimum cycle length is strictly greater than $k+1$. Explain why this happens in your example.
-
-\begin{center}
-\begin{tikzpicture}[scale=1.2]
-% Complete bipartite graph K_{3,3}
-\node (a1) at (-1,1) {$a_1$};
-\node (a2) at (0,1) {$a_2$};
-\node (a3) at (1,1) {$a_3$};
-\node (b1) at (-1,-1) {$b_1$};
-\node (b2) at (0,-1) {$b_2$};
-\node (b3) at (1,-1) {$b_3$};
-
-\draw (a1) -- (b1);
-\draw (a1) -- (b2);
-\draw (a1) -- (b3);
-\draw (a2) -- (b1);
-\draw (a2) -- (b2);
-\draw (a2) -- (b3);
-\draw (a3) -- (b1);
-\draw (a3) -- (b2);
-\draw (a3) -- (b3);
-
-% Highlight a cycle of length 4
-\draw[ultra thick, red] (a1) -- (b1) -- (a2) -- (b2) -- (a1);
-
-\node at (0,-2) {$K_{3,3}$: min degree 3, shortest cycle has length 4};
-\end{tikzpicture}
-\end{center}
-
-\item Illustrate the relationship between the minimum degree and cycle length by drawing three different graphs with 6 vertices that have minimum degrees 2, 3, and 4 respectively. For each graph, highlight the longest cycle and discuss how the minimum degree affects the cycle length.
-
-\begin{center}
-\begin{tikzpicture}[scale=1.2]
-% Graph with min degree 2
-\begin{scope}[xshift=0cm]
-\foreach \i in {1,...,6} {
-    \node (v\i) at (60*\i:1.2) {$v_\i$};
-}
-
-\draw[ultra thick, red] (v1) -- (v2) -- (v3) -- (v4) -- (v5) -- (v6) -- (v1);
-\draw (v1) -- (v3);
-\draw (v4) -- (v6);
-
-\end{scope}
-
-% Graph with min degree 3
-\begin{scope}[xshift=4cm]
-\foreach \i in {1,...,5} {
-    \node (v\i) at (72*\i+90:1.2) {$v_\i$};
-}
-\node (v6) at (0,0) {$v_6$};
-
-\draw[ultra thick, red] (v1) -- (v2) -- (v3) -- (v4) -- (v5) -- (v1);
-\draw (v1) -- (v6);
-\draw (v2) -- (v6);
-\draw (v3) -- (v6);
-\draw (v4) -- (v6);
-\draw (v5) -- (v6);
-
-\end{scope}
-
-% Graph with min degree 4
-\begin{scope}[xshift=8cm]
-\foreach \i in {1,...,6} {
-    \node (v\i) at (60*\i:1.2) {$v_\i$};
-}
-
-\draw[ultra thick, red] (v1) -- (v2) -- (v3) -- (v4) -- (v5) -- (v6) -- (v1);
-\draw (v1) -- (v3);
-\draw (v1) -- (v4);
-\draw (v2) -- (v4);
-\draw (v2) -- (v5);
-\draw (v3) -- (v5);
-\draw (v3) -- (v6);
-\draw (v4) -- (v6);
-\draw (v5) -- (v1);
-
-\end{scope}
-\end{tikzpicture}
-\end{center}
-
+\item Draw the 16-vertex 3-regular graph of Question 15, mark its three bridges, and mark a set $S$ of vertices such that $G - S$ has more than $|S|$ odd components.
 \end{enumerate}
 
 \pagebreak
