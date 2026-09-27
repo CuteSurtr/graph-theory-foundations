@@ -3533,20 +3533,20 @@ Let $G$ be a simple graph with $n \geq 3$ vertices. If every vertex has degree a
 \begin{proof}
 Suppose the theorem is false. So there exists an $n$-vertex graph $G$ with minimum degree at least $\frac{n}{2}$ and no Hamiltonian cycle.
 Let $G$ be a maximal counterexample to the theorem, i.e., with as many edges as possible.
-Note: $K_n$ is Hamiltonian, so $G \neq K_n$. Thus, if $\{u,v\} \not\in E(G)$, then $G + \{u,v\}$ is Hamiltonian.
-So $G + \{u,v\}$ has a Hamiltonian path from $u$ to $v$.
+Note: $K_n$ is Hamiltonian, so $G \neq K_n$. Thus there are non-adjacent vertices $u$ and $v$. Adding an edge cannot decrease the minimum degree, so by the maximality of $G$, the graph $G + \{u,v\}$ is Hamiltonian.
+Since $G$ is not Hamiltonian, every Hamiltonian cycle of $G + \{u,v\}$ uses the edge $\{u,v\}$, and deleting this edge leaves a Hamiltonian path $P = (x_1, x_2, \ldots, x_n)$ of $G$ from $x_1 = u$ to $x_n = v$.
 For a vertex $w \in V \setminus \{u,v\}$, let $w^+$ be the vertex after $w$ on the path from $u$ to $v$.
-Let $S = \{w^+ : w \in N_G(u)\}$.
-We want $N_G(u) \cap N_G(v) \neq \emptyset$.
-Note that $N_G(u) \cup N_G(v) \subseteq V \setminus \{u,v\}$, so $|N_G(u) \cup N_G(v)| \leq n-2$.
-Since $|N_G(u)| \geq \frac{n}{2}$ and $|N_G(v)| \geq \frac{n}{2}$, we have:
+Let $S = \{w^+ : w \in N_G(v)\}$.
+We want $S \cap N_G(u) \neq \emptyset$.
+Since $u$ and $v$ are not adjacent, $N_G(u)$ and $N_G(v)$ are subsets of $V \setminus \{u,v\}$. The map $w \mapsto w^+$ is one-to-one and never takes the value $u = x_1$, so $|S| = |N_G(v)|$ and $S \cup N_G(u) \subseteq V \setminus \{u\}$, which gives $|S \cup N_G(u)| \leq n-1$.
+Since $|N_G(u)| \geq \frac{n}{2}$ and $|S| = |N_G(v)| \geq \frac{n}{2}$, we have:
 \begin{align*}
-|N_G(u) \cap N_G(v)| &= |N_G(u)| + |N_G(v)| - |N_G(u) \cup N_G(v)|\\
-&\geq \frac{n}{2} + \frac{n}{2} - (n-2)\\
-&= 2
+|S \cap N_G(u)| &= |S| + |N_G(u)| - |S \cup N_G(u)|\\
+&\geq \frac{n}{2} + \frac{n}{2} - (n-1)\\
+&= 1
 \end{align*}
-Therefore, there exists $w \in N_G(u) \cap N_G(v)$.
-Now let $C$ be the cycle consisting of the edges $\{u,w\}$, $\{w,v\}$, and the path from $v$ to $u$ in the Hamiltonian path of $G + \{u,v\}$.
+Therefore, there is an index $i$ with $x_{i+1} \in S \cap N_G(u)$; that is, $x_i \in N_G(v)$ and $x_{i+1} \in N_G(u)$.
+Now let $C$ be the cycle $(x_1, x_2, \ldots, x_i, x_n, x_{n-1}, \ldots, x_{i+1}, x_1)$: it follows $P$ from $u$ to $x_i$, uses the edge $\{x_i, v\}$, follows $P$ backwards from $v$ to $x_{i+1}$, and returns to $u$ along the edge $\{x_{i+1}, u\}$.
 This creates a Hamiltonian cycle in $G$, a contradiction.
 \end{proof}
 \begin{remark}[Algorithmic Verification]
@@ -3672,41 +3672,31 @@ When $\delta(G) \geq \frac{n}{2} - \epsilon$ for small $\epsilon$, even though D
 \begin{figure}[h!]
 \centering
 \begin{tikzpicture}[scale=1.2]
-    % Vertices
+    % Vertices of the Hamiltonian path u, w_1, ..., w_5, v of G
     \node[draw, circle, fill=gray!20] (u) at (0,0) {$u$};
-    \node[draw, circle, fill=gray!20] (v) at (6,0) {$v$};
-    
-    % Other vertices on the path
-    \node[draw, circle, fill=gray!20] (w1) at (1,1) {$w_1$};
-    \node[draw, circle, fill=gray!20] (w2) at (2,1.5) {$w_2$};
-    \node[draw, circle, fill=gray!20] (w3) at (3,1) {$w_3$};
-    \node[draw, circle, fill=gray!20] (w4) at (4,1) {$w_4$};
-    \node[draw, circle, fill=gray!20] (w5) at (5,1) {$w_5$};
-    
-    % Hamiltonian path from u to v
-    \draw[thick] (u) -- (w1) -- (w2) -- (w3) -- (w4) -- (w5) -- (v);
-    
-    % Show that w2 is adjacent to both u and v
-    \draw[blue, thick] (u) to[bend right] (w2) node[midway, below] {$\in E(G)$};
-    \draw[blue, thick] (v) to[bend left] (w2) node[midway, below] {$\in E(G)$};
-    
-    % Highlight the common neighbor
-    \node[draw, circle, fill=yellow!50, thick] at (2,1.5) {$w_2$};
-    
-    % Show the Hamiltonian cycle
-    \draw[->, red, very thick, dashed] (u) to[bend right=30] (w2);
-    \draw[->, red, very thick, dashed] (w2) to[bend right=30] (v);
-    \draw[->, red, very thick] (v) -- (w5);
-    \draw[->, red, very thick] (w5) -- (w4);
-    \draw[->, red, very thick] (w4) -- (w3);
-    \draw[->, red, very thick] (w3) -- (w1);
-    \draw[->, red, very thick] (w1) -- (u);
-    
-    \node at (3,-1.5) {Finding a Hamiltonian cycle in $G$ using a common neighbor $w_2$};
+    \node[draw, circle, fill=gray!20] (w1) at (1.4,0) {$w_1$};
+    \node[draw, circle, fill=gray!20] (w2) at (2.8,0) {$w_2$};
+    \node[draw, circle, fill=gray!20] (w3) at (4.2,0) {$w_3$};
+    \node[draw, circle, fill=gray!20] (w4) at (5.6,0) {$w_4$};
+    \node[draw, circle, fill=gray!20] (w5) at (7,0) {$w_5$};
+    \node[draw, circle, fill=gray!20] (v) at (8.4,0) {$v$};
+
+    % Path edges kept in the new cycle
+    \draw[very thick] (u) -- (w1) -- (w2);
+    \draw[very thick] (w3) -- (w4) -- (w5) -- (v);
+
+    % Path edge {w_2, w_3} dropped from the new cycle
+    \draw[thick, dotted] (w2) -- (w3);
+
+    % Crossing edges: v is adjacent to w_2, and u is adjacent to w_3 = w_2^+
+    \draw[very thick] (u) to[bend left=50] (w3);
+    \draw[very thick] (w2) to[bend right=50] (v);
+
+    \node at (4.2,-2.2) {Hamiltonian cycle $u, w_1, w_2, v, w_5, w_4, w_3, u$ in $G$};
 \end{tikzpicture}
 
 \begin{center}
-\small Figure 48: Illustration of the "common neighbor" technique in the proof of Dirac's Theorem. When vertices $u$ and $v$ both have degree at least $n/2$, they must share at least one common neighbor (here $w_2$, highlighted in yellow). This allows us to construct a Hamiltonian cycle (red arrows) by rerouting the original path. The dashed red edges show how we can bypass the original path segment through $w_2$ to create a cycle that visits all vertices exactly once.
+\small Figure 48: The key step in the proof of Dirac's Theorem. The path $u, w_1, \ldots, w_5, v$ is a Hamiltonian path of $G$ between the non-adjacent vertices $u$ and $v$; only the edges used in the argument are drawn. Since $\deg(u) + \deg(v) \geq n$, some neighbor of $v$ is immediately followed on the path by a neighbor of $u$: here $v$ is adjacent to $w_2$ and $u$ is adjacent to $w_3 = w_2^+$. Deleting the path edge $\{w_2, w_3\}$ (dotted) and adding the edges $\{w_2, v\}$ and $\{u, w_3\}$ gives the Hamiltonian cycle $u, w_1, w_2, v, w_5, w_4, w_3, u$ (thick edges). A common neighbor $w$ of $u$ and $v$ would not suffice: the closed walk that goes from $u$ to $w$ to $v$ and then back along the path to $u$ passes through $w$ twice.
 \end{center}
 \end{figure}
 \begin{theorem}[Closure Properties]
@@ -3717,25 +3707,32 @@ Let $G$ be a graph with $n$ vertices and let $c(G)$ be its closure. Then:
     \item The closure operation is uniquely defined, independent of the order in which edges are added.
 \end{enumerate}
 \end{theorem}
-\begin{lemma}[Las Vergnas, 1972]
+\begin{lemma}
 Let $G$ be a simple graph and let $u, v$ be non-adjacent vertices in $G$. If there exists a Hamiltonian path from $u$ to $v$ in $G$, then $G + \{u,v\}$ has a Hamiltonian cycle.
 \end{lemma}
-\begin{corollary}
-If $G$ has a Hamiltonian path and its endpoints have degree sum at least $n$, then $G$ has a Hamiltonian cycle.
-\end{corollary}
-\begin{lemma}[Degree Sum of Common Neighbors]
-Let $P = (v_1, v_2, \ldots, v_n)$ be a Hamiltonian path in a graph $G$. If $N(v_1) \cap N(v_n) \neq \emptyset$, then $G$ has a Hamiltonian cycle.
+\begin{lemma}[Crossing Edges]
+Let $P = (v_1, v_2, \ldots, v_n)$ be a Hamiltonian path in a graph $G$ with $n \geq 3$. If there is an index $i$ with $1 \leq i \leq n-1$ such that $v_1v_{i+1} \in E(G)$ and $v_iv_n \in E(G)$, then $G$ has the Hamiltonian cycle $(v_1, \ldots, v_i, v_n, v_{n-1}, \ldots, v_{i+1}, v_1)$.
 \end{lemma}
+A common neighbor of $v_1$ and $v_n$ is not enough: the path $(v_1, v_2, v_3)$ has $N(v_1) \cap N(v_3) = \{v_2\}$ but no Hamiltonian cycle.
+\begin{corollary}
+If $G$ has $n \geq 3$ vertices and a Hamiltonian path whose endpoints have degree sum at least $n$, then $G$ has a Hamiltonian cycle.
+\end{corollary}
+\begin{proof}
+Let $P = (v_1, v_2, \ldots, v_n)$ be the path. The sets $\{i : v_1v_{i+1} \in E(G)\}$ and $\{i : v_iv_n \in E(G)\}$ are subsets of $\{1, \ldots, n-1\}$ with $\deg(v_1)$ and $\deg(v_n)$ elements, respectively. Since $\deg(v_1) + \deg(v_n) \geq n > n-1$, they have a common element $i$, and the Crossing Edges lemma gives a Hamiltonian cycle.
+\end{proof}
 \subsection{Alternative Form of Dirac's Theorem}
 \begin{theorem}[Dirac, 1952]
 Let $G$ be a simple graph with $n \geq 3$ vertices. If every vertex has degree at least $\frac{n}{2}$ (equivalently, if the minimum degree $\delta(G) \geq \frac{n}{2}$), then $G$ contains a Hamiltonian cycle (i.e., $G$ is Hamiltonian).
 \end{theorem}
+\begin{proof}[Proof Sketch]
+First, $G$ is connected: otherwise a smallest component has at most $\frac{n}{2}$ vertices, so its vertices have degree at most $\frac{n}{2} - 1 < \frac{n}{2}$. Consider a longest path $P = (v_1, \ldots, v_k)$. By the maximality of $P$, every neighbor of $v_1$ and every neighbor of $v_k$ lies on $P$. So each of the at least $\frac{n}{2}$ neighbors of $v_1$ is the right end $v_{i+1}$ of an edge $v_iv_{i+1}$ of $P$, and at least $\frac{n}{2}$ edges $v_iv_{i+1}$ of $P$ have their left end $v_i$ adjacent to $v_k$. Since $P$ has only $k - 1 < n$ edges, by the pigeonhole principle some edge $v_iv_{i+1}$ of $P$ has both properties, i.e., $v_1v_{i+1}, v_kv_i \in E(G)$. This creates the cycle $C = (v_1, \ldots, v_i, v_k, \ldots, v_{i+1}, v_1)$ through all vertices of $P$. If some vertex of $G$ were not on $C$, then, since $G$ is connected, some vertex $x \notin C$ would be adjacent to a vertex $y$ of $C$, and $x$ followed by the path around $C$ starting at $y$ would be a path longer than $P$, contradicting $P$'s maximality. Hence $C$ is a Hamiltonian cycle.
+\end{proof}
 
 \begin{lemma}
 The degree condition in Dirac's theorem is tight, meaning that there exist graphs with minimum degree $\delta(G) = \frac{n}{2} - 1$ that are not Hamiltonian.
 \end{lemma}
-\begin{proof}[Proof Sketch]
-If $G$ is not Hamiltonian, consider a longest path $P = (v_1, \ldots, v_k)$. Since $\deg(v_1) \geq \frac{n}{2}$ and $\deg(v_k) \geq \frac{n}{2}$, by the pigeonhole principle, there must exist vertices $v_i, v_{i+1}$ on $P$ such that $v_1v_{i+1}, v_kv_i \in E(G)$. This creates cycle $(v_1, \ldots, v_i, v_k, \ldots, v_{i+1}, v_1)$, contradicting $P$'s maximality.
+\begin{proof}
+Let $n = 2k$ with $k \geq 2$, and let $G = K_{k-1,k+1}$. Every vertex of $G$ has degree $k-1$ or $k+1$, so $\delta(G) = k-1 = \frac{n}{2} - 1$. A cycle in a bipartite graph alternates between the two partite sets, so it contains equally many vertices from each; a Hamiltonian cycle of $G$ would therefore force $k-1 = k+1$, which is impossible. (Alternatively, the disjoint union of two copies of $K_k$ has minimum degree $k-1 = \frac{n}{2}-1$ and, being disconnected, is not Hamiltonian.)
 \end{proof}
 \begin{example}[Tightness of Dirac's Condition]
 Consider the complete bipartite graph $K_{m,m+1}$ with $m \geq 2$. This graph has $n = 2m+1$ vertices, and each vertex has degree either $m$ or $m+1$. The minimum degree is $\delta(G) = m = \frac{n-1}{2} = \frac{n}{2} - \frac{1}{2}$, which is just below Dirac's threshold. This graph cannot contain a Hamiltonian cycle because any cycle must alternate between the two partite sets, which is impossible when the sets have different sizes.
@@ -4674,7 +4671,7 @@ For instances where exact solutions are impractical, the following approximation
 \item Compare the results of the optimal solution and the approximation.
 \end{enumerate}
 
-\item Draw a diagram illustrating the key step in Dirac's theorem proof where vertices $u$ and $v$ are non-adjacent but share a common neighbor. Show how this leads to a Hamiltonian cycle.
+\item Draw a diagram illustrating the key step in Dirac's theorem proof: a Hamiltonian path $(x_1, x_2, \ldots, x_n)$ from $x_1 = u$ to $x_n = v$ between non-adjacent vertices $u$ and $v$, together with an index $i$ such that $u$ is adjacent to $x_{i+1}$ and $v$ is adjacent to $x_i$. Show how this leads to a Hamiltonian cycle, and explain why a common neighbor of $u$ and $v$ alone would not suffice.
 \end{enumerate}
 
 \pagebreak
