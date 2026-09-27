@@ -3,6 +3,7 @@
 % Document geometry
 \usepackage{geometry}
 \geometry{margin=1in}
+\setlength{\emergencystretch}{2em}
 
 
 % Math packages
@@ -27,6 +28,7 @@
 \usepackage{placeins}
 
 \usepackage{float}
+\usepackage{capt-of}
 \usetikzlibrary{graphs,graphs.standard}
 \usetikzlibrary{calc,shapes,shadows}
 \usetikzlibrary{arrows}
@@ -308,6 +310,7 @@ A cycle graph with $n$ vertices forms a closed loop.
 \end{itemize}
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.3] % Increased scale factor for a larger graph
   % Define styles for vertices
   \tikzset{
@@ -343,11 +346,10 @@ A cycle graph with $n$ vertices forms a closed loop.
   % Add compact formula below the graph
   \node[align=center, font=\small] at (0,-3.5) {$\forall i \in \{1,2,3,4,5,6\}: \deg(v_i) = 2 \quad$ and $\quad |E| = |V| = 6$};
   
-  % Add Figure 4 caption
-  \node[align=left, text width=12cm] at (0,-4.3) {
-    Figure 4: In this cycle graph $C_6$ with 6 vertices, each vertex $v_i$ has degree 2. Every vertex is connected to exactly two other vertices in the graph. Total number of edges = $n = 6$
-  };
 \end{tikzpicture}
+\captionof{figure}{In this cycle graph $C_6$ with 6 vertices, each vertex $v_i$ has degree 2. Every vertex is connected to exactly two other vertices in the graph. Total number of edges = $n = 6$}
+\label{fig:cycle-c6-degrees}
+\end{minipage}
 \end{center}
 \subsubsection{Path Graph $P_n$}
 A path graph with $n$ vertices forms a single path.
@@ -359,6 +361,7 @@ A path graph with $n$ vertices forms a single path.
 \end{itemize}
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.3]
   % Define styles for vertices
   \tikzset{
@@ -392,11 +395,10 @@ A path graph with $n$ vertices forms a single path.
   % Add compact formula below the graph
   \node[align=center, font=\small] at (0,-1.8) {$\deg(v_1) = \deg(v_7) = 1 \quad$ and $\quad \deg(v_i) = 2 \; \forall i \in \{2,3,4,5,6\}$};
   
-  % Add Figure 5 caption
-  \node[align=left, text width=12cm] at (0,-2.7) {
-    Figure 5: In this path graph $P_7$ with 7 vertices, the endpoint vertices $v_1$ and $v_7$ have degree 1, while all internal vertices have degree 2. Total number of edges = $n-1 = 6$
-  };
 \end{tikzpicture}
+\captionof{figure}{In this path graph $P_7$ with 7 vertices, the endpoint vertices $v_1$ and $v_7$ have degree 1, while all internal vertices have degree 2. Total number of edges = $n-1 = 6$}
+\label{fig:path-p7-degrees}
+\end{minipage}
 \end{center}
 
 \subsubsection{Star Graph $S_n$}
@@ -409,6 +411,7 @@ A star graph has one central vertex connected to $n-1$ leaf vertices.
 \end{itemize}
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.3]
   % Define styles for vertices
   \tikzset{
@@ -445,11 +448,10 @@ A star graph has one central vertex connected to $n-1$ leaf vertices.
   % Add compact formula below the graph
   \node[align=center, font=\small] at (0,-3) {$\deg(v_1) = 5 \quad$ and $\quad \deg(v_i) = 1 \; \forall i \in \{2,3,4,5,6\}$};
   
-  % Add Figure 6 caption
-  \node[align=left, text width=12cm] at (0,-3.8) {
-    Figure 6: In this star graph $S_6$ with 6 vertices, the central vertex $v_1$ has degree 5, while all leaf vertices $v_2$ through $v_6$ have degree 1. Total number of edges = $n-1 = 5$
-  };
 \end{tikzpicture}
+\captionof{figure}{In this star graph $S_6$ with 6 vertices, the central vertex $v_1$ has degree 5, while all leaf vertices $v_2$ through $v_6$ have degree 1. Total number of edges = $n-1 = 5$}
+\label{fig:star-s6-degrees}
+\end{minipage}
 \end{center}
 
 \subsubsection{Wheel Graph $W_n$}
@@ -462,6 +464,7 @@ A wheel graph $W_n$ ($n \geq 3$) is formed by connecting a single new vertex to 
 \end{itemize}
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.3]
   % Define styles for vertices
   \tikzset{
@@ -506,11 +509,10 @@ A wheel graph $W_n$ ($n \geq 3$) is formed by connecting a single new vertex to 
   % Add compact formula below the graph
   \node[align=center, font=\small] at (0,-3.3) {$\deg(v_1) = 7 \quad$ and $\quad \deg(v_i) = 3 \; \forall i \in \{2,3,4,5,6,7,8\}$};
   
-  % Add Figure 7 caption
-  \node[align=left, text width=12cm] at (0,-4.3) {
-    Figure 7: In this wheel graph $W_7$ with 8 vertices, the central vertex $v_1$ has degree 7, while all cycle vertices $v_2$ through $v_8$ have degree 3. Total number of edges = $2n = 14$
-  };
 \end{tikzpicture}
+\captionof{figure}{In this wheel graph $W_7$ with 8 vertices, the central vertex $v_1$ has degree 7, while all cycle vertices $v_2$ through $v_8$ have degree 3. Total number of edges = $2n = 14$}
+\label{fig:wheel-w7-degrees}
+\end{minipage}
 \end{center}
 
 \subsubsection{Complete Bipartite Graph $K_{m,n}$}
@@ -523,6 +525,7 @@ A complete bipartite graph $K_{m,n}$ has two disjoint sets of vertices (with $m$
 \end{itemize}
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.0]
   % Define styles for vertices
   \tikzset{
@@ -562,11 +565,10 @@ A complete bipartite graph $K_{m,n}$ has two disjoint sets of vertices (with $m$
   % Add compact formula below the graph
   \node[align=center, font=\small] at (0,-3.3) {$\deg(v_i) = 4 \; \forall i \in \{1,2,3\} \quad$ and $\quad \deg(u_j) = 3 \; \forall j \in \{1,2,3,4\}$};
   
-  % Add Figure 8 caption
-  \node[align=left, text width=12cm] at (0,-4.5) {
-    Figure 8: In this complete bipartite graph $K_{3,4}$ with 7 vertices, each vertex $v_i$ in the first set has degree 4, while each vertex $u_j$ in the second set has degree 3. Total number of edges = $m \cdot n = 3 \cdot 4 = 12$
-  };
 \end{tikzpicture}
+\captionof{figure}{In this complete bipartite graph $K_{3,4}$ with 7 vertices, each vertex $v_i$ in the first set has degree 4, while each vertex $u_j$ in the second set has degree 3. Total number of edges = $m \cdot n = 3 \cdot 4 = 12$}
+\label{fig:k34-degrees}
+\end{minipage}
 \end{center}
 
 \subsubsection{Regular Graph}
@@ -578,6 +580,7 @@ In a $k$-regular graph, every vertex has the same degree $k$.
 \end{itemize}
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.3]
   \tikzset{
     vertex/.style={
@@ -609,10 +612,10 @@ In a $k$-regular graph, every vertex has the same degree $k$.
   
   \node[align=center, font=\small] at (0,-3.3) {$\deg(v_i) = 3 \; \forall i \in \{1,2,3,4,5,6\}$};
   
-  \node[align=left, text width=12cm] at (0,-4.0) {
-    Figure 9: In this 3-regular graph with 6 vertices, each vertex $v_i$ has exactly 3 incident edges. Total number of edges = $\frac{kn}{2} = \frac{3 \cdot 6}{2} = 9$
-  };
 \end{tikzpicture}
+\captionof{figure}{In this 3-regular graph with 6 vertices, each vertex $v_i$ has exactly 3 incident edges. Total number of edges = $\frac{kn}{2} = \frac{3 \cdot 6}{2} = 9$}
+\label{fig:3-regular-degrees}
+\end{minipage}
 \end{center}
 
 
@@ -626,6 +629,7 @@ In an $n$-dimensional hypercube, every vertex has degree $n$.
 \end{itemize}
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=0.9]
   % Q_3 (3-dimensional hypercube)
   % Front square
@@ -658,18 +662,14 @@ In an $n$-dimensional hypercube, every vertex has degree $n$.
   \draw[thick] (v010) -- (v110);
   \draw[thick] (v011) -- (v111);
 \end{tikzpicture}
-\end{center}
 
-\begin{center}
     \vspace{0.5cm}
 {\centering
 \small $\deg(v) = 3 \; \forall v \in V(Q_3)$
 \par}
-
-\vspace{0.5cm}
-{\centering
-\footnotesize Figure 10: Hypercube graph $Q_3$ with vertices labeled by binary strings. Each vertex has degree 3, with connections to neighbors that differ in exactly one bit position.
-\par}
+\captionof{figure}{Hypercube graph $Q_3$ with vertices labeled by binary strings. Each vertex has degree 3, with connections to neighbors that differ in exactly one bit position.}
+\label{fig:hypercube-q3}
+\end{minipage}
 \end{center}
 
 \subsubsection{Petersen Graph}
@@ -680,6 +680,7 @@ The Petersen graph is a specific 3-regular graph with 10 vertices.
 \end{itemize}
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.3]
   \tikzset{
     vertex/.style={
@@ -724,18 +725,16 @@ The Petersen graph is a specific 3-regular graph with 10 vertices.
     \draw[edge] (u\i) -- (u\j);
   }
 \end{tikzpicture}
-\end{center}
 
 % Formula and caption
 \vspace{0.5cm}
 {\centering
 \small $\deg(v_i) = \deg(u_i) = 3 \; \forall i \in \{1,2,3,4,5\}$
 \par}
-
-\vspace{0.5cm}
-{\centering
-\footnotesize Figure 11: Petersen graph with 10 vertices. Each vertex has degree 3, with a total of 15 edges. This is a famous non-Hamiltonian 3-regular graph.
-\par}
+\captionof{figure}{Petersen graph with 10 vertices. Each vertex has degree 3, with a total of 15 edges. This is a famous non-Hamiltonian 3-regular graph.}
+\label{fig:petersen-degrees}
+\end{minipage}
+\end{center}
 
 \subsection{Mathematical Properties Related to Degrees}
 
@@ -770,6 +769,7 @@ The sum of all degrees equals twice the number of edges:
 \end{center}
   
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.3]
   \tikzset{
     vertex/.style={
@@ -840,13 +840,10 @@ The sum of all degrees equals twice the number of edges:
     \node[font=\small, text=red] at (0,-2.4) {$2|E| = 2 \cdot 5 = 10$};
   \end{scope}
 \end{tikzpicture}
+\captionof{figure}{Illustration of the Handshaking Lemma. Left: A path graph with 3 vertices and 2 edges. Right: A cycle graph with 5 vertices and 5 edges. In both cases, the sum of vertex degrees equals twice the number of edges.}
+\label{fig:handshaking-lemma}
+\end{minipage}
 \end{center}
-
-% Caption
-\vspace{0.3cm}
-{\centering
-\footnotesize Figure 12 and 13: Illustration of the Handshaking Lemma. Left: A path graph with 3 vertices and 2 edges. Right: A cycle graph with 5 vertices and 5 edges. In both cases, the sum of vertex degrees equals twice the number of edges.
-\par}
 \begin{example}
 Consider a graph with vertex set $V = \{1, 2, 3, 4\}$ and edge set $E = \{\{1,2\}, \{1,3\}, \{1,4\}, \{2,3\}, \{3,4\}\}$.
 \begin{align*}
@@ -878,6 +875,7 @@ In any graph, there are an even number of vertices of odd degree.
 \end{corollary}
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.3]
   \tikzset{
     vertex/.style={
@@ -943,13 +941,10 @@ In any graph, there are an even number of vertices of odd degree.
   % Conclusion
   \node[align=center, blue, font=\small] at (0,-3) {There are 4 odd-degree vertices (even number)};
 \end{tikzpicture}
+\captionof{figure}{A graph illustrating the handshaking lemma's corollary that any graph must contain an even number of odd-degree vertices. This example has 4 vertices with odd degree (shown in blue) and 1 vertex with even degree (shown in red).}
+\label{fig:odd-degree-vertices}
+\end{minipage}
 \end{center}
-
-% Caption
-\vspace{0.3cm}
-{\centering
-\footnotesize Figure 14: A graph illustrating the handshaking lemma's corollary that any graph must contain an even number of odd-degree vertices. This example has 4 vertices with odd degree (shown in blue) and 1 vertex with even degree (shown in red).
-\par}
 
 \subsubsection{Isolated and Pendant Vertices}
 \begin{itemize}
@@ -958,6 +953,7 @@ In any graph, there are an even number of vertices of odd degree.
     \item Example: A tree with $n \geq 2$ vertices has at least 2 leaves, and hence at most $n-2$ vertices of degree $\geq 2$ (exactly $n-2$ only when the tree is a path)
 \end{itemize}
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.3]
   \tikzset{
     vertex/.style={
@@ -1049,13 +1045,10 @@ In any graph, there are an even number of vertices of odd degree.
     \end{tabular}
   };
 \end{tikzpicture}
+\captionof{figure}{Illustration of special vertex types based on degree. The center vertex $v_1$ (highlighted) connects to both regular vertices and pendant vertices, while isolated vertices remain disconnected from the graph.}
+\label{fig:isolated-pendant-vertices}
+\end{minipage}
 \end{center}
-
-% Caption
-\vspace{0.3cm}
-{\centering
-\footnotesize Figure 15: Illustration of special vertex types based on degree. The center vertex $v_1$ (highlighted) connects to both regular vertices and pendant vertices, while isolated vertices remain disconnected from the graph.
-\par}
 
 \subsection{Subgraphs}
 \begin{definition}
@@ -1063,6 +1056,7 @@ A graph $F$ is a subgraph of graph $G$ if $V(F) \subseteq V(G)$ and $E(F) \subse
 \end{definition}
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=0.9]
   % Original graph G
   \begin{scope}[shift={(-4,0)}]
@@ -1103,19 +1097,17 @@ A graph $F$ is a subgraph of graph $G$ if $V(F) \subseteq V(G)$ and $E(F) \subse
     \draw[thick] (u3) -- (u5);
   \end{scope}
 \end{tikzpicture}
+\captionof{figure}{Illustration of a subgraph relationship. The left diagram shows the original graph $G$ with 5 vertices and 8 edges. The right diagram shows a subgraph $F \subseteq G$ where vertex $v_4$ has been removed, along with its incident edges. Additionally, the edge $v_2$-$v_5$ between two remaining vertices has been removed, demonstrating that a subgraph maintains subset relationships for both vertex and edge sets.}
+\label{fig:subgraph}
+\end{minipage}
 \end{center}
-
-% Caption
-\vspace{0.3cm}
-{\centering
-\footnotesize Figure 16: Illustration of a subgraph relationship. The left diagram shows the original graph $G$ with 5 vertices and 8 edges. The right diagram shows a subgraph $F \subseteq G$ where vertex $v_4$ has been removed, along with its incident edges. Additionally, the edge $v_2$-$v_5$ between two remaining vertices has been removed, demonstrating that a subgraph maintains subset relationships for both vertex and edge sets.
-\par}
 
 \begin{definition}
 A subgraph $F$ of $G$ is a spanning subgraph of $G$ if $V(F) = V(G)$.
 \end{definition}
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=0.9]
   % Original graph G
   \begin{scope}[shift={(-4,0)}]
@@ -1158,13 +1150,10 @@ A subgraph $F$ of $G$ is a spanning subgraph of $G$ if $V(F) = V(G)$.
     % Edges connected to v5 are omitted
   \end{scope}
 \end{tikzpicture}
+\captionof{figure}{Illustration of a spanning subgraph. The original graph $G$ (left) has 5 vertices and 8 edges, including connections from central vertex $v_5$ to all other vertices. The spanning subgraph $F$ (right) contains all vertices of $G$ but only a subset of edges, specifically removing all connections to the central vertex $v_5$. A spanning subgraph maintains the same vertex set as the original graph ($V(F) = V(G)$) but may have fewer edges ($E(F) \subseteq E(G)$).}
+\label{fig:spanning-subgraph}
+\end{minipage}
 \end{center}
-
-% Caption
-\vspace{0.3cm}
-{\centering
-\footnotesize Figure 17: Illustration of a spanning subgraph. The original graph $G$ (left) has 5 vertices and 8 edges, including connections from central vertex $v_5$ to all other vertices. The spanning subgraph $F$ (right) contains all vertices of $G$ but only a subset of edges, specifically removing all connections to the central vertex $v_5$. A spanning subgraph maintains the same vertex set as the original graph ($V(F) = V(G)$) but may have fewer edges ($E(F) \subseteq E(G)$).
-\par}
 
 \begin{definition}
 If $X \subseteq V(G)$, the subgraph induced by $X$ is:
@@ -1174,6 +1163,7 @@ G[X] = (X, \{\{u,v\} \in E(G) : u, v \in X\})
 \end{definition}
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=0.9]
   % Original graph G
   \begin{scope}[shift={(-4,0)}]
@@ -1216,13 +1206,10 @@ G[X] = (X, \{\{u,v\} \in E(G) : u, v \in X\})
     \draw[thick] (u4) -- (u5);
   \end{scope}
 \end{tikzpicture}
+\captionof{figure}{Illustration of an induced subgraph. The original graph $G$ (left) has a subset of vertices $X = \{v_1, v_4, v_5\}$ highlighted by a dashed rectangle. The induced subgraph $G[X]$ (right) contains exactly these vertices along with all edges from the original graph that connect vertices within this set. Unlike a general subgraph, an induced subgraph must include every edge from the original graph whose endpoints are both in the selected vertex subset.}
+\label{fig:induced-subgraph}
+\end{minipage}
 \end{center}
-
-% Caption
-\vspace{0.3cm}
-{\centering
-\footnotesize Figure 18: Illustration of an induced subgraph. The original graph $G$ (left) has a subset of vertices $X = \{v_1, v_4, v_5\}$ highlighted by a dashed rectangle. The induced subgraph $G[X]$ (right) contains exactly these vertices along with all edges from the original graph that connect vertices within this set. Unlike a general subgraph, an induced subgraph must include every edge from the original graph whose endpoints are both in the selected vertex subset.
-\par}
 \subsection{Walks and Paths in Graphs}
 \begin{definition}
 A walk in a graph is a sequence of vertices and edges:
@@ -1233,6 +1220,7 @@ often abbreviated as $v_0, v_1, v_2, \ldots, v_k$.
 The length of a walk is the number of edges in that walk.
 \end{definition}
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.0]
   % Basic graph
   \node[draw, circle, fill=lightgray, minimum size=0.7cm] (v1) at (0,0) {$v_1$};
@@ -1267,13 +1255,10 @@ The length of a walk is the number of edges in that walk.
     \textbf{Note:} Vertices and edges\\can be repeated
   };
 \end{tikzpicture}
+\captionof{figure}{Illustration of a walk in graph theory. A walk is a sequence of vertices and edges where each consecutive pair of vertices in the sequence is connected by an edge. This example shows a walk of length 6 (red arrows) from $v_1$ to $v_3$ that passes through the sequence $v_1, v_2, v_5, v_6, v_1, v_2, v_3$. Unlike paths or trails, walks can repeat both vertices and edges. This walk repeats vertex $v_1$ and $v_2$, and also repeats the edge between them.}
+\label{fig:walk}
+\end{minipage}
 \end{center}
-
-% Caption
-\vspace{0.3cm}
-{\centering
-\footnotesize Figure 19: Illustration of a walk in graph theory. A walk is a sequence of vertices and edges where each consecutive pair of vertices in the sequence is connected by an edge. This example shows a walk of length 6 (red arrows) from $v_1$ to $v_3$ that passes through the sequence $v_1, v_2, v_5, v_6, v_1, v_2, v_3$. Unlike paths or trails, walks can repeat both vertices and edges. This walk repeats vertex $v_1$ and $v_2$, and also repeats the edge between them.
-\par}
 \begin{definition}
 A path of length $k$ is a walk:
 \begin{align*}
@@ -1282,6 +1267,7 @@ v_0, v_1, v_2, \ldots, v_k
 where all vertices are distinct.
 \end{definition}
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.0]
   % Basic graph
   \node[draw, circle, fill=lightgray, minimum size=0.7cm] (v1) at (0,0) {$v_1$};
@@ -1314,13 +1300,10 @@ where all vertices are distinct.
     \textbf{Note:} All vertices\\are distinct
   };
 \end{tikzpicture}
+\captionof{figure}{Illustration of a path in graph theory. A path is a walk where no vertex is repeated, ensuring each vertex appears at most once in the sequence. This example shows a path of length 4 (blue arrows) from $v_1$ to $v_5$ through the sequence $v_1, v_2, v_3, v_4, v_5$. Paths are fundamental structures in graph theory and are used to define important concepts such as connectivity, distance, and shortest paths between vertices. Unlike walks, the no-repetition constraint makes paths more restrictive but also more useful for many graph algorithms.}
+\label{fig:path}
+\end{minipage}
 \end{center}
-
-% Caption
-\vspace{0.3cm}
-{\centering
-\footnotesize Figure 20: Illustration of a path in graph theory. A path is a walk where no vertex is repeated, ensuring each vertex appears at most once in the sequence. This example shows a path of length 4 (blue arrows) from $v_1$ to $v_5$ through the sequence $v_1, v_2, v_3, v_4, v_5$. Paths are fundamental structures in graph theory and are used to define important concepts such as connectivity, distance, and shortest paths between vertices. Unlike walks, the no-repetition constraint makes paths more restrictive but also more useful for many graph algorithms.
-\par}
 
 \begin{definition}[Connected Graph]
 A graph $G = (V, E)$ is said to be \textit{connected} if for every pair of distinct vertices $u, v \in V$, there exists a path in $G$ from $u$ to $v$. In other words, a graph is connected if and only if there is at least one path between any two vertices in the graph.
@@ -1339,6 +1322,7 @@ A \textit{connected component} of a graph $G = (V, E)$ is a maximal connected su
 \end{definition}
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.0]
   \tikzset{
     vertex/.style={
@@ -1427,13 +1411,10 @@ A \textit{connected component} of a graph $G = (V, E)$ is a maximal connected su
     \node[font=\small] at (1,-1.75) {Component 2};
   \end{scope}
 \end{tikzpicture}
+\captionof{figure}{Comparison of connected and disconnected graphs. In the connected graph (left), there exists at least one path between any pair of vertices, as shown by the example paths between vertices $u$ and $v$. The red dashed line represents one possible walk, while the blue solid line represents a path. In a disconnected graph (right), there exist pairs of vertices that cannot be connected by any path, as indicated by the crossed-out paths. The disconnected graph has two connected components (outlined by dashed boxes), which are maximal connected subgraphs.}
+\label{fig:connected-vs-disconnected}
+\end{minipage}
 \end{center}
-
-% Caption for Figure 21
-\vspace{0.3cm}
-{\centering
-\footnotesize Figure 21: Comparison of connected and disconnected graphs. In the connected graph (left), there exists at least one path between any pair of vertices, as shown by the example paths between vertices $u$ and $v$. The red dashed line represents one possible walk, while the blue solid line represents a path. In a disconnected graph (right), there exist pairs of vertices that cannot be connected by any path, as indicated by the crossed-out paths. The disconnected graph has two connected components (outlined by dashed boxes), which are maximal connected subgraphs.
-\par}
 
 \begin{proof}[Proof of Lemma~\ref{lem:walk-path}]
 Every path is a walk, so in a connected graph every pair of vertices are the ends of some walk. Conversely, suppose vertices $u, v \in V(G)$ are the ends of a walk:
@@ -1454,6 +1435,7 @@ So a shortest walk from $u$ to $v$ is a path. Hence, if every pair of vertices a
 \end{proof}
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=0.9]
   % Proof diagram
   \node[align=center] at (0,3) {Converting a Walk to a Path};
@@ -1492,16 +1474,14 @@ So a shortest walk from $u$ to $v$ is a path. Hence, if every pair of vertices a
     \node[align=center] at (1,-1) {Shortened walk (path) by removing the loop};
   \end{scope}
 \end{tikzpicture}
+\captionof{figure}{Illustration of the process of converting a walk to a path by removing loops. In the original walk (top), vertex $v_i$ appears twice, creating a loop in the walk. By removing the portion of the walk between the two occurrences of $v_i$ (marked in red), we obtain a shorter walk from $u$ to $v$ that doesn't repeat any vertices (bottom), thus forming a path. This technique is fundamental for proving that if there exists a walk between two vertices in a graph, then there must also exist a path between them.}
+\label{fig:walk-to-path}
+\end{minipage}
 \end{center}
-
-% Caption
-\vspace{0.3cm}
-{\centering
-\footnotesize Figure 22: Illustration of the process of converting a walk to a path by removing loops. In the original walk (top), vertex $v_i$ appears twice, creating a loop in the walk. By removing the portion of the walk between the two occurrences of $v_i$ (marked in red), we obtain a shorter walk from $u$ to $v$ that doesn't repeat any vertices (bottom), thus forming a path. This technique is fundamental for proving that if there exists a walk between two vertices in a graph, then there must also exist a path between them.
-\par}
 
 \subsubsection{More Examples of Walks, Paths, and Components}
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.0]
   % Connected graph
   \begin{scope}[shift={(-4,0)}]
@@ -1556,15 +1536,13 @@ So a shortest walk from $u$ to $v$ is a path. Hence, if every pair of vertices a
     \draw[red, ultra thick] (1,0.05) -- (1,-0.55);
   \end{scope}
 \end{tikzpicture}
+\captionof{figure}{Comparison of connected and disconnected graphs. The connected graph (left) has a single component where a path exists between any pair of vertices, demonstrated by the blue path $v_3, v_4, v_5$ from $v_3$ to $v_5$. The disconnected graph (right) contains two triangular structures that have no paths between them, as shown by the crossed-out red line. This fundamental distinction affects many graph properties, including traversability, algorithmic complexity, and network reliability.}
+\label{fig:connected-vs-disconnected-2}
+\end{minipage}
 \end{center}
 
-% Caption
-\vspace{0.3cm}
-{\centering
-\footnotesize Figure 23: Comparison of connected and disconnected graphs. The connected graph (left) has a single component where a path exists between any pair of vertices, demonstrated by the blue path $v_3, v_4, v_5$ from $v_3$ to $v_5$. The disconnected graph (right) contains two triangular structures that have no paths between them, as shown by the crossed-out red line. This fundamental distinction affects many graph properties, including traversability, algorithmic complexity, and network reliability.
-\par}
-
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=0.9]
   % Various examples of disconnected graphs
   
@@ -1635,15 +1613,13 @@ So a shortest walk from $u$ to $v$ is a path. Hence, if every pair of vertices a
     \draw[dashed, rounded corners] (0.5,-1.5) rectangle (1.5,-0.5);
   \end{scope}
 \end{tikzpicture}
+\captionof{figure}{Various forms of disconnected graphs. Left: A disconnected graph with two separate edge components, where each component is a single edge. Middle: A graph with three distinct components - a triangular component, a single isolated vertex, and a path component with two vertices. Right: A graph with a triangular component and two isolated vertices. Each connected component (highlighted by dashed rectangles) forms a maximal connected subgraph. In graph theory, isolated vertices are considered separate connected components.}
+\label{fig:disconnected-forms}
+\end{minipage}
 \end{center}
 
-% Caption
-\vspace{0.3cm}
-{\centering
-\footnotesize Figure 24: Various forms of disconnected graphs. Left: A disconnected graph with two separate edge components, where each component is a single edge. Middle: A graph with three distinct components - a triangular component, a single isolated vertex, and a path component with two vertices. Right: A graph with a triangular component and two isolated vertices. Each connected component (highlighted by dashed rectangles) forms a maximal connected subgraph. In graph theory, isolated vertices are considered separate connected components.
-\par}
-
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.0]
   % Disconnected graph and its components
   \node[align=center] at (0,4) {Graph Components};
@@ -1688,13 +1664,10 @@ So a shortest walk from $u$ to $v$ is a path. Hence, if every pair of vertices a
     \node[green] at (4,1.3) {Component 3};
   \end{scope}
 \end{tikzpicture}
+\captionof{figure}{Illustration of a disconnected graph with three distinct components. Component 1 (blue) is a cycle graph with 4 vertices. Component 2 (red) is a triangle with 3 vertices. Component 3 (green) consists of a single isolated vertex. Each component is a maximal connected subgraph, meaning that there exists a path between any two vertices within the same component, but no path between vertices from different components. The number of components in a graph is an important invariant that affects connectivity, traversability, and many graph algorithms.}
+\label{fig:three-components}
+\end{minipage}
 \end{center}
-
-% Caption
-\vspace{0.3cm}
-{\centering
-\footnotesize Figure 25: Illustration of a disconnected graph with three distinct components. Component 1 (blue) is a cycle graph with 4 vertices. Component 2 (red) is a triangle with 3 vertices. Component 3 (green) consists of a single isolated vertex. Each component is a maximal connected subgraph, meaning that there exists a path between any two vertices within the same component, but no path between vertices from different components. The number of components in a graph is an important invariant that affects connectivity, traversability, and many graph algorithms.
-\par}
 
 \newpage
 \subsection{Chapter 1 Exercises}
@@ -1766,7 +1739,7 @@ $\{3,4\}$, $\{4,5\}$, $\{4,6\}$, $\{5,6\}$.
     \item Find a spanning subgraph with exactly 6 edges
 \end{itemize}
 
-\item The Petersen graph is shown in your textbook (Figure 11). Find the longest path in this graph. Prove that your path is indeed the longest possible.
+\item The Petersen graph is shown in your textbook (Figure~\ref{fig:petersen-degrees}). Find the longest path in this graph. Prove that your path is indeed the longest possible.
 
 \item Show that any graph with at least two vertices must have at least two vertices with the same degree.
 
@@ -2030,11 +2003,8 @@ Let $G$ be a connected graph (or multigraph), and let $u, v \in V(G)$ with $u \n
         \node at (1,-3) {Eulerian trail exists, but no tour};
     \end{scope}
 \end{tikzpicture}
-
-\vspace{0.3cm}
-{\centering
-\small Figure 26: Example graphs illustrating Eulerian concepts. Left: Complete graph $K_4$, where all four vertices have degree 3 (odd). Since it has four vertices of odd degree, it has neither an Eulerian tour nor an Eulerian trail. Right: A graph with exactly two odd-degree vertices (P and Q) that has an Eulerian trail but no Eulerian tour.
-\par}
+\caption{Example graphs illustrating Eulerian concepts. Left: Complete graph $K_4$, where all four vertices have degree 3 (odd). Since it has four vertices of odd degree, it has neither an Eulerian tour nor an Eulerian trail. Right: A graph with exactly two odd-degree vertices (P and Q) that has an Eulerian trail but no Eulerian tour.}
+\label{fig:eulerian-examples}
 \end{figure}
 
 \begin{figure}[ht]
@@ -2085,11 +2055,8 @@ Let $G$ be a connected graph (or multigraph), and let $u, v \in V(G)$ with $u \n
         \node at (2,-2) {X and Z have degree 4 and 2 (even)};
     \end{scope}
 \end{tikzpicture}
-
-\vspace{0.3cm}
-{\centering
-\small Figure 27: Explicit examples of Eulerian tours and trails. Left: A multigraph (with two parallel edges between B and C and two between D and A) where every vertex has even degree (4), with a complete Eulerian tour shown by numbered edges. The tour visits every edge exactly once and returns to the starting vertex A. Right: A multigraph (with two parallel edges between W and X) with exactly two odd-degree vertices (W and Y), showing an Eulerian trail that traverses every edge exactly once but doesn't form a closed circuit.
-\par}
+\caption{Explicit examples of Eulerian tours and trails. Left: A multigraph (with two parallel edges between B and C and two between D and A) where every vertex has even degree (4), with a complete Eulerian tour shown by numbered edges. The tour visits every edge exactly once and returns to the starting vertex A. Right: A multigraph (with two parallel edges between W and X) with exactly two odd-degree vertices (W and Y), showing an Eulerian trail that traverses every edge exactly once but doesn't form a closed circuit.}
+\label{fig:eulerian-tours-trails}
 \end{figure}
 
 \begin{proof}[Proof of (1)]
@@ -2179,11 +2146,8 @@ Therefore the trail uses every edge, and the graph has an Eulerian tour.
         \node at (0.5,-3.5) {$v_1 v_2 v_3 v_4 v_1$ (dashed)};
     \end{scope}
 \end{tikzpicture}
-
-\vspace{0.3cm}
-{\centering
-\small Figure 28: Visualization of the forward direction proof - showing why Eulerian tours imply even degrees. Left: A multigraph ($v_1$ and $v_4$ are joined by two edges, as are $v_2$ and $v_6$) with the Eulerian tour $v_1, v_2, v_3, v_4, v_1, v_4, v_5, v_6, v_2, v_6, v_1$ (blue arrows). Each time the tour passes through a vertex it enters along one edge and leaves along another, so every vertex has even degree: $v_3$ and $v_5$ are passed once and have degree 2, and the other vertices are passed twice and have degree 4. Right: The induction step for this tour. The first repeated vertex is the fifth one, $v_1$ (so $j = 5$ and $k = 1$), so the cycle $v_1, v_2, v_3, v_4, v_1$ (red, dashed) is removed; the remaining edges form the closed trail $v_1, v_4, v_5, v_6, v_2, v_6, v_1$ (blue), which is an Eulerian tour of a graph with fewer edges.
-\par}
+\caption{Visualization of the forward direction proof - showing why Eulerian tours imply even degrees. Left: A multigraph ($v_1$ and $v_4$ are joined by two edges, as are $v_2$ and $v_6$) with the Eulerian tour $v_1, v_2, v_3, v_4, v_1, v_4, v_5, v_6, v_2, v_6, v_1$ (blue arrows). Each time the tour passes through a vertex it enters along one edge and leaves along another, so every vertex has even degree: $v_3$ and $v_5$ are passed once and have degree 2, and the other vertices are passed twice and have degree 4. Right: The induction step for this tour. The first repeated vertex is the fifth one, $v_1$ (so $j = 5$ and $k = 1$), so the cycle $v_1, v_2, v_3, v_4, v_1$ (red, dashed) is removed; the remaining edges form the closed trail $v_1, v_4, v_5, v_6, v_2, v_6, v_1$ (blue), which is an Eulerian tour of a graph with fewer edges.}
+\label{fig:euler-forward-proof}
 \end{figure}
 
 \begin{figure}[ht]
@@ -2230,11 +2194,8 @@ Therefore the trail uses every edge, and the graph has an Eulerian tour.
         \node at (1.5,-4.5) {$\Rightarrow$ Can extend trail (contradiction)};
     \end{scope}
 \end{tikzpicture}
-
-\vspace{0.3cm}
-{\centering
-\small Figure 29: Visualization of the reverse direction proof - showing why even degrees imply Eulerian tours. Left: If the longest trail doesn't end at its starting point and the final vertex has even degree, an unused edge must exist (contradiction). Right: If the trail forms a tour but doesn't use all edges, the graph has another edge that could extend the tour (contradiction).
-\par}
+\caption{Visualization of the reverse direction proof - showing why even degrees imply Eulerian tours. Left: If the longest trail doesn't end at its starting point and the final vertex has even degree, an unused edge must exist (contradiction). Right: If the trail forms a tour but doesn't use all edges, the graph has another edge that could extend the tour (contradiction).}
+\label{fig:euler-reverse-proof}
 \end{figure}
 
 \begin{proof}[Proof of (2)]
@@ -2275,16 +2236,11 @@ By part (1), $G'$ has an Eulerian tour. This tour must use the edge $e$ at some 
         \node at (1.5,-4.5) {$\Rightarrow$ It has an Eulerian tour by part (1)};
     \end{scope}
 \end{tikzpicture}
-
-\vspace{0.3cm}
-{\centering
-\small Figure 30: Visualization of the proof for part (2) - Converting between Eulerian trails and tours. In this multigraph, $u$ and $v$ have degree 3, $w$ has degree 2 and $x$ has degree 4, and $u, w, v, x, u, x, v$ is an Eulerian trail. By adding a new edge $e$ (red dashed line) between the two odd-degree vertices $u$ and $v$, we transform the graph into one where every vertex has even degree. This creates a graph with an Eulerian tour, and removing edge $e$ gives us the original Eulerian trail.
-\par}
+\caption{Visualization of the proof for part (2) - Converting between Eulerian trails and tours. In this multigraph, $u$ and $v$ have degree 3, $w$ has degree 2 and $x$ has degree 4, and $u, w, v, x, u, x, v$ is an Eulerian trail. By adding a new edge $e$ (red dashed line) between the two odd-degree vertices $u$ and $v$, we transform the graph into one where every vertex has even degree. This creates a graph with an Eulerian tour, and removing edge $e$ gives us the original Eulerian trail.}
+\label{fig:euler-trail-from-tour}
 \end{figure}
 
 % Fleury's Algorithm - Figure Descriptions in LaTeX
-
-\setcounter{figure}{30} % This sets the figure counter to 30, so the next figure will be 31
 
 \begin{figure}[p]
 {\centering
@@ -2311,9 +2267,8 @@ By part (1), $G'$ has an Eulerian tour. This tour must use the edge $e$ at some 
     \node[text=red, font=\bfseries, draw=none, fill=none, minimum size=0cm] at (-0.6,0) {Start};
 \end{tikzpicture}
 \par}
-{\centering
-\small Figure 31: Graph for applying Fleury's Algorithm. This figure displays the initial connected graph with six vertices labeled $v_1$ through $v_6$ and seven edges. The vertices $v_3$ and $v_4$ have degree 3 and all other vertices have degree 2, so the graph has an Eulerian trail but no Eulerian tour, and every Eulerian trail starts at one of $v_3, v_4$ and ends at the other. Vertex $v_4$ is highlighted in orange as the starting point, indicated by the red ``Start'' label.
-\par}
+\caption{Graph for applying Fleury's Algorithm. This figure displays the initial connected graph with six vertices labeled $v_1$ through $v_6$ and seven edges. The vertices $v_3$ and $v_4$ have degree 3 and all other vertices have degree 2, so the graph has an Eulerian trail but no Eulerian tour, and every Eulerian trail starts at one of $v_3, v_4$ and ends at the other. Vertex $v_4$ is highlighted in orange as the starting point, indicated by the red ``Start'' label.}
+\label{fig:fleury-start}
 \end{figure}
 
 \begin{figure}[p]
@@ -2338,9 +2293,8 @@ By part (1), $G'$ has an Eulerian tour. This tour must use the edge $e$ at some 
     \draw[thick] (v3) to[bend right=30] (v4);
 \end{tikzpicture}
 \par}
-{\centering
-\small Figure 32: Step 1: Choose edge $\{v_4,v_5\}$. This figure shows the first step of Fleury's Algorithm. None of the three edges at $v_4$ is a bridge, so any of them may be chosen. Vertices $v_4$ and $v_5$ are both highlighted in orange, with a red directed arrow indicating the traversal from $v_4$ to $v_5$. This represents the first edge chosen in the Eulerian trail.
-\par}
+\caption{Step 1: Choose edge $\{v_4,v_5\}$. This figure shows the first step of Fleury's Algorithm. None of the three edges at $v_4$ is a bridge, so any of them may be chosen. Vertices $v_4$ and $v_5$ are both highlighted in orange, with a red directed arrow indicating the traversal from $v_4$ to $v_5$. This represents the first edge chosen in the Eulerian trail.}
+\label{fig:fleury-step1}
 \end{figure}
 
 \begin{figure}[p]
@@ -2365,9 +2319,8 @@ By part (1), $G'$ has an Eulerian tour. This tour must use the edge $e$ at some 
     \draw[thick] (v3) to[bend right=30] (v4);
 \end{tikzpicture}
 \par}
-{\centering
-\small Figure 33: Step 2: Choose edge $\{v_5,v_3\}$. Vertices $v_5$ and $v_3$ are highlighted in orange. The previously traversed edge (from $v_4$ to $v_5$) is shown as a dashed gray line. Since $\{v_5,v_3\}$ is now the only unused edge at $v_5$, the algorithm must take it; the red directed arrow from $v_5$ to $v_3$ shows the second edge of the trail.
-\par}
+\caption{Step 2: Choose edge $\{v_5,v_3\}$. Vertices $v_5$ and $v_3$ are highlighted in orange. The previously traversed edge (from $v_4$ to $v_5$) is shown as a dashed gray line. Since $\{v_5,v_3\}$ is now the only unused edge at $v_5$, the algorithm must take it; the red directed arrow from $v_5$ to $v_3$ shows the second edge of the trail.}
+\label{fig:fleury-step2}
 \end{figure}
 
 \begin{figure}[p]
@@ -2392,9 +2345,8 @@ By part (1), $G'$ has an Eulerian tour. This tour must use the edge $e$ at some 
     \draw[thick, red, ->] (v3) to[bend right=30] (v4);
 \end{tikzpicture}
 \par}
-{\centering
-\small Figure 34: Step 3: Choose edge $\{v_3,v_4\}$. Vertices $v_3$ and $v_4$ are highlighted in orange. Previously traversed edges ($v_4$-$v_5$ and $v_5$-$v_3$) are shown as dashed gray lines. The unused edges form the cycle $v_3, v_4, v_6, v_1, v_2, v_3$, so neither unused edge at $v_3$ is a bridge and either may be chosen; the red directed arrow from $v_3$ to $v_4$ shows the choice made here.
-\par}
+\caption{Step 3: Choose edge $\{v_3,v_4\}$. Vertices $v_3$ and $v_4$ are highlighted in orange. Previously traversed edges ($v_4$-$v_5$ and $v_5$-$v_3$) are shown as dashed gray lines. The unused edges form the cycle $v_3, v_4, v_6, v_1, v_2, v_3$, so neither unused edge at $v_3$ is a bridge and either may be chosen; the red directed arrow from $v_3$ to $v_4$ shows the choice made here.}
+\label{fig:fleury-step3}
 \end{figure}
 
 \begin{figure}[p]
@@ -2419,9 +2371,8 @@ By part (1), $G'$ has an Eulerian tour. This tour must use the edge $e$ at some 
     \draw[thick, dashed, gray] (v3) to[bend right=30] (v4);
 \end{tikzpicture}
 \par}
-{\centering
-\small Figure 35: Step 4: Choose edge $\{v_4,v_6\}$. Vertices $v_4$ and $v_6$ are highlighted in orange. Three edges have now been traversed and appear as dashed gray lines. The only unused edge at $v_4$ is $\{v_4,v_6\}$, shown with a red directed arrow from $v_4$ to $v_6$.
-\par}
+\caption{Step 4: Choose edge $\{v_4,v_6\}$. Vertices $v_4$ and $v_6$ are highlighted in orange. Three edges have now been traversed and appear as dashed gray lines. The only unused edge at $v_4$ is $\{v_4,v_6\}$, shown with a red directed arrow from $v_4$ to $v_6$.}
+\label{fig:fleury-step4}
 \end{figure}
 
 \begin{figure}[p]
@@ -2446,9 +2397,8 @@ By part (1), $G'$ has an Eulerian tour. This tour must use the edge $e$ at some 
     \draw[thick, dashed, gray] (v3) to[bend right=30] (v4);
 \end{tikzpicture}
 \par}
-{\centering
-\small Figure 36: Step 5: Choose edge $\{v_6,v_1\}$. Vertices $v_6$ and $v_1$ are highlighted in orange. Four previously traversed edges are shown as dashed gray lines. The current edge being traversed from $v_6$ to $v_1$ is indicated by a red directed arrow.
-\par}
+\caption{Step 5: Choose edge $\{v_6,v_1\}$. Vertices $v_6$ and $v_1$ are highlighted in orange. Four previously traversed edges are shown as dashed gray lines. The current edge being traversed from $v_6$ to $v_1$ is indicated by a red directed arrow.}
+\label{fig:fleury-step5}
 \end{figure}
 
 \begin{figure}[p]
@@ -2473,9 +2423,8 @@ By part (1), $G'$ has an Eulerian tour. This tour must use the edge $e$ at some 
     \draw[thick, dashed, gray] (v3) to[bend right=30] (v4);
 \end{tikzpicture}
 \par}
-{\centering
-\small Figure 37: Step 6: Choose edge $\{v_1,v_2\}$. Vertices $v_1$ and $v_2$ are highlighted in orange. Most edges have been traversed (shown as dashed gray lines). The current traversal is from $v_1$ to $v_2$, indicated by a red directed arrow.
-\par}
+\caption{Step 6: Choose edge $\{v_1,v_2\}$. Vertices $v_1$ and $v_2$ are highlighted in orange. Most edges have been traversed (shown as dashed gray lines). The current traversal is from $v_1$ to $v_2$, indicated by a red directed arrow.}
+\label{fig:fleury-step6}
 \end{figure}
 
 \begin{figure}[p]
@@ -2500,9 +2449,8 @@ By part (1), $G'$ has an Eulerian tour. This tour must use the edge $e$ at some 
     \draw[thick, dashed, gray] (v3) to[bend right=30] (v4);
 \end{tikzpicture}
 \par}
-{\centering
-\small Figure 38: Step 7: Choose final edge $\{v_2,v_3\}$ to complete the trail. Vertices $v_2$ and $v_3$ are highlighted in orange with a red directed arrow from $v_2$ to $v_3$. All seven edges have now been traversed exactly once. The trail ends at $v_3$, the other vertex of odd degree, and not at the starting vertex: since the graph has two vertices of odd degree, the result is an Eulerian trail, not an Eulerian tour.
-\par}
+\caption{Step 7: Choose final edge $\{v_2,v_3\}$ to complete the trail. Vertices $v_2$ and $v_3$ are highlighted in orange with a red directed arrow from $v_2$ to $v_3$. All seven edges have now been traversed exactly once. The trail ends at $v_3$, the other vertex of odd degree, and not at the starting vertex: since the graph has two vertices of odd degree, the result is an Eulerian trail, not an Eulerian tour.}
+\label{fig:fleury-step7}
 \end{figure}
 
 \begin{figure}[p]
@@ -2528,9 +2476,8 @@ By part (1), $G'$ has an Eulerian tour. This tour must use the edge $e$ at some 
     \draw[->, thick, purple] (v2) to node[right] {7} (v3);
 \end{tikzpicture}
 \par}
-{\centering
-\small Figure 39: Complete Eulerian trail found by Fleury's Algorithm: $v_4 \rightarrow v_5 \rightarrow v_3 \rightarrow v_4 \rightarrow v_6 \rightarrow v_1 \rightarrow v_2 \rightarrow v_3$. All vertices are highlighted in orange, and all seven edges are shown as purple directed arrows with numbers indicating the order of traversal (1-7). This figure displays the entire Eulerian trail found by the algorithm, showing how every edge in the graph is traversed exactly once; the trail starts at $v_4$ and ends at $v_3$, the two vertices of odd degree.
-\par}
+\caption{Complete Eulerian trail found by Fleury's Algorithm: $v_4 \rightarrow v_5 \rightarrow v_3 \rightarrow v_4 \rightarrow v_6 \rightarrow v_1 \rightarrow v_2 \rightarrow v_3$. All vertices are highlighted in orange, and all seven edges are shown as purple directed arrows with numbers indicating the order of traversal (1-7). This figure displays the entire Eulerian trail found by the algorithm, showing how every edge in the graph is traversed exactly once; the trail starts at $v_4$ and ends at $v_3$, the two vertices of odd degree.}
+\label{fig:fleury-trail}
 \end{figure}
 
 \begin{figure}[p]
@@ -2564,11 +2511,10 @@ By part (1), $G'$ has an Eulerian tour. This tour must use the edge $e$ at some 
     \draw[->, thick, purple] (v5) to[bend right=35] node[above, sloped] {12} (v4);
 \end{tikzpicture}
 \par}
-{\centering
-\small Figure 40: Example Eulerian tour: $v_4 \rightarrow v_5 \rightarrow v_6 \rightarrow v_1 \rightarrow v_2 \rightarrow v_3 \rightarrow v_4 \rightarrow v_9 \rightarrow v_{10} \rightarrow v_{13} \rightarrow v_8 \rightarrow v_5 \rightarrow v_4$. This figure shows a more complex example of an Eulerian tour on a larger multigraph with 10 vertices, in which $v_4$ and $v_5$ are joined by two parallel edges (edges 1 and 12), so that $v_4$ and $v_5$ have degree 4 and all other vertices have degree 2. The starting vertex $v_4$ is highlighted in red, and the complete tour is shown with purple directed arrows numbered 1-12. This demonstrates how Fleury's Algorithm scales to larger graphs while still finding a valid Eulerian tour that traverses each edge exactly once before returning to the starting vertex.
-\par}
+\caption{Example Eulerian tour: $v_4 \rightarrow v_5 \rightarrow v_6 \rightarrow v_1 \rightarrow v_2 \rightarrow v_3 \rightarrow v_4 \rightarrow v_9 \rightarrow v_{10} \rightarrow v_{13} \rightarrow v_8 \rightarrow v_5 \rightarrow v_4$. This figure shows a more complex example of an Eulerian tour on a larger multigraph with 10 vertices, in which $v_4$ and $v_5$ are joined by two parallel edges (edges 1 and 12), so that $v_4$ and $v_5$ have degree 4 and all other vertices have degree 2. The starting vertex $v_4$ is highlighted in red, and the complete tour is shown with purple directed arrows numbered 1-12. This demonstrates how Fleury's Algorithm scales to larger graphs while still finding a valid Eulerian tour that traverses each edge exactly once before returning to the starting vertex.}
+\label{fig:eulerian-tour-example}
 
-\vspace{1em}
+\vspace{0.5em}
 \begin{minipage}{\linewidth}
 \begin{algorithm}[H]
 \caption{Fleury's Algorithm for finding an Eulerian trail or circuit}
@@ -3025,9 +2971,8 @@ The De Bruijn graph $G(k,n)$ of order $n$ over an alphabet of size $k$ (also wri
   \path[->] (11) edge node {0} (10);
   \path[->] (11) edge[loop right] node {1} (11);
   \end{tikzpicture}
-
-  {\centering
-\small Figure 41: De Bruijn Graph $B(2,2)$. This directed graph has 4 vertices representing all 2-bit sequences, and 8 edges labeled by the appended bit. An Eulerian circuit on this graph yields a de Bruijn sequence of order~3 over a binary alphabet. \par}
+\caption{De Bruijn Graph $B(2,2)$. This directed graph has 4 vertices representing all 2-bit sequences, and 8 edges labeled by the appended bit. An Eulerian circuit on this graph yields a de Bruijn sequence of order~3 over a binary alphabet.}
+\label{fig:de-bruijn-b22}
 \end{figure}
 
 \begin{figure}[ht]
@@ -3085,9 +3030,8 @@ The De Bruijn graph $G(k,n)$ of order $n$ over an alphabet of size $k$ (also wri
 
 \end{tikzpicture}
 \par}
-{\centering
-\small Figure 42: De Bruijn Graph $B(2,3)$. This directed graph has 8 vertices representing all possible 3-bit binary sequences (000 through 111). Each edge is labeled with the bit (0 or 1) that is appended when transitioning between states. The graph has 16 edges in total, and a De Bruijn sequence $B(2,4)$ corresponds to an Eulerian circuit traversing all edges exactly once.
-\par}
+\caption{De Bruijn Graph $B(2,3)$. This directed graph has 8 vertices representing all possible 3-bit binary sequences (000 through 111). Each edge is labeled with the bit (0 or 1) that is appended when transitioning between states. The graph has 16 edges in total, and a De Bruijn sequence $B(2,4)$ corresponds to an Eulerian circuit traversing all edges exactly once.}
+\label{fig:de-bruijn-b23}
 \end{figure}
 \begin{lemma}[Connection to Eulerian Circuits]
 A De Bruijn sequence $B(k,n)$ corresponds exactly to an Eulerian circuit in the De Bruijn graph $B(k,n-1)$.
@@ -3278,11 +3222,8 @@ A Hamiltonian path in a graph $G$ is a path that visits each vertex of $G$ exact
         % Label
         \node[align=center, font=\sffamily\bfseries] at (2,0) {Hamiltonian Path: $A \to B \to C \to D \to E$};
     \end{tikzpicture}
-    
-    \vspace{0.2cm}
-    \begin{center}
-    \small Figure 43: Example of a Hamiltonian path. The red path visits every vertex of the graph exactly once, making it a Hamiltonian path. Unlike Eulerian paths which must traverse every edge exactly once, a Hamiltonian path must visit every vertex exactly once.
-    \end{center}
+\caption{Example of a Hamiltonian path. The red path visits every vertex of the graph exactly once, making it a Hamiltonian path. Unlike Eulerian paths which must traverse every edge exactly once, a Hamiltonian path must visit every vertex exactly once.}
+\label{fig:hamiltonian-path}
 \end{figure}
 
 \begin{figure}[H]
@@ -3318,11 +3259,8 @@ A Hamiltonian path in a graph $G$ is a path that visits each vertex of $G$ exact
         % Label
         \node[align=center, font=\sffamily\bfseries] at (2,0) {Hamiltonian Cycle: $A \to B \to C \to D \to E \to A$};
     \end{tikzpicture}
-    
-    \vspace{0.2cm}
-    \begin{center}
-    \small Figure 44: Example of a Hamiltonian cycle. The red cycle visits every vertex of the graph exactly once before returning to the starting vertex, forming a closed loop.
-    \end{center}
+\caption{Example of a Hamiltonian cycle. The red cycle visits every vertex of the graph exactly once before returning to the starting vertex, forming a closed loop.}
+\label{fig:hamiltonian-cycle}
 \end{figure}
 \begin{lemma}[Difference Between Hamiltonian and Eulerian]
 There exists no known simple necessary and sufficient condition for a graph to be Hamiltonian, unlike Eulerian graphs which can be characterized by the parity of vertex degrees.
@@ -3398,10 +3336,8 @@ There exists no known simple necessary and sufficient condition for a graph to b
             \node[text width=4cm, align=center, font=\bfseries] at (0,-3) {Hamiltonian Graph\\(Complete Graph $K_5$)};
         \end{scope}
     \end{tikzpicture}
-    
-    \begin{center}
-    \small Figure 45: Comparison of a non-Hamiltonian graph (Petersen graph) and a Hamiltonian graph (complete graph $K_5$). The complete graph contains a Hamiltonian cycle (shown with red arrows) that visits every vertex exactly once before returning to the starting vertex.
-    \end{center}
+\caption{Comparison of a non-Hamiltonian graph (Petersen graph) and a Hamiltonian graph (complete graph $K_5$). The complete graph contains a Hamiltonian cycle (shown with red arrows) that visits every vertex exactly once before returning to the starting vertex.}
+\label{fig:petersen-vs-k5}
 \end{figure}
 
 \begin{theorem}
@@ -3495,10 +3431,8 @@ Recall that a complete graph $K_n$, introduced in Chapter 1, is a simple graph w
             \node[align=center, text=blue!80!black, font=\sffamily] at (0,-4) {Each vertex has degree 4 $(n-1)$\\Total of 10 edges $\binom{5}{2}$};
         \end{scope}
     \end{tikzpicture}
-    
-    \begin{center}
-    \small Figure 46: Examples of complete graphs $K_4$ and $K_5$. In a complete graph, every pair of distinct vertices is connected by exactly one edge. Each vertex has degree $n-1$, and the total number of edges is $\binom{n}{2} = \frac{n(n-1)}{2}$.
-    \end{center}
+\caption{Examples of complete graphs $K_4$ and $K_5$. In a complete graph, every pair of distinct vertices is connected by exactly one edge. Each vertex has degree $n-1$, and the total number of edges is $\binom{n}{2} = \frac{n(n-1)}{2}$.}
+\label{fig:complete-k4-k5}
 \end{figure}
 
 \begin{corollary}
@@ -3661,10 +3595,8 @@ When $\delta(G) \geq \frac{n}{2} - \epsilon$ for small $\epsilon$, even though D
         \node at (1.5,-2.5) {$G + \{u,v\}$ with Hamiltonian path};
     \end{scope}
 \end{tikzpicture}
-
-\begin{center}
-\small Figure 47: Illustration of the graph closure concept for Hamiltonicity. Left: Original graph $G$ where vertices $u$ and $v$ are not adjacent but have combined degree $\deg(u) + \deg(v) \geq n$. Right: After adding edge $\{u,v\}$ (shown as dashed), a Hamiltonian path (shown in red) exists from $u$ to $v$. The Bondy-Chvátal theorem proves that if such vertices have sufficient combined degree, adding the edge between them preserves the Hamiltonian property.
-\end{center}
+\caption{Illustration of the graph closure concept for Hamiltonicity. Left: Original graph $G$ where vertices $u$ and $v$ are not adjacent but have combined degree $\deg(u) + \deg(v) \geq n$. Right: After adding edge $\{u,v\}$ (shown as dashed), a Hamiltonian path (shown in red) exists from $u$ to $v$. The Bondy-Chvátal theorem proves that if such vertices have sufficient combined degree, adding the edge between them preserves the Hamiltonian property.}
+\label{fig:closure}
 \end{figure}
 
 \begin{figure}[h!]
@@ -3692,10 +3624,8 @@ When $\delta(G) \geq \frac{n}{2} - \epsilon$ for small $\epsilon$, even though D
 
     \node at (4.2,-2.2) {Hamiltonian cycle $u, w_1, w_2, v, w_5, w_4, w_3, u$ in $G$};
 \end{tikzpicture}
-
-\begin{center}
-\small Figure 48: The key step in the proof of Dirac's Theorem. The path $u, w_1, \ldots, w_5, v$ is a Hamiltonian path of $G$ between the non-adjacent vertices $u$ and $v$; only the edges used in the argument are drawn. Since $\deg(u) + \deg(v) \geq n$, some neighbor of $v$ is immediately followed on the path by a neighbor of $u$: here $v$ is adjacent to $w_2$ and $u$ is adjacent to $w_3 = w_2^+$. Deleting the path edge $\{w_2, w_3\}$ (dotted) and adding the edges $\{w_2, v\}$ and $\{u, w_3\}$ gives the Hamiltonian cycle $u, w_1, w_2, v, w_5, w_4, w_3, u$ (thick edges). A common neighbor $w$ of $u$ and $v$ would not suffice: the closed walk that goes from $u$ to $w$ to $v$ and then back along the path to $u$ passes through $w$ twice.
-\end{center}
+\caption{The key step in the proof of Dirac's Theorem. The path $u, w_1, \ldots, w_5, v$ is a Hamiltonian path of $G$ between the non-adjacent vertices $u$ and $v$; only the edges used in the argument are drawn. Since $\deg(u) + \deg(v) \geq n$, some neighbor of $v$ is immediately followed on the path by a neighbor of $u$: here $v$ is adjacent to $w_2$ and $u$ is adjacent to $w_3 = w_2^+$. Deleting the path edge $\{w_2, w_3\}$ (dotted) and adding the edges $\{w_2, v\}$ and $\{u, w_3\}$ gives the Hamiltonian cycle $u, w_1, w_2, v, w_5, w_4, w_3, u$ (thick edges). A common neighbor $w$ of $u$ and $v$ would not suffice: the closed walk that goes from $u$ to $w$ to $v$ and then back along the path to $u$ passes through $w$ twice.}
+\label{fig:dirac-proof-step}
 \end{figure}
 \begin{theorem}[Closure Properties]
 Let $G$ be a graph with $n$ vertices and let $c(G)$ be its closure. Then:
@@ -3763,10 +3693,8 @@ Consider a graph on $n = 6$ vertices where each vertex has degree exactly $\frac
     \draw[red, very thick] (v1) -- (v2) -- (v3) -- (v4) -- (v5) -- (v6) -- (v1);
 \end{tikzpicture}
 \end{center}
-
-\begin{center}
-\small Figure 49: A 3-regular graph on 6 vertices that satisfies Dirac's condition. Each vertex has degree 3, which equals $n/2$. The red cycle highlights one of the Hamiltonian cycles in this graph. This example demonstrates that cubic (3-regular) graphs can be Hamiltonian when they meet the minimum degree threshold.
-\end{center}
+\caption{A 3-regular graph on 6 vertices that satisfies Dirac's condition. Each vertex has degree 3, which equals $n/2$. The red cycle highlights one of the Hamiltonian cycles in this graph. This example demonstrates that cubic (3-regular) graphs can be Hamiltonian when they meet the minimum degree threshold.}
+\label{fig:dirac-3-regular}
 \end{figure}
 \begin{lemma}[Cubic Graph Hamiltonicity]
 Not all cubic graphs are Hamiltonian. The Petersen graph is a well-known 3-regular graph with 10 vertices that has no Hamiltonian cycle, demonstrating that regularity alone is insufficient for Hamiltonicity.
@@ -3796,10 +3724,8 @@ Not all cubic graphs are Hamiltonian. The Petersen graph is a well-known 3-regul
     \draw[red, very thick] (a1) -- (b1) -- (a2) -- (b2) -- (a3) -- (b3) -- (a1);
 \end{tikzpicture}
 \end{center}
-
-\begin{center}
-\small Figure 50: The complete bipartite graph $K_{3,3}$ with $n = 6$ vertices. Each vertex has degree exactly 3, which equals $\frac{n}{2}$, satisfying Dirac's condition. A Hamiltonian cycle is highlighted in red: $a_1 - b_1 - a_2 - b_2 - a_3 - b_3 - a_1$. This example illustrates that bipartite graphs can be Hamiltonian when they have equal-sized partitions.
-\end{center}
+\caption{The complete bipartite graph $K_{3,3}$ with $n = 6$ vertices. Each vertex has degree exactly 3, which equals $\frac{n}{2}$, satisfying Dirac's condition. A Hamiltonian cycle is highlighted in red: $a_1 - b_1 - a_2 - b_2 - a_3 - b_3 - a_1$. This example illustrates that bipartite graphs can be Hamiltonian when they have equal-sized partitions.}
+\label{fig:dirac-k33}
 \end{figure}
 
 \begin{figure}[h!]
@@ -3823,10 +3749,8 @@ Not all cubic graphs are Hamiltonian. The Petersen graph is a well-known 3-regul
     \draw[red, very thick] (v1) -- (v2) -- (v3) -- (v4) -- (v5) -- (v6) -- (v7) -- (v8) -- (v1);
 \end{tikzpicture}
 \end{center}
-
-\begin{center}
-\small Figure 51: A graph on $n = 8$ vertices (the Wagner graph, also called the M\"obius ladder on 8 vertices) in which each vertex has degree exactly 3, one less than $\frac{n}{2} = 4$; so this graph does \emph{not} satisfy Dirac's minimum degree condition. Nevertheless, it contains a Hamiltonian cycle (highlighted in red) along the outer cycle, which shows once more that Dirac's condition is sufficient but not necessary. Connecting each vertex of a regular $n$-gon to its opposite vertex always produces a 3-regular graph, so this construction reaches Dirac's threshold $\frac{n}{2}$ only for $n \leq 6$ (for $n = 6$ it gives $K_{3,3}$, as in Figure 49).
-\end{center}
+\caption{A graph on $n = 8$ vertices (the Wagner graph, also called the M\"obius ladder on 8 vertices) in which each vertex has degree exactly 3, one less than $\frac{n}{2} = 4$; so this graph does \emph{not} satisfy Dirac's minimum degree condition. Nevertheless, it contains a Hamiltonian cycle (highlighted in red) along the outer cycle, which shows once more that Dirac's condition is sufficient but not necessary. Connecting each vertex of a regular $n$-gon to its opposite vertex always produces a 3-regular graph, so this construction reaches Dirac's threshold $\frac{n}{2}$ only for $n \leq 6$ (for $n = 6$ it gives $K_{3,3}$, as in Figure~\ref{fig:dirac-3-regular}).}
+\label{fig:wagner-graph}
 \end{figure}
 
 \begin{definition}[Circulant Graph]
@@ -3840,15 +3764,15 @@ where $c(G-S)$ is the number of connected components in the graph after removing
 \end{definition}
 
 \begin{theorem}[Circulant Graphs and Hamiltonicity]
-The graph shown in Figure 51 is an example of a circulant graph $\text{Circ}(8;\{1,4\})$. A circulant graph with $n \geq 3$ vertices is Hamiltonian if and only if it is connected.
+The graph shown in Figure~\ref{fig:wagner-graph} is an example of a circulant graph $\text{Circ}(8;\{1,4\})$. A circulant graph with $n \geq 3$ vertices is Hamiltonian if and only if it is connected.
 \end{theorem}
 
 \begin{problem}
-Show that in the graph of Figure 51, there are exactly 5 distinct Hamiltonian cycles. Hint: Count the cycles that use only the outer edges versus those that must use the "diagonal" connections.
+Show that in the graph of Figure~\ref{fig:wagner-graph}, there are exactly 5 distinct Hamiltonian cycles. Hint: Count the cycles that use only the outer edges versus those that must use the "diagonal" connections.
 \end{problem}
 
 \begin{lemma}[Toughness of Regular Graphs]
-The graph in Figure 51 has toughness exactly $\frac{4}{3}$: removing $S = \{v_1, v_2, v_4, v_7\}$ leaves the three components $\{v_3\}$, $\{v_8\}$, and $\{v_5, v_6\}$, and no vertex set gives a smaller ratio. In general, toughness is bounded \emph{above} by the degrees: if $G$ is not complete and $v$ is a vertex of minimum degree, then removing the $\delta(G)$ neighbors of $v$ leaves $v$ isolated together with at least one other component, so $t(G) \leq \frac{\delta(G)}{2}$. In particular, a non-complete $k$-regular graph has toughness at most $\frac{k}{2}$, and it can be much smaller (for example, a disconnected $k$-regular graph has toughness $0$).
+The graph in Figure~\ref{fig:wagner-graph} has toughness exactly $\frac{4}{3}$: removing $S = \{v_1, v_2, v_4, v_7\}$ leaves the three components $\{v_3\}$, $\{v_8\}$, and $\{v_5, v_6\}$, and no vertex set gives a smaller ratio. In general, toughness is bounded \emph{above} by the degrees: if $G$ is not complete and $v$ is a vertex of minimum degree, then removing the $\delta(G)$ neighbors of $v$ leaves $v$ isolated together with at least one other component, so $t(G) \leq \frac{\delta(G)}{2}$. In particular, a non-complete $k$-regular graph has toughness at most $\frac{k}{2}$, and it can be much smaller (for example, a disconnected $k$-regular graph has toughness $0$).
 \end{lemma}
 
 
@@ -3877,10 +3801,8 @@ The graph in Figure 51 has toughness exactly $\frac{4}{3}$: removing $S = \{v_1,
     \node at (0,-2.5) {$\deg(v_5) = 1 < \frac{n}{2} = 2.5$};
 \end{tikzpicture}
 \end{center}
-
-\begin{center}
-\small Figure 52: A graph that fails to satisfy Dirac's condition. This graph has $n = 5$ vertices, with vertex $v_5$ (highlighted in red) having degree 1, which is less than $\frac{n}{2} = 2.5$. The graph cannot contain a Hamiltonian cycle because any cycle including $v_5$ must use both its only edge (to $v_1$) as entry and exit, making it impossible to continue the cycle. This demonstrates why the minimum degree requirement in Dirac's theorem is necessary.
-\end{center}
+\caption{A graph that fails to satisfy Dirac's condition. This graph has $n = 5$ vertices, with vertex $v_5$ (highlighted in red) having degree 1, which is less than $\frac{n}{2} = 2.5$. The graph cannot contain a Hamiltonian cycle because any cycle including $v_5$ must use both its only edge (to $v_1$) as entry and exit, making it impossible to continue the cycle. This demonstrates why the minimum degree requirement in Dirac's theorem is necessary.}
+\label{fig:dirac-fails}
 \end{figure}
 
 \begin{lemma}[Connectivity Requirement]
@@ -3900,7 +3822,7 @@ Let $v$ be a pendant vertex in $G$ with its only neighbor $u$. Any cycle contain
 \end{proof}
 
 \begin{lemma}[Cut Vertices]
-The vertex $v_1$ in Figure 52 is a cut vertex; hence no Hamiltonian cycle can exist in this graph.
+The vertex $v_1$ in Figure~\ref{fig:dirac-fails} is a cut vertex; hence no Hamiltonian cycle can exist in this graph.
 \end{lemma}
 
 \begin{proof}
@@ -3916,7 +3838,7 @@ Let $G$ be a simple graph with $n \geq 3$ vertices. If $\delta(G) \geq \frac{n-1
 \end{theorem}
 
 \begin{remark}[Wheel-Graph Relation]
-The graph in Figure 52 can be viewed as the wheel graph $W_4$ (the hub $v_1$ joined to every vertex of the 4-cycle $v_2v_3v_4v_5$) with the two rim edges $\{v_4,v_5\}$ and $\{v_5,v_2\}$ removed. Removing only one rim edge would not suffice, since $W_4$ minus a single rim edge is still Hamiltonian; removing both leaves $v_5$ as a pendant vertex, which destroys the Hamiltonian property.
+The graph in Figure~\ref{fig:dirac-fails} can be viewed as the wheel graph $W_4$ (the hub $v_1$ joined to every vertex of the 4-cycle $v_2v_3v_4v_5$) with the two rim edges $\{v_4,v_5\}$ and $\{v_5,v_2\}$ removed. Removing only one rim edge would not suffice, since $W_4$ minus a single rim edge is still Hamiltonian; removing both leaves $v_5$ as a pendant vertex, which destroys the Hamiltonian property.
 \end{remark}
 
 \begin{remark}[Dirac's Condition Is Not Necessary]
@@ -3924,10 +3846,10 @@ Adding the edge $\{v_2,v_5\}$ makes the graph Hamiltonian (for example, $v_1, v_
 \end{remark}
 
 \begin{problem}
-Determine which pairs of edges can be added to Figure 52 to meet Dirac's condition, and list all such possible pairs.
+Determine which pairs of edges can be added to Figure~\ref{fig:dirac-fails} to meet Dirac's condition, and list all such possible pairs.
 \end{problem}
 \begin{lemma}[Dirac's Condition and Pendant Vertices]
-Let $G$ be the graph in Figure 52 with a pendant vertex $v_5$ of degree 1. Then:
+Let $G$ be the graph in Figure~\ref{fig:dirac-fails} with a pendant vertex $v_5$ of degree 1. Then:
 \begin{enumerate}
     \item $G$ fails Dirac's condition since $\deg(v_5) = 1 < \frac{n}{2} = 2.5$
     \item $G$ cannot contain a Hamiltonian cycle
@@ -3990,10 +3912,8 @@ then $G$ is Hamiltonian.
 {\centering
 \small For non-adjacent vertices $u_1$ and $u_4$: $\deg(u_1) + \deg(u_4) = 3 + 3 = 6 > 5 = n$
 \par}
-
-\begin{center}
-\small Figure 52: A graph with $n = 5$ vertices satisfying Ore's condition. The red path shows a Hamiltonian cycle, and the blue dashed line indicates a non-adjacent vertex pair whose degree sum exceeds $n$.
-\end{center}
+\caption{A graph with $n = 5$ vertices satisfying Ore's condition. The red path shows a Hamiltonian cycle, and the blue dashed line indicates a non-adjacent vertex pair whose degree sum exceeds $n$.}
+\label{fig:ore-condition}
 \end{figure}
 \begin{figure}[h!]
 \begin{center}
@@ -4030,23 +3950,21 @@ then $G$ is Hamiltonian.
 {\centering
 \small No Hamiltonian cycle exists in this graph
 \par}
-
-\begin{center}
-\small Figure 53: A graph with $n = 5$ vertices that fails both Dirac's and Ore's conditions. The red dashed line shows a non-adjacent vertex pair whose degree sum is less than $n$.
-\end{center}
+\caption{A graph with $n = 5$ vertices that fails both Dirac's and Ore's conditions. The red dashed line shows a non-adjacent vertex pair whose degree sum is less than $n$.}
+\label{fig:ore-fails}
 \end{figure}
 \begin{lemma}[Ore's Condition and Path Graphs]
 Let $P_n$ be a path graph with $n \geq 4$ vertices. Then:
 \begin{enumerate}
     \item For any non-adjacent vertices $u$ and $v$ in $P_n$, $\deg(u) + \deg(v) < n$
     \item $P_n$ fails to satisfy Ore's condition
-    \item The graph in Figure 53 is itself the path $P_5 = (v_5, v_1, v_2, v_3, v_4)$; in particular, it contains $P_4$ as a subgraph, e.g., $(v_1, v_2, v_3, v_4)$
-    \item Adding any single edge to Figure 53 is insufficient to satisfy Ore's condition
+    \item The graph in Figure~\ref{fig:ore-fails} is itself the path $P_5 = (v_5, v_1, v_2, v_3, v_4)$; in particular, it contains $P_4$ as a subgraph, e.g., $(v_1, v_2, v_3, v_4)$
+    \item Adding any single edge to Figure~\ref{fig:ore-fails} is insufficient to satisfy Ore's condition
 \end{enumerate}
 \end{lemma}
 
 \begin{proof}
-In any path graph $P_n$ the maximum degree of any vertex is 2, and the two end vertices have degree 1. If $n \geq 5$, any two non-adjacent vertices have degree sum at most $2 + 2 = 4 < n$. If $n = 4$, the two vertices of degree 2 are adjacent, so every non-adjacent pair contains an end vertex and has degree sum at most $1 + 2 = 3 < 4$. Thus $P_n$ always fails Ore's condition. (Failing Ore's condition does not by itself rule out a Hamiltonian cycle, since the condition is only sufficient; $P_n$ has no Hamiltonian cycle because its end vertices have degree 1.) The graph in Figure 53 is the path $(v_5, v_1, v_2, v_3, v_4)$, with $v_4$ and $v_5$ of degree only 1. If a single edge is added and it does not join $v_4$ and $v_5$, then one of $v_4, v_5$ still has degree 1 and is non-adjacent to three vertices, each of degree at most 3, so some non-adjacent pair has degree sum at most $4 < 5$; if the new edge joins $v_4$ and $v_5$, the result is $C_5$, whose non-adjacent pairs have degree sum $4 < 5$.
+In any path graph $P_n$ the maximum degree of any vertex is 2, and the two end vertices have degree 1. If $n \geq 5$, any two non-adjacent vertices have degree sum at most $2 + 2 = 4 < n$. If $n = 4$, the two vertices of degree 2 are adjacent, so every non-adjacent pair contains an end vertex and has degree sum at most $1 + 2 = 3 < 4$. Thus $P_n$ always fails Ore's condition. (Failing Ore's condition does not by itself rule out a Hamiltonian cycle, since the condition is only sufficient; $P_n$ has no Hamiltonian cycle because its end vertices have degree 1.) The graph in Figure~\ref{fig:ore-fails} is the path $(v_5, v_1, v_2, v_3, v_4)$, with $v_4$ and $v_5$ of degree only 1. If a single edge is added and it does not join $v_4$ and $v_5$, then one of $v_4, v_5$ still has degree 1 and is non-adjacent to three vertices, each of degree at most 3, so some non-adjacent pair has degree sum at most $4 < 5$; if the new edge joins $v_4$ and $v_5$, the result is $C_5$, whose non-adjacent pairs have degree sum $4 < 5$.
 \end{proof}
 \subsubsection{Chvátal's Theorem}
 
@@ -4147,8 +4065,8 @@ $i$ & $d_i \leq i?$ & If yes, $d_{n-i} \geq n-i?$ \\
 \end{tabular}
 \end{center}
 \end{minipage}
-\small Figure 54: {Two examples illustrating Chvátal's condition: the left graph satisfies the condition and contains a Hamiltonian cycle (shown in red), while the right graph fails the condition and has no Hamiltonian cycle.}
-\label{fig:53}
+\caption{Two examples illustrating Chvátal's condition: the left graph satisfies the condition and contains a Hamiltonian cycle (shown in red), while the right graph fails the condition and has no Hamiltonian cycle.}
+\label{fig:chvatal-condition}
 \end{center}
 \end{figure}
 
@@ -4345,10 +4263,8 @@ exponential time.
     \draw[ultra thick, red] (D) to[bend left=10] (E);
     \draw[ultra thick, red] (E) to[bend left=10] (A);
 \end{tikzpicture}
-\begin{center}
-\small Figure 55: Complete graph with edge weights. The red arrows indicate an optimal TSP tour with cost $7 + 4 + 3 + 5 + 6 = 25$.
-\end{center}
-\label{fig:55}
+\caption{Complete graph with edge weights. The red arrows indicate an optimal TSP tour with cost $7 + 4 + 3 + 5 + 6 = 25$.}
+\label{fig:tsp-weighted-k5}
 \end{figure}
 
 \begin{figure}[h]
@@ -4383,9 +4299,8 @@ exponential time.
     \draw[ultra thick, red] (D) -- (C);
     \draw[ultra thick, red] (C) -- (A);
 \end{tikzpicture}
-\begin{center}
-\small Figure 56: Euclidean TSP instance where cities are points in the plane and distances are Euclidean. The red path shows an optimal tour.
-\end{center}
+\caption{Euclidean TSP instance where cities are points in the plane and distances are Euclidean. The red path shows an optimal tour.}
+\label{fig:tsp-euclidean}
 \end{figure}
 
 \begin{align}
@@ -4477,10 +4392,7 @@ The Traveling Salesman Problem is a direct extension of the Hamiltonian cycle pr
         };
     \end{scope}
 \end{tikzpicture}
-\begin{center}
-\begin{center}
-\small Figure 57: 2-approximation algorithm for TSP using Minimum Spanning Tree. \textbf{Left:} A minimum spanning tree; here it is the path $0, 1, 2, 3, 4, 5$ with $n - 1 = 5$ edges (like every spanning tree, it contains no cycle). \textbf{Right:} The approximated TSP tour visits the vertices in the order of a preorder traversal of the MST starting at vertex $0$, namely $0, 1, 2, 3, 4, 5$, and then returns to $0$; in this example the tour is the MST plus the single edge $\{5, 0\}$. The approximation guarantee works because (1) the MST cost is a lower bound on the optimal TSP tour cost since removing any edge from a tour produces a spanning tree, and (2) doubling the MST and shortcutting (via triangle inequality) produces a tour of cost at most twice optimal.
-\end{center}\end{center}
+\caption{2-approximation algorithm for TSP using Minimum Spanning Tree. \textbf{Left:} A minimum spanning tree; here it is the path $0, 1, 2, 3, 4, 5$ with $n - 1 = 5$ edges (like every spanning tree, it contains no cycle). \textbf{Right:} The approximated TSP tour visits the vertices in the order of a preorder traversal of the MST starting at vertex $0$, namely $0, 1, 2, 3, 4, 5$, and then returns to $0$; in this example the tour is the MST plus the single edge $\{5, 0\}$. The approximation guarantee works because (1) the MST cost is a lower bound on the optimal TSP tour cost since removing any edge from a tour produces a spanning tree, and (2) doubling the MST and shortcutting (via triangle inequality) produces a tour of cost at most twice optimal.}
 \label{fig:tsp-approx}
 \end{figure}
 
@@ -4753,12 +4665,10 @@ If $G$ is a graph with minimum degree $k \geq 2$, it contains a cycle of length 
 
 \begin{center}
 \small Edges: $(v_1,v_2) = e_1$, $(v_2,v_3) = e_2$, $(v_3,v_4) = e_3$, $(v_4,v_1) = e_4$\\
-Path: $v_1 \xrightarrow{e_1} v_2 \xrightarrow{e_2} v_3 \xrightarrow{e_3} v_4 \xrightarrow{e_4} v_1$\\
-\vspace{0.2cm}
-Figure 58: A cycle $C_4$ where each vertex has degree $k=2$. The cycle length is $4 = k+2$, 
-demonstrating that cycles longer than $k+1$ are possible in specific graphs.
+Path: $v_1 \xrightarrow{e_1} v_2 \xrightarrow{e_2} v_3 \xrightarrow{e_3} v_4 \xrightarrow{e_4} v_1$
 \end{center}
-\label{fig:58}
+\caption{A cycle $C_4$ where each vertex has degree $k=2$. The cycle length is $4 = k+2$, demonstrating that cycles longer than $k+1$ are possible in specific graphs.}
+\label{fig:c4-long-cycle}
 \end{figure}
 
 This $C_4$ example shows that while the theorem guarantees a cycle of length at least $k+1$ (which would be 3 in this case), we can sometimes find longer cycles. Here, the minimum degree is $k=2$, but the cycle has length 4. This illustrates that the theorem provides a lower bound that is tight in general, but specific graph structures may contain even longer cycles.
@@ -4799,9 +4709,7 @@ This $C_4$ example shows that while the theorem guarantees a cycle of length at 
     % Cycle label
     \node[red] at (4,-2.5) {Cycle $C'$: $v \to v_3 \to v_2 \to v_1 \to v$ of length 4 = $k+1$ for $k=3$};
 \end{tikzpicture}
-\\
-\small
-Figure 59: Applying the long cycle theorem to a graph with minimum degree 3.
+\caption{Applying the long cycle theorem to a graph with minimum degree 3.}
 \label{fig:long-cycle-example}
 \end{figure}
 
@@ -4831,7 +4739,7 @@ If $G$ has minimum degree $k$ and $P$ is a longest path with endpoint $v$, then 
 \end{corollary}
 
 \begin{remark}
-The Long Cycle Theorem is tight in the sense that for any $k \geq 2$, there exists a graph with minimum degree $k$ whose longest cycle has length exactly $k+1$. The complete graph $K_{k+1}$ demonstrates this, as shown in Figure 60 for $k = 4$.
+The Long Cycle Theorem is tight in the sense that for any $k \geq 2$, there exists a graph with minimum degree $k$ whose longest cycle has length exactly $k+1$. The complete graph $K_{k+1}$ demonstrates this, as shown in Figure~\ref{fig:k5-long-cycle-tight} for $k = 4$.
 \end{remark}
 
 \begin{remark}
@@ -4865,16 +4773,11 @@ Degree Information: $d(v_i) = 4$ for all $i$, Minimum degree $k = 4$\\
 Cycle: $v_1 \xrightarrow{} v_2 \xrightarrow{} v_3 \xrightarrow{} v_4 \xrightarrow{} v_5 \xrightarrow{} v_1$ has length $5 = k+1$
 \end{center}
 
-\begin{center}
-\small
-Figure 60: The complete graph $K_5$ demonstrating the tightness of the Long Cycle Theorem. 
-The thick cycle $C = (v_1, v_2, v_3, v_4, v_5, v_1)$ has length 5, which equals $k+1$ where $k=4$ is 
-the minimum degree. This shows the theorem's bound is tight, as no cycle longer than 
-$k+1$ exists in this graph.\\
-\textbf{Example (Complete Graph - Tight Bound Example).}
-\end{center}
+\caption{The complete graph $K_5$ demonstrating the tightness of the Long Cycle Theorem. The thick cycle $C = (v_1, v_2, v_3, v_4, v_5, v_1)$ has length 5, which equals $k+1$ where $k=4$ is the minimum degree. This shows the theorem's bound is tight, as no cycle longer than $k+1$ exists in this graph.}
+\label{fig:k5-long-cycle-tight}
 \end{figure}
 
+\noindent\textbf{Example (Complete Graph - Tight Bound Example).}
 This example demonstrates that the Long Cycle Theorem's bound cannot be improved in general. In the complete graph $K_5$:
 \begin{itemize}
     \item Every vertex is adjacent to the other four vertices, so each vertex has degree 4
@@ -5196,9 +5099,8 @@ If $m > n-1$, suppose for contradiction that $G$ is acyclic. Then $G$ is a fores
     \draw[thick] (v11) -- (v14);
     \node[below] at (10,-5.5) {$n=4$ (Star)};
 \end{tikzpicture}
-\\
-\small
-Figure 61: Examples of all possible tree structures with 1 to 4 vertices. Notice that each tree with $n$ vertices has exactly $n-1$ edges. As the number of vertices increases, the variety of possible tree structures grows rapidly.
+\caption{Examples of all possible tree structures with 1 to 4 vertices. Notice that each tree with $n$ vertices has exactly $n-1$ edges. As the number of vertices increases, the variety of possible tree structures grows rapidly.}
+\label{fig:small-trees}
 \end{figure}
 
 This figure shows the fundamental tree structures with small numbers of vertices. For $n=1$, there is only one possible tree: a single isolated vertex. For $n=2$, there is again only one possible structure: two vertices connected by a single edge. For $n=3$, there is still only one tree up to isomorphism: the path with three vertices, which is the same graph as the star with one central vertex connected to two leaves. Starting from $n=4$, we see multiple possible configurations emerging: up to isomorphism there are exactly two trees with four vertices, a path of length 3 and a star with one central vertex connected to three leaves, and both are shown. (There are three trees with five vertices.) Each of these structures satisfies the definition of a tree: they are connected and acyclic. No matter how complex a tree becomes, it will always have exactly $n-1$ edges, where $n$ is the number of vertices.
@@ -5262,9 +5164,7 @@ If $G$ is a tree, then every edge is a bridge.
         \node[red, font=\small] at (2.2,1) {edge removed};
     \end{scope}
 \end{tikzpicture}
-\\
-\small
-Figure 62: Illustration of a bridge in a graph. The left shows a connected graph $G$ with a bridge highlighted in red between vertices $v_2$ and $v_3$. The right shows the result after removing this bridge: the graph $G - e$ becomes disconnected with two separate components (outlined by dashed boxes). In a tree, every edge is a bridge because removing any edge would disconnect the tree.
+\caption{Illustration of a bridge in a graph. The left shows a connected graph $G$ with a bridge highlighted in red between vertices $v_2$ and $v_3$. The right shows the result after removing this bridge: the graph $G - e$ becomes disconnected with two separate components (outlined by dashed boxes). In a tree, every edge is a bridge because removing any edge would disconnect the tree.}
 \label{fig:bridge-example}
 \end{figure}
 
@@ -5379,9 +5279,7 @@ We'll prove the equivalence by showing $(1) \Rightarrow (2) \Rightarrow (3) \Rig
         \node[below, align=center, text width=4cm] at (1.5,-2) {Not a tree:\\Disconnected};
     \end{scope}
 \end{tikzpicture}
-\\
-\small
-Figure 63: Illustration of tree characterization. Left: A connected graph with a cycle is not a tree. Center: A connected acyclic graph is a tree with $n-1$ edges. Right: A disconnected acyclic graph is a forest, not a tree. The center graph satisfies all conditions from the lemma: it is connected, acyclic, has $n-1$ edges, and every edge is a bridge.
+\caption{Illustration of tree characterization. Left: A connected graph with a cycle is not a tree. Center: A connected acyclic graph is a tree with $n-1$ edges. Right: A disconnected acyclic graph is a forest, not a tree. The center graph satisfies all conditions from the lemma: it is connected, acyclic, has $n-1$ edges, and every edge is a bridge.}
 \label{fig:tree-characterization}
 \end{figure}
 
@@ -5461,14 +5359,12 @@ Let $G$ be a connected graph. If $G$ has no cycles, then it is already a tree an
         \node[align=center, text width=4cm] at (1,-2.5) {Step 2: Remove edge in\\cycle $abd$\\(Final Spanning Tree)};
     \end{scope}
 \end{tikzpicture}
-\\
-\small
-Figure 64: Construction of a spanning tree from a connected graph. Left: Original connected graph with three cycles ($abc$, $abd$, and $acbd$). Center: After removing edge $bc$ from the first cycle. Right: Final spanning tree after removing edge $bd$ from the second cycle. The result is a connected acyclic subgraph that includes all vertices of the original graph.
+\caption{Construction of a spanning tree from a connected graph. Left: Original connected graph with three cycles ($abc$, $abd$, and $acbd$). Center: After removing edge $bc$ from the first cycle. Right: Final spanning tree after removing edge $bd$ from the second cycle. The result is a connected acyclic subgraph that includes all vertices of the original graph.}
 \label{fig:spanning-tree-construction}
 \end{figure}
 
 \begin{example}[Finding a Spanning Tree]
-To find a spanning tree in the graph shown in Figure 64:
+To find a spanning tree in the graph shown in Figure~\ref{fig:spanning-tree-construction}:
 \begin{enumerate}
     \item We start with the connected graph on the left, which contains cycles.
     \item First, we identify the cycle formed by vertices $a$, $b$, and $c$, and remove the edge $\{b,c\}$.
@@ -5584,7 +5480,7 @@ Given a graph $G$ and a starting vertex $v_1$, we can construct a breadth-first 
 If $G$ is connected, the resulting tree $T$ is a BFS spanning tree of $G$ (in general, $T$ spans the component containing $v_1$).
 
 \noindent\textbf{Example.}
-Finding a BFS tree in the graph of Figure 65, starting from vertex $a$:
+Finding a BFS tree in the graph of Figure~\ref{fig:graph-example1}, starting from vertex $a$:
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}[
@@ -5614,9 +5510,7 @@ Finding a BFS tree in the graph of Figure 65, starting from vertex $a$:
     \draw (e) -- (g);
     \draw (f) -- (g);
 \end{tikzpicture}
-\\
-\small
-Figure 65: Example diagram for BFS Tree. 
+\caption{Example diagram for BFS Tree.}
 \label{fig:graph-example1}
 \end{figure}
 
@@ -5643,7 +5537,7 @@ were already discovered through other paths when we encountered these edges.
 
 \begin{figure}[h]
 \noindent\textbf{Example.}
-Finding a BFS tree in the graph of Figure 66, starting from vertex $2$:
+Finding a BFS tree in the graph of Figure~\ref{fig:graph-example2}, starting from vertex $2$:
 
 \centering
 \begin{tikzpicture}[
@@ -5675,9 +5569,7 @@ Finding a BFS tree in the graph of Figure 66, starting from vertex $2$:
     \draw (v7) -- (v8);
     \draw (v8) -- (v9);
 \end{tikzpicture}
-\\
-Figure 66: Example diagram for BFS Tree. 
-
+\caption{Example diagram for BFS Tree.}
 \label{fig:graph-example2}
 \end{figure}
 \pagebreak
@@ -5777,7 +5669,7 @@ $g$ & $L_0 = \{g\}$, $L_1 = \{d, e, f\}$, $L_2 = \{a, b, c\}$ & 2 & 2 \\
 \hline
 \end{tabular}
 \end{center}
-\noindent\textbf{Properties of Figure 65:}
+\noindent\textbf{Properties of Figure~\ref{fig:graph-example1}:}
 \begin{itemize}
 \item \textbf{Radius:} $\text{rad}(G) = \min\{\text{ecc}(v) : v \in V(G)\} = 2$
 \item \textbf{Diameter:} $\text{diam}(G) = \max\{\text{ecc}(v) : v \in V(G)\} = 3$
@@ -5808,7 +5700,7 @@ $8$ & $L_0 = \{8\}$, $L_1 = \{2, 3, 6, 7, 9\}$, $L_2 = \{4, 5\}$, $L_3 = \{1\}$ 
 
 \noindent A full analysis would include all vertices, but we've computed enough to determine the key properties: no vertex is adjacent to all others, so every eccentricity is at least 2, and $\text{ecc}(7) = 2$; hence $\text{rad}(G) = 2$, so $\text{diam}(G) \leq 2 \cdot \text{rad}(G) = 4$, and $\text{ecc}(1) = 4$ shows $\text{diam}(G) = 4$.
 
-\noindent\textbf{Properties of Figure 66:}
+\noindent\textbf{Properties of Figure~\ref{fig:graph-example2}:}
 \begin{itemize}
 \item \textbf{Radius:} $\text{rad}(G) = 2$ (achieved by vertex 7)
 \item \textbf{Diameter:} $\text{diam}(G) = 4$ (for example, $d_G(1,3) = 4$, realized by the path $1$-$4$-$7$-$8$-$3$)
@@ -5820,9 +5712,9 @@ $8$ & $L_0 = \{8\}$, $L_1 = \{2, 3, 6, 7, 9\}$, $L_2 = \{4, 5\}$, $L_3 = \{1\}$ 
 \begin{remark}
 Both graphs share interesting structural properties:
 \begin{itemize}
-\item Both have radius 2; Figure 65 has diameter 3 and Figure 66 has diameter 4
-\item Both satisfy the theorem that $\text{rad}(G) \leq \text{diam}(G) \leq 2 \cdot \text{rad}(G)$; equality holds on the right for Figure 66 ($4 = 2 \cdot 2$) but not for Figure 65 ($3 < 4$)
-\item Figure 65 has multiple central vertices (5 out of 7 vertices), while Figure 66 has a single central vertex (vertex 7)
+\item Both have radius 2; Figure~\ref{fig:graph-example1} has diameter 3 and Figure~\ref{fig:graph-example2} has diameter 4
+\item Both satisfy the theorem that $\text{rad}(G) \leq \text{diam}(G) \leq 2 \cdot \text{rad}(G)$; equality holds on the right for Figure~\ref{fig:graph-example2} ($4 = 2 \cdot 2$) but not for Figure~\ref{fig:graph-example1} ($3 < 4$)
+\item Figure~\ref{fig:graph-example1} has multiple central vertices (5 out of 7 vertices), while Figure~\ref{fig:graph-example2} has a single central vertex (vertex 7)
 \item The BFS trees of both graphs efficiently reveal their distance properties
 \end{itemize}
 \end{remark}
@@ -5869,7 +5761,7 @@ Given a graph $G$ and a starting vertex $v_1$, we can construct a depth-first se
 \end{enumerate}
 If $G$ is connected, the resulting tree $T$ is a DFS spanning tree of $G$ (in general, $T$ spans the component containing $v_1$).
 
-\noindent\textbf{DFS Tree Construction for Figure 65, starting from vertex $a$:} (as in the BFS examples, the neighbors of each vertex are examined in alphabetical order)
+\noindent\textbf{DFS Tree Construction for Figure~\ref{fig:graph-example1}, starting from vertex $a$:} (as in the BFS examples, the neighbors of each vertex are examined in alphabetical order)
 \begin{enumerate}
 \item $a$ is the root, $V(T) = \{a\}$, DFS ordering: $(a)$
 \item Add $b$: $V(T) = \{a, b\}$, $E(T) = \{\{a, b\}\}$, DFS ordering: $(a, b)$
@@ -5893,7 +5785,7 @@ Note that the edges $\{a, d\}$, $\{b, d\}$, $\{b, e\}$, $\{c, f\}$,
 $\{e, f\}$, and $\{e, g\}$ are not part of the DFS tree because their endpoint vertices 
 were already discovered through other paths when we encountered these edges.
 
-\noindent\textbf{DFS Tree Construction for Figure 66, starting from vertex $2$:} (neighbors are examined in increasing numerical order)
+\noindent\textbf{DFS Tree Construction for Figure~\ref{fig:graph-example2}, starting from vertex $2$:} (neighbors are examined in increasing numerical order)
 \begin{enumerate}
 \item $2$ is the root, $V(T) = \{2\}$, DFS ordering: $(2)$
 \item Add $6$: $V(T) = \{2, 6\}$, $E(T) = \{\{2, 6\}\}$, DFS ordering: $(2, 6)$
@@ -5925,10 +5817,10 @@ were already discovered through other paths when we encountered these edges.
 \begin{remark}[DFS Properties Comparison]
 Both graphs exhibit interesting structural properties when analyzed through DFS traversal:
 \begin{itemize}
-\item The DFS trees of both graphs have maximum depth 6: vertex $f$ is at depth 6 in Figure 65, and vertex $5$ is at depth 6 in Figure 66
+\item The DFS trees of both graphs have maximum depth 6: vertex $f$ is at depth 6 in Figure~\ref{fig:graph-example1}, and vertex $5$ is at depth 6 in Figure~\ref{fig:graph-example2}
 \item The DFS trees reveal the connectivity patterns differently than BFS, highlighting branch-like structures
-\item In Figure 65, DFS from vertex $a$ never needs to backtrack before every vertex is discovered: the DFS tree is the single path $a$-$b$-$c$-$e$-$d$-$g$-$f$
-\item In Figure 66, DFS from vertex $2$ follows $2$-$6$-$8$-$3$, backtracks to $8$ to explore the branch $8$-$7$-$4$-$1$-$5$, and finally backtracks to $8$ again to reach $9$
+\item In Figure~\ref{fig:graph-example1}, DFS from vertex $a$ never needs to backtrack before every vertex is discovered: the DFS tree is the single path $a$-$b$-$c$-$e$-$d$-$g$-$f$
+\item In Figure~\ref{fig:graph-example2}, DFS from vertex $2$ follows $2$-$6$-$8$-$3$, backtracks to $8$ to explore the branch $8$-$7$-$4$-$1$-$5$, and finally backtracks to $8$ again to reach $9$
 \item Both DFS trees contain exactly $n-1$ edges where $n$ is the number of vertices
 \item The back edges (edges not in the DFS tree) reveal the cycle structure in both graphs
 \item While BFS trees minimize the distance from the root, DFS trees tend to create longer paths from the root to certain vertices
@@ -5967,9 +5859,9 @@ Both graphs exhibit interesting structural properties when analyzed through DFS 
 \hline
 \textbf{Graph} & \textbf{BFS Traversal} & \textbf{DFS Traversal} \\
 \hline
-Figure 65 & $(a, b, d, c, e, g, f)$ & $(a, b, c, e, d, g, f)$ \\
+Figure~\ref{fig:graph-example1} & $(a, b, d, c, e, g, f)$ & $(a, b, c, e, d, g, f)$ \\
 \hline
-Figure 66 & $(2, 6, 7, 8, 4, 5, 3, 9, 1)$ & $(2, 6, 8, 3, 7, 4, 1, 5, 9)$ \\
+Figure~\ref{fig:graph-example2} & $(2, 6, 7, 8, 4, 5, 3, 9, 1)$ & $(2, 6, 8, 3, 7, 4, 1, 5, 9)$ \\
 \hline
 \end{tabular}
 \caption{Comparison of BFS and DFS traversal orders starting from vertices $a$ and $2$}
@@ -5981,13 +5873,13 @@ The BFS and DFS traversals reveal fundamentally different exploration strategies
 \begin{itemize}
 \item \textbf{Exploration Pattern:} BFS explores vertices in breadth (layer by layer), while DFS explores in depth (branch by branch).
 
-\item \textbf{Figure 65 Patterns:} 
+\item \textbf{Figure~\ref{fig:graph-example1} Patterns:} 
   \begin{itemize}
   \item In BFS, vertices $b$ and $d$ are discovered first (immediate neighbors of $a$), then the next layer ($c$, $e$, $g$), and finally $f$.
   \item In DFS, the algorithm follows the single branch $a$-$b$-$c$-$e$-$d$-$g$-$f$ without backtracking until every vertex has been discovered; the DFS tree is a path.
   \end{itemize}
   
-\item \textbf{Figure 66 Patterns:}
+\item \textbf{Figure~\ref{fig:graph-example2} Patterns:}
   \begin{itemize}
   \item In BFS, immediate neighbors of $2$ (vertices $6$, $7$, $8$) are explored first, then their neighbors, creating a layered exploration.
   \item In DFS, the search follows $2$-$6$-$8$-$3$, backtracks to $8$ to explore the branch $8$-$7$-$4$-$1$-$5$, and then backtracks to $8$ again to discover $9$.
@@ -6002,15 +5894,15 @@ The traversal trees reveal important structural differences:
 
 \item \textbf{Path Lengths:} 
   \begin{itemize}
-  \item In Figure 65, the BFS tree guarantees shortest paths from $a$ to all vertices, while the DFS tree reaches $d$ only along the path $a$-$b$-$c$-$e$-$d$ of length 4, although $d$ is adjacent to $a$.
-  \item In Figure 66, the BFS path from $2$ to $5$ is $2$-$7$-$5$, of length $2 = d_G(2,5)$, while the DFS path $2$-$6$-$8$-$7$-$4$-$1$-$5$ has length 6.
+  \item In Figure~\ref{fig:graph-example1}, the BFS tree guarantees shortest paths from $a$ to all vertices, while the DFS tree reaches $d$ only along the path $a$-$b$-$c$-$e$-$d$ of length 4, although $d$ is adjacent to $a$.
+  \item In Figure~\ref{fig:graph-example2}, the BFS path from $2$ to $5$ is $2$-$7$-$5$, of length $2 = d_G(2,5)$, while the DFS path $2$-$6$-$8$-$7$-$4$-$1$-$5$ has length 6.
   \end{itemize}
   
 \item \textbf{Edge Selection:}
   \begin{itemize}
   \item BFS includes edges that minimize distance from the root.
   \item DFS includes edges that extend the current exploration path as far as possible.
-  \item For example, in Figure 65, BFS includes edge $\{a,d\}$ while DFS includes $\{f,g\}$.
+  \item For example, in Figure~\ref{fig:graph-example1}, BFS includes edge $\{a,d\}$ while DFS includes $\{f,g\}$.
   \end{itemize}
   
 \item \textbf{Cycle Detection:} Both traversals identify different sets of non-tree edges (edges not in the spanning tree), each of which closes a cycle with the tree.
@@ -6024,9 +5916,9 @@ The different traversal orders suggest optimal algorithms for different applicat
 
 \item \textbf{DFS Applications:} Detecting cycles, finding connected components, topological sorting, solving maze-like problems.
 
-\item For Figure 65, BFS would be more appropriate for determining central vertices, while DFS would be better for detecting cycles (for example, the non-tree edge $\{a,d\}$ closes the cycle $a$-$b$-$c$-$e$-$d$-$a$ with the DFS tree).
+\item For Figure~\ref{fig:graph-example1}, BFS would be more appropriate for determining central vertices, while DFS would be better for detecting cycles (for example, the non-tree edge $\{a,d\}$ closes the cycle $a$-$b$-$c$-$e$-$d$-$a$ with the DFS tree).
 
-\item For Figure 66, BFS would be better for finding the shortest path from vertex $2$ to vertex $5$, while DFS would be a natural choice for detecting cycles, since each non-tree edge found by DFS closes a cycle with the DFS tree (for example, $\{4,5\}$ closes the cycle $4$-$1$-$5$-$4$).
+\item For Figure~\ref{fig:graph-example2}, BFS would be better for finding the shortest path from vertex $2$ to vertex $5$, while DFS would be a natural choice for detecting cycles, since each non-tree edge found by DFS closes a cycle with the DFS tree (for example, $\{4,5\}$ closes the cycle $4$-$1$-$5$-$4$).
 \end{itemize}
 \end{remark}
 
@@ -6119,9 +6011,8 @@ Let $G = (V, E)$ be a connected, undirected graph with positive edge weights $w:
     \draw[blue, thick] (6) -- node[left, blue] {8543} (0);
     \draw[blue, thick] (7) -- node[below, sloped, blue] {9764} (5);
 \end{tikzpicture}
-\\
-\small
-Figure 67: Example of a weighted graph
+\caption{Example of a weighted graph}
+\label{fig:weighted-graph}
 \end{figure}
 
 
@@ -6257,8 +6148,8 @@ Figure 67: Example of a weighted graph
     \draw[gray, thin, opacity=0.3] (6) -- node[left, gray] {8543} (0);
     \draw[gray, thin, opacity=0.3] (7) -- node[below, sloped, gray] {9764} (5);
 \end{tikzpicture}
-\\
-\small Figure 68: Finding the shortest spanning tree using Prim's Algorithm 
+\caption{Finding the shortest spanning tree using Prim's Algorithm}
+\label{fig:prim-example}
 
 \end{figure}
 
@@ -6336,7 +6227,7 @@ Kruskal's algorithm, unlike Prim's algorithm, does not necessarily build a conne
 
 \noindent\textbf{Demonstration of Kruskal's Algorithm for Finding a Minimum Spanning Tree}
 
-Starting with the weighted graph shown in Figure 67, we apply Kruskal's algorithm to find the minimum spanning tree (MST):
+Starting with the weighted graph shown in Figure~\ref{fig:weighted-graph}, we apply Kruskal's algorithm to find the minimum spanning tree (MST):
 
 \begin{enumerate}
 \item \textbf{Initialize}: Start with a forest where each vertex is a separate tree.
@@ -6477,8 +6368,8 @@ Starting with the weighted graph shown in Figure 67, we apply Kruskal's algorith
     \draw[gray, thin, opacity=0.3] (6) -- node[left, gray] {8543} (0);
     \draw[gray, thin, opacity=0.3] (7) -- node[below, sloped, gray] {9764} (5);
 \end{tikzpicture}
-\\
-\small Figure 69: Finding the minimum spanning tree using Kruskal's Algorithm. Numbers in parentheses indicate the order in which edges were added to the MST.
+\caption{Finding the minimum spanning tree using Kruskal's Algorithm. Numbers in parentheses indicate the order in which edges were added to the MST.}
+\label{fig:kruskal-example}
 \end{figure}
 
 \begin{algorithm}
@@ -6536,7 +6427,7 @@ Both Prim's and Kruskal's algorithms are greedy algorithms that find the minimum
 \label{tab:comparison}
 \end{table}
 
-As demonstrated in Figures 68 and 69:
+As demonstrated in Figures~\ref{fig:prim-example} and~\ref{fig:kruskal-example}:
 
 \begin{enumerate}
 \item \textbf{Edge Addition Order}:
@@ -6670,7 +6561,7 @@ Let $G = (V, E)$ be a directed graph with a non-negative weight function $w: E \
 
 \noindent\textbf{Demonstration of Dijkstra's Algorithm for Finding Shortest Paths}
 
-Starting with the weighted graph shown in Figure 70, we apply Dijkstra's algorithm to find the shortest paths from source vertex 0 to all other vertices:
+Starting with the weighted graph shown in Figure~\ref{fig:dijkstra-example}, we apply Dijkstra's algorithm to find the shortest paths from source vertex 0 to all other vertices:
 
 \begin{enumerate}
 \item \textbf{Initialize}: Set distance to source vertex 0 as 0, and all other vertices as infinity.
@@ -6819,8 +6710,8 @@ Starting with the weighted graph shown in Figure 70, we apply Dijkstra's algorit
     \draw[gray, thin, opacity=0.3] (6) -- node[below, sloped, gray] {4095} (7);
     \draw[gray, thin, opacity=0.3] (7) -- node[below, sloped, gray] {9764} (5);
 \end{tikzpicture}
-\\
-\small Figure 70: Finding the shortest paths using Dijkstra's Algorithm. Numbers in parentheses indicate the order in which vertices were processed after the source 0; the number for each vertex is written on the tree edge joining it to its predecessor.
+\caption{Finding the shortest paths using Dijkstra's Algorithm. Numbers in parentheses indicate the order in which vertices were processed after the source 0; the number for each vertex is written on the tree edge joining it to its predecessor.}
+\label{fig:dijkstra-example}
 \end{figure}
 
 \begin{algorithm}
@@ -6955,7 +6846,7 @@ The algorithm has time complexity $\Theta(n^3)$ and space complexity $\Theta(n^2
 
 \noindent\textbf{Demonstration of Floyd-Warshall Algorithm for All-Pairs Shortest Paths}
 
-Starting with the weighted graph shown in Figure 71, we apply the Floyd-Warshall algorithm to find the shortest paths between all pairs of vertices:
+Starting with the weighted graph shown in Figure~\ref{fig:floyd-warshall-example}, we apply the Floyd-Warshall algorithm to find the shortest paths between all pairs of vertices:
 
 \begin{enumerate}
 \item \textbf{Initialize}: Create the distance matrix $D^{(0)}$ based on the direct edge weights.
@@ -7093,8 +6984,8 @@ $\begin{pmatrix}
     \node[blue, text width=4cm] at (9,2) {Example: Shortest path from 0 to 5 (distance 10877)};
     \draw[blue, ->] (7,2) -- (5.5,1.5);
 \end{tikzpicture}
-\\
-\small Figure 71: Directed graph for the Floyd-Warshall algorithm. The blue arrows highlight an example shortest path.
+\caption{Directed graph for the Floyd-Warshall algorithm. The blue arrows highlight an example shortest path.}
+\label{fig:floyd-warshall-example}
 \end{figure}
 
 \begin{algorithm}
@@ -7175,7 +7066,7 @@ Let $G = (V, E)$ be a weighted directed graph with $n$ vertices and $m$ edges, w
 The algorithm has time complexity $O(nm)$ and space complexity $O(n)$, where $n$ is the number of vertices and $m$ is the number of edges in the graph.
 \end{definition}
 
-Starting with the weighted graph shown in Figure 72, we apply the Bellman-Ford algorithm to find the shortest paths from source vertex 0 to all other vertices:
+Starting with the weighted graph shown in Figure~\ref{fig:bellman-ford-example}, we apply the Bellman-Ford algorithm to find the shortest paths from source vertex 0 to all other vertices:
 
 \begin{enumerate}
 \item \textbf{Initialize}: Set distance to source vertex 0 as 0, and all other vertices as infinity.
@@ -7276,8 +7167,8 @@ Starting with the weighted graph shown in Figure 72, we apply the Bellman-Ford a
     \node[red, text width=4cm] at (8,2) {Shortest path from 0 to 5 (distance 10877)};
     \draw[red, ->] (6.5,2) -- (5.5,1.5);
 \end{tikzpicture}
-\\
-\small Figure 72: Graph for the Bellman-Ford algorithm. The red arrows highlight the shortest path from vertex 0 to vertex 5.
+\caption{Graph for the Bellman-Ford algorithm. The red arrows highlight the shortest path from vertex 0 to vertex 5.}
+\label{fig:bellman-ford-example}
 \end{figure}
 
 \begin{algorithm}
@@ -7525,8 +7416,8 @@ The bipartiteness of a graph can be tested using either Breadth-First Search (BF
     
     % Bipartite graph label
 \end{tikzpicture}
-\\
-\small Figure 73:A bipartite graph with partite sets $U$ and $V$
+\caption{A bipartite graph with partite sets $U$ and $V$}
+\label{fig:bipartite-uv}
 \end{figure}
 
 \pagebreak
@@ -7586,8 +7477,8 @@ Any edge in the grid connects a vertex $(i,j)$ to either $(i+1,j)$ or $(i,j+1)$.
     
     \node at (1,-1) {3×3 Grid Graph};
 \end{tikzpicture}
-\\
-\small Figure 74:A 3×3 grid graph with bipartite coloring. Vertices are labeled with their coordinates $(i,j)$, and colored based on whether $i+j$ is even (red) or odd (blue).
+\caption{A 3×3 grid graph with bipartite coloring. Vertices are labeled with their coordinates $(i,j)$, and colored based on whether $i+j$ is even (red) or odd (blue).}
+\label{fig:grid-bipartite}
 \end{figure}
 
 
@@ -7632,8 +7523,8 @@ For an odd cycle, it's impossible to create such a bipartition because the last 
     
     \node at (0,-3) {Even Cycle $C_6$};
 \end{tikzpicture}
-\\
-\small Figure 75:An even cycle ($C_6$) with bipartite coloring. Even-indexed vertices are colored red, and odd-indexed vertices are colored blue.
+\caption{An even cycle ($C_6$) with bipartite coloring. Even-indexed vertices are colored red, and odd-indexed vertices are colored blue.}
+\label{fig:even-cycle-bipartite}
 \end{figure}
 
 \begin{definition}[Biregular Graph]
@@ -7679,8 +7570,8 @@ A bipartite graph $G = (X \cup Y, E)$ is \textit{biregular} (also called \textit
     \node at (0,4) {$X$ (degree $k=2$)};
     \node at (4,4) {$Y$ (degree $l=3$)};
 \end{tikzpicture}
-\\
-\small Figure 76: A $(2,3)$-biregular bipartite graph with $|X| = 6$ and $|Y| = 4$
+\caption{A $(2,3)$-biregular bipartite graph with $|X| = 6$ and $|Y| = 4$}
+\label{fig:biregular}
 \end{figure}
 
 \pagebreak
@@ -8037,8 +7928,7 @@ Let $G$ be a connected graph. A vertex $v \in V(G)$ is called a \textit{cut vert
     
     \node at (2,-2.5) {Graph $G$ with cut vertices $v_3$ and $v_6$};
 \end{tikzpicture}
-\\
-\small Figure 77: A graph $G$ with cut vertices $v_3$ and $v_6$ (colored green). Removing either vertex disconnects the graph.
+\caption{A graph $G$ with cut vertices $v_3$ and $v_6$ (colored green). Removing either vertex disconnects the graph.}
 \label{fig:graph_G}
 \end{figure}
 
@@ -8065,8 +7955,7 @@ Let $G$ be a connected graph. A vertex $v \in V(G)$ is called a \textit{cut vert
     
     \node at (2,-2.5) {$G - \{v_3\}$ is disconnected};
 \end{tikzpicture}
-\\
-\small Figure 78: When vertex $v_3$ is removed, the graph becomes disconnected, with three components $\{v_1\}$, $\{v_2\}$, and $\{v_4, v_5, v_6, v_7\}$.
+\caption{When vertex $v_3$ is removed, the graph becomes disconnected, with three components $\{v_1\}$, $\{v_2\}$, and $\{v_4, v_5, v_6, v_7\}$.}
 \label{fig:graph_G_minus_v3}
 \end{figure}
 
@@ -8094,8 +7983,7 @@ Let $G$ be a connected graph. A vertex $v \in V(G)$ is called a \textit{cut vert
     
     \node at (2,-2.5) {$G - \{v_6\}$ is disconnected};
 \end{tikzpicture}
-\\
-\small Figure 79:When vertex $v_6$ is removed, the graph becomes disconnected, isolating vertex $v_7$.
+\caption{When vertex $v_6$ is removed, the graph becomes disconnected, isolating vertex $v_7$.}
 \label{fig:graph_G_minus_v6}
 \end{figure}
 
@@ -8127,8 +8015,7 @@ Let $G$ be a connected graph. A vertex $v \in V(G)$ is called a \textit{cut vert
     \node[purple, font=\large\itshape] at (5,1) {$C_5$ has no cut vertices.};
     \node at (5,-0.5) {$C_5 - \{v\}$ is $P_4$};
 \end{tikzpicture}
-\\
-\small Figure 80:Cycle graph $C_5$ with vertex $v$ marked; the other four (highlighted) vertices form $C_5 - \{v\}$. Removing any vertex from $C_5$ results in a path graph $P_4$.
+\caption{Cycle graph $C_5$ with vertex $v$ marked; the other four (highlighted) vertices form $C_5 - \{v\}$. Removing any vertex from $C_5$ results in a path graph $P_4$.}
 \label{fig:C5_no_cut_vertices}
 \end{figure}
 
@@ -8154,6 +8041,7 @@ A vertex can belong to multiple blocks, and such a vertex must be a cut vertex o
 Consider the cycle graph $C_5$ shown below:
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[
     vertex/.style={circle, draw, fill=yellow!50, minimum size=0.6cm},
     scale=1.2
@@ -8174,8 +8062,9 @@ Consider the cycle graph $C_5$ shown below:
     
     % Label the graph
 \end{tikzpicture}
-\\
-\small Figure 81: {$C_5$: The entire graph is a single block};
+\captionof{figure}{$C_5$: The entire graph is a single block}
+\label{fig:c5-single-block}
+\end{minipage}
 
 For the cycle graph $C_5$:
 \begin{itemize}
@@ -8207,6 +8096,7 @@ For a general connected graph $G$, we can identify its blocks as follows:
 If $T$ is a tree with at least two vertices, then all blocks are $K_2$ (i.e., single edges).
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[
     scale=1.3,
     vertex/.style={circle, draw, fill=white, minimum size=0.4cm},
@@ -8236,8 +8126,9 @@ If $T$ is a tree with at least two vertices, then all blocks are $K_2$ (i.e., si
         \node at (1,-3) {Graph $T$};
     % Label the tree
 \end{tikzpicture}
-\\
-\small Figure 82: This graph $T$ illustrates a fundamental property of trees in graph theory. It is a connected acyclic graph with multiple vertices joined by edges that are highlighted in different colors (blue, purple, green, and yellow). Each colored edge represents a distinct block in the graph.
+\captionof{figure}{This graph $T$ illustrates a fundamental property of trees in graph theory. It is a connected acyclic graph with multiple vertices joined by edges that are highlighted in different colors (blue, purple, green, and yellow). Each colored edge represents a distinct block in the graph.}
+\label{fig:tree-blocks}
+\end{minipage}
 
 \end{center}
 \end{example}
@@ -8266,6 +8157,7 @@ Consider a graph $G$ that resembles a dumbbell (two triangles connected by a pat
 Consider the following graph $G$ with three blocks and two cut vertices:
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[
     vertex/.style={circle, draw, fill=white, minimum size=0.5cm},
     scale=1.2
@@ -8292,8 +8184,9 @@ Consider the following graph $G$ with three blocks and two cut vertices:
     \node at (7,1.4) {$B_3$};
     \node at (-1,0.8) {$G$};
 \end{tikzpicture}
-\\
-\small Figure 83: The cut vertices are $\{v_3, v_6\}$. The blocks are $B_1, B_2, B_3$. The block-cutpoint graph $\mathcal{B}(G)$ is shown below.
+\captionof{figure}{The cut vertices are $\{v_3, v_6\}$. The blocks are $B_1, B_2, B_3$. The block-cutpoint graph $\mathcal{B}(G)$ is shown below.}
+\label{fig:blocks-cut-vertices}
+\end{minipage}
 \end{center}
 \end{example}
 
@@ -8314,6 +8207,7 @@ A graph $G$ has no cut vertices (no vertex whose removal increases the number of
 \end{corollary}
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[
     blockvertex/.style={circle, draw, fill=white, minimum size=0.5cm},
     cutvertex/.style={circle, draw, fill=red!20, minimum size=0.5cm},
@@ -8339,8 +8233,9 @@ A graph $G$ has no cut vertices (no vertex whose removal increases the number of
     % Add general description
 
 \end{tikzpicture}
-\\
-\small figure 84: {The block-cutpoint graph represents the structure of $G$ by showing how its blocks connect through cut vertices. Note that $\mathcal{B}(G)$ forms a tree with block vertices (white) and cut vertices (red).};
+\captionof{figure}{The block-cutpoint graph represents the structure of $G$ by showing how its blocks connect through cut vertices. Note that $\mathcal{B}(G)$ forms a tree with block vertices (white) and cut vertices (red).}
+\label{fig:block-cutpoint-graph}
+\end{minipage}
 \end{center}
 
 
@@ -8567,7 +8462,7 @@ Let $G$ be a graph and $u,v$ be two distinct vertices in $G$. Then the minimum n
         The minimum vertex separator (vertices $d$, $e$, $f$) has size 3.
     };
 \end{tikzpicture}
-\small figure 85: {An example illustrating Menger's Theorem with three internally vertex-disjoint paths and a minimum separator of size 3.}
+\caption{An example illustrating Menger's Theorem with three internally vertex-disjoint paths and a minimum separator of size 3.}
 \label{fig:menger1}
 \end{figure}
 
@@ -8682,8 +8577,7 @@ Let $G$ be a graph and $u,v$ be two distinct vertices in $G$. Then the minimum n
         \end{tabular}
     };
 \end{tikzpicture}
-\\
-\small figure 86 : {Illustration of a vertex separator in Menger's Theorem. When the minimum vertex separator (vertices $b$, $e$, $h$) is removed, vertices $u$ and $v$ become disconnected. The size of this separator equals the maximum number of internally vertex-disjoint paths between $u$ and $v$.}
+\caption{Illustration of a vertex separator in Menger's Theorem. When the minimum vertex separator (vertices $b$, $e$, $h$) is removed, vertices $u$ and $v$ become disconnected. The size of this separator equals the maximum number of internally vertex-disjoint paths between $u$ and $v$.}
 \label{fig:menger2}
 \end{figure}
 
@@ -8747,8 +8641,7 @@ Let $G$ be a graph and $u,v$ be two distinct vertices in $G$. Then the minimum n
    
     
 \end{tikzpicture}
-\\
-\small figure 87: {Application of Menger's Theorem to the Petersen graph. Three internally vertex-disjoint paths are highlighted between vertices $u$ and $v$. The minimum vertex separator $\{a_1, a_4, b_0\}$ (red vertices; these are the three neighbors of $u$) has size 3, confirming that $\kappa(u,v) = \pi(u,v) = 3$.}
+\caption{Application of Menger's Theorem to the Petersen graph. Three internally vertex-disjoint paths are highlighted between vertices $u$ and $v$. The minimum vertex separator $\{a_1, a_4, b_0\}$ (red vertices; these are the three neighbors of $u$) has size 3, confirming that $\kappa(u,v) = \pi(u,v) = 3$.}
 \label{fig:menger-petersen}
 \end{figure}
 
@@ -8837,8 +8730,7 @@ A \textbf{$uv$-separator} in a graph $G$ with non-adjacent vertices $u, v \in V(
     
     };
 \end{tikzpicture}
-\\
-\small figure 88 : {Example of a $uv$-separator $X = \{s_1, s_2, s_3\}$. When the vertices in $X$ are removed, vertices $u$ and $v$ end up in different connected components of the resulting graph $G - X$.}
+\caption{Example of a $uv$-separator $X = \{s_1, s_2, s_3\}$. When the vertices in $X$ are removed, vertices $u$ and $v$ end up in different connected components of the resulting graph $G - X$.}
 \label{fig:uv-separator}
 \end{figure}
 
@@ -8924,12 +8816,14 @@ This theorem has several important implications:
 A graph $G$ is $k$-edge-connected if and only if for every pair of distinct vertices $u,v \in V(G)$, there exist at least $k$ edge-disjoint paths between $u$ and $v$.
 \end{corollary}
 
+\FloatBarrier
 \begin{example}[Cycle Graph]
 Consider a cycle graph $C_n$ with $n \geq 3$ vertices. For any two vertices $u$ and $v$ on the cycle,
 there are exactly 2 edge-disjoint paths connecting them: one going clockwise and one going counterclockwise.
 Therefore, $\lambda(u, v) = 2$ for any $u, v$, and the cycle is 2-edge-connected.
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.2]
   % Draw a cycle graph C6
   \node[draw, circle, fill=blue!20] (1) at (0:1) {$v_1$};
@@ -8950,8 +8844,10 @@ Therefore, $\lambda(u, v) = 2$ for any $u, v$, and the cycle is 2-edge-connected
   \draw[red, thick, ->] (u) -- (2) -- (3) -- (v);
   \draw[blue, thick, <-] (u) -- (6) -- (5) -- (v);
   
-  \node at (0,-1.5) {Figure 89 : $C_6$ with two edge-disjoint paths between $v_1$ and $v_4$};
 \end{tikzpicture}
+\captionof{figure}{$C_6$ with two edge-disjoint paths between $v_1$ and $v_4$}
+\label{fig:c6-edge-disjoint-paths}
+\end{minipage}
 \end{center}
 \end{example}
 
@@ -8962,6 +8858,7 @@ edge-disjoint paths: one direct edge $(u, v)$ and $n - 2$ paths of the form $(u,
 Therefore, $\lambda(u, v) = n - 1$ for any $u, v$, and $K_n$ is $(n - 1)$-edge-connected.
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.2]
   % Draw a complete graph K5
   \node[draw, circle, fill=blue!20] (1) at (18:1) {$v_1$};
@@ -8986,8 +8883,10 @@ Therefore, $\lambda(u, v) = n - 1$ for any $u, v$, and $K_n$ is $(n - 1)$-edge-c
   \draw[green!60!black, thick, ->] (u) -- (3) -- (v);
   \draw[orange, thick, ->] (u) -- (5) -- (v);
   
-  \node at (0,-1.7) {Figure 90 : $K_5$ with four edge-disjoint paths between $v_1$ and $v_4$};
 \end{tikzpicture}
+\captionof{figure}{$K_5$ with four edge-disjoint paths between $v_1$ and $v_4$}
+\label{fig:k5-edge-disjoint-paths}
+\end{minipage}
 \end{center}
 \end{example}
 
@@ -9004,6 +8903,7 @@ Consider a path graph $P_n$ with $n \geq 3$ vertices.
   \item Edge connectivity: $\lambda(P_n) = 1$, since removing any edge disconnects the graph.
 \end{itemize}
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.2]
   % Draw a path graph P5 with vertex cut
   \node[draw, circle, fill=blue!20] (1) at (0,0) {$v_1$};
@@ -9017,8 +8917,9 @@ Consider a path graph $P_n$ with $n \geq 3$ vertices.
   \draw[red, ultra thick] (3) -- (4);
   \draw (4) -- (5);
 \end{tikzpicture}
-
-\small Figure 91: Removing vertex $v_3$ (in red) or edge $(v_3,v_4)$ (red) disconnects the path graph, showing $\kappa(P_5) = \lambda(P_5) = 1$.
+\captionof{figure}{Removing vertex $v_3$ (in red) or edge $(v_3,v_4)$ (red) disconnects the path graph, showing $\kappa(P_5) = \lambda(P_5) = 1$.}
+\label{fig:path-p5-connectivity}
+\end{minipage}
 \end{center}
 \end{example}
 
@@ -9029,6 +8930,7 @@ Consider a cycle graph $C_n$ with $n \geq 3$ vertices.
   \item Edge connectivity: $\lambda(C_n) = 2$, since we need to remove at least 2 edges to disconnect the graph.
 \end{itemize}
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.2]
   % Draw a cycle graph C6
   \node[draw, circle, fill=red!40] (1) at (0:1) {$v_1$};
@@ -9043,8 +8945,9 @@ Consider a cycle graph $C_n$ with $n \geq 3$ vertices.
   \draw[red, ultra thick] (5) -- (6);
   \draw[red, ultra thick] (6) -- (1);
 \end{tikzpicture}
-
-\small Figure 92: Removing the non-adjacent vertices $v_1$ and $v_5$ (in red), which isolates $v_6$, or the edges $(v_5,v_6)$ and $(v_6,v_1)$ (red) disconnects the cycle graph, showing $\kappa(C_6) = \lambda(C_6) = 2$.
+\captionof{figure}{Removing the non-adjacent vertices $v_1$ and $v_5$ (in red), which isolates $v_6$, or the edges $(v_5,v_6)$ and $(v_6,v_1)$ (red) disconnects the cycle graph, showing $\kappa(C_6) = \lambda(C_6) = 2$.}
+\label{fig:cycle-c6-connectivity}
+\end{minipage}
 \end{center}
 \end{example}
 
@@ -9056,6 +8959,7 @@ Consider a wheel graph $W_n$ with $n + 1$ vertices (a cycle with $n$ vertices pl
   \item Edge connectivity: $\lambda(W_n) = 3$ for $n \geq 4$, which equals the minimum degree of the graph.
 \end{itemize}
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.2]
   % Draw a wheel graph W5 (5+1 vertices)
   \node[draw, circle, fill=red!40] (c) at (0,0) {$c$};
@@ -9078,8 +8982,9 @@ Consider a wheel graph $W_n$ with $n + 1$ vertices (a cycle with $n$ vertices pl
   \draw (c) -- (4);
   \draw (c) -- (5);
 \end{tikzpicture}
-
-\small Figure 93: Removing the center $c$ and the non-adjacent vertices $v_2$ and $v_4$ (in red) isolates $v_3$ and so disconnects the wheel graph. Removing the three red edges (the three edges at $v_3$) also disconnects the graph, showing $\kappa(W_5) = \lambda(W_5) = 3$.
+\captionof{figure}{Removing the center $c$ and the non-adjacent vertices $v_2$ and $v_4$ (in red) isolates $v_3$ and so disconnects the wheel graph. Removing the three red edges (the three edges at $v_3$) also disconnects the graph, showing $\kappa(W_5) = \lambda(W_5) = 3$.}
+\label{fig:wheel-connectivity}
+\end{minipage}
 \end{center}
 \end{example}
 
@@ -9090,6 +8995,7 @@ The Petersen graph is a 3-regular graph with 10 vertices.
   \item Edge connectivity: $\lambda = 3$, matching the minimum degree.
 \end{itemize}
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.2]
   % Draw the Petersen graph
   % Outer pentagon
@@ -9125,8 +9031,9 @@ The Petersen graph is a 3-regular graph with 10 vertices.
   \draw (o4) -- (i4);
   \draw (o5) -- (i5);
 \end{tikzpicture}
-
-\small Figure 94: Removing the vertices $o_2$, $o_5$, and $i_1$ (in red), which are the three neighbors of $o_1$, isolates $o_1$ and so disconnects the Petersen graph. Removing the three red edges (the three edges at $o_1$) also disconnects the graph, showing $\kappa = \lambda = 3$.
+\captionof{figure}{Removing the vertices $o_2$, $o_5$, and $i_1$ (in red), which are the three neighbors of $o_1$, isolates $o_1$ and so disconnects the Petersen graph. Removing the three red edges (the three edges at $o_1$) also disconnects the graph, showing $\kappa = \lambda = 3$.}
+\label{fig:petersen-connectivity}
+\end{minipage}
 \end{center}
 \end{example}
 
@@ -9137,6 +9044,7 @@ Consider a $2 \times n$ grid graph (ladder graph) with $n \geq 2$.
   \item Edge connectivity: $\lambda = 2$, since removing the two edges at a corner vertex, or the two rail edges between the same pair of consecutive rungs, disconnects the graph, while removing a single edge never does.
 \end{itemize}
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.2]
   % Draw a 2x5 ladder graph with vertex cut
   \foreach \i in {1,...,5} {
@@ -9170,8 +9078,9 @@ Consider a $2 \times n$ grid graph (ladder graph) with $n \geq 2$.
   \draw (t4) -- (b4);
   \draw (t5) -- (b5);
 \end{tikzpicture}
-
-\small Figure 95: Removing the vertices $t_3$ and $b_3$ of the middle rung (in red) disconnects the grid graph. Removing the edges $(t_4,t_5)$ and $(b_4,b_5)$ (red) also disconnects the graph, showing $\kappa = \lambda = 2$.
+\captionof{figure}{Removing the vertices $t_3$ and $b_3$ of the middle rung (in red) disconnects the grid graph. Removing the edges $(t_4,t_5)$ and $(b_4,b_5)$ (red) also disconnects the graph, showing $\kappa = \lambda = 2$.}
+\label{fig:grid-connectivity}
+\end{minipage}
 \end{center}
 \end{example}
 
@@ -9183,6 +9092,7 @@ Consider the graph formed by two copies of $K_4$, on the vertex sets $\{a,b,c,d\
 \end{itemize}
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.2]
   % Draw K4 graphs joined by three edges
   % Left K4
@@ -9212,8 +9122,9 @@ Consider the graph formed by two copies of $K_4$, on the vertex sets $\{a,b,c,d\
   \draw[red, ultra thick] (l4) -- (r1);
   \draw[red, ultra thick] (l2) -- (r2);
 \end{tikzpicture}
-
-\small Figure 96 : Removing vertices $b$ and $w$ (in red) disconnects the graph, showing $\kappa = 2$. Removing the three red edges $aw$, $dw$, and $bx$ disconnects the graph, showing $\lambda = 3$.
+\captionof{figure}{Removing vertices $b$ and $w$ (in red) disconnects the graph, showing $\kappa = 2$. Removing the three red edges $aw$, $dw$, and $bx$ disconnects the graph, showing $\lambda = 3$.}
+\label{fig:kappa-less-than-lambda}
+\end{minipage}
 \end{center}
 \end{example}
 
@@ -9264,9 +9175,7 @@ For distinct $u,v \in V(G)$, the minimum size $\lambda(u,v)$ of a $uv$-edge-sepa
     % Label only for the separator
     \node[text=violet] at (3,4) {minimum edge-separator};
 \end{tikzpicture}
-\\
-
-\small Figure 97 : {Illustration of Menger's Theorem (Edge Form): The graph contains 4 edge-disjoint paths between $u$ and $v$ (shown in different colors); the two curved paths are two parallel edges joining $u$ and $v$, so this example is a multigraph (the edge form of Menger's Theorem also holds for multigraphs: subdividing every edge once reduces it to the simple case). The minimum edge-separator (violet dashed line) cuts exactly 4 edges, demonstrating that $\lambda(u,v) = 4$.}
+\caption{Illustration of Menger's Theorem (Edge Form): The graph contains 4 edge-disjoint paths between $u$ and $v$ (shown in different colors); the two curved paths are two parallel edges joining $u$ and $v$, so this example is a multigraph (the edge form of Menger's Theorem also holds for multigraphs: subdividing every edge once reduces it to the simple case). The minimum edge-separator (violet dashed line) cuts exactly 4 edges, demonstrating that $\lambda(u,v) = 4$.}
 \label{fig:mengers-edge}
 \end{figure}
 
@@ -9339,8 +9248,8 @@ For the cycle graph $G_1$ shown:
     % Label the graph
     \node[teal] at (0,-2) {$G_1$};
 \end{tikzpicture}
-\\
-\small Figure 98 :{A cycle graph with $\lambda(G_1) = 2$ and $\kappa(G_1) = 2$. The minimum vertex cut (two vertices highlighted in pink) and minimum edge cut (two edges highlighted in orange) both have size 2.}
+\caption{A cycle graph with $\lambda(G_1) = 2$ and $\kappa(G_1) = 2$. The minimum vertex cut (two vertices highlighted in pink) and minimum edge cut (two edges highlighted in orange) both have size 2.}
+\label{fig:cycle-lambda-kappa}
 \end{figure}
 
 $\lambda(G_1) = 2$
@@ -9376,8 +9285,8 @@ For the graph $G_2$ obtained from two disjoint copies of $K_{12}$ by adding $7$ 
     \draw (a5) -- (b6);
     \draw (a5) -- (b7);
 \end{tikzpicture}
-\\
-\small Figure 99 : {The graph $G_2$: two copies of $K_{12}$ (drawn schematically) joined by $7$ edges whose ends are the $5$ vertices $a_1, \ldots, a_5$ of the first copy and the $7$ vertices $b_1, \ldots, b_7$ of the second copy. The set $\{a_1, \ldots, a_5\}$ is a minimum vertex cut (size 5), the $7$ added edges form a minimum edge cut (size 7), and every vertex that is not an end of an added edge has degree $11$.}
+\caption{The graph $G_2$: two copies of $K_{12}$ (drawn schematically) joined by $7$ edges whose ends are the $5$ vertices $a_1, \ldots, a_5$ of the first copy and the $7$ vertices $b_1, \ldots, b_7$ of the second copy. The set $\{a_1, \ldots, a_5\}$ is a minimum vertex cut (size 5), the $7$ added edges form a minimum edge cut (size 7), and every vertex that is not an end of an added edge has degree $11$.}
+\label{fig:two-k12-copies}
 \end{figure}
 
 For this graph $G_2$:
@@ -9670,10 +9579,9 @@ Consider the following cycle graph $G$ with 7 vertices:
     \draw[blue, line width=2pt] (v1) -- (v2);
     \draw[blue, line width=2pt] (v4) -- (v5);
     
-    % Label
-    \node at (0,-2.3) {Figure 100 : A matching with edges $\{\{v_1,v_2\}, \{v_4,v_5\}\}$};
 \end{tikzpicture}
-\\
+\caption{A matching with edges $\{\{v_1,v_2\}, \{v_4,v_5\}\}$}
+\label{fig:matching-example}
 
 \end{figure}
 
@@ -9699,9 +9607,9 @@ The highlighted edges form a matching because they don't share any vertices. Thi
     \draw[red, line width=2pt] (v3) -- (v4);
     \draw[red, line width=2pt] (v5) -- (v6);
     
-    % Label
-    \node at (0,-2.3) {Figure 101 : A maximum matching in $G$ with 3 edges};
 \end{tikzpicture}
+\caption{A maximum matching in $G$ with 3 edges}
+\label{fig:maximum-matching}
 \end{figure}
 
 This graph does not have a perfect matching because it has 7 vertices (an odd number), and in a perfect matching, each edge covers exactly 2 vertices. With an odd number of vertices, at least one vertex must be left uncovered.
@@ -9734,10 +9642,10 @@ This graph does not have a perfect matching because it has 7 vertices (an odd nu
         \draw (o\i) -- (i\i);
     }
     
-    % Label
-    \node at (0,-2.3) {Figure 102 : Petersen graph - has an even number of vertices (5+5)};
-    \node at (0,-2.8) {The five spokes $o_i i_i$ form a perfect matching};
+    \node at (0,-2.3) {The five spokes $o_i i_i$ form a perfect matching};
 \end{tikzpicture}
+\caption{Petersen graph - has an even number of vertices (5+5)}
+\label{fig:petersen-perfect-matching}
 \end{figure}
 
 The Petersen graph shown above has 10 vertices, which is an even number, and it does have a perfect matching: the five spokes $o_1 i_1, o_2 i_2, \ldots, o_5 i_5$ are pairwise disjoint and together cover all ten vertices. (In fact, the Petersen graph has exactly six perfect matchings; what it lacks is a partition of its edge set into three perfect matchings.) An even number of vertices is necessary but not sufficient for a perfect matching: the star $K_{1,3}$ has 4 vertices, but deleting the set $S$ consisting of its center leaves $3 > 1 = |S|$ odd components, so $K_{1,3}$ has no perfect matching. In general, a graph $G$ has a perfect matching if and only if for every subset $S$ of vertices, the number of connected components in $G - S$ that have an odd number of vertices is at most $|S|$ (Tutte's theorem).
@@ -9772,9 +9680,9 @@ Here is an example of a graph with a perfect matching:
     \draw[green, line width=2pt] (a2) -- (b2);
     \draw[green, line width=2pt] (a3) -- (b3);
     
-    % Label
-    \node at (0,-2) {Figure 103 : $K_{3,3}$ with a perfect matching (highlighted in green)};
 \end{tikzpicture}
+\caption{$K_{3,3}$ with a perfect matching (highlighted in green)}
+\label{fig:k33-perfect-matching}
 \end{figure}
 
 The complete bipartite graph $K_{3,3}$ has 6 vertices and the highlighted edges form a perfect matching that covers all vertices.
@@ -9817,10 +9725,9 @@ What is the maximum number of jobs that can be done, if each person is assigned 
     \draw[red, very thick] (p2) -- (j3);
     \draw[blue, very thick] (p3) -- (j2);
     
-    % Label
-    \node[align=center] at (2,-1.2) {Figure 104 : Example of a job assignment problem with a maximum matching\\
-    (Each color represents a person-job assignment)};
 \end{tikzpicture}
+\caption{Example of a job assignment problem with a maximum matching (Each color represents a person-job assignment)}
+\label{fig:job-assignment}
 \end{figure}
 
 \begin{remark}
@@ -9878,9 +9785,9 @@ Let $\alpha(G)$ be the size of a maximum independent set in $G$.
     % Edges of C7
     \draw (v1) -- (v2) -- (v3) -- (v4) -- (v5) -- (v6) -- (v7) -- (v1);
     
-    % Label
-    \node at (0,-2.2) {Figure 105 : $C_7$ with a maximum independent set of size $\alpha(C_7) = 3$};
 \end{tikzpicture}
+\caption{$C_7$ with a maximum independent set of size $\alpha(C_7) = 3$}
+\label{fig:c7-independent-set}
 \end{figure}
 
 \begin{definition}[Matching Number]
@@ -9923,9 +9830,9 @@ Let $\beta(G)$ be the smallest size of a vertex cover in $G$.
     % Edges of C7
     \draw (v1) -- (v2) -- (v3) -- (v4) -- (v5) -- (v6) -- (v7) -- (v1);
     
-    % Label
-    \node at (0,-2.2) {Figure 106 : $C_7$ with a minimum vertex cover of size $\beta(C_7) = 4$};
 \end{tikzpicture}
+\caption{$C_7$ with a minimum vertex cover of size $\beta(C_7) = 4$}
+\label{fig:c7-vertex-cover}
 \end{figure}
 
 \begin{definition}[Edge Cover]
@@ -9954,9 +9861,9 @@ Let $\beta'(G)$ be the smallest size of an edge cover in $G$.
     \draw[thick, orange] (v5) -- (v6);
     \draw[thick, orange] (v7) -- (v1);
     
-    % Label
-    \node at (0,-2.2) {Figure 107 : $C_7$ with a minimum edge cover of size $\beta'(C_7) = 4$};
 \end{tikzpicture}
+\caption{$C_7$ with a minimum edge cover of size $\beta'(C_7) = 4$}
+\label{fig:c7-edge-cover}
 \end{figure}
 
 \begin{remark}
@@ -10029,8 +9936,8 @@ Consider the cycle graph $C_5$ shown below:
     % Edges of C5
     \draw (v1) -- (v2) -- (v3) -- (v4) -- (v5) -- (v1);
 \end{tikzpicture}
-\\
-\small {Figure 108 : Graph $G = C_5$ with $\alpha(G) = 2$ and $\beta(G) = 3$. \\ Note that $\alpha(G) + \beta(G) = 2 + 3 = 5 = |V(G)|$.}
+\caption{Graph $G = C_5$ with $\alpha(G) = 2$ and $\beta(G) = 3$. Note that $\alpha(G) + \beta(G) = 2 + 3 = 5 = |V(G)|$.}
+\label{fig:c5-alpha-beta}
 
 
 \end{figure}
@@ -10065,10 +9972,8 @@ In the figure above:
     \draw[blue, thick, dashed] (v3) -- (v4);
     \draw[blue, thick, dashed] (v4) -- (v5);
 \end{tikzpicture}
-
-\small {Figure 109 : Graph $G = C_5$ with a maximum matching (solid red) and a minimum edge cover (dashed blue). \\
-$\alpha'(G) = 2$ and $\beta'(G) = 3$.\\
-$\alpha'(G) + \beta'(G) = 2 + 3 = 5 = |V(G)|$.}
+\caption{Graph $G = C_5$ with a maximum matching (solid red) and a minimum edge cover (dashed blue). $\alpha'(G) = 2$ and $\beta'(G) = 3$. $\alpha'(G) + \beta'(G) = 2 + 3 = 5 = |V(G)|$.}
+\label{fig:c5-matching-edge-cover}
 \end{figure}
 
 In the second diagram:
@@ -10263,8 +10168,8 @@ This completes the proof of the first part of Gallai's Lemma.
     \draw[thick, dashed, rounded corners=8pt] (4.3,1.3) -- (5.7,1.3) -- (5.7,2.7) -- (4.3,2.7) -- cycle;
     
 \end{tikzpicture}
-\\
-\small Figure 110 : {Illustration for Gallai's Lemma: A graph $G$ with a maximum matching $M$ of size $\alpha'(G) = 2$ (blue edges). The vertices not covered by the matching ($v_5$ and $v_6$, highlighted in pink) form an independent set. For an edge cover, we need the two edges in $M$ plus one edge incident to each of $v_5$ and $v_6$, giving a minimum edge cover of size $\beta'(G) = 4$. Note that $\alpha'(G) + \beta'(G) = 2 + 4 = 6 = |V(G)|$.}
+\caption{Illustration for Gallai's Lemma: A graph $G$ with a maximum matching $M$ of size $\alpha'(G) = 2$ (blue edges). The vertices not covered by the matching ($v_5$ and $v_6$, highlighted in pink) form an independent set. For an edge cover, we need the two edges in $M$ plus one edge incident to each of $v_5$ and $v_6$, giving a minimum edge cover of size $\beta'(G) = 4$. Note that $\alpha'(G) + \beta'(G) = 2 + 4 = 6 = |V(G)|$.}
+\label{fig:gallai-lemma}
 \end{figure}
 
 \begin{figure}[h]
@@ -10302,9 +10207,8 @@ This completes the proof of the first part of Gallai's Lemma.
     \draw[thick, dashed, rounded corners=8pt] (0.3,1.5) -- (1.7,1.5) -- (1.7,2.5) -- (0.3,2.5) -- cycle;
     
 \end{tikzpicture}
-\\
-
-\small Figure 111 : {Illustrating $\alpha(G) + \beta(G) = |V(G)|$: This graph has a minimum vertex cover $C$ of size $\beta(G) = 3$ (blue vertices) and a maximum independent set of size $\alpha(G) = 2$ (green vertices). The vertex cover and independent set partition the vertex set, and $\alpha(G) + \beta(G) = 2 + 3 = 5 = |V(G)|$.}
+\caption{Illustrating $\alpha(G) + \beta(G) = |V(G)|$: This graph has a minimum vertex cover $C$ of size $\beta(G) = 3$ (blue vertices) and a maximum independent set of size $\alpha(G) = 2$ (green vertices). The vertex cover and independent set partition the vertex set, and $\alpha(G) + \beta(G) = 2 + 3 = 5 = |V(G)|$.}
+\label{fig:alpha-plus-beta}
 \end{figure}
 
 
@@ -10388,8 +10292,8 @@ This condition is often called \emph{Hall's marriage condition} and can be intui
     \draw (d) -- (f);
     
 \end{tikzpicture}
-
-\small Figure 112 : {Illustration of neighborhood $N(X)$ in a graph. The set $X = \{e, c\}$ (green vertices) has neighborhood $N(X) = \{a, b, d, f\}$ (blue vertices). Note that $|N(X)| = 4 > 2 = |X|$. This graph is not bipartite (for example, $a, b, e$ form a triangle), so it illustrates only the neighborhood of a set; Hall's condition and Hall's Theorem concern bipartite graphs.}
+\caption{Illustration of neighborhood $N(X)$ in a graph. The set $X = \{e, c\}$ (green vertices) has neighborhood $N(X) = \{a, b, d, f\}$ (blue vertices). Note that $|N(X)| = 4 > 2 = |X|$. This graph is not bipartite (for example, $a, b, e$ form a triangle), so it illustrates only the neighborhood of a set; Hall's condition and Hall's Theorem concern bipartite graphs.}
+\label{fig:neighborhood-nx}
 \end{figure}
 
 \begin{example}
@@ -10473,8 +10377,8 @@ Consider the following $3$-regular bipartite graph $G$:
     \node[orange!70!black] at (5,4.7) {Set $B$};
     \node[red] at (2.5,-1) {Perfect matching highlighted in red};
 \end{tikzpicture}
-\\
-\small {Figure 113 : A $3$-regular bipartite graph with a perfect matching. Each vertex has exactly 3 neighbors, and by the corollary, a perfect matching is guaranteed to exist.}
+\caption{A $3$-regular bipartite graph with a perfect matching. Each vertex has exactly 3 neighbors, and by the corollary, a perfect matching is guaranteed to exist.}
+\label{fig:3-regular-bipartite}
 \end{figure}
 
 In this $3$-regular bipartite graph, each vertex is connected to exactly $3$ vertices on the opposite side. According to the corollary, this graph must have a perfect matching. Indeed, a perfect matching is highlighted in red. 
@@ -10561,8 +10465,8 @@ Therefore, $M$ is a perfect matching.
     \draw[thick, rounded corners=4pt] (1.6,-1.4) rectangle (2.4,1.4);
     \node[green!70!black, font=\footnotesize] at (2.9,0) {$N(X)$};
 \end{tikzpicture}
-\\
-\small {Figure 114 : 2-regular bipartite graph with $X = \{a_3, a_4\}$ (red) and $N(X) = \{b_2, b_3, b_4\}$ (green). Each vertex in $X$ has $k=2$ neighbors, giving $e(X,N(X)) = k|X| = 4$ edges (blue). Since $|N(X)| = 3 > 2 = |X|$, Hall's condition is satisfied.}
+\caption{2-regular bipartite graph with $X = \{a_3, a_4\}$ (red) and $N(X) = \{b_2, b_3, b_4\}$ (green). Each vertex in $X$ has $k=2$ neighbors, giving $e(X,N(X)) = k|X| = 4$ edges (blue). Since $|N(X)| = 3 > 2 = |X|$, Hall's condition is satisfied.}
+\label{fig:2-regular-bipartite}
 \end{figure}
 
 \pagebreak
@@ -10678,8 +10582,8 @@ Now $M_1\cup M_2$ is a matching in $G$ covering $A$, because $M_1$ and $M_2$ hav
 \node at (5.2,3) {$N(X)$};
 
 \end{tikzpicture}
-\\
-\small Figure 115: {Illustration of Hall's Theorem. The green edges form a matching covering set $A$. The subset $X \subseteq A$ and its neighborhood $N(X)$ are outlined by boxes. Hall's condition requires that $|N(X)| \geq |X|$ for every $X \subseteq A$.}
+\caption{Illustration of Hall's Theorem. The green edges form a matching covering set $A$. The subset $X \subseteq A$ and its neighborhood $N(X)$ are outlined by boxes. Hall's condition requires that $|N(X)| \geq |X|$ for every $X \subseteq A$.}
+\label{fig:hall-theorem}
 \end{figure}
 
 
@@ -10749,7 +10653,8 @@ Now $M_1\cup M_2$ is a matching in $G$ covering $A$, because $M_1$ and $M_2$ hav
 \end{scope}
 
 \end{tikzpicture}
-\small Figure 116 : {Illustration of Case 1 in the proof of Hall's Theorem. We remove an edge $a_1b_1$ and the vertices $a_1$ and $b_1$ to create $G'$.}
+\caption{Illustration of Case 1 in the proof of Hall's Theorem. We remove an edge $a_1b_1$ and the vertices $a_1$ and $b_1$ to create $G'$.}
+\label{fig:hall-case1}
 \end{figure}
 
 \begin{figure}[ht]
@@ -10810,8 +10715,8 @@ Now $M_1\cup M_2$ is a matching in $G$ covering $A$, because $M_1$ and $M_2$ hav
 \end{scope}
 
 \end{tikzpicture}
-\\
-\small Figure 117 : {Illustration of Case 2 in the proof of Hall's Theorem. We have a nonempty proper subset $X \subsetneq A$ where $|N(X)| = |X|$. We find matchings $M_1$ in the subgraph induced by $X \cup N(X)$ and $M_2$ in the remaining graph.}
+\caption{Illustration of Case 2 in the proof of Hall's Theorem. We have a nonempty proper subset $X \subsetneq A$ where $|N(X)| = |X|$. We find matchings $M_1$ in the subgraph induced by $X \cup N(X)$ and $M_2$ in the remaining graph.}
+\label{fig:hall-case2}
 \end{figure}
 
 \pagebreak
@@ -10916,7 +10821,8 @@ Yes: $\{p_3, p_2, p_1\}$ where $p_3$ represents $S_1$, $p_2$ represents $S_2$, a
 \end{scope}
 
 \end{tikzpicture}
-\small Figure 118 : {Illustration of a System of Distinct Representatives (SDR) for the given committees. The green arrows show the selected representatives, where $p_3$ represents $S_1$, $p_2$ represents $S_2$, and $p_1$ represents $S_3$.}
+\caption{Illustration of a System of Distinct Representatives (SDR) for the given committees. The green arrows show the selected representatives, where $p_3$ represents $S_1$, $p_2$ represents $S_2$, and $p_1$ represents $S_3$.}
+\label{fig:sdr-example}
 \end{figure}
 
 \pagebreak
@@ -11030,8 +10936,8 @@ The dashed arrows show a greedy attempt ($1$ for $S_1$, $3$ for $S_3$, $4$ for $
   
 
 \end{tikzpicture}
-\\
-\small Figure 119 : {A family of committees satisfying Hall's condition, with equality for $I = \{S_1, S_3, S_4, S_5\}$: the dashed box on the right marks their union $\{1, 2, 3, 4\}$, and $|I| = |\cup_{i \in I} S_i| = 4$. By Hall's theorem an SDR exists (e.g.\ $1, 5, 4, 3, 2$ represent $S_1, \ldots, S_5$); the dashed arrows show a greedy attempt that gets stuck and must be repaired.}
+\caption{A family of committees satisfying Hall's condition, with equality for $I = \{S_1, S_3, S_4, S_5\}$: the dashed box on the right marks their union $\{1, 2, 3, 4\}$, and $|I| = |\cup_{i \in I} S_i| = 4$. By Hall's theorem an SDR exists (e.g.\ $1, 5, 4, 3, 2$ represent $S_1, \ldots, S_5$); the dashed arrows show a greedy attempt that gets stuck and must be repaired.}
+\label{fig:sdr-equality}
 \end{figure}
 
 \pagebreak
@@ -11212,8 +11118,8 @@ Hall's condition is satisfied (with equality for this $I$), so an SDR exists; he
 
 Since $S_2$ contains only element 3, element 3 must represent $S_2$ in any SDR. Then $S_1$ must be represented by element 1, and $S_3$ by element 2. Here Hall's condition holds with equality for $\{S_2\}$, $\{S_1, S_2\}$ and $\{S_1, S_2, S_3\}$, which forces every choice; equality does not prevent an SDR from existing.
 }
-\\
-\small Figure 120: A family that satisfies Hall's condition with equality ($|I| = |\cup_{i \in I} S_i| = 3$) and has exactly one System of Distinct Representatives. The top diagram shows the committee-element relationships, while the bottom row shows the unique SDR (Attempt 1) and two assignments that get stuck (Attempts 2 and 3).
+\caption{A family that satisfies Hall's condition with equality ($|I| = |\cup_{i \in I} S_i| = 3$) and has exactly one System of Distinct Representatives. The top diagram shows the committee-element relationships, while the bottom row shows the unique SDR (Attempt 1) and two assignments that get stuck (Attempts 2 and 3).}
+\label{fig:sdr-unique}
 \end{figure}
 
 \pagebreak
@@ -11270,8 +11176,8 @@ such that edges are alternately in and not in $M$.
 \node at (2,-0.6) {Edge sequence: not in $M$, in $M$, not in $M$, in $M$, not in $M$};
 
 \end{tikzpicture}
-\\
-\small Figure 121 : {Example of an M-alternating path. Matching edges are shown in magenta. The path alternates between edges in and not in the matching.}
+\caption{Example of an M-alternating path. Matching edges are shown in magenta. The path alternates between edges in and not in the matching.}
+\label{fig:m-alternating-path}
 \end{figure}
 
 \begin{definition}[M-augmenting path]
@@ -11325,8 +11231,8 @@ An \textbf{M-augmenting path} is an M-alternating path starting and ending with 
 \node[align=center] at (1.5,-1) {An M-augmenting path from exposed vertex $a_1$ to exposed vertex $b_5$\\The path alternates between edges not in $M$ and edges in $M$};
 
 \end{tikzpicture}
-\\
-\small Figure 122 : {Example of an M-augmenting path. The red circled vertices are exposed (not matched). The augmenting path starts and ends with exposed vertices.}
+\caption{Example of an M-augmenting path. The red circled vertices are exposed (not matched). The augmenting path starts and ends with exposed vertices.}
+\label{fig:m-augmenting-path}
 \end{figure}
 
 \begin{theorem}[Berge]
@@ -11451,8 +11357,8 @@ If $M$ is a matching in a graph $G$, then $M$ is a maximum matching if and only 
 \end{scope}
 
 \end{tikzpicture}
-\\
-\small Figure 124 : {Complete execution of the Hopcroft-Karp algorithm on a small example. We start with a matching, find augmenting paths, update the matching, and continue until no more augmenting paths exist. At that point, we have found a maximum matching.}
+\caption{Complete execution of the Hopcroft-Karp algorithm on a small example. We start with a matching, find augmenting paths, update the matching, and continue until no more augmenting paths exist. At that point, we have found a maximum matching.}
+\label{fig:hopcroft-karp-example}
 \end{figure}
 
 \begin{algorithm}
@@ -12431,6 +12337,7 @@ A key result related to Vizing's Theorem is König's Line Coloring Theorem, whic
 
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.2]
     % Left vertices
     \node[circle, draw, fill=white, minimum size=0.7cm] (A) at (0,3) {$A$};
@@ -12455,13 +12362,15 @@ A key result related to Vizing's Theorem is König's Line Coloring Theorem, whic
     \draw[line width=1.5pt, green] (D) -- (3);
     \draw[line width=1.5pt, blue] (D) -- (4);
 \end{tikzpicture}
+\captionof{figure}{This bipartite graph has a maximum degree $\Delta(G) = 3$ (vertex $A$ has 3 edges). As König's theorem predicts, we can color all edges using exactly 3 colors (red, blue, and green). This demonstrates that the graph is Class 1.}
+\label{fig:bipartite-edge-coloring}
+\end{minipage}
 \end{center}
-
-\small Figure 125 : This bipartite graph has a maximum degree $\Delta(G) = 3$ (vertex $A$ has 3 edges). As König's theorem predicts, we can color all edges using exactly 3 colors (red, blue, and green). This demonstrates that the graph is Class 1.
 
 The complete graph $K_3$ (a triangle) has maximum degree $\Delta(K_3) = 2$. According to Vizing's theorem, it requires either 2 or 3 colors. Let's see:
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.2]
     % Vertices
     \node[circle, draw, fill=white, minimum size=0.7cm] (A) at (0,0) {$A$};
@@ -12473,14 +12382,16 @@ The complete graph $K_3$ (a triangle) has maximum degree $\Delta(K_3) = 2$. Acco
     \draw[line width=1.5pt, blue] (B) -- (C);
     \draw[line width=1.5pt, green] (C) -- (A);
 \end{tikzpicture}
+\captionof{figure}{Here, we need 3 colors for the 3 edges, showing that $K_3$ is actually Class 2 since $\chi'(K_3) = 3 = \Delta(K_3) + 1$.}
+\label{fig:k3-edge-coloring}
+\end{minipage}
 \end{center}
-
-\small Figure 126 : Here, we need 3 colors for the 3 edges, showing that $K_3$ is actually Class 2 since $\chi'(K_3) = 3 = \Delta(K_3) + 1$.
 
 
 The complete graph $K_4$ has maximum degree $\Delta(K_4) = 3$. Let's try to color it:
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.5]
     % Vertices
     \node[circle, draw, fill=white, minimum size=0.7cm] (A) at (0,0) {$A$};
@@ -12496,14 +12407,16 @@ The complete graph $K_4$ has maximum degree $\Delta(K_4) = 3$. Let's try to colo
     \draw[line width=1.5pt, green] (A) -- (C);
     \draw[line width=1.5pt, green] (B) -- (D);
 \end{tikzpicture}
+\captionof{figure}{The three perfect matchings $\{AB, CD\}$, $\{BC, DA\}$, and $\{AC, BD\}$ form a proper 3-edge-coloring of $K_4$. Hence $\chi'(K_4) = 3 = \Delta(K_4)$, and $K_4$ is a Class 1 graph, as is $K_n$ for every even $n$.}
+\label{fig:k4-edge-coloring}
+\end{minipage}
 \end{center}
-
-\small Figure 127 : The three perfect matchings $\{AB, CD\}$, $\{BC, DA\}$, and $\{AC, BD\}$ form a proper 3-edge-coloring of $K_4$. Hence $\chi'(K_4) = 3 = \Delta(K_4)$, and $K_4$ is a Class 1 graph, as is $K_n$ for every even $n$.
 
 
 The cycle graph $C_5$ has maximum degree $\Delta(C_5) = 2$. Let's color its edges:
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.2]
     % Vertices
     \foreach \i in {1,...,5}{
@@ -12517,14 +12430,16 @@ The cycle graph $C_5$ has maximum degree $\Delta(C_5) = 2$. Let's color its edge
     \draw[line width=1.5pt, blue] (v4) -- (v5);
     \draw[line width=1.5pt, green] (v5) -- (v1);
 \end{tikzpicture}
+\captionof{figure}{Two colors do not suffice for $C_5$: they would have to alternate around the cycle, which is impossible for a cycle of odd length. Giving one edge a third color yields a proper edge-coloring, so $\chi'(C_5) = 3 = \Delta(C_5) + 1$ and $C_5$ is a Class 2 graph, as is every odd cycle.}
+\label{fig:c5-edge-coloring}
+\end{minipage}
 \end{center}
-
-\small Figure 128 : Two colors do not suffice for $C_5$: they would have to alternate around the cycle, which is impossible for a cycle of odd length. Giving one edge a third color yields a proper edge-coloring, so $\chi'(C_5) = 3 = \Delta(C_5) + 1$ and $C_5$ is a Class 2 graph, as is every odd cycle.
 
 
 The Petersen graph is a famous example of a Class 2 graph. It has maximum degree $\Delta = 3$:
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.2]
     % Outer pentagon
     \foreach \i in {1,...,5}{
@@ -12557,13 +12472,15 @@ The Petersen graph is a famous example of a Class 2 graph. It has maximum degree
     \draw[line width=1.5pt, red] (i2) -- (i4);
     \draw[line width=1.5pt, purple] (i4) -- (i1);
 \end{tikzpicture}
+\captionof{figure}{The Petersen graph requires 4 colors, making it a Class 2 graph since $\chi'(Petersen) = 4 = \Delta + 1$.}
+\label{fig:petersen-edge-coloring}
+\end{minipage}
 \end{center}
-
-\small Figure 129 : The Petersen graph requires 4 colors, making it a Class 2 graph since $\chi'(Petersen) = 4 = \Delta + 1$.
 
 Here's a cubic graph (3-regular) that is Class 1. Every vertex has degree 3, and we can color it with exactly 3 colors:
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.2]
     % Vertices - outer cycle
     \foreach \i in {1,...,6}{
@@ -12583,14 +12500,16 @@ Here's a cubic graph (3-regular) that is Class 1. Every vertex has degree 3, and
     \draw[line width=1.5pt, green] (v2) -- (v5);
     \draw[line width=1.5pt, red] (v3) -- (v6);
 \end{tikzpicture}
+\captionof{figure}{This 3-regular graph can be colored with exactly 3 colors, so it's a Class 1 graph.}
+\label{fig:cubic-class1}
+\end{minipage}
 \end{center}
-
-\small Figure 130 : This 3-regular graph can be colored with exactly 3 colors, so it's a Class 1 graph.
 
 
 Here's another example of a Class 2 graph with maximum degree 3:
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.2]
     % Vertices
     \node[circle, draw, fill=white, minimum size=0.7cm] (v1) at (0,0) {$1$};
@@ -12608,10 +12527,10 @@ Here's another example of a Class 2 graph with maximum degree 3:
     \draw[line width=1.5pt, blue] (v2) -- (v5);
     \draw[line width=1.5pt, purple] (v3) -- (v4);
 \end{tikzpicture}
+\captionof{figure}{This graph is obtained from $K_4$ by replacing the edge between 2 and 4 with the path $2, 5, 4$. It has maximum degree $\Delta = 3$ but requires 4 colors for its edges: each color class is a matching, and a matching in a graph with 5 vertices has at most 2 edges, so 3 colors could cover at most 6 of the 7 edges. Hence $\chi' = 4 = \Delta + 1$, and the graph is Class 2.}
+\label{fig:k4-subdivided-class2}
+\end{minipage}
 \end{center}
-
-\small Figure 131 : This graph is obtained from $K_4$ by replacing the edge between 2 and 4 with the path $2, 5, 4$. It has maximum degree $\Delta = 3$ but requires 4 colors for its edges: each color class is a matching, and a matching in a graph with 5 vertices has at most 2 edges, so 3 colors could cover at most 6 of the 7 edges. Hence $\chi' = 4 = \Delta + 1$, and the graph is Class 2.
-\\
 
 Determining whether a graph is Class 1 or Class 2 is generally NP-complete. However, some specific cases are known:
 
@@ -12626,6 +12545,7 @@ Determining whether a graph is Class 1 or Class 2 is generally NP-complete. Howe
 The complete graph $K_5$ has maximum degree $\Delta(K_5) = 4$. According to Vizing's theorem, it requires at most 5 colors:
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.5]
     % Vertices
     \foreach \i in {1,...,5}{
@@ -12647,9 +12567,10 @@ The complete graph $K_5$ has maximum degree $\Delta(K_5) = 4$. According to Vizi
     
     \draw[line width=1.5pt, orange] (v4) -- (v5);
 \end{tikzpicture}
+\captionof{figure}{$K_5$ requires 5 colors, demonstrating it's a Class 2 graph since $\chi'(K_5) = 5 = \Delta(K_5) + 1$.}
+\label{fig:k5-edge-coloring}
+\end{minipage}
 \end{center}
-
-\small Figure 132 : $K_5$ requires 5 colors, demonstrating it's a Class 2 graph since $\chi'(K_5) = 5 = \Delta(K_5) + 1$.
 
 \pagebreak
 \newpage
@@ -12676,6 +12597,7 @@ For a simple graph with maximum degree $\Delta = 4$:
 For comparison, here is a graph that attains the lower bound $\chi'(G) = \Delta(G)$: the wheel $W_5$ has $\Delta = 5$ and its edges can be colored with exactly 5 colors. (A graph with $\Delta = 4$ that attains Vizing's bound, $K_5$, is discussed right after it.)
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.2]
     % A wheel graph with 5 outer vertices
     
@@ -12704,9 +12626,10 @@ For comparison, here is a graph that attains the lower bound $\chi'(G) = \Delta(
     % Label
     \node at (0,-3) {$W_5$ (Wheel graph): $\Delta = 5$, $\chi'(W_5) = 5$};
 \end{tikzpicture}
+\captionof{figure}{This is a wheel graph $W_5$ with maximum degree $\Delta = 5$ at the center vertex. It requires exactly 5 colors for its edge coloring, showing a case where $\chi'(G) = \Delta(G)$ (Class 1).}
+\label{fig:wheel-w5-edge-coloring}
+\end{minipage}
 \end{center}
-\small Figure 133 : This is a wheel graph $W_5$ with maximum degree $\Delta = 5$ at the center vertex. It requires exactly 5 colors for its edge coloring, showing a case where $\chi'(G) = \Delta(G)$ (Class 1).
-\\
 For $K_5$:
 \begin{itemize}
     \item Maximum degree $\Delta(K_5) = 4$
@@ -12722,6 +12645,7 @@ $K_5$ requires exactly 5 colors, showing that Vizing's bound is tight (this is a
 \begin{center}
 To better understand Shannon's bound, here is a multigraph with maximum degree $\Delta = 6$ that needs all $\lfloor\frac{3\Delta}{2}\rfloor = 9$ colors. No simple graph can do this: by Vizing's theorem, a simple graph with $\Delta = 6$ needs at most $7$ colors.
 
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.5]
     % Shannon multigraph: three vertices, three parallel edges between each pair
     \node[circle, draw, fill=white, minimum size=0.8cm] (a) at (0,0) {$a$};
@@ -12733,19 +12657,16 @@ To better understand Shannon's bound, here is a multigraph with maximum degree $
         \draw[line width=1.2pt] (\x) to[bend right=25] (\y);
     }
 
-    % Title and explanation
-    \node[align=center] at (1.5,-1.3) {
-        \small Figure 134 : The Shannon multigraph with three parallel edges\\
-        \small between each pair of vertices. Every vertex has degree $\Delta = 6$,\\
-        \small and any two of the $9$ edges share an endpoint, so all $9$ edges\\
-        \small need distinct colors: $\chi' = 9 = \lfloor\frac{3\Delta}{2}\rfloor$.
-    };
 \end{tikzpicture}
+\captionof{figure}{The Shannon multigraph with three parallel edges between each pair of vertices. Every vertex has degree $\Delta = 6$, and any two of the $9$ edges share an endpoint, so all $9$ edges need distinct colors: $\chi' = 9 = \lfloor\frac{3\Delta}{2}\rfloor$.}
+\label{fig:shannon-multigraph-k3}
+\end{minipage}
 \end{center}
 
 Here's a simple example showing a graph where the difference between Shannon's and Vizing's bounds is clear:
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.2]
     % Create a simple graph with maximum degree 4
     
@@ -12766,9 +12687,10 @@ Here's a simple example showing a graph where the difference between Shannon's a
     \draw[line width=1.5pt, orange] (v3) -- (v5);
     \draw[line width=1.5pt, purple] (v4) -- (v5);
     
-    % Label
-    \node[align=center] at (0,-1.5) {Figure 135 : Graph with $\Delta = 4$ (at vertex $v_5$)\\Edge chromatic number $\chi' = 4$};
 \end{tikzpicture}
+\captionof{figure}{Graph with $\Delta = 4$ (at vertex $v_5$). Edge chromatic number $\chi' = 4$.}
+\label{fig:wheel-w4-edge-coloring}
+\end{minipage}
 \end{center}
 
 This graph (the wheel $W_4$) has:
@@ -12914,8 +12836,8 @@ A clique in a graph is a subset of vertices such that every two distinct vertice
     \draw[line width=1.2pt] (v1) -- (v3);
     \draw[line width=1.2pt] (v2) -- (v4);
 \end{tikzpicture}
-\\
-\small Figure 136 : {A 4-vertex clique $K_4$ where every pair of vertices is connected by an edge}
+\caption{A 4-vertex clique $K_4$ where every pair of vertices is connected by an edge}
+\label{fig:clique-k4}
 \end{figure}
 
 \begin{lemma}
@@ -13036,8 +12958,8 @@ The performance of the greedy algorithm strongly depends on the chosen vertex or
         \node at (1.5,-1) {Step 5: Assign color 3 to $v_5$};
     \end{scope}
 \end{tikzpicture}
-\\
-\small Figure 137 : {Step-by-step execution of the greedy coloring algorithm on a simple graph with the vertex ordering $v_1, v_2, v_3, v_4, v_5$. The final coloring uses 3 colors.}
+\caption{Step-by-step execution of the greedy coloring algorithm on a simple graph with the vertex ordering $v_1, v_2, v_3, v_4, v_5$. The final coloring uses 3 colors.}
+\label{fig:greedy-coloring}
 \end{figure}
 
 \begin{proof}[Complete Proof of Brooks' Theorem]
@@ -13074,8 +12996,8 @@ From now on we assume that $\Delta \geq 3$ and that $G$ is not a complete graph,
 
     \node at (0,-3.2) {Vertex ordering: $v_0, v_1, v_2, v_3, v_4, v_5, v_6$};
 \end{tikzpicture}
-\\
-\small Figure 138 : {Case 3 of the proof for a graph with $\Delta = 3$. The vertex $v_0$ has degree $2 < \Delta$, and the vertices are listed in order of nondecreasing distance from $v_0$ (distance 1: $v_1, v_2$; distance 2: $v_3, v_4$; distance 3: $v_5, v_6$). The greedy algorithm colors them in the reverse order $v_6, v_5, \ldots, v_0$.}
+\caption{Case 3 of the proof for a graph with $\Delta = 3$. The vertex $v_0$ has degree $2 < \Delta$, and the vertices are listed in order of nondecreasing distance from $v_0$ (distance 1: $v_1, v_2$; distance 2: $v_3, v_4$; distance 3: $v_5, v_6$). The greedy algorithm colors them in the reverse order $v_6, v_5, \ldots, v_0$.}
+\label{fig:brooks-case3}
 \end{figure}
 
 \textbf{Case 4: $G$ has a cut vertex $x$.} Let $H_1, \ldots, H_r$ ($r \geq 2$) be the components of $G - x$, and let $G_j$ be the subgraph of $G$ induced by $V(H_j) \cup \{x\}$. Each $G_j$ is connected with maximum degree at most $\Delta$, and $x$ has fewer than $\Delta$ neighbors in $G_j$, because $x$ also has a neighbor in every other component of $G - x$. The argument of Case 3, applied to $G_j$ with $v_0 = x$, colors $G_j$ properly with colors from $\{1, \ldots, \Delta\}$. After permuting the colors in each $G_j$ so that $x$ receives color 1 every time, these colorings combine into a proper $\Delta$-coloring of $G$.
@@ -13122,15 +13044,16 @@ In Cases 3, 4, and 5 the graph $G$ has a proper coloring with at most $\Delta$ c
     
     \node at (1,-1) {$K_4$ - requires 4 colors};
 \end{tikzpicture}
-\\
-\small Figure 139 : {Comparison of a graph with maximum degree 3 (left) that satisfies Brooks' Theorem and can be colored with $\Delta = 3$ colors, and $K_4$ (right) which requires $\Delta + 1 = 4$ colors.}
+\caption{Comparison of a graph with maximum degree 3 (left) that satisfies Brooks' Theorem and can be colored with $\Delta = 3$ colors, and $K_4$ (right) which requires $\Delta + 1 = 4$ colors.}
+\label{fig:brooks-comparison}
 \end{figure}
 
-We now apply the greedy coloring algorithm to the graph of Figure 138 in the \textit{reverse} order, starting with $v_6$ and ending with $v_0$:
+We now apply the greedy coloring algorithm to the graph of Figure~\ref{fig:brooks-case3} in the \textit{reverse} order, starting with $v_6$ and ending with $v_0$:
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.0]
-    % Final coloring of the graph of Figure 138; the number next to each vertex is its color
+    % Final coloring of the Case 3 graph (fig:brooks-case3); the number next to each vertex is its color
     \node[circle, draw, minimum size=0.7cm, label={below:$3$}] (v0) at (0,0) {$v_0$};
     \node[circle, draw, minimum size=0.7cm, label={above left:$2$}] (v1) at (-2,1.5) {$v_1$};
     \node[circle, draw, minimum size=0.7cm, label={above:$1$}] (v2) at (0,2) {$v_2$};
@@ -13148,8 +13071,10 @@ We now apply the greedy coloring algorithm to the graph of Figure 138 in the \te
     \draw (v5) -- (v6);
     \draw (v6) -- (v3);
 
-    \node[align=center] at (0,-3.4) {Figure 140 : Final coloring using $\Delta = 3$ colors\\(the number next to each vertex is its color)};
 \end{tikzpicture}
+\captionof{figure}{Final coloring using $\Delta = 3$ colors (the number next to each vertex is its color)}
+\label{fig:brooks-case3-coloring}
+\end{minipage}
 \end{center}
 
 The coloring process works as follows:
@@ -13195,14 +13120,15 @@ This demonstrates that the graph can be colored with $\Delta = 3$ colors, as Bro
         \node at (0,-2) {$C_5$: $\chi(C_5) = 3 = \Delta+1$};
     \end{scope}
 \end{tikzpicture}
-\\
-\small Figure 141 : {Special cases for Brooks' Theorem: Complete graph $K_4$ and odd cycle $C_5$ both require $\Delta+1$ colors.}
+\caption{Special cases for Brooks' Theorem: Complete graph $K_4$ and odd cycle $C_5$ both require $\Delta+1$ colors.}
+\label{fig:brooks-special-cases}
 \end{figure}
 
 \begin{example}[Application of Brooks' Theorem]
 Consider a connected graph $G$ with maximum degree $\Delta = 3$ that is not the complete graph $K_4$ (it cannot be an odd cycle, since odd cycles have $\Delta = 2$). By Brooks' Theorem, $\chi(G) \leq 3$, meaning we can color the vertices using at most 3 colors.
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.0]
     % Example graph with Delta = 3
     \node[circle, draw, fill=red!30, minimum size=0.7cm] (v1) at (0,0) {$v_1$};
@@ -13214,8 +13140,10 @@ Consider a connected graph $G$ with maximum degree $\Delta = 3$ that is not the 
     \draw (v1) -- (v2) -- (v3) -- (v4) -- (v1);
     \draw (v3) -- (v5) -- (v4);
     
-    \node at (1,-1) {Figure 142 : $G$ with $\Delta = 3$, $\chi(G) = 3$};
 \end{tikzpicture}
+\captionof{figure}{$G$ with $\Delta = 3$, $\chi(G) = 3$}
+\label{fig:brooks-example}
+\end{minipage}
 \end{center}
 
 Each vertex in this example has degree at most 3, and the graph is connected and is neither $K_4$ nor an odd cycle. As predicted by Brooks' Theorem, it can be colored with 3 colors; it needs exactly 3 colors because it contains the triangle $v_3 v_4 v_5$.
@@ -13275,8 +13203,8 @@ In every case the edge-coloring of $G - e$ can be modified into a proper edge-co
     \draw[line width=1.5pt, purple, bend left=20] (C) to (A);
     \draw[line width=1.5pt, brown, bend right=20] (C) to (A);
 \end{tikzpicture}
-\\
-\small Figure 143 : {Shannon multigraph with $k = 2$ parallel edges between each pair of vertices (maximum degree $\Delta = 4$)}
+\caption{Shannon multigraph with $k = 2$ parallel edges between each pair of vertices (maximum degree $\Delta = 4$)}
+\label{fig:shannon-multigraph-k2}
 \end{figure}
 
 The Shannon multigraph shown above has:
@@ -13342,8 +13270,7 @@ Shannon originally developed this result in the context of analyzing switching n
     % Caption
     \node at (1.5,-3.8) {A 2-degenerate graph with a valid vertex ordering};
 \end{tikzpicture}
-\\
-\small Figure 144 : {Example of a 2-degenerate graph}
+\caption{Example of a 2-degenerate graph}
 \label{fig:2degenerate}
 \end{figure}
 
@@ -13470,8 +13397,8 @@ This process produces a proper coloring of $G$ using at most $d+1$ colors. There
     \node[draw=none] at (-2.5,2) {$v_5$: degree 2};
     \node[draw=none] at (4.5,2) {$v_6$: degree 2};
 \end{tikzpicture}
-\\
-\small Figure 145 : {A 3-degenerate graph containing $K_4$ as an induced subgraph (highlighted in red). The degeneracy is determined by this subgraph where each vertex has degree 3.}
+\caption{A 3-degenerate graph containing $K_4$ as an induced subgraph (highlighted in red). The degeneracy is determined by this subgraph where each vertex has degree 3.}
+\label{fig:3-degenerate-k4}
 \end{figure}
 
 \begin{figure}[ht]
@@ -13524,8 +13451,8 @@ This process produces a proper coloring of $G$ using at most $d+1$ colors. There
         \node[draw=none] at (0.75,-2) {$K_4$: 3-degenerate};
     \end{scope}
 \end{tikzpicture}
-\\
-\small Figure 146 : {Examples of graphs with different degeneracy values: a tree (1-degenerate), a cycle (2-degenerate), and $K_4$ (3-degenerate).}
+\caption{Examples of graphs with different degeneracy values: a tree (1-degenerate), a cycle (2-degenerate), and $K_4$ (3-degenerate).}
+\label{fig:degeneracy-examples}
 \end{figure}
 
 
@@ -13646,8 +13573,8 @@ This process produces a proper coloring of $G$ using at most $d+1$ colors. There
         \node[draw=none] at (1,-1.5) {Final ordering: $L = [v_4, v_3, v_2, v_1, v_5]$};
     \end{scope}
 \end{tikzpicture}
-\\
-\small Figure 147 : {Computation of degeneracy ordering: Vertices are removed in order of minimum degree, with the current minimum degree vertex highlighted in yellow. The vertices are removed in the order $v_5, v_1, v_2, v_3, v_4$, and the final ordering $L$ lists them in reverse order of removal.}
+\caption{Computation of degeneracy ordering: Vertices are removed in order of minimum degree, with the current minimum degree vertex highlighted in yellow. The vertices are removed in the order $v_5, v_1, v_2, v_3, v_4$, and the final ordering $L$ lists them in reverse order of removal.}
+\label{fig:degeneracy-ordering}
 \end{figure}
 
 \begin{lemma}[Tightness of Degeneracy Bound]
@@ -15669,6 +15596,7 @@ Form a graph $G$ where $V(G)$ is the set of exams and $\{i,j\}$ is an edge if so
 In the example,
 
 \begin{center}
+\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.5]
 % Define vertices in a pentagonal arrangement; each label is the exam's time slot
 \node[circle,draw,label={above:\scriptsize 10am}] (1) at (90:1.5) {1};
@@ -15706,9 +15634,10 @@ In the example,
 % Annotations
 \node[right] at (2.5,0) {\parbox{3.6cm}{This is the\\schedule graph.\\$\chi(G) = 3$: the triangle\\$1,2,4$ needs 3 colors,\\and 3 time slots suffice.}};
 \end{tikzpicture}
+\captionof{figure}{The minimum number of time slots equals the chromatic number of the schedule graph.}
+\label{fig:schedule-graph}
+\end{minipage}
 \end{center}
-
-\small Figure 148: {\parbox{0.8\textwidth}{The minimum number of time slots equals the chromatic number of the schedule graph.}}
 
 \vspace{0.5cm}
 
@@ -15875,8 +15804,7 @@ The complete graph $K_4$ is planar. Although it may initially appear to have cro
         \node at (1,-0.8) {\small No crossings!};
     \end{scope}
 \end{tikzpicture}
-\\
-\small Figure 149: $K_4$ drawn in non-planar and planar representations
+\caption{$K_4$ drawn in non-planar and planar representations}
 \label{fig:k4_planar}
 \end{figure}
 
@@ -15918,8 +15846,7 @@ Consider a triangle $abc$ together with a vertex $d$ inside it joined to $b$ and
     \node at (2.2,2.2) {\small $\deg(f_2) = 3$};
     \node at (0,-0.8) {\small $\deg(f_3) = 3$};
 \end{tikzpicture}
-\\
-\small Figure 150: Triangle with an additional path $b\,d\,c$, showing three faces
+\caption{Triangle with an additional path $b\,d\,c$, showing three faces}
 \label{fig:faces_example}
 \end{figure}
 
@@ -15965,8 +15892,7 @@ Verification with the triangle example above:
 
     \node at (0,-1.5) {\small $\sum \deg(f) = 4 + 3 + 3 = 10 = 2 \times 5 = 2|E|$};
 \end{tikzpicture}
-\\
-\small Figure 151: Verification of Handshaking Lemma for Faces
+\caption{Verification of Handshaking Lemma for Faces}
 \label{fig:handshaking_faces}
 \end{figure}
 \end{example}
@@ -16012,8 +15938,7 @@ $K_5$ is not planar.
     \node at (0,-3.2) {\small $K_5$ cannot be drawn without crossings};
     \node at (0,-3.7) {\small $|V| = 5$, $|E| = 10$, but if planar: $|E| \leq 3(|V|-2) = 9$};
 \end{tikzpicture}
-\\
-\small Figure 152: $K_5$ showing inevitable edge crossings
+\caption{$K_5$ showing inevitable edge crossings}
 \label{fig:k5_nonplanar}
 \end{figure}
 \end{example}
@@ -16048,8 +15973,7 @@ $K_{3,3}$ is not planar.
     \node at (0,-2.8) {\small $K_{3,3}$ cannot be drawn without crossings};
     \node at (0,-3.3) {\small $|V| = 6$, $|E| = 9$, but if planar: $|E| \leq 2(|V|-2) = 8$};
 \end{tikzpicture}
-\\
-\small Figure 153: $K_{3,3}$ complete bipartite graph showing crossings
+\caption{$K_{3,3}$ complete bipartite graph showing crossings}
 \label{fig:k33_nonplanar}
 \end{figure}
 \end{example}
@@ -16100,8 +16024,7 @@ Planar vs Non-planar comparison:
         \node at (0,-3.3) {\small Violates: $10 > 3(5-2) = 9$ (invalid)};
     \end{scope}
 \end{tikzpicture}
-\\
-\small Figure 154: Comparison of planar and non-planar graphs
+\caption{Comparison of planar and non-planar graphs}
 \label{fig:planar_comparison}
 \end{figure}
 \end{example}
@@ -17109,8 +17032,7 @@ minimum cut.
 
     \node at (3,-2.3) {\small Edge labels: flow$/$capacity. Cut capacity $= 3 + 2 = 5$.};
 \end{tikzpicture}
-\\
-\small Figure 200: A flow network of value $5$ with the saturating min cut $S = \{s\}$.
+\caption{A flow network of value $5$ with the saturating min cut $S = \{s\}$.}
 \label{fig:mfmc-example}
 \end{figure}
 
@@ -17278,8 +17200,7 @@ on $n$ vertices whose part sizes differ by at most one (a
     \node at (2.5,-2.4) {\small Part $V_3$};
     \node at (0,-3.2) {\small $T(7,3)$: balanced complete $3$-partite, $K_4$-free, $|E| = 16$};
 \end{tikzpicture}
-\\
-\small Figure 201: The Tur\'an graph $T(7,3)$ achieves $\mathrm{ex}(7, K_4)$.
+\caption{The Tur\'an graph $T(7,3)$ achieves $\mathrm{ex}(7, K_4)$.}
 \label{fig:turan-graph}
 \end{figure}
 
@@ -17876,8 +17797,7 @@ edges.
         \node at (0,-2.6) {\small $K_6$: a monochromatic $\triangle$ is unavoidable};
     \end{scope}
 \end{tikzpicture}
-\\
-\small Figure 202: Witnessing $R(3,3) = 6$. Left: the unique (up to isomorphism) good $K_5$ colouring. Right: every $2$-colouring of $K_6$ forces a monochromatic triangle.
+\caption{Witnessing $R(3,3) = 6$. Left: the unique (up to isomorphism) good $K_5$ colouring. Right: every $2$-colouring of $K_6$ forces a monochromatic triangle.}
 \label{fig:r33}
 \end{figure}
 
@@ -19007,8 +18927,7 @@ $\chi(P) \ge 3$; in fact $\chi(P) = 3$.
         \draw[edge] (i\i) -- (i\j);
     }
 \end{tikzpicture}
-\\
-\small Figure 203: The Petersen graph; spectrum $\{3, 1, 1, 1, 1, 1, -2, -2, -2, -2\}$.
+\caption{The Petersen graph; spectrum $\{3, 1, 1, 1, 1, 1, -2, -2, -2, -2\}$.}
 \label{fig:petersen-spectrum}
 \end{figure}
 \end{example}
@@ -19558,8 +19477,7 @@ $\varepsilon$-regular partition into $k$ parts with $m_0 \le k \le M$.
     \node at (0, -2.9) {\small Numbered cell: $\varepsilon$-regular pair. \ ``??'' cell: irregular pair (counted toward $\le \varepsilon k^2$ budget).};
     \node at (0, -3.5) {\small $V_0$ is the small ``garbage'' set, $|V_0| \le \varepsilon n$.};
 \end{tikzpicture}
-\\
-\small Figure 204: An $\varepsilon$-regular partition of $V(G)$ into $V_0 \cup V_1 \cup \cdots \cup V_4$.
+\caption{An $\varepsilon$-regular partition of $V(G)$ into $V_0 \cup V_1 \cup \cdots \cup V_4$.}
 \label{fig:regularity-partition}
 \end{figure}
 
@@ -19955,8 +19873,7 @@ $\mathrm{tw}(G) = \min\{\text{width of a tree decomposition of } G\}$.
         \node at (1.5,-2.2) {\small $\mathrm{tw}(G) = 2$};
     \end{scope}
 \end{tikzpicture}
-\\
-\small Figure 205: A graph $G$ with chord $ac$ and a width-$2$ tree decomposition. The vertex $a$ (and likewise $c$) appears in both bags; this is allowed by the interpolation property because the bags containing $a$ form a (sub)tree.
+\caption{A graph $G$ with chord $ac$ and a width-$2$ tree decomposition. The vertex $a$ (and likewise $c$) appears in both bags; this is allowed by the interpolation property because the bags containing $a$ form a (sub)tree.}
 \label{fig:treewidth}
 \end{figure}
 
