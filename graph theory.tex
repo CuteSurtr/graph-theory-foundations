@@ -631,26 +631,26 @@ In an $n$-dimensional hypercube, every vertex has degree $n$.
   % Front square
   \node[draw, circle, fill=lightgray, minimum size=0.7cm] (v000) at (0,0) {$000$};
   \node[draw, circle, fill=lightgray, minimum size=0.7cm] (v001) at (3,0) {$001$};
-  \node[draw, circle, fill=lightgray, minimum size=0.7cm] (v010) at (3,2.5) {$010$};
-  \node[draw, circle, fill=lightgray, minimum size=0.7cm] (v011) at (0,2.5) {$011$};
+  \node[draw, circle, fill=lightgray, minimum size=0.7cm] (v011) at (3,2.5) {$011$};
+  \node[draw, circle, fill=lightgray, minimum size=0.7cm] (v010) at (0,2.5) {$010$};
   
   % Back square
   \node[draw, circle, fill=lightgray, minimum size=0.7cm] (v100) at (1.5,0.8) {$100$};
   \node[draw, circle, fill=lightgray, minimum size=0.7cm] (v101) at (4.5,0.8) {$101$};
-  \node[draw, circle, fill=lightgray, minimum size=0.7cm] (v110) at (4.5,3.3) {$110$};
-  \node[draw, circle, fill=lightgray, minimum size=0.7cm] (v111) at (1.5,3.3) {$111$};
+  \node[draw, circle, fill=lightgray, minimum size=0.7cm] (v111) at (4.5,3.3) {$111$};
+  \node[draw, circle, fill=lightgray, minimum size=0.7cm] (v110) at (1.5,3.3) {$110$};
   
   % Front face edges
   \draw[thick] (v000) -- (v001);
-  \draw[thick] (v001) -- (v010);
-  \draw[thick] (v010) -- (v011);
-  \draw[thick] (v011) -- (v000);
+  \draw[thick] (v001) -- (v011);
+  \draw[thick] (v011) -- (v010);
+  \draw[thick] (v010) -- (v000);
   
   % Back face edges
   \draw[thick] (v100) -- (v101);
-  \draw[thick] (v101) -- (v110);
-  \draw[thick] (v110) -- (v111);
-  \draw[thick] (v111) -- (v100);
+  \draw[thick] (v101) -- (v111);
+  \draw[thick] (v111) -- (v110);
+  \draw[thick] (v110) -- (v100);
   
   % Connections between front and back faces
   \draw[thick] (v000) -- (v100);
@@ -1111,7 +1111,7 @@ A graph $F$ is a subgraph of graph $G$ if $V(F) \subseteq V(G)$ and $E(F) \subse
 % Caption
 \vspace{0.3cm}
 {\centering
-\footnotesize Figure 16: Illustration of a subgraph relationship. The left diagram shows the original graph $G$ with 5 vertices and 8 edges. The right diagram shows a subgraph $F \subseteq G$ where vertex $v_4$ has been removed, along with its incident edges. Additionally, some edges between the remaining vertices ($v_2$-$v_5$ and $v_3$-$v_4$) have been removed, demonstrating that a subgraph maintains subset relationships for both vertex and edge sets.
+\footnotesize Figure 16: Illustration of a subgraph relationship. The left diagram shows the original graph $G$ with 5 vertices and 8 edges. The right diagram shows a subgraph $F \subseteq G$ where vertex $v_4$ has been removed, along with its incident edges. Additionally, the edge $v_2$-$v_5$ between two remaining vertices has been removed, demonstrating that a subgraph maintains subset relationships for both vertex and edge sets.
 \par}
 
 \begin{definition}
@@ -1387,9 +1387,11 @@ A \textit{connected component} of a graph $G = (V, E)$ is a maximal connected su
     \draw[normaledge] (v2) -- (v4);
     \draw[normaledge] (v3) -- (v4);
     
-    % Walk and path
-    \draw[walkpath] (v1) to[bend left=20] node[midway, below] {Walk } (v4);
-    \draw[simplepath] (v1) to[bend right=20] node[midway, above] {Path} (v4);
+    % Walk and path (drawn along edges of the graph)
+    \draw[walkpath] (v1) -- (v2) node[midway, above left] {Walk};
+    \draw[walkpath] (v2) -- (v4);
+    \draw[simplepath] (v1) -- (v3) node[midway, below left] {Path};
+    \draw[simplepath] (v3) -- (v4);
     
     % Explanation
     \node[align=center, font=\small] at (0,-2) {
@@ -1509,7 +1511,7 @@ So a shortest walk from $u$ to $v$ is a path. Hence, if every pair of vertices a
     \node[align=center,font=\bfseries] at (0,3) {Connected Graph};
     
     % Vertices
-    \node[draw, circle, fill=lightgray, minimum size=0.7cm] (v1) at (0,0) {$v_1$};
+    \node[draw, circle, fill=lightgray, minimum size=0.7cm] (v1) at (0,0.6) {$v_1$};
     \node[draw, circle, fill=lightgray, minimum size=0.7cm] (v2) at (2,1) {$v_2$};
     \node[draw, circle, fill=lightgray, minimum size=0.7cm] (v3) at (3,-1) {$v_3$};
     \node[draw, circle, fill=lightgray, minimum size=0.7cm] (v4) at (1,-2) {$v_4$};
@@ -1523,8 +1525,9 @@ So a shortest walk from $u$ to $v$ is a path. Hence, if every pair of vertices a
     \draw[thick] (v5) -- (v1);
     \draw[thick] (v2) -- (v5);
     
-    % Highlight a path between arbitrary vertices
-    \draw[->, ultra thick, blue] (v3) to[bend right=15] node[pos=0.4, below] {Path} (v5);
+    % Highlight a path between two non-adjacent vertices: v_3, v_4, v_5
+    \draw[->, ultra thick, blue] (v3) -- (v4);
+    \draw[->, ultra thick, blue] (v4) -- (v5) node[midway, below left] {Path};
   \end{scope}
   
   % Disconnected graph
@@ -1561,7 +1564,7 @@ So a shortest walk from $u$ to $v$ is a path. Hence, if every pair of vertices a
 % Caption
 \vspace{0.3cm}
 {\centering
-\footnotesize Figure 23: Comparison of connected and disconnected graphs. The connected graph (left) has a single component where a path exists between any pair of vertices, demonstrated by the blue path from $v_3$ to $v_5$. The disconnected graph (right) contains two triangular structures that have no paths between them, as shown by the crossed-out red line. This fundamental distinction affects many graph properties, including traversability, algorithmic complexity, and network reliability.
+\footnotesize Figure 23: Comparison of connected and disconnected graphs. The connected graph (left) has a single component where a path exists between any pair of vertices, demonstrated by the blue path $v_3, v_4, v_5$ from $v_3$ to $v_5$. The disconnected graph (right) contains two triangular structures that have no paths between them, as shown by the crossed-out red line. This fundamental distinction affects many graph properties, including traversability, algorithmic complexity, and network reliability.
 \par}
 
 \begin{center}
