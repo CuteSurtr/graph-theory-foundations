@@ -17151,13 +17151,10 @@ of this chapter transfer unchanged.
 
 \begin{definition}[Flow]
 A \textbf{flow} in $N$ is a function $f : V \times V \to \mathbb{R}$
-satisfying the following three properties:
+satisfying the following two properties:
 \begin{enumerate}
   \item \emph{Capacity constraint:} $0 \le f(u, v) \le c(u, v)$ for
         all $(u, v)$.
-  \item \emph{Skew symmetry (optional bookkeeping):} $f(u, v) = -f(v, u)$.
-        (Many authors omit this and use only non-negative flows;
-        both formulations are equivalent.)
   \item \emph{Conservation:} for every vertex $v \in V \setminus \{s, t\}$,
         \[
           \sum_{u \in V} f(u, v) \;=\; \sum_{w \in V} f(v, w).
@@ -17165,6 +17162,16 @@ satisfying the following three properties:
         That is, total flow into $v$ equals total flow out of $v$.
 \end{enumerate}
 \end{definition}
+
+\begin{remark}
+Some authors work instead with the \emph{net flow}
+$g(u, v) = f(u, v) - f(v, u)$, which is skew-symmetric,
+$g(u, v) = -g(v, u)$, and satisfies only $g(u, v) \le c(u, v)$ (it may be
+negative). The two formulations are equivalent, but they cannot be mixed:
+a function with $f(u, v) \ge 0$ and $f(u, v) = -f(v, u)$ for all $u, v$ is
+identically zero. Throughout this chapter flows are non-negative, as in
+the definition above.
+\end{remark}
 
 \begin{definition}[Value of a flow]
 The \textbf{value} of a flow $f$ is the net flow leaving the source,
@@ -17378,6 +17385,14 @@ $v \in T$ and using Lemma~\ref{lem:netflow},
 (Corollary~\ref{cor:weakduality}), $|f| \le c(S, T)$ for every cut,
 so any flow whose value already equals \emph{some} cut capacity is
 already as large as possible.
+
+Finally, a maximum flow exists: the set of flows is a non-empty (it
+contains the zero flow), closed and bounded subset of
+$\mathbb{R}^{V \times V}$, being cut out by finitely many linear
+equations and non-strict inequalities with $0 \le f(u, v) \le c(u, v)$,
+and $f \mapsto |f|$ is continuous, so it attains its maximum. Applying
+(1) $\Rightarrow$ (3) to a maximum flow and using weak duality gives
+$\max_f |f| = \min_{(S, T)} c(S, T)$.
 \end{proof}
 
 \subsection{The Ford--Fulkerson Algorithm}
@@ -17471,12 +17486,18 @@ matching equals the size of a minimum vertex cover.
 Build a network: add source $s$ with arcs $s \to a$ (capacity $1$)
 for each $a \in A$, add sink $t$ with arcs $b \to t$ (capacity $1$)
 for each $b \in B$, and for every edge $\{a, b\} \in E$ add an arc
-$a \to b$ of capacity $\infty$. By Theorem~\ref{thm:integrality}
+$a \to b$ of capacity $|A| + 1$ (any integer larger than $|A|$ works; it
+plays the role of an ``infinite'' capacity while keeping all capacities
+integers). By Theorem~\ref{thm:integrality}
 there is an integer max flow $f^*$, and the arcs $a \to b$ with
-$f^*(a, b) = 1$ form a matching of size $|f^*|$.
+$f^*(a, b) = 1$ form a matching of size $|f^*|$ (at most one unit of
+flow enters each $a$ and at most one unit leaves each $b$, so each arc
+$a \to b$ carries $0$ or $1$, and no two arcs carrying flow share an
+endpoint).
 
-Let $(S, T)$ be a minimum cut. Since arcs $a \to b$ have capacity
-$\infty$, no such arc may cross from $S$ to $T$ in a finite cut, so
+Let $(S, T)$ be a minimum cut. The cut $(\{s\}, A \cup B \cup \{t\})$ has
+capacity $|A|$, so $c(S, T) \le |A|$; since each arc $a \to b$ has
+capacity $|A| + 1$, no such arc may cross from $S$ to $T$, so
 whenever $a \in A \cap S$ and $\{a, b\} \in E$ we have $b \in B \cap S$.
 Therefore
 \[
@@ -17513,7 +17534,7 @@ minimum cut.
     \node[vertex] (b) at (3,-1.2) {$b$};
     \node[vertex] (t) at (6,0) {$t$};
 
-    \draw[flowedge, color=blue] (s) -- node[above]{\small $2/3$} (a);
+    \draw[flowedge, color=blue] (s) -- node[above]{\small $3/3$} (a);
     \draw[flowedge, color=blue] (s) -- node[below]{\small $2/2$} (b);
     \draw[flowedge, color=blue] (a) -- node[right]{\small $1/1$} (b);
     \draw[flowedge, color=blue] (a) -- node[above]{\small $2/2$} (t);
