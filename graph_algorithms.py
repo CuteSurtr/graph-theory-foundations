@@ -302,6 +302,8 @@ class GraphAlgorithms:
         Returns:
             (mst_edges, total_weight)
         """
+        if not graph.get_vertices():
+            return [], 0
         if start is None:
             start = next(iter(graph.get_vertices()))
             
@@ -789,6 +791,9 @@ class SpecialGraphAlgorithms:
         Returns:
             Dict mapping vertices to colors (integers)
         """
+        if graph.directed:
+            raise ValueError("Graph coloring requires undirected graph")
+
         vertices = sorted(graph.get_vertices())
         coloring = {}
         
@@ -818,6 +823,9 @@ class SpecialGraphAlgorithms:
         Returns:
             (is_bipartite, coloring)
         """
+        if graph.directed:
+            raise ValueError("Bipartite check requires undirected graph")
+
         if not graph.get_vertices():
             return True, {}
             
@@ -931,11 +939,12 @@ class SpecialGraphAlgorithms:
                     low[vertex] = min(low[vertex], low[neighbor])
                     
                     # Root is articulation point if it has more than one child
-                    if vertex not in parent and children > 1:
+                    # (DFS roots are stored with parent[root] = None)
+                    if parent[vertex] is None and children > 1:
                         articulation_points.add(vertex)
                         
                     # Non-root is articulation point if removing it disconnects the graph
-                    if vertex in parent and low[neighbor] >= discovery[vertex]:
+                    if parent[vertex] is not None and low[neighbor] >= discovery[vertex]:
                         articulation_points.add(vertex)
                         
                 elif neighbor != parent.get(vertex):
@@ -974,6 +983,7 @@ class SpecialGraphAlgorithms:
             discovery[vertex] = low[vertex] = time[0]
             time[0] += 1
             
+            parent_edge_skipped = False
             for neighbor, _ in graph.get_neighbors(vertex):
                 if neighbor not in visited:
                     parent[neighbor] = vertex
@@ -986,7 +996,11 @@ class SpecialGraphAlgorithms:
                     if low[neighbor] > discovery[vertex]:
                         bridges.append((vertex, neighbor))
                         
-                elif neighbor != parent.get(vertex):
+                elif neighbor == parent.get(vertex) and not parent_edge_skipped:
+                    # Skip the tree edge to the parent only once: a parallel
+                    # copy of it is a back edge, so that edge is not a bridge
+                    parent_edge_skipped = True
+                else:
                     low[vertex] = min(low[vertex], discovery[neighbor])
                     
         for vertex in graph.get_vertices():
@@ -1155,46 +1169,55 @@ class MaxFlowAlgorithms:
         Returns:
             (max_flow_value, flow_dict)
         """
-        # Create residual graph
+        if source == sink:
+            return 0, {}  # the book requires s != t; avoids an infinite loop
+            
+        # Create residual graph (parallel edges add up; an undirected edge can
+        # carry flow in either direction)
         residual = defaultdict(lambda: defaultdict(int))
         for u, v, capacity in graph.get_edges():
-            residual[u][v] = capacity
+            residual[u][v] += capacity
+            if not graph.directed:
+                residual[v][u] += capacity
             
         def dfs_path(source, sink, visited, path, min_capacity):
+            # Returns (bottleneck, path) of an augmenting path, or (0, None).
+            # Vertices stay marked once visited, so one search is O(V + E).
             if source == sink:
-                return min_capacity
+                return min_capacity, path
                 
             for neighbor in residual[source]:
                 capacity = residual[source][neighbor]
                 if neighbor not in visited and capacity > 0:
                     visited.add(neighbor)
-                    result = dfs_path(neighbor, sink, visited, 
+                    result, found_path = dfs_path(neighbor, sink, visited,
                                     path + [neighbor], min(min_capacity, capacity))
                     if result > 0:
-                        return result
-                    visited.remove(neighbor)
-            return 0
+                        return result, found_path
+            return 0, None
         
         max_flow = 0
         flow = defaultdict(lambda: defaultdict(int))
         
         while True:
             visited = {source}
-            path_flow = dfs_path(source, sink, visited, [source], float('inf'))
+            path_flow, path = dfs_path(source, sink, visited, [source], float('inf'))
             
             if path_flow == 0:
                 break
                 
             max_flow += path_flow
             
-            # Update residual capacities
-            current = source
-            for next_vertex in visited:
-                if next_vertex != source:
-                    residual[current][next_vertex] -= path_flow
-                    residual[next_vertex][current] += path_flow
-                    flow[current][next_vertex] += path_flow
-                    current = next_vertex
+            # Update residual capacities along the path, in path order
+            for current, next_vertex in zip(path, path[1:]):
+                residual[current][next_vertex] -= path_flow
+                residual[next_vertex][current] += path_flow
+                # Pushing along a reverse residual edge cancels existing flow
+                cancel = min(path_flow, flow.get(next_vertex, {}).get(current, 0))
+                if cancel:
+                    flow[next_vertex][current] -= cancel
+                if path_flow > cancel:
+                    flow[current][next_vertex] += path_flow - cancel
                     
         return max_flow, dict(flow)
     
@@ -1209,10 +1232,13 @@ class MaxFlowAlgorithms:
         Returns:
             (max_flow_value, flow_dict)
         """
-        # Create capacity matrix
+        # Create capacity matrix (parallel edges add up; an undirected edge can
+        # carry flow in either direction)
         capacity = defaultdict(lambda: defaultdict(int))
         for u, v, cap in graph.get_edges():
-            capacity[u][v] = cap
+            capacity[u][v] += cap
+            if not graph.directed:
+                capacity[v][u] += cap
             
         def bfs_path(source, sink):
             visited = {source}
@@ -1252,7 +1278,12 @@ class MaxFlowAlgorithms:
                 prev = parent[current]
                 capacity[prev][current] -= path_flow
                 capacity[current][prev] += path_flow
-                flow[prev][current] += path_flow
+                # Pushing along a reverse residual edge cancels existing flow
+                cancel = min(path_flow, flow.get(current, {}).get(prev, 0))
+                if cancel:
+                    flow[current][prev] -= cancel
+                if path_flow > cancel:
+                    flow[prev][current] += path_flow - cancel
                 current = prev
                 
         return max_flow, dict(flow)
@@ -1404,7 +1435,7 @@ def create_test_examples():
     print(f"   Maximum flow from S to T: {max_flow_val}")
     print(f"   Complexity: O(VE^2) = O({len(flow_graph.get_vertices())} × {len(flow_edges)}^2)")
     
-    print("\n=== COMPLETE ALGORITHM LIST (30+ algorithms) ===")
+    print("\n=== COMPLETE ALGORITHM LIST (29 algorithms) ===")
     algorithms = [
         "1. Breadth-First Search (BFS)",
         "2. Depth-First Search (DFS)", 
@@ -1434,8 +1465,7 @@ def create_test_examples():
         "26. Edmonds-Karp Maximum Flow",
         "27. Maximum Bipartite Matching",
         "28. Perfect Matching Check",
-        "29. Graph Connectivity Check",
-        "30. Longest Path/Cycle Finding"
+        "29. Graph Connectivity Check"
     ]
     
     for algorithm in algorithms:
