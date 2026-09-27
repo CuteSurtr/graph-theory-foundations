@@ -4304,7 +4304,7 @@ A graph problem is NP-complete if it is both in $\mathbf{NP}$ and NP-hard. This 
 \end{definition}
 
 \begin{remark}
-The distinction between NP-hard and NP-complete is that NP-complete problems must be in $\mathbf{NP}$, while NP-hard problems may or may not be in $\mathbf{NP}$. For example, the graph isomorphism problem is in $\mathbf{NP}$, while determining if a graph has a chromatic number equal to its clique number is NP-hard but not known to be in $\mathbf{NP}$.
+The distinction between NP-hard and NP-complete is that NP-complete problems must be in $\mathbf{NP}$, while NP-hard problems may or may not be in $\mathbf{NP}$. For example, the graph isomorphism problem is in $\mathbf{NP}$, while the halting problem is NP-hard but not in $\mathbf{NP}$ (it is not even decidable). Likewise, computing a minimum-cost Hamiltonian cycle (the optimization version of the TSP) is NP-hard, but it is not a decision problem and so does not belong to $\mathbf{NP}$.
 \end{remark}
 
 \begin{corollary}[Hamiltonian Path vs. Cycle]
@@ -4313,7 +4313,7 @@ The Hamiltonian path problem and Hamiltonian cycle problem are polynomially equi
 
 \begin{theorem}[Traveling Salesman Problem (TSP)]
 The \textbf{Traveling Salesman Problem (TSP)} asks for a minimum cost Hamiltonian cycle in a
-weighted graph. This problem is computationally hard; the fastest algorithm on an $n$-vertex graph runs in
+weighted graph. This problem is computationally hard: it is NP-hard, so it has no polynomial-time algorithm unless $\mathbf{P} = \mathbf{NP}$, and the fastest known exact algorithms on an $n$-vertex graph, such as the Held-Karp algorithm below, run in
 exponential time.
 \end{theorem}
 
@@ -4442,7 +4442,6 @@ The Traveling Salesman Problem is a direct extension of the Hamiltonian cycle pr
         \draw[blue, thick] (V2) -- (V3);
         \draw[blue, thick] (V3) -- (V4);
         \draw[blue, thick] (V4) -- (V5);
-        \draw[blue, thick] (V5) -- (V0);
         
         \node[text width=3cm, align=center] at (0,-2.5) {Minimum Spanning Tree};
     \end{scope}
@@ -4481,7 +4480,7 @@ The Traveling Salesman Problem is a direct extension of the Hamiltonian cycle pr
 \end{tikzpicture}
 \begin{center}
 \begin{center}
-\small Figure 57: 2-approximation algorithm for TSP using Minimum Spanning Tree. \textbf{Left:} The MST shown is actually a cycle in this example, connecting all vertices with minimum total edge weight. In a general graph, the MST would be a tree (no cycles) with $n-1$ edges. \textbf{Right:} The approximated TSP tour follows a preorder traversal of the MST, which in this example yields the same path since the MST already forms a cycle. The approximation guarantee works because (1) the MST cost is a lower bound on the optimal TSP tour cost since removing any edge from a tour produces a spanning tree, and (2) doubling the MST and shortcutting (via triangle inequality) produces a tour of cost at most twice optimal.
+\small Figure 57: 2-approximation algorithm for TSP using Minimum Spanning Tree. \textbf{Left:} A minimum spanning tree; here it is the path $0, 1, 2, 3, 4, 5$ with $n - 1 = 5$ edges (like every spanning tree, it contains no cycle). \textbf{Right:} The approximated TSP tour visits the vertices in the order of a preorder traversal of the MST starting at vertex $0$, namely $0, 1, 2, 3, 4, 5$, and then returns to $0$; in this example the tour is the MST plus the single edge $\{5, 0\}$. The approximation guarantee works because (1) the MST cost is a lower bound on the optimal TSP tour cost since removing any edge from a tour produces a spanning tree, and (2) doubling the MST and shortcutting (via triangle inequality) produces a tour of cost at most twice optimal.
 \end{center}\end{center}
 \label{fig:tsp-approx}
 \end{figure}
@@ -4491,7 +4490,7 @@ For any graph $G$ with metric distances, the cost of a minimum spanning tree $MS
 \end{lemma}
 
 \begin{proof}
-Let $T^*$ be an optimal TSP tour of $G$. Removing any single edge from $T^*$ produces a spanning path, which is a spanning tree. Since $MST(G)$ is the minimum-cost spanning tree, we have $c(MST(G)) \leq c(T^* - e) < c(T^*) = c(OPT(G))$.
+Let $T^*$ be an optimal TSP tour of $G$. Removing any single edge from $T^*$ produces a spanning path, which is a spanning tree. Since $MST(G)$ is the minimum-cost spanning tree, we have $c(MST(G)) \leq c(T^* - e) \leq c(T^*) = c(OPT(G))$, since edge costs are non-negative.
 \end{proof}
 
 \begin{theorem}[Christofides' Algorithm]
@@ -4505,14 +4504,16 @@ For metric TSP, Christofides' algorithm achieves a $\frac{3}{2}$-approximation b
 \end{theorem}
 
 \begin{corollary}[Approximation Hierarchy]
-For metric TSP, the following approximation bounds hold:
+For metric TSP, the following bounds hold:
 \begin{align}
-1 \leq \frac{c(OPT)}{c(MST)} \leq \frac{c(Christofides)}{c(MST)} \leq \frac{3}{2} < 2 \leq \frac{c(MST\text{-}preorder)}{c(MST)}
+&c(MST) \leq c(OPT) \leq c(Christofides) \leq \tfrac{3}{2}\, c(OPT),\\
+&c(OPT) \leq c(MST\text{-}preorder) \leq 2\, c(MST) \leq 2\, c(OPT).
 \end{align}
+In particular, $1 \leq \frac{c(Christofides)}{c(OPT)} \leq \frac{3}{2}$ and $1 \leq \frac{c(MST\text{-}preorder)}{c(OPT)} \leq 2$. These guarantees are relative to $c(OPT)$, not to $c(MST)$: since $c(OPT)$ can be as large as $2\, c(MST)$, the ratio $\frac{c(Christofides)}{c(MST)}$ can be as large as $2$.
 \end{corollary}
 
 \begin{remark}
-The best-known approximation ratio for metric TSP has remained at $\frac{3}{2}$ (Christofides' algorithm, 1976) for over 45 years, despite significant research efforts.
+For more than four decades after Christofides' algorithm (1976; found independently by Serdyukov), $\frac{3}{2}$ was the best known approximation ratio for metric TSP, despite significant research efforts. In 2020, Karlin, Klein, and Oveis Gharan gave a randomized $(\frac{3}{2} - \epsilon)$-approximation algorithm for some $\epsilon > 10^{-36}$; the improvement is tiny, but it shows that $\frac{3}{2}$ is not the limit.
 \end{remark}
 
 \begin{remark}
@@ -4524,7 +4525,7 @@ The triangle inequality is essential for the 2-approximation guarantee. Without 
 \end{lemma}
 
 \begin{remark}[Special Case]
-The diagram shows a special case where the MST is itself a cycle, making the preorder traversal identical to the MST. In general graphs, the MST will have fewer edges than the tour, requiring the preorder traversal to create a valid Hamiltonian cycle.
+The diagram shows a special case where the MST is a path, so a preorder traversal starting at an end of the path visits the vertices in path order, and the tour is the MST plus the single closing edge. In general, the MST has $n-1$ edges and may branch; listing its vertices in preorder and then returning to the start amounts to walking around the tree (using each tree edge twice) while skipping vertices that have already been visited (shortcutting), which yields a valid Hamiltonian cycle.
 \end{remark}
 
 \begin{theorem}[Tight Example]
@@ -4532,7 +4533,7 @@ The factor-2 approximation of the MST-based algorithm is tight: there exist grap
 \end{theorem}
 
 \begin{remark}[Implementation Insight]
-In practice, the MST-based approximation often performs much better than its worst-case factor-2 guarantee, typically producing tours within 15-20\% of optimal on random Euclidean instances.
+In practice, the MST-based approximation usually performs much better than its worst-case factor-2 guarantee, but it is not competitive with other simple heuristics: in the survey of Johnson and McGeoch it is dominated in practice by nearest neighbor and the greedy heuristic, and on random Euclidean instances nearest-neighbor tours are already about 25\% longer than optimal on average, compared with about 10\% for Christofides' algorithm.
 \end{remark}
 
 
