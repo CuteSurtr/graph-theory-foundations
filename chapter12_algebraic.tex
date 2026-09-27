@@ -2233,7 +2233,10 @@ Connect this to the spectrum of the quotient matrix from \S 12.2.
 \begin{exercise}
 Draw the trace of 1-WL on the Petersen graph: at each iteration, label
 each vertex with its current colour. Observe that the algorithm
-stabilises in $\le 2$ iterations and confirms vertex-transitivity.
+stabilises in $\le 2$ iterations with a single colour class, as it must
+for every vertex-transitive graph. Explain why this does \emph{not}
+confirm vertex-transitivity: the $3$-regular Frucht graph also receives
+a single colour, yet its only automorphism is the identity.
 \end{exercise}
 
 \begin{exercise}
@@ -2391,16 +2394,19 @@ disk.
 \end{exercise}
 
 \begin{exercise}
-Show that the mutation orbit of an orientation of $A_n$ is finite
-(indeed, exactly $\binom{2(n+1)}{n+1}/(n+2)$ Catalan-many distinct
-quivers up to relabeling), confirming Theorem~\ref{thm:fzfinite} for
-type $A$.
+Show that the cluster algebra of an orientation of $A_n$ has finitely
+many clusters (indeed, exactly $\binom{2(n+1)}{n+1}/(n+2)$
+Catalan-many, one for each triangulation of an $(n+3)$-gon),
+confirming Theorem~\ref{thm:fzfinite} for type $A$. (Finiteness of
+the set of quivers reachable by mutation would not suffice: the
+Kronecker quiver $1 \rightrightarrows 2$ is fixed by mutation up to
+relabeling but has infinitely many cluster variables.)
 \end{exercise}
 
 \paragraph{Diagram Questions.}
 
 \begin{exercise}
-Draw the quiver mutation graph (cluster exchange graph) of type $A_2$:
+Draw the cluster exchange graph (vertices = clusters) of type $A_2$:
 $5$ vertices, each connected to its two neighbours by an edge labeled
 with the mutation index. Verify it is the pentagon.
 \end{exercise}
@@ -2544,7 +2550,7 @@ matching $\tau(C_4) = 4$.)
 
 \begin{exercise}
 For $K_4$, compute the canonical divisor $K_{K_4}$ and verify
-$\deg(K_{K_4}) = 2g$ where $g = 6 - 4 + 1 = 3$.
+$\deg(K_{K_4}) = 2g - 2$ where $g = 6 - 4 + 1 = 3$.
 \end{exercise}
 
 \paragraph{Medium Questions.}
@@ -2586,8 +2592,8 @@ element of $K(K_4)$.
 \end{exercise}
 
 \begin{exercise}
-For the complete bipartite graph $K_{2, 3}$, draw all $6$ spanning
-trees and verify $\tau = 6 = |K(K_{2,3})|$ by computing the sandpile
+For the complete bipartite graph $K_{2, 3}$, draw all $12$ spanning
+trees and verify $\tau = 12 = |K(K_{2,3})|$ by computing the sandpile
 group explicitly via Smith normal form.
 \end{exercise}
 
@@ -2713,7 +2719,9 @@ and bound the mixing time by $O(n^2)$.
 
 \begin{exercise}
 Apply Theorem~\ref{thm:dsubl} to the lazy random walk on $\mathbb Z_2^n$
-(driven by uniform measure on standard basis vectors). Use the
+(driven by the measure with mass $1/2$ at $0$ and mass $1/(2n)$ on each
+standard basis vector; the uniform measure on the basis vectors alone
+gives a periodic walk). Use the
 character formula to recover the cutoff time $\tfrac{1}{2} n \log n$.
 \end{exercise}
 
@@ -2740,9 +2748,12 @@ State and prove the Diaconis--Shahshahani upper bound lemma
 \end{exercise}
 
 \begin{exercise}
-Construct an explicit family of $3$-regular Cayley graphs on
-$\mathrm{PSL}(2, p)$ (the Lubotzky--Phillips--Sarnak Ramanujan graphs)
-and prove they have spectral gap $\Omega(1)$ uniformly in $p$.
+Fix a prime $\ell \equiv 1 \pmod 4$. Construct the
+Lubotzky--Phillips--Sarnak Ramanujan graphs: explicit
+$(\ell+1)$-regular Cayley graphs on $\mathrm{PSL}(2, p)$ or
+$\mathrm{PGL}(2, p)$ for primes $p \equiv 1 \pmod 4$, $p \ne \ell$
+(so the degree is at least $6$), and prove they have spectral gap
+$\Omega(1)$ uniformly in $p$.
 \end{exercise}
 
 \paragraph{Diagram Questions.}
@@ -2915,8 +2926,8 @@ circles, with adjacencies matching the edges.
 \end{exercise}
 
 \begin{exercise}
-Sketch a current flow of $1$ ampere from one vertex of $K_4$ to the
-opposite vertex. Label each edge with the current $\phi_i - \phi_j$.
+Sketch a current flow of $1$ ampere from one vertex of $K_4$ to another
+vertex. Label each edge with the current $\phi_i - \phi_j$.
 Verify Kirchhoff's current law at each internal vertex.
 \end{exercise}
 
@@ -3053,24 +3064,28 @@ $\widetilde f_1, \widetilde f_2$ edges.
 \end{exercise}
 
 \begin{exercise}
-Apply Schensted insertion to the word $w = 3 1 4 1 5$ and confirm the
-resulting tableau is the unique element of its Knuth equivalence
-class.
+Apply Schensted insertion to the word $w = 3 1 4 1 5$ and confirm that
+the reading word of the resulting tableau is the unique tableau word
+in the Knuth equivalence class of $w$ (the class itself has several
+elements).
 \end{exercise}
 
 \paragraph{Medium Questions.}
 
 \begin{exercise}
 Verify Theorem~\ref{thm:crysrep} for $\lambda = (2, 1)$ over $\{1, 2\}$:
-the crystal has $\binom{3}{2} = 3$ tableaux, and its character
+the crystal has $2$ tableaux (first row $1\,1$ or $1\,2$, second row
+$2$), and its character
 $\mathrm{ch}(B(2, 1)) = x_1^2 x_2 + x_1 x_2^2$ (degree-$3$ Schur with
 two parts).
 \end{exercise}
 
 \begin{exercise}
 Implement the Knuth-equivalence relations on $\{1, 2, 3\}^4$ and count
-the equivalence classes. Verify the count against the dimension sum
-$\sum_\lambda (f^\lambda)^2$ over partitions of $4$.
+the equivalence classes. Verify the count against the number
+$\sum_\lambda |\mathrm{SSYT}(\lambda, 3)|$ of semistandard tableaux with
+$4$ boxes and entries in $\{1, 2, 3\}$ (sum over partitions $\lambda$ of
+$4$), and check that $\sum_\lambda |\mathrm{SSYT}(\lambda, 3)|\, f^\lambda = 3^4$.
 \end{exercise}
 
 \paragraph{Hard Questions.}
