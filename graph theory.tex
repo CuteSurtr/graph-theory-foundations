@@ -218,15 +218,15 @@ If $G$ is a graph and $v \in V(G)$, then:
   \draw (u2) -- (u3);
   
   % Neighborhood set indicator
-  \draw[blue, thick, dashed, rounded corners] (-2.5,0.5) rectangle (2.5,2.5) {};
+  \draw[thick, dashed, rounded corners] (-2.5,0.5) rectangle (2.5,2.5) {};
   \node[blue, text width=5cm, align=center] at (0,3) {$N_G(v) = \{w_1, w_2, w_3, w_4\}$};
   
   % Degree display - moved and color changed
   \node[blue, text width=5cm, align=center] at (0,3.5) {$d_G(v) = |N_G(v)| = 4$};
   
   % Non-neighbor set indicator
-  \draw[red, thick, dashed, rounded corners] (-2.5,-2.5) rectangle (2.5,-0.5) {};
-  \node[red, text width=5cm, align=center] at (0,-3) {$\{u_1, u_2, u_3\} \cap N_G(v) = \emptyset$};
+  \draw[thick, dashed, rounded corners] (-2.5,-2.5) rectangle (2.5,-0.5) {};
+  \node[text width=5cm, align=center] at (0,-3) {$\{u_1, u_2, u_3\} \cap N_G(v) = \emptyset$};
 \end{tikzpicture}
 \caption{Example of neighborhood and degree of a vertex in a graph.}
 \end{figure}
@@ -967,8 +967,7 @@ In any graph, there are an even number of vertices of odd degree.
       minimum size=24pt,
       inner sep=0pt,
       line width=1.2pt,
-      draw=black!60,
-      drop shadow={shadow xshift=0.5mm, shadow yshift=-0.5mm, opacity=0.3}
+      draw=black!60
     },
     isolatedvertex/.style={
       draw,
@@ -977,8 +976,7 @@ In any graph, there are an even number of vertices of odd degree.
       minimum size=24pt,
       inner sep=0pt,
       line width=1.2pt,
-      draw=red!60!black,
-      drop shadow={shadow xshift=0.5mm, shadow yshift=-0.5mm, opacity=0.3}
+      draw=red!60!black
     },
     pendantvertex/.style={
       draw,
@@ -987,8 +985,7 @@ In any graph, there are an even number of vertices of odd degree.
       minimum size=24pt,
       inner sep=0pt,
       line width=1.2pt,
-      draw=blue!60!black,
-      drop shadow={shadow xshift=0.5mm, shadow yshift=-0.5mm, opacity=0.3}
+      draw=blue!60!black
     },
     edge/.style={
       draw=black!50,
@@ -1043,8 +1040,8 @@ In any graph, there are an even number of vertices of odd degree.
   \draw[->, thick, red!70!black, >=stealth] (-2.5,-2.2) to[bend right=20] (-2.9,-2.1);
   \node[label, text=red!70!black] at (-1.7,-2.3) {$\deg=0$};
   
-  % Add stylish legend
-  \node[draw=black!30, rounded corners=10pt, fill=black!5, inner sep=10pt, drop shadow={shadow xshift=1mm, shadow yshift=-1mm, opacity=0.2}] at (0,-4) {
+  % Legend
+  \node[inner sep=10pt] at (0,-4) {
     \begin{tabular}{lcl}
       \textcolor{red!70!black}{$\bullet$} & \textbf{Isolated vertex:} & $\deg(v) = 0$ \\
       \textcolor{blue!70!black}{$\bullet$} & \textbf{Pendant vertex:} & $\deg(v) = 1$ \\
@@ -1200,8 +1197,8 @@ G[X] = (X, \{\{u,v\} \in E(G) : u, v \in X\})
     \draw[thick] (v4) -- (v5);
     
     % Highlight vertex set X for the induced subgraph
-    \draw[dashed, rounded corners, red, thick] (-0.5,-0.5) rectangle (1.5,2.5);
-    \node[red] at (0.5,-1) {$X = \{v_1, v_4, v_5\}$};
+    \draw[dashed, rounded corners, thick] (-0.5,-0.5) rectangle (1.5,2.5);
+    \node at (0.5,-1) {$X = \{v_1, v_4, v_5\}$};
   \end{scope}
   
   % Induced subgraph G[X]
@@ -1224,7 +1221,7 @@ G[X] = (X, \{\{u,v\} \in E(G) : u, v \in X\})
 % Caption
 \vspace{0.3cm}
 {\centering
-\footnotesize Figure 18: Illustration of an induced subgraph. The original graph $G$ (left) has a subset of vertices $X = \{v_1, v_4, v_5\}$ highlighted by a red dashed rectangle. The induced subgraph $G[X]$ (right) contains exactly these vertices along with all edges from the original graph that connect vertices within this set. Unlike a general subgraph, an induced subgraph must include every edge from the original graph whose endpoints are both in the selected vertex subset.
+\footnotesize Figure 18: Illustration of an induced subgraph. The original graph $G$ (left) has a subset of vertices $X = \{v_1, v_4, v_5\}$ highlighted by a dashed rectangle. The induced subgraph $G[X]$ (right) contains exactly these vertices along with all edges from the original graph that connect vertices within this set. Unlike a general subgraph, an induced subgraph must include every edge from the original graph whose endpoints are both in the selected vertex subset.
 \par}
 \subsection{Walks and Paths in Graphs}
 \begin{definition}
@@ -1424,10 +1421,10 @@ A \textit{connected component} of a graph $G = (V, E)$ is a maximal connected su
     };
     
     % Connected components highlight
-    \draw[blue, dashed, rounded corners, thick] (-0.5,0.5) rectangle (2.5,1.5);
-    \draw[blue, dashed, rounded corners, thick] (-0.5,-1.5) rectangle (2.5,-0.5);
-    \node[blue, font=\small] at (1,1.85) {Component 1};
-    \node[blue, font=\small] at (1,-1.75) {Component 2};
+    \draw[dashed, rounded corners, thick] (-0.5,0.5) rectangle (2.5,1.5);
+    \draw[dashed, rounded corners, thick] (-0.5,-1.5) rectangle (2.5,-0.5);
+    \node[font=\small] at (1,1.85) {Component 1};
+    \node[font=\small] at (1,-1.75) {Component 2};
   \end{scope}
 \end{tikzpicture}
 \end{center}
@@ -1435,7 +1432,7 @@ A \textit{connected component} of a graph $G = (V, E)$ is a maximal connected su
 % Caption for Figure 21
 \vspace{0.3cm}
 {\centering
-\footnotesize Figure 21: Comparison of connected and disconnected graphs. In the connected graph (left), there exists at least one path between any pair of vertices, as shown by the example paths between vertices $u$ and $v$. The red dashed line represents one possible walk, while the blue solid line represents a path. In a disconnected graph (right), there exist pairs of vertices that cannot be connected by any path, as indicated by the crossed-out paths. The disconnected graph has two connected components (outlined in blue), which are maximal connected subgraphs.
+\footnotesize Figure 21: Comparison of connected and disconnected graphs. In the connected graph (left), there exists at least one path between any pair of vertices, as shown by the example paths between vertices $u$ and $v$. The red dashed line represents one possible walk, while the blue solid line represents a path. In a disconnected graph (right), there exist pairs of vertices that cannot be connected by any path, as indicated by the crossed-out paths. The disconnected graph has two connected components (outlined by dashed boxes), which are maximal connected subgraphs.
 \par}
 
 \begin{proof}[Proof of Lemma~\ref{lem:walk-path}]
@@ -1586,8 +1583,8 @@ So a shortest walk from $u$ to $v$ is a path. Hence, if every pair of vertices a
     \draw[thick] (a3) -- (a4);
     
     % Component distinction
-    \draw[blue, dashed, rounded corners] (-1.5,0.5) rectangle (1.5,1.5);
-    \draw[red, dashed, rounded corners] (-1.5,-1.5) rectangle (1.5,-0.5);
+    \draw[dashed, rounded corners] (-1.5,0.5) rectangle (1.5,1.5);
+    \draw[dashed, rounded corners] (-1.5,-1.5) rectangle (1.5,-0.5);
   \end{scope}
   
   % Example 2: Three separated components
@@ -1611,9 +1608,9 @@ So a shortest walk from $u$ to $v$ is a path. Hence, if every pair of vertices a
     \draw[thick] (b5) -- (b6);
     
     % Component distinction
-    \draw[blue, dashed, rounded corners] (-1.5,-0.4) rectangle (1.5,1.5);
-    \draw[red, dashed, rounded corners] (-2,-1.5) rectangle (-1,-0.5);
-    \draw[green, dashed, rounded corners] (-0.5,-1.5) rectangle (2,-0.5);
+    \draw[dashed, rounded corners] (-1.5,-0.4) rectangle (1.5,1.5);
+    \draw[dashed, rounded corners] (-2,-1.5) rectangle (-1,-0.5);
+    \draw[dashed, rounded corners] (-0.5,-1.5) rectangle (2,-0.5);
   \end{scope}
   
   % Example 3: Case with isolated vertices
@@ -1633,9 +1630,9 @@ So a shortest walk from $u$ to $v$ is a path. Hence, if every pair of vertices a
     \node[draw, circle, fill=lightgray, minimum size=0.6cm] (c5) at (1,-1) {$o$};
     
     % Component distinction
-    \draw[blue, dashed, rounded corners] (-1.5,-0.4) rectangle (1.5,1.5);
-    \draw[red, dashed, rounded corners] (-1.5,-1.5) rectangle (-0.5,-0.5);
-    \draw[green, dashed, rounded corners] (0.5,-1.5) rectangle (1.5,-0.5);
+    \draw[dashed, rounded corners] (-1.5,-0.4) rectangle (1.5,1.5);
+    \draw[dashed, rounded corners] (-1.5,-1.5) rectangle (-0.5,-0.5);
+    \draw[dashed, rounded corners] (0.5,-1.5) rectangle (1.5,-0.5);
   \end{scope}
 \end{tikzpicture}
 \end{center}
@@ -1643,7 +1640,7 @@ So a shortest walk from $u$ to $v$ is a path. Hence, if every pair of vertices a
 % Caption
 \vspace{0.3cm}
 {\centering
-\footnotesize Figure 24: Various forms of disconnected graphs. Left: A disconnected graph with two separate edge components, where each component is a single edge. Middle: A graph with three distinct components - a triangular component, a single isolated vertex, and a path component with two vertices. Right: A graph with a triangular component and two isolated vertices. Each connected component (highlighted by dashed colored rectangles) forms a maximal connected subgraph. In graph theory, isolated vertices are considered separate connected components.
+\footnotesize Figure 24: Various forms of disconnected graphs. Left: A disconnected graph with two separate edge components, where each component is a single edge. Middle: A graph with three distinct components - a triangular component, a single isolated vertex, and a path component with two vertices. Right: A graph with a triangular component and two isolated vertices. Each connected component (highlighted by dashed rectangles) forms a maximal connected subgraph. In graph theory, isolated vertices are considered separate connected components.
 \par}
 
 \begin{center}
@@ -1681,9 +1678,9 @@ So a shortest walk from $u$ to $v$ is a path. Hence, if every pair of vertices a
     \node[draw, circle, fill=green!20, minimum size=0.7cm] (v8) at (4,0) {$v_8$};
     
     % Component emphasis (dashed circles)
-    \draw[blue, dashed, thick] (-4,0) circle (1.8cm);
-    \draw[red, dashed, thick] (0.33,0) circle (1.5cm);
-    \draw[green, dashed, thick] (4,0) circle (0.9cm);
+    \draw[dashed, thick] (-4,0) circle (1.8cm);
+    \draw[dashed, thick] (0.33,0) circle (1.5cm);
+    \draw[dashed, thick] (4,0) circle (0.9cm);
     
     % Component labels - positioned to avoid overlap
     \node[blue] at (-4,2.2) {Component 1};
@@ -5258,8 +5255,8 @@ If $G$ is a tree, then every edge is a bridge.
         \draw[thick] (w2) -- (w5);
         
         % Disconnected components highlighted
-        \draw[dashed, blue, thick, rounded corners] (-0.5,-2) rectangle (2,0.5);
-        \draw[dashed, blue, thick, rounded corners] (2.5,-2) rectangle (3.5,0.5);
+        \draw[dashed, thick, rounded corners] (-0.5,-2) rectangle (2,0.5);
+        \draw[dashed, thick, rounded corners] (2.5,-2) rectangle (3.5,0.5);
         
         \node[below] at (1.5,-2.5) {$G - e$: Graph with two components};
         \node[red, font=\small] at (2.2,1) {edge removed};
@@ -5267,7 +5264,7 @@ If $G$ is a tree, then every edge is a bridge.
 \end{tikzpicture}
 \\
 \small
-Figure 62: Illustration of a bridge in a graph. The left shows a connected graph $G$ with a bridge highlighted in red between vertices $v_2$ and $v_3$. The right shows the result after removing this bridge: the graph $G - e$ becomes disconnected with two separate components (outlined in blue). In a tree, every edge is a bridge because removing any edge would disconnect the tree.
+Figure 62: Illustration of a bridge in a graph. The left shows a connected graph $G$ with a bridge highlighted in red between vertices $v_2$ and $v_3$. The right shows the result after removing this bridge: the graph $G - e$ becomes disconnected with two separate components (outlined by dashed boxes). In a tree, every edge is a bridge because removing any edge would disconnect the tree.
 \label{fig:bridge-example}
 \end{figure}
 
@@ -6860,7 +6857,7 @@ Starting with the weighted graph shown in Figure 70, we apply Dijkstra's algorit
 \noindent\textbf{Demonstration of Dijkstra's Algorithm for Finding Shortest Paths}
 
 \begin{center}
-\fbox{\parbox{0.95\textwidth}{
+\parbox{0.95\textwidth}{
 \large\textbf{Important Note for Readers}
 
 \normalsize Dijkstra's algorithm and Kruskal's algorithm solve fundamentally different graph problems:
@@ -6872,7 +6869,7 @@ Starting with the weighted graph shown in Figure 70, we apply Dijkstra's algorit
 \end{itemize}
 
 These algorithms serve different purposes and will generally produce different tree structures with different total weights. The total weight of the MST (29,555) will not match the sum of the individual shortest path distances.
-}}
+}
 \end{center}
 
 \begin{theorem}[Correctness of Dijkstra's Algorithm]
@@ -8553,14 +8550,14 @@ Let $G$ be a graph and $u,v$ be two distinct vertices in $G$. Then the minimum n
     \draw[ultra thick, orange, opacity=0.5] (u) -- (c) -- (f) -- (i) -- (v);
     
     % Separator highlight
-    \draw[red, thick, dashed] ($(d) + (-0.5,0.5)$) -- ($(d) + (0.5,0.5)$) -- ($(f) + (0.5,-0.5)$) -- ($(f) + (-0.5,-0.5)$) -- cycle;
+    \draw[thick, dashed] ($(d) + (-0.5,0.5)$) -- ($(d) + (0.5,0.5)$) -- ($(f) + (0.5,-0.5)$) -- ($(f) + (-0.5,-0.5)$) -- cycle;
     
     % Legend
     \node[right] at (4.5,2) {\begin{tabular}{ll}
         \textcolor{blue}{\rule{1cm}{2pt}} & Path 1 \\
         \textcolor{green!60!black}{\rule{1cm}{2pt}} & Path 2 \\
         \textcolor{orange}{\rule{1cm}{2pt}} & Path 3 \\
-        \textcolor{red}{$\square$} & Vertex separator
+        $\square$ & Vertex separator
     \end{tabular}};
     
     % Explanation
@@ -8631,7 +8628,7 @@ Let $G$ be a graph and $u,v$ be two distinct vertices in $G$. Then the minimum n
         \draw (f1) -- (i1);
         
         % Separator highlight
-        \draw[red, thick, dashed] ($(b1) + (-0.5,0.5)$) -- ($(b1) + (0.5,0.5)$) -- ($(h1) + (0.5,-0.5)$) -- ($(h1) + (-0.5,-0.5)$) -- cycle;
+        \draw[thick, dashed] ($(b1) + (-0.5,0.5)$) -- ($(b1) + (0.5,0.5)$) -- ($(h1) + (0.5,-0.5)$) -- ($(h1) + (-0.5,-0.5)$) -- cycle;
     \end{scope}
     
     % Graph after removing separator
@@ -8667,9 +8664,9 @@ Let $G$ be a graph and $u,v$ be two distinct vertices in $G$. Then the minimum n
         \draw (f2) -- (i2);
         
         % Disconnected components
-        \draw[blue, thick, rounded corners] ($(u2) + (-0.5,1.2)$) -- ($(a2) + (0.5,0.8)$) -- ($(g2) + (0.5,-0.8)$) -- ($(u2) + (-0.5,-1.2)$) -- cycle;
+        \draw[thick, rounded corners] ($(u2) + (-0.5,1.2)$) -- ($(a2) + (0.5,0.8)$) -- ($(g2) + (0.5,-0.8)$) -- ($(u2) + (-0.5,-1.2)$) -- cycle;
         
-        \draw[green!60!black, thick, rounded corners] ($(v2) + (0.5,1.2)$) -- ($(c2) + (-0.5,0.8)$) -- ($(i2) + (-0.5,-0.8)$) -- ($(v2) + (0.5,-1.2)$) -- cycle;
+        \draw[thick, rounded corners] ($(v2) + (0.5,1.2)$) -- ($(c2) + (-0.5,0.8)$) -- ($(i2) + (-0.5,-0.8)$) -- ($(v2) + (0.5,-1.2)$) -- cycle;
     \end{scope}
     
     % Arrow between diagrams
@@ -8679,9 +8676,9 @@ Let $G$ be a graph and $u,v$ be two distinct vertices in $G$. Then the minimum n
     % Legend
     \node[align=left] at (0,-4.5) {
         \begin{tabular}{ll}
-            \textcolor{blue!70}{\rule{1cm}{2pt}} & Component containing $u$ \\
-            \textcolor{green!60!black}{\rule{1cm}{2pt}} & Component containing $v$ \\
-            \textcolor{red}{$\square$} & Minimum vertex separator (size 3)
+            \rule[0.5ex]{1cm}{0.8pt} & Component containing $u$ \\
+            \rule[0.5ex]{1cm}{0.8pt} & Component containing $v$ \\
+            $\square$ & Minimum vertex separator (size 3)
         \end{tabular}
     };
 \end{tikzpicture}
@@ -8819,7 +8816,7 @@ A \textbf{$uv$-separator} in a graph $G$ with non-adjacent vertices $u, v \in V(
     \draw (e) -- (s3);
     
     % Separator highlight
-    \draw[red, thick, dashed, rounded corners] (-0.8,1.8) rectangle (0.8,-1.8);
+    \draw[thick, dashed, rounded corners] (-0.8,1.8) rectangle (0.8,-1.8);
     
     % Original graph edges (faded)
     \draw[purple, thick] (s1) -- (s2) -- (s3) -- cycle;
@@ -8830,7 +8827,7 @@ A \textbf{$uv$-separator} in a graph $G$ with non-adjacent vertices $u, v \in V(
             \textcolor{green!60!black}{\rule{0.5cm}{0.5cm}} & Vertices $u$ and $v$ \\
             \textcolor{red!40}{\rule{0.5cm}{0.5cm}} & $uv$-separator $X = \{s_1, s_2, s_3\}$ \\
             \textcolor{gray!20}{\rule{0.5cm}{0.5cm}} & Other vertices \\
-            \textcolor{red}{\rule[0.5ex]{1cm}{1pt}} & Separator boundary \\
+            \rule[0.5ex]{1cm}{1pt} & Separator boundary \\
             \textcolor{purple}{\rule[0.5ex]{1cm}{1pt}\rule[0.5ex]{0pt}{0pt}\rule[0.5ex]{0pt}{0pt}\rule[0.5ex]{0pt}{0pt}} & Removed edges
         \end{tabular}
     };
@@ -10259,11 +10256,11 @@ This completes the proof of the first part of Gallai's Lemma.
     
     % Labels and explanations
     \node[anchor=north] at (3,-1) {Maximum matching $M$ (thick blue edges)};
-    \node[anchor=south, text=violet] at (3,3) {Independent set $V(G) \setminus V(M) = \{v_5, v_6\}$ (pink vertices)};
+    \node[anchor=south] at (3,3) {Independent set $V(G) \setminus V(M) = \{v_5, v_6\}$ (pink vertices)};
     
     % Draw an outline around the independent set vertices
-    \draw[violet, thick, dashed, rounded corners=8pt] (0.3,1.3) -- (1.7,1.3) -- (1.7,2.7) -- (0.3,2.7) -- cycle;
-    \draw[violet, thick, dashed, rounded corners=8pt] (4.3,1.3) -- (5.7,1.3) -- (5.7,2.7) -- (4.3,2.7) -- cycle;
+    \draw[thick, dashed, rounded corners=8pt] (0.3,1.3) -- (1.7,1.3) -- (1.7,2.7) -- (0.3,2.7) -- cycle;
+    \draw[thick, dashed, rounded corners=8pt] (4.3,1.3) -- (5.7,1.3) -- (5.7,2.7) -- (4.3,2.7) -- cycle;
     
 \end{tikzpicture}
 \\
@@ -10298,11 +10295,11 @@ This completes the proof of the first part of Gallai's Lemma.
     \node[anchor=south, text=green!50!black] at (2,3) {Independent set $V(G) \setminus C = \{v_2, v_4\}$ (green vertices)};
     
     % Highlight the vertex cover with an ellipse
-    \draw[blue!50, thick, dashed] (0.3,-0.5) .. controls (-0.5,1) and (2.5,3) .. (3.7,2.5) .. controls (5,1.5) and (4.5,-0.5) .. (3.7,-0.5) .. controls (2,-1) and (1.5,-1) .. (0.3,-0.5);
+    \draw[thick, dashed] (0.3,-0.5) .. controls (-0.5,1) and (2.5,3) .. (3.7,2.5) .. controls (5,1.5) and (4.5,-0.5) .. (3.7,-0.5) .. controls (2,-1) and (1.5,-1) .. (0.3,-0.5);
     
     % Highlight the independent set
-    \draw[green!50!black, thick, dashed, rounded corners=8pt] (1.3,-0.5) -- (2.7,-0.5) -- (2.7,0.5) -- (1.3,0.5) -- cycle;
-    \draw[green!50!black, thick, dashed, rounded corners=8pt] (0.3,1.5) -- (1.7,1.5) -- (1.7,2.5) -- (0.3,2.5) -- cycle;
+    \draw[thick, dashed, rounded corners=8pt] (1.3,-0.5) -- (2.7,-0.5) -- (2.7,0.5) -- (1.3,0.5) -- cycle;
+    \draw[thick, dashed, rounded corners=8pt] (0.3,1.5) -- (1.7,1.5) -- (1.7,2.5) -- (0.3,2.5) -- cycle;
     
 \end{tikzpicture}
 \\
@@ -10557,11 +10554,11 @@ Therefore, $M$ is a perfect matching.
     \node[font=\footnotesize] at (2,2.5) {$B$};
     
     % Highlight subset X with a cleaner boundary
-    \draw[red!70!black, thick, rounded corners=4pt] (-0.4,-1.4) rectangle (0.4,0.4);
+    \draw[thick, rounded corners=4pt] (-0.4,-1.4) rectangle (0.4,0.4);
     \node[red!70!black, font=\footnotesize] at (-0.8,-0.5) {$X$};
     
     % Highlight N(X) with a cleaner boundary
-    \draw[green!70!black, thick, rounded corners=4pt] (1.6,-1.4) rectangle (2.4,1.4);
+    \draw[thick, rounded corners=4pt] (1.6,-1.4) rectangle (2.4,1.4);
     \node[green!70!black, font=\footnotesize] at (2.9,0) {$N(X)$};
 \end{tikzpicture}
 \\
@@ -10673,16 +10670,16 @@ Now $M_1\cup M_2$ is a matching in $G$ covering $A$, because $M_1$ and $M_2$ hav
 \draw[nomatch] (a4) -- (b5);
 
 % Draw a subset X of A
-\draw[rounded corners, fill=blue!10, opacity=0.5] (-0.7,1.5) rectangle (0.7,4.5);
+\draw[rounded corners] (-0.7,1.5) rectangle (0.7,4.5);
 \node at (-1.2,3) {$X$};
 
 % Draw N(X) - the neighborhood of X
-\draw[rounded corners, fill=red!10, opacity=0.5] (3.3,0.5) rectangle (4.7,4.5);
+\draw[rounded corners] (3.3,0.5) rectangle (4.7,4.5);
 \node at (5.2,3) {$N(X)$};
 
 \end{tikzpicture}
 \\
-\small Figure 115: {Illustration of Hall's Theorem. The green edges form a matching covering set $A$. The subset $X \subseteq A$ is highlighted in blue, and its neighborhood $N(X)$ is highlighted in red. Hall's condition requires that $|N(X)| \geq |X|$ for every $X \subseteq A$.}
+\small Figure 115: {Illustration of Hall's Theorem. The green edges form a matching covering set $A$. The subset $X \subseteq A$ and its neighborhood $N(X)$ are outlined by boxes. Hall's condition requires that $|N(X)| \geq |X|$ for every $X \subseteq A$.}
 \end{figure}
 
 
@@ -10793,10 +10790,10 @@ Now $M_1\cup M_2$ is a matching in $G$ covering $A$, because $M_1$ and $M_2$ hav
     \node at (4,5) {Part $B$};
     
     % Highlight X and N(X)
-    \draw[rounded corners, fill=blue!10, opacity=0.5] (-0.7,2.5) rectangle (0.7,4.5);
+    \draw[rounded corners] (-0.7,2.5) rectangle (0.7,4.5);
     \node at (-1.2,3.5) {$X$};
     
-    \draw[rounded corners, fill=red!10, opacity=0.5] (3.3,2.5) rectangle (4.7,4.5);
+    \draw[rounded corners] (3.3,2.5) rectangle (4.7,4.5);
     \node at (5.2,3.5) {$N(X)$};
     
     % Edges for X and N(X)
@@ -10862,7 +10859,7 @@ Yes: $\{p_3, p_2, p_1\}$ where $p_3$ represents $S_1$, $p_2$ represents $S_2$, a
 \centering
 \begin{tikzpicture}[
     scale=1.2,
-    committee/.style={rectangle, draw, rounded corners, minimum width=2cm, minimum height=0.8cm, fill=blue!10},
+    committee/.style={rectangle, draw, rounded corners, minimum width=2cm, minimum height=0.8cm},
     person/.style={circle, draw, minimum size=7mm, fill=orange!20},
     match/.style={line width=1.8pt, draw=green!50!black, -latex},
     connection/.style={line width=0.8pt, draw=gray},
@@ -10905,17 +10902,17 @@ Yes: $\{p_3, p_2, p_1\}$ where $p_3$ represents $S_1$, $p_2$ represents $S_2$, a
 
 % Committee membership details
 \begin{scope}[xshift=-3cm, yshift=3cm, font=\small]
-\node[committee, minimum width=4cm, align=left] (mem1) at (0,0) {$S_1 = \{p_1, p_2, p_3\}$};
-\node[committee, minimum width=4cm, align=left] (mem2) at (0,-0.8) {$S_2 = \{p_2, p_3, p_4\}$};
-\node[committee, minimum width=4cm, align=left] (mem3) at (0,-1.6) {$S_3 = \{p_1, p_4, p_5\}$};
+\node[minimum width=4cm, align=left] (mem1) at (0,0) {$S_1 = \{p_1, p_2, p_3\}$};
+\node[minimum width=4cm, align=left] (mem2) at (0,-0.8) {$S_2 = \{p_2, p_3, p_4\}$};
+\node[minimum width=4cm, align=left] (mem3) at (0,-1.6) {$S_3 = \{p_1, p_4, p_5\}$};
 \end{scope}
 
 % SDR details
 \begin{scope}[xshift=8cm, yshift=3cm, font=\small]
-\node[draw, rounded corners, fill=green!10, minimum width=4cm, align=left] (sdr) at (0,0) {System of Distinct Representatives:};
-\node[draw, rounded corners, fill=green!10, minimum width=4cm, align=left] (sdr1) at (0,-0.8) {$p_3$ represents $S_1$};
-\node[draw, rounded corners, fill=green!10, minimum width=4cm, align=left] (sdr2) at (0,-1.6) {$p_2$ represents $S_2$};
-\node[draw, rounded corners, fill=green!10, minimum width=4cm, align=left] (sdr3) at (0,-2.4) {$p_1$ represents $S_3$};
+\node[minimum width=4cm, align=left] (sdr) at (0,0) {System of Distinct Representatives:};
+\node[minimum width=4cm, align=left] (sdr1) at (0,-0.8) {$p_3$ represents $S_1$};
+\node[minimum width=4cm, align=left] (sdr2) at (0,-1.6) {$p_2$ represents $S_2$};
+\node[minimum width=4cm, align=left] (sdr3) at (0,-2.4) {$p_1$ represents $S_3$};
 \end{scope}
 
 \end{tikzpicture}
@@ -10948,7 +10945,7 @@ Equality is allowed by Hall's condition. One checks that $\left|\bigcup_{i\in I}
 \centering
 \begin{tikzpicture}[
     scale=1.2,
-    committee/.style={rectangle, draw, rounded corners, minimum width=1.8cm, minimum height=0.8cm, fill=blue!10},
+    committee/.style={rectangle, draw, rounded corners, minimum width=1.8cm, minimum height=0.8cm},
     person/.style={circle, draw, minimum size=7mm, fill=orange!20},
     fail/.style={line width=1.5pt, draw=red!50!black, -latex, dashed},
     connection/.style={line width=0.8pt, draw=gray},
@@ -10986,11 +10983,11 @@ Equality is allowed by Hall's condition. One checks that $\left|\bigcup_{i\in I}
 \draw[connection] (S5) -- (p2);
 
 % Highlight the problematic sets using rectangle nodes instead of fit
-\draw[red, very thick, dashed, rounded corners] 
+\draw[very thick, dashed, rounded corners] 
   (-1.5,5.5) rectangle (1.5,0.5);
 
 % Highlight the neighborhood
-\draw[red, very thick, dashed, rounded corners] 
+\draw[very thick, dashed, rounded corners] 
   (4.5,5.5) rectangle (7.5,1.5);
 
 % Attempted matching that fails
@@ -11005,11 +11002,11 @@ Equality is allowed by Hall's condition. One checks that $\left|\bigcup_{i\in I}
 
 % Committee membership details
 \begin{scope}[xshift=-3cm, yshift=4.5cm, font=\small]
-\node[committee, minimum width=3cm, align=left] (mem1) at (0,0) {$S_1 = \{1, 4\}$};
-\node[committee, minimum width=3cm, align=left] (mem2) at (0,-0.8) {$S_2 = \{3, 5\}$};
-\node[committee, minimum width=3cm, align=left] (mem3) at (0,-1.6) {$S_3 = \{4, 3\}$};
-\node[committee, minimum width=3cm, align=left] (mem4) at (0,-2.4) {$S_4 = \{1, 3\}$};
-\node[committee, minimum width=3cm, align=left] (mem5) at (0,-3.2) {$S_5 = \{4, 2\}$};
+\node[minimum width=3cm, align=left] (mem1) at (0,0) {$S_1 = \{1, 4\}$};
+\node[minimum width=3cm, align=left] (mem2) at (0,-0.8) {$S_2 = \{3, 5\}$};
+\node[minimum width=3cm, align=left] (mem3) at (0,-1.6) {$S_3 = \{4, 3\}$};
+\node[minimum width=3cm, align=left] (mem4) at (0,-2.4) {$S_4 = \{1, 3\}$};
+\node[minimum width=3cm, align=left] (mem5) at (0,-3.2) {$S_5 = \{4, 2\}$};
 \end{scope}
 
 % Explanation
@@ -11062,7 +11059,7 @@ The condition is satisfied with equality here (and it holds for every $I$), so a
 \centering
 \begin{tikzpicture}[
     scale=0.9, % Reduced overall scale
-    committee/.style={rectangle, draw, rounded corners, minimum width=1.5cm, minimum height=0.7cm, fill=blue!10},
+    committee/.style={rectangle, draw, rounded corners, minimum width=1.5cm, minimum height=0.7cm},
     person/.style={circle, draw, minimum size=6mm, fill=orange!20},
     fail/.style={line width=1.2pt, draw=red!50!black, -latex, dashed},
     connection/.style={line width=0.7pt, draw=gray},
@@ -11094,18 +11091,18 @@ The condition is satisfied with equality here (and it holds for every $I$), so a
     \draw[connection] (S3) -- (p2);
     
     % Highlight all sets
-    \draw[red, very thick, dashed, rounded corners] 
+    \draw[very thick, dashed, rounded corners] 
       (-1.4,4.5) rectangle (1.4,1.5);
     
     % Highlight the neighborhood
-    \draw[red, very thick, dashed, rounded corners] 
+    \draw[very thick, dashed, rounded corners] 
       (4.6,4.5) rectangle (7.4,1.5);
       
     % Labels
     \node at (0,4.7) {Committees};
     \node at (6,4.7) {Elements};
-    \node[red, font=\footnotesize] at (0,1.2) {$|I| = 3$};
-    \node[red, font=\footnotesize] at (6,1.2) {$|\cup S_i| = 3$};
+    \node[font=\footnotesize] at (0,1.2) {$|I| = 3$};
+    \node[font=\footnotesize] at (6,1.2) {$|\cup S_i| = 3$};
     
     % Set contents
     \node[font=\footnotesize, align=left] at (0,0.5) {$S_1 = \{1, 3\}$};
@@ -11203,7 +11200,7 @@ The condition is satisfied with equality here (and it holds for every $I$), so a
 
 % Explanation below the diagrams - condensed to save space
 \vspace{0.3cm}
-\noindent\fbox{\parbox{\textwidth}{
+\noindent\parbox{\textwidth}{
 \small \textbf{Explanation:} For $I = \{S_1, S_2, S_3\}$, we have $|S_1 \cup S_2 \cup S_3| = |\{1, 2, 3\}| = 3 = |I|$. 
 Hall's condition is satisfied (with equality for this $I$), so an SDR exists; here it is unique:
 
@@ -11214,7 +11211,7 @@ Hall's condition is satisfied (with equality for this $I$), so an SDR exists; he
 \end{itemize}
 
 Since $S_2$ contains only element 3, element 3 must represent $S_2$ in any SDR. Then $S_1$ must be represented by element 1, and $S_3$ by element 2. Here Hall's condition holds with equality for $\{S_2\}$, $\{S_1, S_2\}$ and $\{S_1, S_2, S_3\}$, which forces every choice; equality does not prevent an SDR from existing.
-}}
+}
 \\
 \small Figure 120: A family that satisfies Hall's condition with equality ($|I| = |\cup_{i \in I} S_i| = 3$) and has exactly one System of Distinct Representatives. The top diagram shows the committee-element relationships, while the bottom row shows the unique SDR (Attempt 1) and two assignments that get stuck (Attempts 2 and 3).
 \end{figure}
@@ -13464,7 +13461,7 @@ This process produces a proper coloring of $G$ using at most $d+1$ colors. There
     \draw (v6) -- (v3);
     
     % Highlight the critical subgraph
-    \draw[red, dashed, line width=1.5pt, rounded corners] 
+    \draw[dashed, line width=1.5pt, rounded corners] 
         (-0.5,-0.5) rectangle (2.5,2.5);
     
     % Labels for clarity
@@ -19540,11 +19537,11 @@ $\varepsilon$-regular partition into $k$ parts with $m_0 \le k \le M$.
 \begin{tikzpicture}[
     scale=0.85,
     cell/.style={draw, minimum width=1.5cm, minimum height=1.0cm, inner sep=0pt},
-    iregular/.style={draw, fill=red!18, minimum size=0.45cm, inner sep=0pt},
-    regular/.style={draw, fill=green!18, minimum size=0.45cm, inner sep=0pt}
+    iregular/.style={draw, minimum size=0.45cm, inner sep=0pt},
+    regular/.style={draw, minimum size=0.45cm, inner sep=0pt}
 ]
     % 5x5 grid of pairs (only upper triangle drawn) representing density matrix
-    \node[cell, fill=gray!10] (V0) at (-3.5, 2.0) {\small $V_0$};
+    \node[cell] (V0) at (-3.5, 2.0) {\small $V_0$};
     \foreach \i in {1,2,3,4} {
         \node[cell] (V\i) at ({-3.5 + 1.5*\i}, 2.0) {\small $V_{\i}$};
     }
@@ -19558,7 +19555,7 @@ $\varepsilon$-regular partition into $k$ parts with $m_0 \le k \le M$.
     };
 
     \node at (0, -2.4) {\small Density matrix $d(V_i, V_j)$ for the partition.};
-    \node at (0, -2.9) {\small Green: $\varepsilon$-regular pair. \ Red ``??'': irregular pair (counted toward $\le \varepsilon k^2$ budget).};
+    \node at (0, -2.9) {\small Numbered cell: $\varepsilon$-regular pair. \ ``??'' cell: irregular pair (counted toward $\le \varepsilon k^2$ budget).};
     \node at (0, -3.5) {\small $V_0$ is the small ``garbage'' set, $|V_0| \le \varepsilon n$.};
 \end{tikzpicture}
 \\
@@ -19932,7 +19929,7 @@ $\mathrm{tw}(G) = \min\{\text{width of a tree decomposition of } G\}$.
 \begin{tikzpicture}[
     scale=1.0,
     vertex/.style={circle, draw, fill=white, minimum size=0.5cm, inner sep=1pt},
-    bag/.style={rectangle, draw, rounded corners=4pt, fill=blue!8, inner sep=4pt, minimum height=0.7cm},
+    bag/.style={rectangle, draw, rounded corners=4pt, inner sep=4pt, minimum height=0.7cm},
     edge/.style={line width=0.7pt}
 ]
     % LEFT: a small graph G (cycle C_4 with chord)
