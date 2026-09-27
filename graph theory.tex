@@ -4981,13 +4981,13 @@ For practical implementations, approximation algorithms for longest paths may be
 
 \subsubsection{Easy Problems}
 \begin{enumerate}
-\item State the theorem on minimum cycle length in a graph with minimum degree $k \geq 2$. What is the guaranteed minimum cycle length?
+\item State the theorem on long cycles in a graph with minimum degree $k \geq 2$. What length of a longest cycle is guaranteed?
 
 \item In a graph with minimum degree 5, what is the minimum cycle length guaranteed by the long cycle theorem?
 
 \item Prove that a graph with maximum degree 2 cannot have a cycle of length greater than the number of vertices.
 
-\item What is the minimum cycle length in a 3-regular graph with 8 vertices? Is this bound tight? Explain.
+\item What cycle length does the long cycle theorem guarantee in a 3-regular graph with 8 vertices? Is this bound tight? Explain.
 
 \item Explain why the minimum cycle length in a graph must be at least 3.
 
@@ -5010,22 +5010,22 @@ For practical implementations, approximation algorithms for longest paths may be
 
 \item Find the relationship between the length of the longest cycle in a graph $G$ and the length of the longest cycle in its complement $\overline{G}$.
 
-\item Prove that in a Hamiltonian graph, the length of the longest cycle is exactly $n$. Then show that the converse is not true by providing a counterexample.
+\item Prove that a graph $G$ on $n \geq 3$ vertices is Hamiltonian if and only if the length of its longest cycle is exactly $n$.
 \end{enumerate}
 
 \subsubsection{Hard Problems}
 \begin{enumerate}\setcounter{enumi}{14}
-\item Let $G$ be a graph with minimum degree $\delta(G) \geq \frac{n}{r+1} + 1$ where $r \geq 2$. Prove that $G$ contains a cycle of length at least $r+2$.
+\item Prove or disprove: if $G$ is a graph on $n$ vertices with minimum degree $\delta(G) \geq \frac{n}{r+1} + 1$, where $r \geq 2$, then $G$ contains a cycle of length at least $r+2$. Then show that the statement is true under the additional assumption $n \geq r(r+1)$.
 
 \item Prove or disprove: if $G$ is a $k$-connected graph with minimum degree $\delta(G) \geq k+1$, then $G$ contains a cycle of length at least $2k+2$.
 
-\item Let $G$ be a graph with minimum degree $k \geq 2$. Prove that if $G$ has girth $g$ (the length of its shortest cycle), then $G$ has a cycle of length at least $\min\{2k, g+k-1\}$.
+\item Let $G$ be a graph with minimum degree $k \geq 2$. Prove that if $G$ has girth $g$ (the length of its shortest cycle), then $G$ has a cycle of length at least $(k-1)(g-2)+2$. (For $g = 3$ this is the Long Cycle Theorem.)
 
 \item Design an algorithm to find the longest cycle in a graph $G$. Analyze its time complexity and explain why finding the longest cycle is generally an NP-hard problem.
 
 \item Let $G$ be a graph with $n$ vertices and let $\lambda(G)$ denote the length of the longest cycle in $G$. Prove that if $\delta(G) > \frac{n}{2}$, then $\lambda(G) \geq 2\delta(G)$ unless $G$ is Hamiltonian.
 
-\item Prove that if $G$ is a 3-connected cubic graph (3-regular), then $G$ contains a cycle of length at least $4\log n$.
+\item Prove or disprove: if $G$ is a 3-connected cubic graph (3-regular) on $n$ vertices, then $G$ contains a cycle of length at least $4\log_2 n$.
 \end{enumerate}
 
 \subsubsection{Diagram Problems}
@@ -5041,13 +5041,13 @@ For practical implementations, approximation algorithms for longest paths may be
 \end{enumerate}
 Label all relevant vertices and explain each step.
 
-\item Draw a star graph $K_{1,4}$ and explain why the longest cycle in this graph has length 3. Then add one edge to create a cycle of length 4, and explain why this is now the longest possible cycle.
+\item Draw a star graph $K_{1,4}$ and explain why it contains no cycle at all. Then add one edge joining two leaves and explain why the resulting graph has exactly one cycle, and why that cycle has length 3. Finally, add a second edge so that the graph contains a cycle of length 4, and mark it.
 
 \item Create a sequence of graphs $G_3, G_4, G_5$ where each $G_k$ has minimum degree $k$ and contains a cycle of length exactly $k+1$. Draw each graph and highlight the longest cycle in each.
 
 \item Draw the Petersen graph and identify the longest cycle in it. Explain why this graph does not have a Hamiltonian cycle despite having minimum degree 3.
 
-\item Draw a graph where the bound from the long cycle theorem is not tight, i.e., a graph with minimum degree $k$ where the minimum cycle length is strictly greater than $k+1$. Explain why this happens in your example.
+\item Draw a graph where the bound from the long cycle theorem is not tight, i.e., a graph with minimum degree $k$ where the longest cycle has length strictly greater than $k+1$. Explain why this happens in your example.
 
 \item Illustrate the relationship between the minimum degree and cycle length by drawing three different graphs with 6 vertices that have minimum degrees 2, 3, and 4 respectively. For each graph, highlight the longest cycle and discuss how the minimum degree affects the cycle length.
 \end{enumerate}
