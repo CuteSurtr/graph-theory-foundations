@@ -14794,16 +14794,14 @@ This can be improved to $O(n \log n)$ by using a max-heap to efficiently find an
 
 \begin{theorem}[Optimality of Moore's Algorithm]
 Moore's algorithm produces an optimal solution to the $1||\sum U_j$ problem.
-\begin{proof}[Proof (sketch)]
-Let $S$ be the schedule produced by Moore's algorithm and $S^*$ be an optimal schedule. Suppose $S \neq S^*$. Let $j$ be the earliest job in the EDD ordering that is in one schedule but not the other. 
+\begin{proof}
+Index the jobs in EDD order, $d_1 \leq d_2 \leq \cdots \leq d_n$, and call a set $A$ of jobs \emph{on-time feasible} if every job of $A$ meets its due date when $A$ is sequenced in EDD order. After each iteration of the loop, the set $S$ maintained by Moore's algorithm is on-time feasible: if job $j$ is late and the longest job $j'$ is removed, then the other jobs of $S$ finish no later than before, and $j$ (if $j' \neq j$) now finishes at time $t - p_{j'} \leq t - p_j$, the value of $t$ before $j$ was added, which was at most $d_j$.
 
-We can show through an exchange argument that:
-\begin{enumerate}
-    \item If $j \in S$ but $j \notin S^*$, we can include $j$ in $S^*$ without increasing the number of late jobs.
-    \item If $j \notin S$ but $j \in S^*$, we can replace $j$ in $S^*$ with the job that Moore's algorithm discarded when considering $j$, without increasing the number of late jobs.
-\end{enumerate}
+\emph{Step 1: EDD order suffices.} If the EDD sequence of a set $A$ has a first late job $k$, then $\sum_{i \in A,\, i \leq k} p_i > d_k$, and in \emph{any} ordering of $A$ the last of the jobs $i \in A$ with $i \leq k$, say $\ell$, completes at time at least $\sum_{i \in A,\, i \leq k} p_i > d_k \geq d_\ell$, so it is late. Hence we may assume that an optimal schedule processes an on-time feasible set $A$ of maximum size in EDD order, followed by all other jobs.
 
-This leads to a contradiction of the optimality of $S^*$ or the correctness of Moore's algorithm, establishing that Moore's algorithm indeed produces an optimal solution.
+\emph{Step 2: the first removal is safe.} If the algorithm never removes a job, every job is on time and there is nothing to prove. Otherwise let $k$ be the first job at which $t > d_k$ occurs, so that jobs $1, \ldots, k-1$ are on time in the EDD sequence while $p_1 + \cdots + p_k > d_k$, and let $j' \leq k$ be the job removed at that moment, so $p_{j'} = \max_{i \leq k} p_i$. We claim that some optimal schedule has $j'$ late. Take $A$ as in Step 1. Since $\{1, \ldots, k\}$ is not on-time feasible, $A$ misses some job $r \leq k$. If $j' \notin A$ we are done. Otherwise let $A' = (A \setminus \{j'\}) \cup \{r\}$, so $|A'| = |A|$. In the EDD sequence of $A'$, each job $i \in A'$ with $i \leq k-1$ completes by time $p_1 + \cdots + p_i \leq d_i$; if $k \in A'$, it completes by time $\sum_{i \leq k,\, i \neq j'} p_i \leq p_1 + \cdots + p_{k-1} \leq d_{k-1} \leq d_k$ (because $p_{j'} \geq p_k$); and each job $i \in A'$ with $i > k$ completes $p_{j'} - p_r \geq 0$ time units earlier than in the EDD sequence of $A$. Thus $A'$ is on-time feasible, has maximum size, and does not contain $j'$.
+
+\emph{Step 3: induction on $n$.} Let $\mathrm{opt}(J)$ denote the minimum number of late jobs. Since $S$ is on-time feasible, it suffices to show that the algorithm removes exactly $\mathrm{opt}(J)$ jobs. Deleting $j'$ from the optimal schedule of Step 2 leaves a schedule of $J \setminus \{j'\}$ with at most $\mathrm{opt}(J) - 1$ late jobs, while appending $j'$ to any schedule of $J \setminus \{j'\}$ adds at most one late job; hence $\mathrm{opt}(J) = \mathrm{opt}(J \setminus \{j'\}) + 1$. On input $J \setminus \{j'\}$ the algorithm removes none of the jobs $1, \ldots, k$ (by the estimates of Step 2), so once these jobs have been considered it has the same set $S$ and time $t$ as the run on $J$, and from then on the two runs coincide. By the induction hypothesis the run on $J \setminus \{j'\}$ removes $\mathrm{opt}(J \setminus \{j'\})$ jobs, so the run on $J$ removes $\mathrm{opt}(J \setminus \{j'\}) + 1 = \mathrm{opt}(J)$ jobs.
 \end{proof}
 \end{theorem}
 
@@ -15089,17 +15087,18 @@ The Shmoys-Tardos algorithm for the $R||C_{\max}$ problem uses linear programmin
 \caption{Shmoys-Tardos Algorithm}
 \begin{algorithmic}[1]
     \State Guess a value $T$ for the optimal makespan (binary search)
-    \State Formulate the configuration LP:
-    \State \quad Variables $x_{ij}$ = fraction of job $j$ assigned to machine $i$
+    \State Formulate the linear programming relaxation $LP(T)$ of the assignment problem:
+    \State \quad Variables $x_{ij} \geq 0$: the fraction of job $j$ assigned to machine $i$
     \State \quad Constraints: $\sum_{i=1}^{m} x_{ij} = 1$ for all jobs $j$
     \State \quad Constraints: $\sum_{j=1}^{n} p_{ij} \cdot x_{ij} \leq T$ for all machines $i$
     \State \quad Constraints: $x_{ij} = 0$ if $p_{ij} > T$
-    \State Solve the LP to obtain fractional assignment $x_{ij}^*$
-    \State Convert fractional solution to integral assignment using bipartite matching:
-    \State \quad Construct bipartite graph with jobs on one side, machines on other
-    \State \quad Add edge $(i,j)$ with weight $x_{ij}^*$
-    \State \quad Find a minimum-cost perfect matching in this graph
-    \State Return the resulting integral assignment
+    \State Let $T^*$ be the smallest $T$ found for which $LP(T)$ is feasible, and let $x_{ij}^*$ be a feasible solution of $LP(T^*)$
+    \State Convert the fractional solution to an integral assignment using bipartite matching:
+    \State \quad For each machine $i$, create $k_i = \lceil \sum_{j} x_{ij}^* \rceil$ \emph{slots} $(i,1), \ldots, (i,k_i)$
+    \State \quad Sort the jobs with $x_{ij}^* > 0$ in non-increasing order of $p_{ij}$ and pour their fractions $x_{ij}^*$, in this order, into the slots $(i,1), (i,2), \ldots$, filling each slot up to total $1$ before using the next one (a fraction may be split between two consecutive slots)
+    \State \quad Construct the bipartite graph with jobs on one side and slots on the other, with an edge between job $j$ and slot $(i,s)$ if part of $x_{ij}^*$ was poured into $(i,s)$
+    \State \quad Find a matching in this graph that covers every job
+    \State Assign each job to the machine owning its matched slot
 \end{algorithmic}
 \end{algorithm}
 
@@ -15109,17 +15108,16 @@ The algorithm runs in polynomial time, with the LP solving being the most expens
 \end{lemma}
 
 \begin{theorem}[Approximation Ratio of Shmoys-Tardos]
-The Shmoys-Tardos algorithm is a 2-approximation algorithm for the $R||C_{\max}$ problem.
+The Shmoys-Tardos algorithm is a 2-approximation algorithm for the $R||C_{\max}$ problem. The first 2-approximation algorithm for $R||C_{\max}$, which rounds a vertex of $LP(T)$, is due to Lenstra, Shmoys and Tardos (1990); the slot-matching rounding above is due to Shmoys and Tardos (1993).
 \begin{proof}[Proof (sketch)]
 The proof follows these key steps:
 \begin{enumerate}
-    \item If $T < OPT$, the LP is infeasible
-    \item If $T \geq OPT$, the LP has a feasible solution
-    \item The rounding procedure ensures each job is assigned to exactly one machine
-    \item The load on any machine $i$ is at most $\sum_{j:x_{ij}^* > 0} p_{ij} \leq 2T$
+    \item If $T \geq OPT$, then $LP(T)$ is feasible: an optimal schedule gives a $0$--$1$ solution of $LP(T)$, since every machine load in it, and hence every $p_{ij}$ of a job $j$ assigned to machine $i$, is at most $OPT \leq T$. Hence $T^* \leq OPT$. (The converse fails: $LP(T)$ may be feasible for some $T < OPT$; for three unit jobs on two identical machines, $LP(3/2)$ is feasible while $OPT = 2$.)
+    \item The poured fractions form a fractional matching that covers every job exactly once and every slot at most once. Since bipartite matching polytopes are integral, a matching covering every job exists, so each job is assigned to exactly one machine $i$, and only to a machine with $x_{ij}^* > 0$, hence with $p_{ij} \leq T^*$.
+    \item Machine $i$ receives at most one job per slot. The job matched to slot $(i,1)$ has $p_{ij} \leq T^*$. For $s \geq 2$, slot $(i,s-1)$ is full, and every job poured into slot $(i,s)$ is at most as long as every job poured into slot $(i,s-1)$; so the job matched to $(i,s)$ has processing time at most the weighted average $\sum_j p_{ij} \cdot (\text{fraction of } j \text{ in slot } (i,s-1))$. Summing over $s \geq 2$ gives at most $\sum_{j} p_{ij} x_{ij}^* \leq T^*$.
 \end{enumerate}
 
-The last step follows from the properties of the bipartite matching: a job $j$ may be assigned to a machine $i$ only if $x_{ij}^* > 0$ in the LP solution, and the maximum processing time of any such job is at most $T$. Therefore, the makespan of the resulting schedule is at most $2 \cdot OPT$.
+Therefore the load of every machine is at most $T^* + T^* = 2T^* \leq 2 \cdot OPT$.
 \end{proof}
 \end{theorem}
 
@@ -15159,18 +15157,18 @@ The first constraint ensures each job is scheduled exactly once. The second cons
 \end{lemma}
 
 \begin{theorem}[Strengthening MIP Formulations]
-MIP formulations for scheduling problems can be significantly strengthened through the addition of valid inequalities, particularly:
+MIP formulations for scheduling problems can be significantly strengthened through the addition of valid inequalities and symmetry-breaking constraints, particularly:
 
 \begin{itemize}
     \item \textbf{Cover inequalities}: If a subset $S$ of jobs cannot all be processed within a given deadline $d$, then $\sum_{j \in S} \sum_{t=0}^{d-p_j} x_{jt} \leq |S|-1$
     
-    \item \textbf{Strengthened precedence constraints}: If job $i$ must precede job $j$, then $C_i + p_j \leq C_j + M(1-x_{ij})$ can be replaced with $C_i + p_j \leq C_j$ when $x_{ij}=1$ must hold
+    \item \textbf{Strengthened precedence constraints}: If job $i$ must precede job $j$, then $C_i + p_j \leq C_j + M(1-y_{ij})$ can be replaced with $C_i + p_j \leq C_j$ when $y_{ij}=1$ must hold
     
     \item \textbf{Symmetry-breaking constraints}: For identical jobs, impose an arbitrary ordering, e.g., $C_1 \leq C_2 \leq \ldots \leq C_k$ for identical jobs $1, 2, \ldots, k$
 \end{itemize}
 
 \begin{proof}[Proof (sketch)]
-These inequalities are valid because they eliminate solutions that violate problem constraints or are symmetric to other solutions. They strengthen the linear programming relaxation, reducing the integrality gap and accelerating the solution process by pruning more of the branch-and-bound tree.
+Cover inequalities and strengthened precedence constraints are valid inequalities: every feasible schedule satisfies them, so they cut off only fractional points of the linear programming relaxation, which can reduce the integrality gap and prune more of the branch-and-bound tree. Symmetry-breaking constraints are not valid inequalities in this sense, since they cut off feasible schedules; however, relabelling identical jobs turns every feasible schedule into one that satisfies them and has the same objective value, so at least one optimal solution is kept, and the search no longer explores symmetric copies of the same schedule.
 \end{proof}
 \end{theorem}
 
@@ -15325,12 +15323,12 @@ For scheduling problems, Benders cuts often have a natural interpretation:
 Under standard assumptions, Benders Decomposition converges to an optimal solution in a finite number of iterations.
 
 \begin{proof}[Proof (sketch)]
-The proof relies on the following key properties:
+Assume that the complicating variables take finitely many values (for example, they are binary) and that every cut is valid (it removes no feasible solution of the original problem) and tight at the master solution $x^*$ that generated it: a feasibility cut excludes $x^*$, and an optimality cut forces the master problem's estimate of the subproblem cost at $x^*$ to be at least $z_{sub}$.
 \begin{itemize}
-    \item The master problem's feasible region is progressively restricted by cuts
-    \item Each cut eliminates at least one integer solution
-    \item There are finitely many integer solutions for the complicating variables
-    \item The algorithm terminates when no more cuts can be generated, which happens only when the current solution is optimal
+    \item By validity, the optimal value of the restricted master problem is a lower bound on the optimal value, and every feasible subproblem solution gives an upper bound
+    \item An optimality cut need not eliminate the assignment $x^*$ itself; it only eliminates $x^*$ together with too small an estimate of its subproblem cost
+    \item If the master problem returns an assignment $x^*$ that it has returned before, the cut generated at the earlier visit makes its estimate at $x^*$ equal to the true subproblem cost; then the lower bound equals an upper bound already found, and the algorithm stops with an optimal solution
+    \item Hence every iteration before termination produces a new assignment; since there are finitely many assignments, the algorithm terminates after finitely many iterations
 \end{itemize}
 \end{proof}
 \end{theorem}
@@ -15772,16 +15770,15 @@ The competitive ratio $\rho$ of an online algorithm $A$ is:
 where $\sigma$ is any job sequence, $A(\sigma)$ is the objective value obtained by algorithm $A$, and $OPT(\sigma)$ is the optimal offline solution.
 \end{definition}
 
-\begin{lemma}[Bounded Delay Algorithm for $1|r_j|C_{\max}$]
-The Bounded Delay algorithm for the online version of $1|r_j|C_{\max}$ (minimizing makespan when jobs arrive over time):
+\begin{lemma}[Greedy Algorithm for Online $1|r_j|C_{\max}$]
+In the online version of $1|r_j|C_{\max}$ (minimizing makespan when jobs arrive over time), a job becomes known only at its release date $r_j$. The greedy algorithm never keeps the processor idle while a released job is waiting:
 
 \begin{algorithm}
-\caption{Bounded Delay Algorithm}
+\caption{Greedy Online Scheduling}
 \begin{algorithmic}[1]
-\Procedure{BoundedDelay}{$\alpha$}
+\Procedure{GreedyOnline}{}
     \State Initialize empty schedule
     \State $time \gets 0$
-    \State $idle \gets$ false
     
     \While{not all jobs completed}
         \If{new job $j$ arrives at $time$}
@@ -15789,16 +15786,7 @@ The Bounded Delay algorithm for the online version of $1|r_j|C_{\max}$ (minimizi
         \EndIf
         
         \If{processor is idle AND available jobs exist}
-            \State Let $p_{\max}$ be the processing time of the longest available job
-            \State Let $p_{new}$ be the processing time of the most recently arrived job
-            
-            \If{$idle$ = false OR $p_{new} > \alpha \cdot p_{\max}$}
-                \State Schedule the longest available job
-                \State $idle \gets$ false
-            \Else
-                \State Keep processor idle
-                \State $idle \gets$ true
-            \EndIf
+            \State Schedule an available job (for instance, the longest one)
         \EndIf
         
         \State Update $time$ to next event (job arrival or completion)
@@ -15810,48 +15798,30 @@ The Bounded Delay algorithm for the online version of $1|r_j|C_{\max}$ (minimizi
 \end{algorithm}
 
 \begin{remark}
-The parameter $\alpha$ controls the algorithm's behavior:
-\begin{itemize}
-    \item Smaller $\alpha$ makes the algorithm more eager to schedule jobs
-    \item Larger $\alpha$ makes the algorithm wait longer for potentially longer jobs
-    \item When $\alpha = 2$, the algorithm achieves its optimal competitive ratio of $\frac{3}{2}$
-\end{itemize}
+On a single machine, deliberately keeping the processor idle to wait for longer jobs never helps: by the next theorem, the greedy schedule is already optimal.
 \end{remark}
 \end{lemma}
 
-\begin{theorem}[Competitive Ratio of Bounded Delay Algorithm]
-The Bounded Delay algorithm with $\alpha = 2$ achieves a competitive ratio of $\frac{3}{2}$ for the online scheduling problem $1|r_j|C_{\max}$, and this ratio is optimal.
+\begin{theorem}[Competitive Ratio of the Greedy Algorithm]
+The greedy algorithm is $1$-competitive for the online scheduling problem $1|r_j|C_{\max}$; that is, it always produces an optimal schedule, although it does not know the future jobs.
 
-\begin{proof}[Proof (sketch)]
-The proof consists of two parts:
-
-\textbf{Upper bound proof}:
-Consider any job sequence and let $J_L$ be the last job in the optimal offline schedule. Two cases arise:
-\begin{enumerate}
-    \item If the online algorithm processes $J_L$ last, then the difference from optimal is at most the idle time introduced by the algorithm.
-    \item If the online algorithm processes another job $J'$ last, then $J'$ must have processing time $p_{J'} \geq \frac{p_{J_L}}{2}$ (otherwise, the algorithm would have chosen $J_L$).
-\end{enumerate}
-
-By analyzing the worst-case scenarios, we can show that the makespan of the Bounded Delay algorithm is at most $\frac{3}{2}$ times the optimal makespan.
-
-\textbf{Lower bound proof}:
-We can construct an adversarial job sequence where any deterministic online algorithm achieves a competitive ratio of at least $\frac{3}{2}$:
-\begin{enumerate}
-    \item Release a job with processing time 1 at time 0
-    \item If the algorithm immediately schedules this job, release a job with processing time 2 at time 1
-    \item If the algorithm waits, release no more jobs
-\end{enumerate}
-
-In either case, the online algorithm achieves a makespan of 3, while the optimal offline solution has makespan 2, giving a ratio of $\frac{3}{2}$.
-
-Since the algorithm achieves this bound and no algorithm can do better, $\frac{3}{2}$ is the optimal competitive ratio for this problem.
+\begin{proof}
+Let $C$ be the makespan of the greedy schedule, and let $t_0$ be the start of its last busy period: the processor is busy throughout $[t_0, C)$ and is idle just before $t_0$ (or $t_0 = 0$). The greedy algorithm idles only when no released job is waiting, so every job with $r_j < t_0$ has been completed before $t_0$. Hence the jobs processed during $[t_0, C)$ are exactly the jobs with $r_j \geq t_0$, and
+\[
+C = t_0 + \sum_{j:\, r_j \geq t_0} p_j .
+\]
+In any schedule none of these jobs can start before $t_0$, so every schedule has makespan at least $t_0 + \sum_{j:\, r_j \geq t_0} p_j = C$. Therefore $C = OPT$.
 \end{proof}
 \end{theorem}
+
+\begin{remark}
+Waiting can pay off when there are several machines. For the online version of $P|r_j|C_{\max}$ on identical parallel machines, Chen and Vestjens (1997) showed that the online LPT rule (whenever a machine becomes idle, start the longest available job) is $\frac{3}{2}$-competitive and that this bound is tight, and that no deterministic online algorithm is better than $1.3473$-competitive. For two machines, Noga and Seiden (2001) gave an algorithm that deliberately delays some jobs and is $\frac{5-\sqrt{5}}{2} \approx 1.382$-competitive, the best possible ratio for deterministic algorithms on two machines.
+\end{remark}
 
 \begin{remark}[Extensions and Limitations]
 Online scheduling algorithms have several practical implications:
 \begin{itemize}
-    \item The $\frac{3}{2}$-competitive ratio is a worst-case guarantee; average-case performance is typically better
+    \item Competitive ratios (such as the $\frac{3}{2}$ of online LPT) are worst-case guarantees; average-case performance is typically better
     \item For multiple machines, more complex algorithms are required, with competitive ratios depending on the number of machines
     \item When jobs have deadlines, competitive analysis often considers throughput (number of completed jobs) rather than makespan
     \item Randomized algorithms can achieve better expected competitive ratios against oblivious adversaries
