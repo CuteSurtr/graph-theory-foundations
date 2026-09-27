@@ -947,8 +947,12 @@ and the Potts model partition function. Its natural setting is the
 For a graph $G$ and edge $e \in E(G)$:
 \begin{itemize}
   \item $G \setminus e$ is the graph obtained by removing $e$.
-  \item $G / e$ is the graph obtained by contracting $e$ (identify
-        its two endpoints, removing any loops created).
+  \item $G / e$ is the graph obtained by contracting $e$: delete $e$
+        and identify its two endpoints. All other edges are kept, so
+        $G / e$ may have multiple edges, and edges parallel to $e$
+        become loops; these must \emph{not} be discarded (if they were,
+        Theorem~\ref{thm:tuttedc} would give $T_{K_3} = x^2 + x + 1$
+        instead of $x^2 + x + y$).
 \end{itemize}
 \end{definition}
 
@@ -1004,7 +1008,8 @@ edge orientation) is
 \end{theorem}
 
 \begin{theorem}[Reliability polynomial]
-If each edge of $G$ fails independently with probability $1 - p$, the
+If $G$ is connected and each edge of $G$ fails independently with
+probability $1 - p$, the
 probability that the surviving subgraph remains connected (the
 \textbf{all-terminal reliability}) is
 \[
@@ -1029,15 +1034,19 @@ For any total order on $E(G)$,
 In particular, $\chi_G(k)$ has alternating-sign integer coefficients.
 \end{theorem}
 
-\begin{theorem}[Huh--Katz, 2012]
+\begin{theorem}[Huh, 2012]
 The coefficients of the chromatic polynomial form a \emph{log-concave}
 sequence: if $\chi_G(k) = \sum_{i = 0}^{n} (-1)^i a_i k^{n - i}$, then
 $a_i^2 \ge a_{i - 1} a_{i + 1}$ for $1 \le i \le n - 1$.
 \end{theorem}
 
-The Huh--Katz proof uses Hodge theory of the Chow ring of the
-graphic matroid; this established the Rota--Heron--Welsh conjecture
-in full generality.
+Huh's proof is algebro-geometric (via Milnor-number-type invariants of
+projective hypersurfaces attached to $G$). Huh--Katz (2012) extended it
+to the characteristic polynomial of every matroid representable over
+some field, using intersection theory on toric varieties; the
+Rota--Heron--Welsh conjecture in full generality (arbitrary matroids)
+was proved only later by Adiprasito--Huh--Katz (2018), via Hodge
+theory for the Chow ring of a matroid (\S 12.9).
 
 \subsubsection{Graphic Matroids and Cycle/Bond Duality}
 
@@ -1058,8 +1067,9 @@ function is $r(A) = \max\{|I| : I \subseteq A,\ I \in \mathcal I\}$.
 \begin{example}[Graphic matroid]
 For a graph $G$, let $E = E(G)$ and
 $\mathcal I = \{A \subseteq E : (V, A) \text{ is acyclic}\}$. This is
-the \textbf{graphic matroid} $M(G)$. Bases of $M(G)$ are spanning
-forests of $G$; the rank is $|V| - c(G)$.
+the \textbf{graphic matroid} $M(G)$. Bases of $M(G)$ are the maximal
+spanning forests of $G$ (a spanning tree of each component); the rank
+is $|V| - c(G)$.
 \end{example}
 
 \begin{theorem}[Cycle/bond duality on planar graphs]
