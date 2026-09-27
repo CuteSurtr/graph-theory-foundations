@@ -9519,26 +9519,26 @@ This completes the proof, showing that we can construct a graph $G$ with $\kappa
 
 \item Prove that in a $2$-connected graph, any two vertices lie on a common cycle.
 
-\item Let $G$ be a connected graph. Prove that $G$ is 2-connected if and only if for any three vertices $u$, $v$, and $w$, there exists a path from $u$ to $v$ that does not contain $w$.
+\item Let $G$ be a connected graph with at least three vertices. Prove that $G$ is 2-connected if and only if for any three distinct vertices $u$, $v$, and $w$, there exists a path from $u$ to $v$ that does not contain $w$.
 
-\item A vertex $v$ in a connected graph $G$ is called an articulation point if removing $v$ disconnects the graph. Prove that $v$ is an articulation point if and only if there exist vertices $a$ and $b$ such that every path from $a$ to $b$ passes through $v$.
+\item A vertex $v$ in a connected graph $G$ is called an articulation point if removing $v$ disconnects the graph. Prove that $v$ is an articulation point if and only if there exist vertices $a$ and $b$, both different from $v$, such that every path from $a$ to $b$ passes through $v$.
 \end{enumerate}
 
 \subsubsection{Hard Questions}
 \begin{enumerate}\setcounter{enumi}{14}
-\item Let $G$ be a connected graph containing no $\Theta$-graph. Prove that $G$ is either a tree or a cycle.
+\item Let $G$ be a connected graph with at least two vertices containing no $\Theta$-graph. Prove that every block of $G$ is a cycle or a $K_2$ (so $G$ is a tree of cycles), and give an example showing that $G$ need not be a tree or a cycle.
 
 \item Prove that if $G$ is a $k$-connected graph, then for any set $S$ of $k$ vertices and any vertex $v \not\in S$, there exist $k$ internally vertex-disjoint paths from $v$ to the vertices of $S$.
 
-\item Given values $k \leq \ell \leq d$, construct a graph with vertex connectivity $\kappa(G) = k$, edge connectivity $\lambda(G) = \ell$, and minimum degree $\delta(G) = d$. Prove that your construction works.
+\item Given integers $1 \leq k \leq \ell \leq d$, construct a graph with vertex connectivity $\kappa(G) = k$, edge connectivity $\lambda(G) = \ell$, and minimum degree $\delta(G) = d$. Prove that your construction works.
 
 \item Let $G$ be a graph with $\lambda(G) = k$. Prove that if $G$ has a vertex cut of size $k$, then $G$ also has an edge cut of size $k$.
 
-\item Let $G$ be a graph with $n$ vertices. Prove that if $\delta(G) > \frac{n-1}{2}$, then $G$ is $2$-connected.
+\item Let $G$ be a graph with $n \geq 3$ vertices. Prove that if $\delta(G) > \frac{n-1}{2}$, then $G$ is $2$-connected.
 
 \item Develop an algorithm to find all cut vertices in a connected graph $G$. Analyze its time complexity.
 
-\item For a connected graph $G$, let $b(G)$ be the number of blocks and $c(G)$ be the number of cut vertices. Prove that if $G$ is not a block, then $b(G) = c(G) + 1$.
+\item For a connected graph $G$, let $b(G)$ be the number of blocks and $c(G)$ be the number of cut vertices, and for a cut vertex $v$ let $b(v)$ be the number of blocks containing $v$. Prove that $b(G) = 1 + \sum_{v} (b(v) - 1)$, where the sum runs over all cut vertices $v$ of $G$. Deduce that $b(G) \geq c(G) + 1$, with equality if and only if every cut vertex lies in exactly two blocks. (For example, the star $K_{1,3}$ has $b(G) = 3$ and $c(G) = 1$.)
 \end{enumerate}
 
 \subsubsection{Diagram Questions}
@@ -9555,7 +9555,7 @@ This completes the proof, showing that we can construct a graph $G$ with $\kappa
 
 \item Draw a graph where $\kappa(G) < \lambda(G) < \delta(G)$. Clearly indicate the values of each parameter and explain how your graph satisfies these inequalities.
 
-\item Draw an example of a connected graph that contains no $\Theta$-graph and is neither a tree nor a cycle. Explain why such a graph cannot exist, referring to the relevant theorem.
+\item Draw an example of a connected graph that contains no $\Theta$-graph and is neither a tree nor a cycle. Identify its blocks, and explain why your example is consistent with the relevant theorem.
 \end{enumerate}
 
 \subsubsection{Additional Questions}
@@ -9564,7 +9564,7 @@ This completes the proof, showing that we can construct a graph $G$ with $\kappa
 
 \item Prove that a $k$-connected graph on $n$ vertices must have at least $\lceil \frac{kn}{2} \rceil$ edges.
 
-\item For any two distinct vertices $u$ and $v$ in a graph $G$, define $\kappa(u,v)$ as the minimum number of vertices whose removal disconnects $u$ from $v$ (or makes $u$ and $v$ belong to the same component if they are adjacent). Prove that $\kappa(G) = \min_{u,v \in V(G), u \neq v} \kappa(u,v)$.
+\item For any two distinct non-adjacent vertices $u$ and $v$ in a graph $G$, define $\kappa(u,v)$ as the minimum number of vertices, other than $u$ and $v$, whose removal disconnects $u$ from $v$. Prove that if $G$ is not a complete graph, then $\kappa(G) = \min \kappa(u,v)$, where the minimum is taken over all pairs of distinct non-adjacent vertices $u, v \in V(G)$.
 
 \item If $G$ is a $k$-connected graph and $H$ is obtained from $G$ by adding a new vertex adjacent to at least $k$ vertices of $G$, prove that $H$ is also $k$-connected.
 
@@ -9582,7 +9582,7 @@ This completes the proof, showing that we can construct a graph $G$ with $\kappa
 
 \item Let $G$ be a $3$-connected graph. Prove that any two cycles in $G$ have a common vertex or there exists a path connecting them that is internally disjoint from both cycles.
 
-\item A block-cut tree of a connected graph $G$ is a tree where each vertex corresponds to either a block or a cut vertex of $G$, with edges connecting each cut vertex to the blocks containing it. Prove that removing a cut vertex $v$ from $G$ creates exactly $\deg_T(v) - 1$ components, where $\deg_T(v)$ is the degree of $v$ in the block-cut tree.
+\item A block-cut tree of a connected graph $G$ is a tree where each vertex corresponds to either a block or a cut vertex of $G$, with edges connecting each cut vertex to the blocks containing it. Prove that removing a cut vertex $v$ from $G$ leaves exactly $\deg_T(v)$ components (so the number of components increases by exactly $\deg_T(v) - 1$), where $\deg_T(v)$ is the degree of $v$ in the block-cut tree.
 \end{enumerate}
 \pagebreak
 \newpage
