@@ -12447,8 +12447,8 @@ A key result related to Vizing's Theorem is König's Line Coloring Theorem, whic
     
     % Edges with different colors
     \draw[line width=1.5pt, red] (A) -- (1);
-    \draw[line width=1.5pt, blue] (A) -- (2);
-    \draw[line width=1.5pt, green] (A) -- (3);
+    \draw[line width=1.5pt, green] (A) -- (2);
+    \draw[line width=1.5pt, blue] (A) -- (3);
     \draw[line width=1.5pt, green] (B) -- (1);
     \draw[line width=1.5pt, red] (B) -- (2);
     \draw[line width=1.5pt, blue] (C) -- (2);
@@ -12495,11 +12495,11 @@ The complete graph $K_4$ has maximum degree $\Delta(K_4) = 3$. Let's try to colo
     \draw[line width=1.5pt, red] (C) -- (D);
     \draw[line width=1.5pt, blue] (D) -- (A);
     \draw[line width=1.5pt, green] (A) -- (C);
-    \draw[line width=1.5pt, purple] (B) -- (D);
+    \draw[line width=1.5pt, green] (B) -- (D);
 \end{tikzpicture}
 \end{center}
 
-\small Figure 127 : We need 4 colors for the edges of $K_4$, confirming it's a Class 2 graph since $\chi'(K_4) = 4 = \Delta(K_4) + 1$.
+\small Figure 127 : The three perfect matchings $\{AB, CD\}$, $\{BC, DA\}$, and $\{AC, BD\}$ form a proper 3-edge-coloring of $K_4$. Hence $\chi'(K_4) = 3 = \Delta(K_4)$, and $K_4$ is a Class 1 graph, as is $K_n$ for every even $n$.
 
 
 The cycle graph $C_5$ has maximum degree $\Delta(C_5) = 2$. Let's color its edges:
@@ -12516,11 +12516,11 @@ The cycle graph $C_5$ has maximum degree $\Delta(C_5) = 2$. Let's color its edge
     \draw[line width=1.5pt, blue] (v2) -- (v3);
     \draw[line width=1.5pt, red] (v3) -- (v4);
     \draw[line width=1.5pt, blue] (v4) -- (v5);
-    \draw[line width=1.5pt, red] (v5) -- (v1);
+    \draw[line width=1.5pt, green] (v5) -- (v1);
 \end{tikzpicture}
 \end{center}
 
-\small Figure 128 : We can color $C_5$ with just 2 colors, showing that it's a Class 1 graph since $\chi'(C_5) = 2 = \Delta(C_5)$.
+\small Figure 128 : Two colors do not suffice for $C_5$: they would have to alternate around the cycle, which is impossible for a cycle of odd length. Giving one edge a third color yields a proper edge-coloring, so $\chi'(C_5) = 3 = \Delta(C_5) + 1$ and $C_5$ is a Class 2 graph, as is every odd cycle.
 
 
 The Petersen graph is a famous example of a Class 2 graph. It has maximum degree $\Delta = 3$:
@@ -12547,12 +12547,12 @@ The Petersen graph is a famous example of a Class 2 graph. It has maximum degree
     % Connect inner and outer vertices
     \draw[line width=1.5pt, blue] (o1) -- (i1);
     \draw[line width=1.5pt, blue] (o2) -- (i2);
-    \draw[line width=1.5pt, red] (o3) -- (i3);
+    \draw[line width=1.5pt, purple] (o3) -- (i3);
     \draw[line width=1.5pt, green] (o4) -- (i4);
     \draw[line width=1.5pt, blue] (o5) -- (i5);
     
     % Inner star connections
-    \draw[line width=1.5pt, purple] (i1) -- (i3);
+    \draw[line width=1.5pt, red] (i1) -- (i3);
     \draw[line width=1.5pt, green] (i3) -- (i5);
     \draw[line width=1.5pt, purple] (i5) -- (i2);
     \draw[line width=1.5pt, red] (i2) -- (i4);
@@ -12580,8 +12580,8 @@ Here's a cubic graph (3-regular) that is Class 1. Every vertex has degree 3, and
     \draw[line width=1.5pt, green] (v6) -- (v1);
     
     % Cross edges
-    \draw[line width=1.5pt, green] (v1) -- (v4);
-    \draw[line width=1.5pt, blue] (v2) -- (v5);
+    \draw[line width=1.5pt, blue] (v1) -- (v4);
+    \draw[line width=1.5pt, green] (v2) -- (v5);
     \draw[line width=1.5pt, red] (v3) -- (v6);
 \end{tikzpicture}
 \end{center}
@@ -12605,13 +12605,13 @@ Here's another example of a Class 2 graph with maximum degree 3:
     \draw[line width=1.5pt, blue] (v1) -- (v3);
     \draw[line width=1.5pt, green] (v1) -- (v4);
     \draw[line width=1.5pt, green] (v2) -- (v3);
-    \draw[line width=1.5pt, red] (v2) -- (v4);
+    \draw[line width=1.5pt, red] (v4) -- (v5);
     \draw[line width=1.5pt, blue] (v2) -- (v5);
     \draw[line width=1.5pt, purple] (v3) -- (v4);
 \end{tikzpicture}
 \end{center}
 
-\small figure 131 : This graph has maximum degree $\Delta = 3$ at vertices 1 and 2, but requires 4 colors for its edges, making it a Class 2 graph.
+\small Figure 131 : This graph is obtained from $K_4$ by replacing the edge between 2 and 4 with the path $2, 5, 4$. It has maximum degree $\Delta = 3$ but requires 4 colors for its edges: each color class is a matching, and a matching in a graph with 5 vertices has at most 2 edges, so 3 colors could cover at most 6 of the 7 edges. Hence $\chi' = 4 = \Delta + 1$, and the graph is Class 2.
 \\
 
 Determining whether a graph is Class 1 or Class 2 is generally NP-complete. However, some specific cases are known:
@@ -12635,7 +12635,7 @@ The complete graph $K_5$ has maximum degree $\Delta(K_5) = 4$. According to Vizi
     
     % Edges (10 edges in total)
     \draw[line width=1.5pt, red] (v1) -- (v2);
-    \draw[line width=1.5pt, blue] (v1) -- (v3);
+    \draw[line width=1.5pt, orange] (v1) -- (v3);
     \draw[line width=1.5pt, green] (v1) -- (v4);
     \draw[line width=1.5pt, purple] (v1) -- (v5);
     
@@ -12643,8 +12643,8 @@ The complete graph $K_5$ has maximum degree $\Delta(K_5) = 4$. According to Vizi
     \draw[line width=1.5pt, purple] (v2) -- (v4);
     \draw[line width=1.5pt, blue] (v2) -- (v5);
     
-    \draw[line width=1.5pt, red] (v3) -- (v4);
-    \draw[line width=1.5pt, orange] (v3) -- (v5);
+    \draw[line width=1.5pt, blue] (v3) -- (v4);
+    \draw[line width=1.5pt, red] (v3) -- (v5);
     
     \draw[line width=1.5pt, orange] (v4) -- (v5);
 \end{tikzpicture}
@@ -12673,7 +12673,7 @@ For a graph with maximum degree $\Delta = 4$:
     \item Vizing's bound gives $\chi'(G) \leq 4 + 1 = 5$
 \end{itemize}
 
-Here's a clear example of a graph with $\Delta = 4$ that requires exactly 5 colors (thus reaching Vizing's bound):
+For comparison, here is a graph that attains the lower bound $\chi'(G) = \Delta(G)$: the wheel $W_5$ has $\Delta = 5$ and its edges can be colored with exactly 5 colors. (A graph with $\Delta = 4$ that attains Vizing's bound, $K_5$, is discussed right after it.)
 
 \begin{center}
 \begin{tikzpicture}[scale=1.2]
@@ -12720,88 +12720,25 @@ $K_5$ requires exactly 5 colors, showing that Vizing's bound is tight (this is a
 
 
 \begin{center}
-To better understand Shannon's bound, here is a graph with maximum degree $\Delta = 6$ that shows why his bound of $\lfloor\frac{3\Delta}{2}\rfloor = 9$ might be necessary:
+To better understand Shannon's bound, here is a multigraph with maximum degree $\Delta = 6$ that needs all $\lfloor\frac{3\Delta}{2}\rfloor = 9$ colors. No simple graph can do this: by Vizing's theorem, a simple graph with $\Delta = 6$ needs at most $7$ colors.
 
 \begin{tikzpicture}[scale=1.5]
-    % Define colors
-    \definecolor{color1}{RGB}{220, 50, 50}   % Red
-    \definecolor{color2}{RGB}{50, 120, 220}  % Blue
-    \definecolor{color3}{RGB}{50, 180, 50}   % Green
-    \definecolor{color4}{RGB}{255, 140, 0}   % Orange
-    \definecolor{color5}{RGB}{160, 70, 160}  % Purple
-    \definecolor{color6}{RGB}{180, 120, 40}  % Brown
-    \definecolor{color7}{RGB}{0, 180, 180}   % Cyan
-    \definecolor{color8}{RGB}{230, 180, 0}   % Yellow
-    \definecolor{color9}{RGB}{100, 100, 100} % Gray
-    
-    % Vertices - organized in a more symmetric pattern
-    % Top five vertices in a pentagon arrangement
-    \node[circle, draw, fill=white, minimum size=0.8cm, line width=1.2pt] (v12) at (0,3) {$v_{12}$};
-    \node[circle, draw, fill=white, minimum size=0.8cm, line width=1.2pt] (v13) at (-2.85,0.93) {$v_{13}$};
-    \node[circle, draw, fill=white, minimum size=0.8cm, line width=1.2pt] (v14) at (-1.76,-2.42) {$v_{14}$};
-    \node[circle, draw, fill=white, minimum size=0.8cm, line width=1.2pt] (v15) at (1.76,-2.42) {$v_{15}$};
-    \node[circle, draw, fill=white, minimum size=0.8cm, line width=1.2pt] (v23) at (2.85,0.93) {$v_{23}$};
-    
-    % Bottom five vertices arranged in a pentagon
-    \node[circle, draw, fill=white, minimum size=0.8cm, line width=1.2pt] (v24) at (1.76,1.28) {$v_{24}$};
-    \node[circle, draw, fill=white, minimum size=0.8cm, line width=1.2pt] (v25) at (0,-1.5) {$v_{25}$};
-    \node[circle, draw, fill=white, minimum size=0.8cm, line width=1.2pt] (v34) at (-1.76,1.28) {$v_{34}$};
-    \node[circle, draw, fill=white, minimum size=0.8cm, line width=1.2pt] (v35) at (-1.1,-1) {$v_{35}$};
-    \node[circle, draw, fill=white, minimum size=0.8cm, line width=1.2pt] (v45) at (1.1,-1) {$v_{45}$};
-    
-    % Edges with clearer coloring and consistent thickness
-    % Group 1: Edges from v12
-    \draw[line width=1.5pt, color1] (v12) -- (v13);
-    \draw[line width=1.5pt, color2] (v12) -- (v14);
-    \draw[line width=1.5pt, color3] (v12) -- (v15);
-    \draw[line width=1.5pt, color4] (v12) -- (v23);
-    \draw[line width=1.5pt, color5] (v12) -- (v24);
-    \draw[line width=1.5pt, color6] (v12) -- (v25);
-    
-    % Group 2: Edges from v13
-    \draw[line width=1.5pt, color5] (v13) -- (v14);
-    \draw[line width=1.5pt, color4] (v13) -- (v15);
-    \draw[line width=1.5pt, color6] (v13) -- (v23);
-    \draw[line width=1.5pt, color7] (v13) -- (v34);
-    \draw[line width=1.5pt, color8] (v13) -- (v35);
-    
-    % Group 3: Edges from v14
-    \draw[line width=1.5pt, color7] (v14) -- (v15);
-    \draw[line width=1.5pt, color8] (v14) -- (v23);
-    \draw[line width=1.5pt, color9] (v14) -- (v24);
-    \draw[line width=1.5pt, color1] (v14) -- (v34);
-    \draw[line width=1.5pt, color2] (v14) -- (v45);
-    
-    % Group 4: Edges from v15
-    \draw[line width=1.5pt, color9] (v15) -- (v23);
-    \draw[line width=1.5pt, color1] (v15) -- (v25);
-    \draw[line width=1.5pt, color3] (v15) -- (v34);
-    \draw[line width=1.5pt, color3] (v15) -- (v35);
-    \draw[line width=1.5pt, color4] (v15) -- (v45);
-    
-    % Group 5: Edges from v23
-    \draw[line width=1.5pt, color2] (v23) -- (v24);
-    \draw[line width=1.5pt, color3] (v23) -- (v25);
-    \draw[line width=1.5pt, color5] (v23) -- (v34);
-    \draw[line width=1.5pt, color6] (v23) -- (v45);
-    
-    % Group 6: Remaining edges
-    \draw[line width=1.5pt, color8] (v24) -- (v25);
-    \draw[line width=1.5pt, color6] (v24) -- (v34);
-    \draw[line width=1.5pt, color7] (v24) -- (v35);
-    \draw[line width=1.5pt, color8] (v24) -- (v45);
-    \draw[line width=1.5pt, color9] (v25) -- (v34);
-    \draw[line width=1.5pt, color7] (v25) -- (v35);
-    \draw[line width=1.5pt, color9] (v25) -- (v45);
-    \draw[line width=1.5pt, color2] (v34) -- (v35);
-    \draw[line width=1.5pt, color1] (v34) -- (v45);
-    \draw[line width=1.5pt, color5] (v35) -- (v45);
-    
+    % Shannon multigraph: three vertices, three parallel edges between each pair
+    \node[circle, draw, fill=white, minimum size=0.8cm] (a) at (0,0) {$a$};
+    \node[circle, draw, fill=white, minimum size=0.8cm] (b) at (3,0) {$b$};
+    \node[circle, draw, fill=white, minimum size=0.8cm] (c) at (1.5,2.6) {$c$};
+    \foreach \x/\y in {a/b, b/c, c/a} {
+        \draw[line width=1.2pt] (\x) to[bend left=25] (\y);
+        \draw[line width=1.2pt] (\x) -- (\y);
+        \draw[line width=1.2pt] (\x) to[bend right=25] (\y);
+    }
+
     % Title and explanation
-    \node[align=center] at (0,-4) {
-        \textbf{Line Graph of $K_5$: $L(K_5)$}\\[0.2cm]
-        \small Figure 134 : Maximum degree $\Delta = 6$, Edge chromatic number $\chi'(L(K_5)) = 9$\\[0.2cm]
-        Demonstrating Shannon's bound: $\lfloor\frac{3\Delta}{2}\rfloor = 9$ colors needed
+    \node[align=center] at (1.5,-1.3) {
+        \small Figure 134 : The Shannon multigraph with three parallel edges\\
+        \small between each pair of vertices. Every vertex has degree $\Delta = 6$,\\
+        \small and any two of the $9$ edges share an endpoint, so all $9$ edges\\
+        \small need distinct colors: $\chi' = 9 = \lfloor\frac{3\Delta}{2}\rfloor$.
     };
 \end{tikzpicture}
 \end{center}
@@ -12820,29 +12757,29 @@ Here's a simple example showing a graph where the difference between Shannon's a
     \node[circle, draw, fill=white, minimum size=0.8cm] (v5) at (-2,1) {$v_5$};
     
     % Edges
-    \draw[line width=1.5pt, red] (v1) -- (v2);
+    \draw[line width=1.5pt, purple] (v1) -- (v2);
     \draw[line width=1.5pt, blue] (v2) -- (v3);
     \draw[line width=1.5pt, green] (v3) -- (v4);
-    \draw[line width=1.5pt, red] (v4) -- (v1);
+    \draw[line width=1.5pt, orange] (v4) -- (v1);
     \draw[line width=1.5pt, blue] (v1) -- (v5);
     \draw[line width=1.5pt, green] (v2) -- (v5);
     \draw[line width=1.5pt, orange] (v3) -- (v5);
     \draw[line width=1.5pt, purple] (v4) -- (v5);
     
     % Label
-    \node[align=center] at (0,-1.5) {Figure 135 : Graph with $\Delta = 4$ (at vertex $v_5$)\\Edge chromatic number $\chi' = 5$};
+    \node[align=center] at (0,-1.5) {Figure 135 : Graph with $\Delta = 4$ (at vertex $v_5$)\\Edge chromatic number $\chi' = 4$};
 \end{tikzpicture}
 \end{center}
 
-This graph has:
+This graph (the wheel $W_4$) has:
 \begin{itemize}
     \item Maximum degree $\Delta = 4$ at vertex $v_5$
     \item Shannon's bound: $\chi' \leq \lfloor\frac{3 \cdot 4}{2}\rfloor = 6$
     \item Vizing's bound: $\chi' \leq 4 + 1 = 5$
-    \item Actual edge chromatic number: $\chi' = 5$
+    \item Actual edge chromatic number: $\chi' = 4$, attained by the coloring shown (so this graph is Class 1)
 \end{itemize}
 
-This example demonstrates that Vizing's bound provides a tighter and more accurate upper limit than Shannon's earlier bound.
+This example demonstrates that, for simple graphs, Vizing's bound provides a tighter and more accurate upper limit than Shannon's earlier bound.
 
 \subsection{Shannon's Edge Coloring Theorem}
 
@@ -13408,17 +13345,17 @@ Taking the floor function gives us $\lfloor \frac{3\Delta}{2} \rfloor$ as the bo
     \draw[line width=1.5pt, brown, bend right=20] (C) to (A);
 \end{tikzpicture}
 \\
-\small Figure 143 : {Shannon Multigraph with $\Delta = 2$}
+\small Figure 143 : {Shannon multigraph with $k = 2$ parallel edges between each pair of vertices (maximum degree $\Delta = 4$)}
 \end{figure}
 
 The Shannon multigraph shown above has:
 \begin{itemize}
-    \item $\Delta$ parallel edges between each pair of vertices (here $\Delta = 2$)
-    \item Maximum degree $2\Delta = 4$
-    \item Edge chromatic number $3\Delta = 6$
+    \item $k$ parallel edges between each pair of vertices (here $k = 2$)
+    \item Maximum degree $\Delta = 2k = 4$
+    \item Edge chromatic number $3k = 6$, since all $3k$ edges are pairwise adjacent
 \end{itemize}
 
-This demonstrates that Shannon's bound is tight for certain families of multigraphs. The edge chromatic number is exactly $\lfloor \frac{3 \cdot (2\Delta)}{2} \rfloor = 3\Delta$.
+This demonstrates that Shannon's bound is tight for certain families of multigraphs. The edge chromatic number is exactly $3k = \lfloor \frac{3 \cdot (2k)}{2} \rfloor = \lfloor \frac{3\Delta}{2} \rfloor$.
 
 \subsection*{Refined Proof Techniques}
 
