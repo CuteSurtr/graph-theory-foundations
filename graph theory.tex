@@ -10609,7 +10609,7 @@ Hall's condition: $|N(X)| \geq |X|$
 
 
 \begin{proof}
-\textbf{($\Rightarrow$)} If $G$ has a matching $M$ covering $A$, then for $X \subseteq A$, $|N(X)| \geq |X|$.
+\textbf{($\Rightarrow$)} If $G$ has a matching $M$ covering $A$, then for $X \subseteq A$ the vertices matched to $X$ by $M$ are $|X|$ distinct vertices of $N(X)$, so $|N(X)| \geq |X|$.
 
 \textbf{($\Leftarrow$)} If $|N(X)| \geq |X|$ $\forall X \subseteq A$, we have to find a matching covering $A$.
 
@@ -10619,39 +10619,42 @@ Proceed by induction on $|A|$:
 
 \textbf{Inductive step:} Suppose $|A| \geq 2$ and the theorem is true for bipartite graphs with parts $A'$ and $B$ where $|A'| < |A|$.
 
-\textbf{Case 1:} $|N(X)| > |X|$ for all $X \subset A$, $X \neq \emptyset$
+\textbf{Case 1:} $|N(X)| > |X|$ for every nonempty proper subset $X \subsetneq A$
 
 Pick any edge $ab \in E(G)$ where $a \in A$, $b \in B$.
 Let $G' = G - \{a\} - \{b\}$
 
 Then $G'$ has parts $A' = A - \{a\}$ and $B' = B - \{b\}$
 
-For $X \subseteq A'$: $N_{G'}(X) \supseteq N_G(X) - \{b\}$
-Therefore $|N_{G'}(X)| \geq |N_G(X)| - 1 \geq |X|$
+For $X \subseteq A'$: $N_{G'}(X) \supseteq N_G(X) - \{b\}$.
+If $X \neq \emptyset$, then $X$ is a nonempty proper subset of $A$, so
+$|N_{G'}(X)| \geq |N_G(X)| - 1 \geq |X|$ (and $X = \emptyset$ is trivial)
 
 Therefore Hall's condition holds for $G'$.
 By induction, $G'$ has a matching $M'$ covering $A'$.
 Now $M = M' \cup \{ab\}$ is a matching covering $A$.
 
-\textbf{Case 2:} $|N(X)| = |X|$ for some $X \subset A$, $X \neq \emptyset$
+\textbf{Case 2:} $|N(X)| = |X|$ for some nonempty proper subset $X \subsetneq A$
 
-If $Y \subseteq X$:
-$|N(Y)| \geq |Y|$ by Hall's condition in $G$
+Let $G_1 = G[X\cup N(X)]$, and let $G_2 = G - (X \cup N(X))$ be the bipartite graph with parts $A - X$ and $B - N(X)$.
 
-So Hall's condition holds in $G[X\cup N(X)]$
+If $Y \subseteq X$: $N_{G_1}(Y) = N_G(Y)$ and
+$|N_G(Y)| \geq |Y|$ by Hall's condition in $G$
 
-By induction, $G[X\cup N(X)]$ has a matching $M_1$ covering $X$.
+So Hall's condition holds in $G_1$.
 
-Now let $Y \subseteq A-X$:
+Since $|X| < |A|$, by induction $G_1$ has a matching $M_1$ covering $X$.
+
+Now let $Y \subseteq A-X$. Since $N_{G_2}(Y) = N_G(Y) - N_G(X) = N_G(Y\cup X) - N_G(X)$ and $N_G(X) \subseteq N_G(Y \cup X)$:
 \begin{align*}
 |N_{G_2}(Y)| &= |N_G(Y\cup X)| - |N_G(X)| \\
 &\geq |Y\cup X| - |X| \\
 &= |Y|
 \end{align*}
 
-So Hall's condition holds for $G_2$. By induction there is a matching $M_2$ in $G_2$ covering $A-X$.
+So Hall's condition holds for $G_2$. Since $|A - X| < |A|$, by induction there is a matching $M_2$ in $G_2$ covering $A-X$.
 
-Now $M_1\cup M_2$ is a matching in $G$ covering $A$.
+Now $M_1\cup M_2$ is a matching in $G$ covering $A$, because $M_1$ and $M_2$ have no vertex in common.
 \end{proof}
 
 \begin{figure}[ht]
@@ -10727,7 +10730,7 @@ Now $M_1\cup M_2$ is a matching in $G$ covering $A$.
 % Main graph G
 \begin{scope}
 
-    \node at (2,6) {Case 1: $|N(X)| > |X|$ for all $X \subset A$};
+    \node at (2,6) {Case 1: $|N(X)| > |X|$ for all nonempty $X \subsetneq A$};
     % Set A vertices
     \node[set A] (a1) at (0,4) {$a_1$};
     \node[set A] (a2) at (0,3) {$a_2$};
@@ -10797,7 +10800,7 @@ Now $M_1\cup M_2$ is a matching in $G$ covering $A$.
 
 % Main graph G
 \begin{scope}
-    \node at (2,6) {Case 2: $|N(X)| = |X|$ for some $X \subset A$};
+    \node at (2,6) {Case 2: $|N(X)| = |X|$ for some nonempty $X \subsetneq A$};
     
     % Set A vertices (X subset)
     \node[set X] (a1) at (0,4) {$a_1$};
@@ -10841,7 +10844,7 @@ Now $M_1\cup M_2$ is a matching in $G$ covering $A$.
 
 \end{tikzpicture}
 \\
-\small Figure 117 : {Illustration of Case 2 in the proof of Hall's Theorem. We have a subset $X \subset A$ where $|N(X)| = |X|$. We find matchings $M_1$ in the subgraph induced by $X \cup N(X)$ and $M_2$ in the remaining graph.}
+\small Figure 117 : {Illustration of Case 2 in the proof of Hall's Theorem. We have a nonempty proper subset $X \subsetneq A$ where $|N(X)| = |X|$. We find matchings $M_1$ in the subgraph induced by $X \cup N(X)$ and $M_2$ in the remaining graph.}
 \end{figure}
 
 \pagebreak
@@ -10963,11 +10966,11 @@ S_4 &= \{1,3\} \\
 S_5 &= \{4,2\}
 \end{align*}
 
-No SDR because:
+An SDR exists, even though Hall's condition holds with equality for some $I$:
 For $I = \{1,3,4,5\}$
 $|S_1\cup S_3\cup S_4\cup S_5| = |\{1,2,3,4\}| = 4 = |I|$
 
-However, no valid SDR can be constructed due to the specific distribution of elements in the sets.
+Equality is allowed by Hall's condition. One checks that $\left|\bigcup_{i\in I} S_i\right| \geq |I|$ for every $I \subseteq \{1,2,3,4,5\}$, so by the theorem an SDR exists: for example, $1, 5, 4, 3, 2$ represent $S_1, S_2, S_3, S_4, S_5$, respectively. (The only other SDR is $4, 5, 3, 1, 2$.)
 \end{example}
 
 
@@ -11041,19 +11044,18 @@ However, no valid SDR can be constructed due to the specific distribution of ele
 
 % Explanation
 \begin{scope}[xshift=3cm, yshift=-2.5cm]
-\node[draw, rounded corners, fill=red!10, text width=10cm, align=left, font=\small] at (0,0) {
+\node[text width=10cm, align=left, font=\small] at (0,0) {
 For the subset $I = \{S_1, S_3, S_4, S_5\}$, we have:
 $|S_1 \cup S_3 \cup S_4 \cup S_5| = |\{1, 2, 3, 4\}| = 4 = |I|$
 
-Hall's condition is satisfied with equality, but due to the distribution:
+Hall's condition is satisfied with equality for this $I$ (and holds for every $I$), so an SDR exists. Equality only restricts the choices:
 \begin{itemize}
-\item Element 3 needs to represent at least one of $\{S_3, S_4\}$
-\item Element 4 needs to represent at least one of $\{S_1, S_3, S_5\}$
-\item Element 1 needs to represent at least one of $\{S_1, S_4\}$
+\item Elements $1, 2, 3, 4$ must all represent committees in $I$, so element 5 represents $S_2$
 \item Element 2 can only represent $S_5$
+\item Elements $1, 3, 4$ then represent $S_1, S_3, S_4$: either $1, 4, 3$ or $4, 3, 1$
 \end{itemize}
 
-These constraints create a situation where no valid SDR exists.
+The dashed arrows show a greedy attempt ($1$ for $S_1$, $3$ for $S_3$, $4$ for $S_5$) that leaves nothing for $S_4$; choosing $4$ for $S_3$ and $2$ for $S_5$ instead frees $3$ for $S_4$.
 };
 \end{scope}
 
@@ -11062,7 +11064,7 @@ These constraints create a situation where no valid SDR exists.
 
 \end{tikzpicture}
 \\
-\small Figure 119 : {Illustration of a case where no System of Distinct Representatives exists. The red dashed boxes highlight the problematic subset of committees $I = \{S_1, S_3, S_4, S_5\}$ and their combined neighborhood $\{1, 2, 3, 4\}$. Although $|I| = |\cup_{i \in I} S_i| = 4$ (Hall's condition is satisfied with equality), the specific distribution of elements prevents a valid SDR.}
+\small Figure 119 : {A family of committees satisfying Hall's condition, with equality for $I = \{S_1, S_3, S_4, S_5\}$: the dashed box on the right marks their union $\{1, 2, 3, 4\}$, and $|I| = |\cup_{i \in I} S_i| = 4$. By Hall's theorem an SDR exists (e.g.\ $1, 5, 4, 3, 2$ represent $S_1, \ldots, S_5$); the dashed arrows show a greedy attempt that gets stuck and must be repaired.}
 \end{figure}
 
 \pagebreak
@@ -11077,10 +11079,10 @@ S_2 &= \{3\} \\
 S_3 &= \{1,2\}
 \end{align*}
 
-No SDR exists. For $I = \{1,2,3\}$, we have:
+An SDR exists, and it is unique. For $I = \{1,2,3\}$, we have:
 $|S_1\cup S_2\cup S_3| = |\{1,2,3\}| = 3 = |I|$
 
-The condition is satisfied with equality, but the specific structure prevents a valid SDR.
+The condition is satisfied with equality here (and it holds for every $I$), so an SDR exists by the theorem. The structure forces it: $3$ must represent $S_2$, then $1$ must represent $S_1$, and $2$ represents $S_3$.
 \end{example}
 
 
@@ -11163,12 +11165,10 @@ The condition is satisfied with equality, but the specific structure prevents a 
     \draw[gray, thin, dotted] (S3a) -- (p1a);
     \draw[gray, thin, dotted] (S3a) -- (p2a);
     
-    % Attempted SDR that fails
-    \draw[fail] (S1a) -- (p1a);
-    \draw[fail] (S2a) -- (p3a);
-    
-    % Problem indicator
-    \draw[red, thick] (S3a) circle (0.4cm);
+    % A successful assignment: the unique SDR
+    \draw[line width=1.2pt, -latex] (S1a) -- (p1a);
+    \draw[line width=1.2pt, -latex] (S2a) -- (p3a);
+    \draw[line width=1.2pt, -latex] (S3a) -- (p2a);
 \end{scope}
 
 \begin{scope}[yshift=-6cm, scale=0.85] % Adjusted scale
@@ -11235,18 +11235,18 @@ The condition is satisfied with equality, but the specific structure prevents a 
 \vspace{0.3cm}
 \noindent\fbox{\parbox{\textwidth}{
 \small \textbf{Explanation:} For $I = \{S_1, S_2, S_3\}$, we have $|S_1 \cup S_2 \cup S_3| = |\{1, 2, 3\}| = 3 = |I|$. 
-Hall's condition is satisfied with equality, but no valid SDR exists:
+Hall's condition is satisfied (with equality for this $I$), so an SDR exists; here it is unique:
 
 \begin{itemize}[leftmargin=0.8cm,topsep=0.1cm,itemsep=0.1cm]
-\item \textbf{Attempt 1:} If we assign element 1 to $S_1$ and element 3 to $S_2$, then $S_3$ has no representative left.
+\item \textbf{Attempt 1:} If we assign element 1 to $S_1$ and element 3 to $S_2$, then element 2 is still available for $S_3$, and we obtain an SDR.
 \item \textbf{Attempt 2:} If we assign element 3 to $S_1$ and element 2 to $S_3$, then $S_2$ has no representative left.
 \item \textbf{Attempt 3:} If we assign element 3 to $S_1$ and element 1 to $S_3$, then $S_2$ has no representative left.
 \end{itemize}
 
-The fundamental issue is that $S_2$ contains only element 3, which means element 3 must represent $S_2$ in any valid SDR. But if element 3 represents $S_2$, then $S_1$ must be represented by element 1, leaving no valid representative for $S_3$.
+Since $S_2$ contains only element 3, element 3 must represent $S_2$ in any SDR. Then $S_1$ must be represented by element 1, and $S_3$ by element 2. Here Hall's condition holds with equality for $\{S_2\}$, $\{S_1, S_2\}$ and $\{S_1, S_2, S_3\}$, which forces every choice; equality does not prevent an SDR from existing.
 }}
 \\
-\small Figure 120: Illustration of a case where no System of Distinct Representatives exists despite satisfying Hall's condition with equality ($|I| = |\cup_{i \in I} S_i| = 3$). The top diagram shows the committee-element relationships, while the bottom row shows all possible assignment attempts and why each fails.
+\small Figure 120: A family that satisfies Hall's condition with equality ($|I| = |\cup_{i \in I} S_i| = 3$) and has exactly one System of Distinct Representatives. The top diagram shows the committee-element relationships, while the bottom row shows the unique SDR (Attempt 1) and two assignments that get stuck (Attempts 2 and 3).
 \end{figure}
 
 \pagebreak
