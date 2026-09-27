@@ -2601,7 +2601,7 @@ By part (1), $G'$ has an Eulerian tour. This tour must use the edge $e$ at some 
 
 \clearpage
 
-\subsection{Eulerian Digraphs and DeBruijn Sequences}
+\subsection{Eulerian Digraphs and De Bruijn Sequences}
 \subsubsection{Eulerian Digraphs}
 
 \begin{definition}[Eulerian Directed Graphs]
@@ -2643,7 +2643,7 @@ A De Bruijn sequence $B(k, n)$ is a cyclic sequence of length $k^n$ over an alph
     
     \item Every string of length $n$ over the alphabet appears exactly once as a substring.
     
-    \item A De Bruijn sequence $B(k, n)$ can be viewed as a Hamiltonian path in the De Bruijn graph $G(k, n-1)$.
+    \item A De Bruijn sequence $B(k, n)$ can be viewed as a Hamiltonian cycle in the De Bruijn graph $G(k, n)$, whose vertices are the strings of length $n$ (equivalently, as an Eulerian circuit in $G(k, n-1)$; see below).
     
     \item The number of distinct De Bruijn sequences $B(k, n)$ is given by:
     \begin{equation}
@@ -2662,6 +2662,7 @@ De Bruijn sequences have a fundamental connection to Eulerian digraphs:
     \item A De Bruijn graph $G(k, n-1)$ is a directed graph with $k^{n-1}$ vertices, each labeled with a string of length $n-1$.
     \item There is an edge from vertex $u$ to vertex $v$ if the last $n-2$ symbols of $u$ match the first $n-2$ symbols of $v$.
     \item For every vertex in $G(k, n-1)$, the in-degree equals the out-degree (both equal to $k$).
+    \item $G(k, n-1)$ is strongly connected: from any vertex $u$ one can reach any vertex $v$ in $n-1$ steps by appending the symbols of $v$ one at a time.
     \item Therefore, $G(k, n-1)$ is an Eulerian digraph.
     \item A De Bruijn sequence $B(k, n)$ corresponds to an Eulerian circuit in $G(k, n-1)$.
 \end{enumerate}
@@ -2677,11 +2678,11 @@ The adjacency matrix $A$ of the De Bruijn graph $G(k, n)$ has the following prop
     \begin{equation}
         \text{Number of Eulerian circuits} = t_w \prod_{v \in V} (d^+(v) - 1)!
     \end{equation}
-    where $t_w$ is the number of oriented spanning trees(refer to def 33) rooted at vertex $w$.
+    where $t_w$ is the number of oriented spanning trees rooted at vertex $w$ (see the definition of a spanning tree in Chapter 5).
 \end{enumerate}
 \end{properties}
 
-\begin{properties}[Combinatorial Aspects] The combinatorial aspects of De Bruijn Sequence B(k,n) has the following properties
+\begin{properties}[Combinatorial Aspects] The combinatorial aspects of De Bruijn sequences $B(k,n)$ have the following properties
 \begin{enumerate}
     \item A De Bruijn sequence can be constructed from a Eulerian circuit in the De Bruijn graph $G(k, n-1)$.
     \item Every De Bruijn sequence $B(k, n)$ contains $k^n$ distinct substrings of length $n$.
@@ -2700,21 +2701,21 @@ where $a_i$ represents the $i$-th element in the sequence.
 \end{theorem}
 
 \begin{theorem}[LFSR Representation]
-A binary De Bruijn sequence can be generated using a Linear Feedback Shift Register with the characteristic polynomial:
+A binary Linear Feedback Shift Register (LFSR) of length $n$ with the characteristic polynomial:
 \begin{equation}
     p(x) = x^n + c_{n-1}x^{n-1} + \cdots + c_1x + c_0
 \end{equation}
-The recurrence relation is:
+generates a sequence satisfying the recurrence relation:
 \begin{equation}
     a_{i+n} = c_0a_i \oplus c_1a_{i+1} \oplus \cdots \oplus c_{n-1}a_{i+n-1}
 \end{equation}
-where $\oplus$ represents the XOR operation.
+where $\oplus$ represents the XOR operation. The all-zero state is mapped to itself, so the period of the output is at most $2^n - 1$; it equals $2^n - 1$ when $p(x)$ is primitive and the initial state is nonzero, and then every nonzero binary string of length $n$ appears exactly once per period (an $m$-sequence). In particular, an LFSR can never generate a binary De Bruijn sequence. Inserting one extra $0$ into the unique run of $n-1$ zeros of an $m$-sequence gives a De Bruijn sequence $B(2, n)$, but the resulting feedback function is nonlinear.
 \end{theorem}
 
 \begin{theorem}[Counting Formula]
 The number of distinct De Bruijn sequences $B(k, n)$ is:
 \begin{equation}
-    N(k, n) = \frac{k!^{k^{n-1}}}{k^n}
+    N(k, n) = \frac{(k!)^{k^{n-1}}}{k^n}
 \end{equation}
 
 For the binary case $B(2, n)$, the number of distinct sequences is:
@@ -2730,9 +2731,9 @@ The number of distinct De Bruijn sequences for small parameters:
     N(2, 3) &= 2 \\
     N(2, 4) &= 16 \\
     N(2, 5) &= 2048 \\
-    N(3, 2) &= 2 \\
-    N(3, 3) &= 48 \\
-    N(4, 2) &= 24
+    N(3, 2) &= 24 \\
+    N(3, 3) &= 373248 \\
+    N(4, 2) &= 20736
 \end{align}
 \end{example}
 \begin{theorem}[FKM Algorithm]
@@ -2756,9 +2757,9 @@ The FKM (Fredricksen, Kessler, Maiorana) algorithm constructs a binary De Bruijn
     \State \Return $N$
 \EndFunction
 \Function{GetAperiodicPrefixes}{necklace}
-    \State $prefixes \gets \emptyset$; $p \gets \text{period of necklace}$
+    \State $prefixes \gets$ empty list; $p \gets \text{period of necklace}$
     \For{$i \gets 1$ to $p$}
-        \State $prefixes \gets prefixes \cup \{\text{first } i \text{ bits of necklace}\}$
+        \State Append the first $i$ bits of necklace to $prefixes$
     \EndFor
     \State \Return $prefixes$
 \EndFunction
@@ -2773,7 +2774,7 @@ The FKM (Fredricksen, Kessler, Maiorana) algorithm constructs a binary De Bruijn
 \end{algorithm}
 
 \begin{remark}
-The FKM algorithm can also be implemented using Lyndon words:
+The FKM algorithm can also be implemented using Lyndon words: the aperiodic prefix of a necklace of length $n$ is a Lyndon word whose length divides $n$, and every such Lyndon word arises in this way. Equivalently, the sequence produced by the FKM algorithm is the concatenation, in lexicographic order, of all binary Lyndon words whose length divides $n$.
 \end{remark}
 
 \begin{algorithm}
@@ -2781,9 +2782,9 @@ The FKM algorithm can also be implemented using Lyndon words:
 \begin{algorithmic}[1]
 \Require Integer $n \geq 2$
 \Ensure Binary De Bruijn sequence $B(2, n)$
-\Function{IsLyndonWord}{$w$}
+\Function{IsNecklace}{$w$}
     \For{$i \gets 1$ to $|w|-1$}
-        \If{$w =$ rotation of $w$ by $i$ or $w >$ rotation of $w$ by $i$}
+        \If{$w >$ rotation of $w$ by $i$}
             \State \Return false
         \EndIf
     \EndFor
@@ -2797,8 +2798,8 @@ The FKM algorithm can also be implemented using Lyndon words:
 \EndFunction
 \State $S \gets \text{empty sequence}$
 \For{each binary string $w$ of length $n$ in lexicographic order}
-    \If{IsLyndonWord($w$)}
-        \State $period \gets \text{Period}(w)$
+    \If{IsNecklace($w$)}
+        \State $period \gets \text{Period}(w)$ \Comment{the first $period$ bits of $w$ form a Lyndon word}
         \For{$i \gets 1$ to $period$}
             \State $S \gets S \cdot \text{last bit of first } i \text{ bits of } w$
         \EndFor
@@ -2809,7 +2810,7 @@ The FKM algorithm can also be implemented using Lyndon words:
 \end{algorithm}
 
 \begin{theorem}[Prefer-1 Algorithm]
-The Prefer-1 algorithm generates a binary De Bruijn sequence $B(2, n)$ by starting with $n$ zeros and repeatedly appending either a 1 (preferred) or a 0, choosing whichever creates a new $n$-tuple that hasn't appeared before in the sequence.
+The Prefer-1 algorithm generates a binary De Bruijn sequence $B(2, n)$ by starting with $n$ zeros and repeatedly appending either a 1 (preferred) or a 0, choosing whichever creates a new $n$-tuple that hasn't appeared before in the sequence, and finally deleting the last $n-1$ bits, which are all zeros.
 \end{theorem}
 
 \begin{algorithm}
@@ -2832,6 +2833,7 @@ The Prefer-1 algorithm generates a binary De Bruijn sequence $B(2, n)$ by starti
     \EndIf
     \State $seen \gets seen \cup \{R\}$
 \EndWhile
+\State Delete the last $n-1$ bits of $S$ \Comment{They are all zeros; now $|S| = 2^n$}
 \State \Return $S$
 \end{algorithmic}
 \end{algorithm}
@@ -2845,7 +2847,7 @@ The Prefer-1 algorithm can be viewed as a greedy approach that traverses a De Br
 \end{remark}
 
 \begin{theorem}[Prefer-Opposite Algorithm]
-The Prefer-Opposite algorithm generates a binary De Bruijn sequence $B(2, n)$ by starting with $n$ zeros and repeatedly appending the opposite of the last bit (when possible) or the same as the last bit, choosing whichever creates a new $n$-tuple that hasn't appeared before in the sequence.
+The Prefer-Opposite algorithm generates a binary De Bruijn sequence $B(2, n)$ by starting with $n$ zeros and repeatedly appending the opposite of the last bit if this creates a new $n$-tuple that hasn't appeared before in the sequence, and otherwise the same as the last bit, until the last $n-1$ bits are all $1$. It then appends a $1$ followed by $n-1$ zeros and deletes the first $n-1$ bits. Without this final step the all-ones $n$-tuple would never be produced.
 \end{theorem}
 
 \begin{algorithm}
@@ -2858,7 +2860,7 @@ The Prefer-Opposite algorithm generates a binary De Bruijn sequence $B(2, n)$ by
 \State $last \gets 0$ \Comment{Last bit output}
 \State $seen \gets \{R\}$ \Comment{Set of seen $n$-tuples, initially contains all zeros}
 
-\While{$|seen| < 2^n$}
+\While{the last $n-1$ bits of $S$ are not all $1$}
     \State $opposite \gets 1-last$ \Comment{Opposite of the last bit}
     \State $R_{next} \gets $ last $n-1$ bits of $R$ followed by $opposite$
     \If{$R_{next} \notin seen$}
@@ -2870,6 +2872,8 @@ The Prefer-Opposite algorithm generates a binary De Bruijn sequence $B(2, n)$ by
     \State $S \gets S \cdot last$ \Comment{Append bit to output}
     \State $seen \gets seen \cup \{R\}$
 \EndWhile
+\State $S \gets S \cdot 1 \cdot 0^{n-1}$ \Comment{Append 1 followed by $n-1$ zeros}
+\State Delete the first $n-1$ bits of $S$ \Comment{Now $|S| = 2^n$}
 \State \Return $S$
 \end{algorithmic}
 \end{algorithm}
@@ -2879,19 +2883,19 @@ The Prefer-Opposite algorithm correctly generates a binary De Bruijn sequence of
 \end{theorem}
 
 \begin{remark}
-The Prefer-Opposite algorithm creates sequences with different balance properties than the Prefer-1 algorithm, often resulting in a more even distribution of 0s and 1s. This approach can be generalized to larger alphabets by defining a suitable notion of "opposite."
+Every binary De Bruijn sequence of order $n$ contains exactly $2^{n-1}$ zeros and $2^{n-1}$ ones (its bits are the first bits of its $2^n$ windows, and exactly half of all $n$-bit strings begin with $1$), so the two algorithms do not differ in the overall balance of 0s and 1s. They differ in how the bits are arranged: the Prefer-1 sequence begins with the long runs $0^n 1^n$, while the Prefer-Opposite sequence begins with $n$ alternating bits $0101\cdots$; in fact its run-length encoding is the lexicographically smallest among all binary De Bruijn sequences of order $n$ that begin with $0$. This approach can be generalized to larger alphabets by defining a suitable notion of ``opposite.''
 \end{remark}
-\begin{theorem}[Huang's Cycle-Joining Algorithm]
-Huang's algorithm constructs a De Bruijn sequence $B(k, n)$ by first generating all disjoint cycles of a feedback shift register, then identifying a spanning tree(refer to def 33) of the cycle graph, and systematically joining cycles according to the spanning tree to form a single cycle containing all states.
+\begin{theorem}[Cycle-Joining Algorithm]
+The cycle-joining method constructs a De Bruijn sequence $B(k, n)$ by first generating all disjoint cycles of a nonsingular feedback shift register (for example the pure cycling register, whose cycles are the necklaces of length $n$), then identifying a spanning tree (see the definition of a spanning tree in Chapter 5) of the cycle graph, and systematically joining cycles according to the spanning tree to form a single cycle containing all states. Two cycles are joined at a pair of conjugate states, that is, two states that differ only in their first symbol and lie on different cycles: interchanging the successors of these two states merges the two cycles into one. Huang (1990) gave a construction of this kind for binary De Bruijn sequences, based on the cycles of the complemented cycling register.
 \end{theorem}
 
 \begin{algorithm}
-\caption{Huang's Cycle-Joining Algorithm for $B(k, n)$}
+\caption{Cycle-Joining Algorithm for $B(k, n)$}
 \begin{algorithmic}[1]
 \Require Integer $n \geq 2$, alphabet size $k \geq 2$
 \Ensure De Bruijn sequence $B(k, n)$
 \Function{GenerateFSRCycles}{$n, k$}
-    \State Generate all disjoint cycles formed by the feedback shift register
+    \State Generate all disjoint cycles formed by a nonsingular feedback shift register (e.g., the pure cycling register)
     \State \Return set of all cycles $C = \{C_1, C_2, \ldots, C_m\}$
 \EndFunction
 
@@ -2900,15 +2904,15 @@ Huang's algorithm constructs a De Bruijn sequence $B(k, n)$ by first generating 
     \For{each cycle $C_i$ in $C$}
         \State Add a vertex $v_i$ to $G$ representing cycle $C_i$
     \EndFor
-    \For{each pair of cycles $C_i, C_j$ with a potential joining state}
-        \State Add an edge $(v_i, v_j)$ to $G$ labeled with the joining state
+    \For{each pair of conjugate states $s \in C_i$, $\hat{s} \in C_j$ with $i \neq j$}
+        \State Add an edge $(v_i, v_j)$ to $G$ labeled with the joining state $s$
     \EndFor
     \State \Return $G$
 \EndFunction
 
 \Function{JoinCycles}{$C_i, C_j, s$}
-    \State $s$ is a state appearing in both cycles at different predecessors
-    \State Redirect transitions to merge $C_i$ and $C_j$ into a single cycle
+    \State $s$ is a state of $C_i$ whose conjugate $\hat{s}$ (same last $n-1$ symbols, different first symbol) lies on $C_j$
+    \State Interchange the successors of $s$ and $\hat{s}$, which merges $C_i$ and $C_j$ into a single cycle
     \State \Return the merged cycle
 \EndFunction
 
@@ -2940,11 +2944,11 @@ Huang's algorithm constructs a De Bruijn sequence $B(k, n)$ by first generating 
 
 
 \begin{theorem}[Correctness]
-Huang's Cycle-Joining algorithm correctly generates a De Bruijn sequence of order $n$ over an alphabet of size $k$ with length $k^n$.
+If the feedback shift register is nonsingular and its cycle graph is connected (as it is for the pure cycling register), the Cycle-Joining algorithm correctly generates a De Bruijn sequence of order $n$ over an alphabet of size $k$ with length $k^n$.
 \end{theorem}
 
 \begin{remark}
-Huang's algorithm provides a general approach that works for any alphabet size and offers flexibility in how cycles are joined, enabling the construction of De Bruijn sequences with specific properties by choosing different spanning trees of the cycle graph.
+The cycle-joining method provides a general approach that works for any alphabet size and offers flexibility in how cycles are joined, enabling the construction of De Bruijn sequences with specific properties by choosing different spanning trees of the cycle graph.
 \end{remark}
 
 \begin{remark}[\textit{On Spanning Trees}]
@@ -2953,7 +2957,7 @@ The foundational concepts of spanning trees are addressed in Section~5.2 as part
 
 
 \begin{remark}[Non-uniqueness]
-De Bruijn sequences are not unique for $n > 2$. The number of distinct De Bruijn sequences $B(2,n)$ is given by $2^{2^{n-1}-n}$, which grows rapidly with $n$. For example, there are 2 distinct $B(2,3)$ sequences and 16 distinct $B(2,4)$ sequences.
+Binary De Bruijn sequences are not unique for $n > 2$. The number of distinct De Bruijn sequences $B(2,n)$ is given by $2^{2^{n-1}-n}$, which grows rapidly with $n$. For example, there are 2 distinct $B(2,3)$ sequences and 16 distinct $B(2,4)$ sequences.
 \end{remark}
 
 \begin{table}[htbp]
@@ -2963,31 +2967,31 @@ De Bruijn sequences are not unique for $n > 2$. The number of distinct De Bruijn
 \small
 \begin{tabular}{|l|c|c|c|c|}
 \hline
- & \textbf{Huang} & \textbf{Prefer-Opp.} & \textbf{Prefer-1} & \textbf{Lyndon} \\
+ & \textbf{Cycle-joining} & \textbf{Prefer-Opp.} & \textbf{Prefer-1} & \textbf{Lyndon} \\
 \hline
 \textbf{Purpose} & General & Binary & Binary & Mathematical \\
 \hline
 \textbf{Time} & $O(k^n)$ & $O(2^n)$ & $O(2^n)$ & $O(2^n)$ \\
 \hline
-\textbf{Space} & $O(k^n)$ & $O(n)$ & $O(n)$ & $O(n)$ \\
+\textbf{Space} & $O(k^n)$ & $O(2^n)$ & $O(2^n)$ & $O(n)$ \\
 \hline
-\textbf{Key Feature} & Any $k$ & In-place & Simplest & Elegant \\
+\textbf{Key Feature} & Any $k$ & Greedy & Simplest & Elegant \\
 \hline
 \end{tabular}
 \end{table}
 
 \subsection{De Bruijn Graphs}
 \begin{definition}[De Bruijn Graph]
-A De Bruijn graph $G(k,n)$ is a directed graph representing all possible sequences of a given length over a given alphabet:
+The De Bruijn graph $G(k,n)$ of order $n$ over an alphabet of size $k$ (also written $B(k,n)$) is a directed graph representing all possible sequences of a given length over a given alphabet:
 
 \begin{enumerate}
-    \item The graph has $k^{n-1}$ vertices, where $k$ is the alphabet size.
-    \item Each vertex represents a sequence of length $n-1$ over the alphabet.
-    \item There is a directed edge from vertex $u$ to vertex $v$ if the last $n-2$ symbols of $u$ match the first $n-2$ symbols of $v$.
+    \item The graph has $k^{n}$ vertices, where $k$ is the alphabet size.
+    \item Each vertex represents a sequence of length $n$ over the alphabet.
+    \item There is a directed edge from vertex $u$ to vertex $v$ if the last $n-1$ symbols of $u$ match the first $n-1$ symbols of $v$.
     \item Each edge is labeled with the symbol that extends the sequence represented by $u$ to obtain the sequence for the destination vertex $v$.
-    \item The graph has exactly $k^n$ edges.
+    \item The graph has exactly $k^{n+1}$ edges.
     \item For every vertex, the in-degree equals the out-degree (both equal to $k$).
-    \item A De Bruijn sequence $B(k,n)$ corresponds to an Eulerian cycle in this graph.
+    \item A De Bruijn sequence $B(k,n+1)$ corresponds to an Eulerian cycle in this graph.
 \end{enumerate}
 \end{definition}
 
@@ -3026,7 +3030,7 @@ A De Bruijn graph $G(k,n)$ is a directed graph representing all possible sequenc
   \end{tikzpicture}
 
   {\centering
-\small Figure 41:De Bruijn Graph $B(2,3)$. This directed graph has 4 vertices representing all 2-bit sequences, and 8 edges labeled by the appended bit. An Eulerian circuit on this graph yields a de Bruijn sequence of order~3 over a binary alphabet. \par}
+\small Figure 41: De Bruijn Graph $B(2,2)$. This directed graph has 4 vertices representing all 2-bit sequences, and 8 edges labeled by the appended bit. An Eulerian circuit on this graph yields a de Bruijn sequence of order~3 over a binary alphabet. \par}
 \end{figure}
 
 \begin{figure}[ht]
@@ -3060,7 +3064,7 @@ A De Bruijn graph $G(k,n)$ is a directed graph representing all possible sequenc
 
 % From 010
 \path[->] (010) edge node {0} (100);
-\path[->] (010) edge node {1} (101);
+\path[->] (010) edge[bend left=10] node {1} (101);
 
 % From 011
 \path[->] (011) edge node {0} (110);
@@ -3071,7 +3075,7 @@ A De Bruijn graph $G(k,n)$ is a directed graph representing all possible sequenc
 \path[->] (100) edge node {1} (001);
 
 % From 101
-\path[->] (101) edge node {0} (010);
+\path[->] (101) edge[bend left=10] node {0} (010);
 \path[->] (101) edge node {1} (011);
 
 % From 110
@@ -3085,7 +3089,7 @@ A De Bruijn graph $G(k,n)$ is a directed graph representing all possible sequenc
 \end{tikzpicture}
 \par}
 {\centering
-\small Figure 42: De Bruijn Graph $B(2,4)$. This directed graph has 8 vertices representing all possible 3-bit binary sequences (000 through 111). Each edge is labeled with the bit (0 or 1) that is appended when transitioning between states. The graph has 16 edges in total, and a De Bruijn sequence $B(2,4)$ corresponds to an Eulerian circuit traversing all edges exactly once.
+\small Figure 42: De Bruijn Graph $B(2,3)$. This directed graph has 8 vertices representing all possible 3-bit binary sequences (000 through 111). Each edge is labeled with the bit (0 or 1) that is appended when transitioning between states. The graph has 16 edges in total, and a De Bruijn sequence $B(2,4)$ corresponds to an Eulerian circuit traversing all edges exactly once.
 \par}
 \end{figure}
 \begin{lemma}[Connection to Eulerian Circuits]
@@ -3117,22 +3121,23 @@ The De Bruijn graph $B(k,n+1)$ is isomorphic to the line graph of $B(k,n)$.
 In the line graph of $B(k,n)$, each vertex corresponds to an edge in $B(k,n)$. An edge in $B(k,n)$ represents a transition from an $n$-length sequence to another by appending a symbol and removing the first symbol, which results in an $(n+1)$-length sequence. This exactly corresponds to a vertex in $B(k,n+1)$. Two vertices in the line graph are adjacent if their corresponding edges in $B(k,n)$ form a directed path of length 2, which precisely matches the adjacency condition in $B(k,n+1)$.
 \end{proof}
 \begin{theorem}[Shift Register Implementation]
-Every binary De Bruijn sequence of order $n$ can be generated by a linear feedback shift register of length $n$ with an appropriate feedback function.
+Every binary De Bruijn sequence of order $n$ can be generated by a feedback shift register of length $n$ with an appropriate feedback function. This feedback function is necessarily nonlinear.
 \end{theorem}
 
 \begin{proof}[Proof outline]
 Consider an $n$-bit shift register with bits $(b_1, b_2, \ldots, b_n)$. For each state of the register, we compute the next bit $b_{n+1}$ using a feedback function $f(b_1, b_2, \ldots, b_n)$. This bit is then shifted into the register, and $b_1$ is discarded.
 
-For a De Bruijn sequence, we need a feedback function $f$ such that the shift register cycles through all $2^n$ possible states before repeating. This can be achieved by defining $f$ such that:
-
-1. For the state $(0, 0, \ldots, 0)$, $f$ outputs 1 (to avoid the cycle containing only zeros)
-2. For all other states, $f$ is chosen strategically to ensure a maximal cycle
-
-One such function for binary De Bruijn sequences is:
+Let $s_0 s_1 \cdots s_{2^n-1}$ be a binary De Bruijn sequence of order $n$, with indices taken modulo $2^n$. Since every binary string of length $n$ occurs exactly once as a window $(s_i, s_{i+1}, \ldots, s_{i+n-1})$, the rule
 \begin{center}
-$f(b_1, b_2, \ldots, b_n) = b_1 \oplus b_2 \oplus \cdots \oplus b_{n-1} \oplus (b_n \lor 1)$
+$f(s_i, s_{i+1}, \ldots, s_{i+n-1}) = s_{i+n}$
 \end{center}
-where $\oplus$ is XOR and $\lor$ is OR. This produces a modified maximum-length sequence that includes all $2^n$ possible states.
+defines $f$ unambiguously on all $2^n$ states. Started in the state $(s_0, s_1, \ldots, s_{n-1})$, the register outputs $s_0, s_1, s_2, \ldots$ and cycles through all $2^n$ possible states before repeating.
+
+The function $f$ cannot be linear: a linear $f$ satisfies $f(0, 0, \ldots, 0) = 0$, so the state $(0, 0, \ldots, 0)$ would be followed by itself, whereas in a De Bruijn sequence the window $0 0 \cdots 0$ occurs only once in a period of length $2^n > 1$. In particular, $f(0, 0, \ldots, 0) = 1$. For example, for $n = 3$ the linear recurrence $a_{i+3} = a_i \oplus a_{i+1}$ (characteristic polynomial $x^3 + x + 1$) produces the maximum-length sequence $0010111$ of period $7$, and the modified, nonlinear feedback function
+\begin{center}
+$f(b_1, b_2, b_3) = b_1 \oplus b_2 \oplus \big((1 \oplus b_2)(1 \oplus b_3)\big)$
+\end{center}
+where $\oplus$ is XOR, produces the De Bruijn sequence $00010111$, which includes all $2^3$ possible states.
 \end{proof}
 \pagebreak
 \pagebreak
