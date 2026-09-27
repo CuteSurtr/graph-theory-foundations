@@ -9802,12 +9802,12 @@ This graph does not have a perfect matching because it has 7 vertices (an odd nu
     }
     
     % Label
-    \node at (0,-2.3) {Figure 102 : Petersen graph - has an odd number of vertices (5+5)};
-    \node at (0,-2.8) {Cannot have a perfect matching};
+    \node at (0,-2.3) {Figure 102 : Petersen graph - has an even number of vertices (5+5)};
+    \node at (0,-2.8) {The five spokes $o_i i_i$ form a perfect matching};
 \end{tikzpicture}
 \end{figure}
 
-The Petersen graph shown above has 10 vertices, which is an even number. However, it still cannot have a perfect matching due to its specific structure. A key property of graphs that can have perfect matchings is that for any subset $S$ of vertices, the number of connected components in $G - S$ that have an odd number of vertices is at most $|S|$ (a consequence of Tutte's theorem).
+The Petersen graph shown above has 10 vertices, which is an even number, and it does have a perfect matching: the five spokes $o_1 i_1, o_2 i_2, \ldots, o_5 i_5$ are pairwise disjoint and together cover all ten vertices. (In fact, the Petersen graph has exactly six perfect matchings; what it lacks is a partition of its edge set into three perfect matchings.) An even number of vertices is necessary but not sufficient for a perfect matching: the star $K_{1,3}$ has 4 vertices, but deleting the set $S$ consisting of its center leaves $3 > 1 = |S|$ odd components, so $K_{1,3}$ has no perfect matching. In general, a graph $G$ has a perfect matching if and only if for every subset $S$ of vertices, the number of connected components in $G - S$ that have an odd number of vertices is at most $|S|$ (Tutte's theorem).
 \end{example}
 
 \begin{example}
@@ -9910,7 +9910,7 @@ This is a perfect matching since all persons are assigned a job and all jobs are
 \end{example}
 
 \begin{remark}
-If $n \neq m$ (i.e., the number of people doesn't equal the number of jobs), then we can't have a perfect matching. The maximum number of assignments possible will be $\min(n, m)$.
+If $n \neq m$ (i.e., the number of people doesn't equal the number of jobs), then we can't have a perfect matching. The maximum number of assignments possible is at most $\min(n, m)$, and it can be smaller: for example, if $n = 2$, $m = 3$, and both people can do only job $j_1$, then only one assignment is possible.
 \end{remark}
 
 \subsection{Independent Sets and Covers}
@@ -10156,7 +10156,7 @@ The second part tells us that for any graph (even those with isolated vertices),
 \begin{remark}
 These relationships reflect the complementary nature of these graph parameters:
 \begin{itemize}
-\item A vertex is either in an independent set or in a vertex cover
+\item A set $S \subseteq V(G)$ is independent if and only if its complement $V(G) \setminus S$ is a vertex cover
 \item Each vertex must be covered by at least one edge in an edge cover, and can be covered by at most one edge in a matching
 \end{itemize}
 \end{remark}
