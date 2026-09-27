@@ -290,80 +290,6 @@ The roots are $\pm \sqrt{3 \pm \sqrt{6}}$, all real and inside the
 Heilmann--Lieb interval $(-2\sqrt{2}, 2\sqrt{2}) \approx (-2.83, 2.83)$.
 \end{example}
 
-\subsubsection{Exercises}
-
-\paragraph{Easy Questions.}
-
-\begin{exercise}
-Compute $\mu(C_5, x)$ and $\mu(C_6, x)$ from the recurrence
-$\mu(C_n, x) = \mu(P_n, x) - \mu(P_{n-2}, x)$, which follows from
-Theorem~\ref{thm:matchrec} applied to a single edge of $C_n$.
-\end{exercise}
-
-\begin{exercise}
-Verify Proposition~\ref{prop:matchforest} for the path $P_4$ by
-computing both $\mu(P_4, x)$ from the matching definition and
-$\det(xI - A(P_4))$ from the adjacency matrix.
-\end{exercise}
-
-\paragraph{Medium Questions.}
-
-\begin{exercise}
-Prove $\mu(G, x) = \mu(G \setminus e, x) - \mu(G \setminus \{u, v\}, x)$
-in detail by induction on $|E(G)|$, taking care of the edge-case
-$|M| = 0$.
-\end{exercise}
-
-\begin{exercise}
-Show that $\mu(G \cup H, x) = \mu(G, x) \cdot \mu(H, x)$ for the
-disjoint union of $G$ and $H$, and use this to compute $\mu(mK_2, x)$.
-Then show that there is no such shortcut for Cartesian products:
-$C_4 \cup K_1$ and the tree obtained from $K_{1,3}$ by subdividing one
-edge both have matchings polynomial $x^5 - 4x^3 + 2x$, but their
-Cartesian products with $K_2$ have different matchings polynomials.
-(So $\mu(Q_5, x)$, where $Q_5 = Q_4 \,\square\, K_2$ is two copies of
-$Q_4$ joined by a perfect matching, cannot be computed from
-$\mu(Q_4, x)$ and $\mu(K_2, x)$ by a general rule; apply the edge
-recurrence of Theorem~\ref{thm:matchrec} to the $16$ edges joining the
-two copies instead.)
-\end{exercise}
-
-\paragraph{Hard Questions.}
-
-\begin{exercise}
-Prove the path-tree identity (Theorem~\ref{thm:pathtree}) by
-applying the vertex recurrence simultaneously to $G$ and to
-$T(G, u)$ at the root, then inducting on the depth of expansion.
-\end{exercise}
-
-\begin{exercise}
-Use the Heilmann--Lieb theorem and the identity
-$\mu(G, x) = x^{n} Z_G(-x^{-2})$ to show that every zero of the partition
-function $Z_G(\lambda) = \sum_M \lambda^{|M|}$ is real and negative and,
-when $\Delta \ge 2$, lies in $(-\infty, -1/(4(\Delta - 1)))$. Conclude
-that $\log Z_G$ extends holomorphically to the slit plane
-$\mathbb C \setminus (-\infty, -1/(4(\Delta - 1))]$, a zero-free region
-for $Z_G$ that does not depend on the number of vertices of $G$.
-\end{exercise}
-
-\paragraph{Diagram Questions.}
-
-\begin{exercise}
-Draw the path-tree $T(C_4, v)$ for any vertex $v$ of the $4$-cycle
-$C_4$. Verify that $T(C_4, v)$ is the path $P_7$ with $v$ in the middle
-(the infinite $2$-regular tree truncated at depth $3$), compute its
-characteristic polynomial, and check that it is divisible by
-$\mu(C_4, x)$.
-\end{exercise}
-
-\begin{exercise}
-Mark the roots of $\mu(K_4, x)$ on the real line and shade the
-Heilmann--Lieb interval $(-2\sqrt{2}, 2\sqrt{2})$ to confirm strict
-containment. Compare with the actual adjacency spectrum
-$\{3, -1, -1, -1\}$ of $K_4$ (which lies on $\mathbb{Z}$, not on the
-matching polynomial roots).
-\end{exercise}
-
 %====================================================================
 \subsection{Equitable Partitions and Quotient Interlacing}\label{subsec:equitable-partitions}
 %====================================================================
@@ -495,68 +421,6 @@ equitable with the same quotient matrix.
 
 This sets up Section~\ref{subsec:drg}, where the quotient matrix is
 the canonical tridiagonal intersection matrix.
-
-\subsubsection{Exercises}
-
-\paragraph{Easy Questions.}
-
-\begin{exercise}
-Show that the orbit partition of any subgroup of $\mathrm{Aut}(G)$ is
-equitable.
-\end{exercise}
-
-\begin{exercise}
-Find an equitable partition of the Petersen graph into two parts
-(outer pentagon and inner pentagram). Write its $2 \times 2$ quotient
-matrix and verify both eigenvalues appear in the Petersen spectrum
-$\{3, 1^{(5)}, -2^{(4)}\}$.
-\end{exercise}
-
-\paragraph{Medium Questions.}
-
-\begin{exercise}
-Prove Theorem~\ref{thm:quotientspec} from the matrix identity
-$AS = SB$. Show further that the $k$ eigenvalues of $B$ are exactly
-the eigenvalues of $A$ whose eigenvectors are constant on each cell
-of $\pi$.
-\end{exercise}
-
-\begin{exercise}
-Apply the Hoffman ratio bound (Corollary~\ref{cor:haemers}) to the
-Petersen graph and to the Kneser graph $K(5, 2)$ (which is the
-Petersen graph). Compare with the exact independence number $\alpha(P) = 4$.
-\end{exercise}
-
-\paragraph{Hard Questions.}
-
-\begin{exercise}
-Prove that a connected graph is distance-regular iff every distance
-partition $\pi_v$ ($v \in V$) is equitable with the \emph{same}
-quotient matrix (Theorem~\ref{thm:drgequit}).
-\end{exercise}
-
-\begin{exercise}
-Let $G$ be a graph with an equitable partition $\pi$. Show that the
-spectrum of $G$ decomposes as $\sigma(B) \cup \sigma(A_{\pi^\perp})$,
-where $A_{\pi^\perp}$ is $A$ restricted to vectors that sum to zero on
-each cell. Conclude that all ``new'' eigenvalues of $G$ relative to
-$B$ have eigenvectors orthogonal to the constant-on-cells subspace.
-\end{exercise}
-
-\paragraph{Diagram Questions.}
-
-\begin{exercise}
-Draw the cycle $C_6$ and find an equitable partition into three cells
-of size $2$ each (alternating cells). Write the $3 \times 3$ quotient
-matrix and verify that its eigenvalues $\{2, -1, -1\}$ appear among
-the cycle spectrum $\{2, 1, -1, -2, -1, 1\}$.
-\end{exercise}
-
-\begin{exercise}
-Sketch the distance partition of the cube $Q_3$ from a corner vertex.
-Verify that it is equitable into four cells of sizes $1, 3, 3, 1$, and
-write its tridiagonal quotient matrix.
-\end{exercise}
 
 %====================================================================
 \subsection{Distance-Regular Graphs and Association Schemes}\label{subsec:drg}
@@ -711,67 +575,6 @@ The Delsarte LP gives the best-known general bounds on optimal codes
 (in $H(n, q)$), set systems with bounded intersection (in $J(n, k)$),
 and packings in spherical caps (continuous analogue).
 
-\subsubsection{Exercises}
-
-\paragraph{Easy Questions.}
-
-\begin{exercise}
-Verify that the cycle $C_6$ is distance-regular and compute its
-intersection array. Compare with the array of the Petersen graph.
-\end{exercise}
-
-\begin{exercise}
-Show that every connected strongly regular graph with parameters
-$(n, k, \lambda, \mu)$ that is not complete is distance-regular of
-diameter $2$ with intersection array $\{k, k - 1 - \lambda; 1, \mu\}$.
-(Both hypotheses are needed with the definition of \S\ref{subsec:spectral}: $2K_3$ is
-strongly regular with parameters $(6, 2, 1, 0)$ but disconnected, and
-$K_n$ has diameter $1$.)
-\end{exercise}
-
-\paragraph{Medium Questions.}
-
-\begin{exercise}
-Compute the intersection array of the Hamming graph $H(3, 2) = Q_3$.
-Verify directly using Definition~\ref{def:drg}.
-\end{exercise}
-
-\begin{exercise}
-Verify that for the Johnson scheme $J(5, 2)$, the graph $R_2$ is the
-Petersen graph (vertices: $2$-subsets of $[5]$; edges: disjoint
-$2$-subsets), while $R_1$ is its complement, the triangular graph
-$T(5) = J(5, 2)$.
-\end{exercise}
-
-\paragraph{Hard Questions.}
-
-\begin{exercise}
-Prove Theorem~\ref{thm:bosemesner}: the matrices $A_0, \ldots, A_d$
-of an association scheme commute pairwise and span a commutative
-algebra. Use the symmetry $A_i^\top = A_i$ and the multiplication rule
-$A_i A_j = \sum_k p_{ij}^k A_k$.
-\end{exercise}
-
-\begin{exercise}
-Use the Delsarte LP bound on the Johnson scheme $J(n, k)$ to recover
-the Erd\H{o}s--Ko--Rado theorem: a family of pairwise-intersecting
-$k$-subsets of $[n]$ ($n \ge 2k$) has size at most $\binom{n-1}{k-1}$.
-\end{exercise}
-
-\paragraph{Diagram Questions.}
-
-\begin{exercise}
-Draw the Hamming graph $H(2, 3)$ (vertices: $\{0, 1, 2\}^2$; edges:
-words differing in one coordinate). Identify it as the rook graph
-$3 \times 3$ and compute its spectrum.
-\end{exercise}
-
-\begin{exercise}
-Sketch the partition $\{R_0, R_1, R_2\}$ of the vertex pairs of $C_5$
-by distance. Verify the intersection numbers $p_{ij}^k$ from the
-multiplication table $A_i A_j = \sum_k p_{ij}^k A_k$.
-\end{exercise}
-
 %====================================================================
 \subsection{Cayley Graphs and Vertex-Transitive Graphs}\label{subsec:cayley}
 %====================================================================
@@ -890,71 +693,6 @@ group $S_5$. There is no subgroup of $S_5$ of order $10$ acting
 regularly on the $10$ vertices, so Petersen fails Sabidussi's
 criterion.
 \end{example}
-
-\subsubsection{Exercises}
-
-\paragraph{Easy Questions.}
-
-\begin{exercise}
-Identify each of the following as a Cayley graph if possible: $K_4$,
-$K_{3,3}$, $C_5$, $Q_3$, the Petersen graph.
-\end{exercise}
-
-\begin{exercise}
-Compute the spectrum of the circulant graph $C_8(\{1, 3\})$ using
-Theorem~\ref{thm:cayleyabelian}.
-\end{exercise}
-
-\paragraph{Medium Questions.}
-
-\begin{exercise}
-Show that $\mathrm{Cay}(\mathbb Z_n, S)$ is connected iff $\gcd(S) = 1$,
-where $\gcd(S)$ is the GCD of the elements of $S \cup (-S) \cup \{n\}$.
-\end{exercise}
-
-\begin{exercise}
-Verify that the Cayley graph $\mathrm{Cay}(D_8, \{r, r^{-1}, s\})$
-(dihedral group with rotation $r$ of order $4$ and reflection $s$) is
-isomorphic to the cube $Q_3$. Use Sabidussi's theorem to conclude that
-$Q_3$ has at least two non-equivalent presentations as a Cayley graph.
-\end{exercise}
-
-\paragraph{Hard Questions.}
-
-\begin{exercise}
-Let $\Gamma$ be a finite abelian group of order $N$ and $S$ a symmetric
-generating set with $|S| = d$. Prove that for every integer $m \ge 2$
-with $m^{d} < N$, the second-largest eigenvalue $\lambda_2$ of
-$\mathrm{Cay}(\Gamma, S)$ satisfies $\lambda_2 \ge d \cos(2\pi/m)$.
-(Hint: write $\chi(s) = e^{2\pi i \theta_\chi(s)}$ and apply the
-pigeonhole principle to the $N$ points $(\theta_\chi(s))_{s \in S}$,
-$\chi \in \widehat{\Gamma}$, of the torus $(\mathbb R/\mathbb Z)^{d}$ cut
-into $m^{d}$ boxes of side $1/m$.) Conclude that abelian Cayley graphs
-cannot be expanders if the generating set has bounded size.
-\end{exercise}
-
-\begin{exercise}
-Use the character formula for non-abelian Cayley graphs to compute
-the spectrum of the Cayley graph of $S_3$ with generating set
-$\{(12), (13), (23)\}$. Identify the resulting graph.
-\end{exercise}
-
-\paragraph{Diagram Questions.}
-
-\begin{exercise}
-Draw $\mathrm{Cay}(\mathbb Z_2^3, \{e_1, e_2, e_3\}) = Q_3$ and label
-the eigenvectors $\chi_T$ for each $T \subseteq \{1, 2, 3\}$. Color
-each vertex by the sign $\chi_T(g) = \pm 1$ for $T = \{1, 2\}$ and
-verify that this colouring is balanced and orthogonal to the all-ones
-vector.
-\end{exercise}
-
-\begin{exercise}
-Draw the Cayley graph of $\mathbb Z_5$ with generating set
-$\{\pm 1\}$ (the pentagon $C_5$). Mark the eigenvectors
-$\chi_j(k) = e^{2\pi i j k/5}$ for $j = 1, 2$ and verify that the
-corresponding eigenvalues are $2 \cos(2\pi/5)$ and $2 \cos(4\pi/5)$.
-\end{exercise}
 
 %====================================================================
 \subsection{The Tutte Polynomial and Graphic Matroids}\label{subsec:tutte-polynomial}
@@ -1141,69 +879,6 @@ non-isomorphic trees---a much finer invariant than the chromatic
 polynomial $\chi_T(k) = k(k - 1)^{n - 1}$, which depends only on the
 number of vertices.
 
-\subsubsection{Exercises}
-
-\paragraph{Easy Questions.}
-
-\begin{exercise}
-Compute $T_{C_4}(x, y)$ from Definition~\ref{def:tutte} by enumerating
-all $2^4 = 16$ subsets of edges. Verify your answer against the
-deletion--contraction recursion (Theorem~\ref{thm:tuttedc}).
-\end{exercise}
-
-\begin{exercise}
-Use Theorem~\ref{thm:tuttechrom} to derive the chromatic polynomial
-$\chi_{K_4}(k)$ from $T_{K_4}(x, y)$. Compare with the direct formula
-$\chi_{K_n}(k) = k(k - 1)(k - 2) \cdots (k - n + 1)$.
-\end{exercise}
-
-\paragraph{Medium Questions.}
-
-\begin{exercise}
-Prove the deletion--contraction recursion (Theorem~\ref{thm:tuttedc})
-from Definition~\ref{def:tutte} by partitioning $A \subseteq E$ into
-those containing $e$ and those not.
-\end{exercise}
-
-\begin{exercise}
-Show that $T_G(2, 1) = $ number of spanning forests of $G$,
-$T_G(1, 1) = $ number of spanning trees (for connected $G$), and
-$T_G(2, 0) = $ number of acyclic orientations of $G$ (Stanley).
-\end{exercise}
-
-\paragraph{Hard Questions.}
-
-\begin{exercise}
-Prove Whitney's broken-circuit theorem (Theorem~\ref{thm:whitneybc})
-by inclusion--exclusion on the cycles of $G$, ordered by their largest
-edge.
-\end{exercise}
-
-\begin{exercise}
-Show that if $G$ is chordal, then every root of $\chi_G(k)$ is a
-non-negative integer. (Hint: chromatic polynomials of chordal graphs
-factor into linear pieces by a perfect elimination ordering.) Show that
-the converse fails: if $H$ is obtained from $K_6$ minus an edge $ab$ by
-adding a new vertex adjacent to exactly $a$ and $b$, then $H$ has an
-induced $4$-cycle, yet $\chi_H(k) = k(k-1)(k-2)(k-3)^3(k-4)$.
-\end{exercise}
-
-\paragraph{Diagram Questions.}
-
-\begin{exercise}
-For the planar graph $G = K_4$ minus an edge, draw both $G$ and its
-planar dual $G^*$. Verify directly that $T_{G^*}(x, y) = T_G(y, x)$
-by computing both polynomials and comparing.
-\end{exercise}
-
-\begin{exercise}
-Draw the broken-circuit complex of the triangle $K_3$ with edges
-ordered $e_1 < e_2 < e_3$. Identify the unique broken circuit
-$\{e_1, e_2\}$, and verify
-$\chi_{K_3}(k) = k^3 - 3k^2 + 2k$ from the broken-circuit sum of
-Theorem~\ref{thm:whitneybc}.
-\end{exercise}
-
 %====================================================================
 \subsection{Heaps of Pieces and Walk Generating Functions}\label{subsec:heaps}
 %====================================================================
@@ -1351,79 +1026,6 @@ orthogonal-polynomial moments (Hermite, Laguerre, Meixner, etc.).
 This is the algebraic root of why the matching polynomial of $K_n$ is
 Hermite, of $P_n$ is Chebyshev, of $K_{m,n}$ is Laguerre.
 \end{corollary}
-
-\subsubsection{Exercises}
-
-\paragraph{Easy Questions.}
-
-\begin{exercise}
-List all heaps of pieces on the path commutation graph $C = P_3$ with
-pieces $\{a, b, c\}$ (so $a$ commutes with $b$, and $b$ with $c$) and
-weights $w(a) = w(b) = w(c) = 1$, of total
-size $\le 3$. Verify the trivial-heap generating function
-$\mathcal T(z) = 1 - 3z + 2z^2$ and the master theorem
-$\mathcal H(z) = 1/(1 - 3z + 2z^2)$.
-\end{exercise}
-
-\begin{exercise}
-For the weighted matchings polynomial of $K_3$ with unit weights
-(Corollary~\ref{cor:viennot}), verify that
-$1/\mu_w(K_3, z) = 1/(1 - 3z) = \sum_{k \ge 0} 3^k z^k$ in formal power
-series, and interpret the coefficients as counts of heaps of edges in
-$K_3$ (no two edges of $K_3$ commute).
-\end{exercise}
-
-\paragraph{Medium Questions.}
-
-\begin{exercise}
-Use Theorem~\ref{thm:cartierfoata} to derive the Lindstr\"om--Gessel--Viennot
-lemma in the special case of vertex-disjoint paths in a planar
-acyclic digraph.
-\end{exercise}
-
-\begin{exercise}
-Apply Flajolet's theorem (\ref{thm:flajolet}) with $b_n = 0$ and
-$\lambda_n = n$ to recover the moment generating function of the
-Hermite polynomials, $\sum_k (2k - 1)!! \, z^{2k}$.
-\end{exercise}
-
-\paragraph{Hard Questions.}
-
-\begin{exercise}
-Prove Theorem~\ref{thm:cyclesheap}: expand $\det(I - zA)$ over
-permutations (the non-trivial cycles of a permutation form a family of
-vertex-disjoint oriented cycles) to obtain $Q(z) = \det(I - zA)$, apply
-Theorem~\ref{thm:cartierfoata} on the cycle commutation
-graph $C^{\mathrm{cyc}}(G)$, and use
-$\sum_{k \ge 1} \mathrm{tr}(A^k) z^k = -z \frac{d}{dz} \log \det(I - zA)$.
-\end{exercise}
-
-\begin{exercise}
-Generalise Flajolet's theorem to closed walks on a weighted bipartite
-graph: derive the Stieltjes continued fraction
-$\sum m_k z^k = 1/(1 - c_1 z/(1 - c_2 z/(1 - \cdots)))$ and identify
-the corresponding orthogonal polynomials.
-\end{exercise}
-
-\paragraph{Diagram Questions.}
-
-\begin{exercise}
-Draw a sample heap of $4$ pieces on the commutation graph
-$C = $ disjoint union of $K_2$ and an isolated vertex (i.e.\ pieces
-$a, b, c$ with $a \sim b$ and $c$ isolated). Sketch the heap as a
-``stack'' picture and identify which pieces are at the bottom.
-\end{exercise}
-
-\begin{exercise}
-Sketch the cycle commutation graph $C^{\mathrm{cyc}}(K_4)$. Identify
-the oriented cycles of $K_4$ (six $2$-cycles, one for each edge; eight
-oriented triangles; six oriented $4$-cycles) and the disjointness
-relations between them (the only vertex-disjoint pairs are the three
-pairs of $2$-cycles on opposite edges), so that
-$Q(z) = 1 - 6z^2 - 8z^3 - 3z^4 = \det(I - zA(K_4))$. Verify Theorem~\ref{thm:cyclesheap}
-gives $W_4(K_4) = $ number of closed walks of length $4$ in $K_4$
-($= \mathrm{tr}(A(K_4)^4) = 3^4 + (-1)^4 + (-1)^4 + (-1)^4 = 84$).
-\end{exercise}
 
 %====================================================================
 \subsection{The Ihara Zeta Function of a Graph}\label{subsec:ihara}
@@ -1577,67 +1179,6 @@ $u = 1$. By Theorem~\ref{thm:iharabass} this amounts to
 This is a graph-zeta analogue of the class number formula.
 \end{theorem}
 
-\subsubsection{Exercises}
-
-\paragraph{Easy Questions.}
-
-\begin{exercise}
-Compute $Z_{K_4}(u)$ explicitly using the Ihara--Bass formula. ($K_4$
-is $3$-regular with adjacency spectrum $\{3, -1, -1, -1\}$ and
-$r = 6 - 4 + 1 = 3$.)
-\end{exercise}
-
-\begin{exercise}
-Verify Theorem~\ref{thm:ramanujangrh} for the Petersen graph: its
-spectrum $\{3, 1^{(5)}, -2^{(4)}\}$ lies in
-$\{3\} \cup [-2\sqrt{2}, 2\sqrt{2}]$, so it is Ramanujan, and hence
-all non-trivial poles of $Z_P(u)$ lie on $|u| = 1/\sqrt{2}$.
-\end{exercise}
-
-\paragraph{Medium Questions.}
-
-\begin{exercise}
-Prove the cycle formula $Z_{C_n}(u) = (1 - u^n)^{-2}$ directly from
-Definition~\ref{def:ihara} by enumerating prime closed walks.
-\end{exercise}
-
-\begin{exercise}
-Verify Bass's three-term identity for the Hashimoto matrix:
-$\det(I - u B) = (1 - u^2)^{r - 1} \det(I - u A + u^2 (D - I))$, by
-explicitly computing both sides for $K_3$.
-\end{exercise}
-
-\paragraph{Hard Questions.}
-
-\begin{exercise}
-Use the non-backtracking matrix $B$ and the Perron--Frobenius theorem
-to prove that for a connected $d$-regular non-bipartite graph, the
-spectral radius of $B$ is exactly $d - 1$, and the corresponding
-eigenvector is the all-ones vector.
-\end{exercise}
-
-\begin{exercise}
-Show that the Ihara zeta function of an infinite $d$-regular tree
-has no poles, in agreement with the universal-cover spectrum
-$[-2\sqrt{d - 1}, 2\sqrt{d - 1}]$.
-\end{exercise}
-
-\paragraph{Diagram Questions.}
-
-\begin{exercise}
-For the graph $K_4$, list all prime closed walks of length $\le 6$
-(up to cyclic rotation and inversion), grouped by length. Compute the
-first few coefficients of $\log Z_{K_4}(u) = \sum_k N_k u^k / k$
-where $N_k$ counts tailless non-backtracking closed walks of length $k$.
-\end{exercise}
-
-\begin{exercise}
-Sketch the Hashimoto matrix $B$ for the triangle $K_3$, showing the
-$6 \times 6$ structure indexed by the $6$ directed edges. Verify by
-hand that $\det(I - uB) = (1 - u^3)^2 = (1 - u)^2 (1 + u + u^2)^2$,
-in agreement with $Z_{C_3}(u) = (1 - u^3)^{-2}$.
-\end{exercise}
-
 %====================================================================
 \subsection{Combinatorial Hopf Algebras of Graphs}\label{subsec:hopf}
 %====================================================================
@@ -1786,69 +1327,6 @@ Used in renormalisation theory of quantum field theory. Coproduct
 extracts admissible cuts of a rooted tree; antipode encodes the
 ``BPHZ'' renormalisation procedure.
 \end{example}
-
-\subsubsection{Exercises}
-
-\paragraph{Easy Questions.}
-
-\begin{exercise}
-Verify that the coproduct
-$\Delta(G) = \sum_{S \subseteq V} G[S] \otimes G[V \setminus S]$ is
-coassociative on the path $P_3$.
-\end{exercise}
-
-\begin{exercise}
-Compute $\Delta(K_3)$ in $\mathcal G$ explicitly. The result should
-be a sum of $2^3 = 8$ terms, including the trivial pieces
-$K_3 \otimes \emptyset$ and $\emptyset \otimes K_3$.
-\end{exercise}
-
-\paragraph{Medium Questions.}
-
-\begin{exercise}
-Verify Theorem~\ref{thm:stanleychr} for $G = K_3$: compute $X_{K_3}$
-directly from the definition, then show that the unique character-preserving
-map $\mathcal G \to \mathrm{QSym}$ produces the same symmetric function.
-\end{exercise}
-
-\begin{exercise}
-Show that the chromatic polynomial $\chi_G(k)$ is the principal
-specialisation of $X_G$:
-$\chi_G(k) = X_G(1, 1, \ldots, 1, 0, 0, \ldots)$ with $k$ ones.
-\end{exercise}
-
-\paragraph{Hard Questions.}
-
-\begin{exercise}
-Prove the Humpert--Martin antipode formula for $\mathcal G$ stated in
-this section. (Hint: start from Schmitt's formula
-$S(G) = \sum_{\pi} (-1)^{|\pi|}\, |\pi|!\, G_\pi$, the sum over set
-partitions $\pi$ of $V(G)$, where $G_\pi$ is the disjoint union of the
-induced subgraphs on the blocks; group the terms according to the flat
-$F = E(G_\pi)$, and use Stanley's theorem
-$\chi_H(-1) = (-1)^{|V(H)|}\, a(H)$ with $H = G/F$.)
-\end{exercise}
-
-\begin{exercise}
-Use the Aguiar--Bergeron--Sottile universal property
-(Theorem~\ref{thm:abs}) to derive the Stanley--Reisner $h$-vector
-formula for the order complex of a poset.
-\end{exercise}
-
-\paragraph{Diagram Questions.}
-
-\begin{exercise}
-Draw all $2^4 = 16$ pairs of induced subgraphs of $C_4 = $ the $4$-cycle that
-appear in $\Delta(C_4)$. Group them by the size of the left factor and
-verify the $\Delta$ sum.
-\end{exercise}
-
-\begin{exercise}
-Sketch the Hopf algebra structure on rooted trees of size $\le 3$ via
-the Connes--Kreimer coproduct $\Delta(T) = \sum_c T_c^{\mathrm{trunk}} \otimes T_c^{\mathrm{branches}}$
-over admissible cuts $c$. Compute $\Delta$ on the path $P_3$ and the
-star $S_3$.
-\end{exercise}
 
 %====================================================================
 \subsection{Hodge Theory of Matroids and Log-Concavity}\label{subsec:hodge}
@@ -2029,72 +1507,6 @@ for sampling proper colorings, independent sets, and Ising / Potts
 models).
 \end{remark}
 
-\subsubsection{Exercises}
-
-\paragraph{Easy Questions.}
-
-\begin{exercise}
-Verify the Read--Hoggar log-concavity conjecture by hand for the chromatic
-polynomial of $C_4$:
-$\chi_{C_4}(k) = (k - 1)^4 + (k - 1) = k^4 - 4k^3 + 6k^2 - 4k + (k - 1) + 1$.
-Identify the absolute coefficients and check $a_i^2 \ge a_{i-1} a_{i+1}$.
-\end{exercise}
-
-\begin{exercise}
-For the uniform matroid $U_{3,5}$ of rank $3$ on $5$ elements,
-compute the $f$-vector $(f_0, f_1, f_2, f_3) = (1, 5, 10, 10)$ and
-verify ultra-log-concavity: $f_i / \binom{5}{i}$ should be log-concave.
-\end{exercise}
-
-\paragraph{Medium Questions.}
-
-\begin{exercise}
-Prove that log-concavity is preserved under \emph{Hadamard products}:
-if $(a_i)$ and $(b_i)$ are non-negative log-concave, so is
-$(a_i b_i)$.
-\end{exercise}
-
-\begin{exercise}
-Use Theorem~\ref{thm:hrlc} (Hodge--Riemann implies log-concavity) to
-re-derive the log-concavity of the coefficients of the chromatic
-polynomial of a cycle $C_n$ via the Chow ring of the cycle matroid
-$U_{n - 1, n}$.
-\end{exercise}
-
-\paragraph{Hard Questions.}
-
-\begin{exercise}
-Construct the Chow ring $A^*(U_{2, 3})$ of the uniform matroid of
-rank $2$ on $3$ elements explicitly, including its Stanley--Reisner
-relations. Verify Poincar\'e duality and Hard Lefschetz directly.
-\end{exercise}
-
-\begin{exercise}
-Show that the matroid Hodge--Riemann relations of
-Theorem~\ref{thm:hodgepkg} reduce, in the case of a realisable
-matroid, to the Hodge--Riemann relations on the cohomology of the
-De Concini--Procesi wonderful compactification.
-\end{exercise}
-
-\paragraph{Diagram Questions.}
-
-\begin{exercise}
-Draw the lattice of flats of the cycle matroid of $K_4$ (which is
-the partition lattice $\Pi_4$, with $15$ elements). Identify the
-Whitney numbers of the second kind $W_i = $ number of flats of rank
-$i$, and verify that $(W_0, W_1, W_2, W_3) = (1, 6, 7, 1)$ is
-log-concave. Compare with the Whitney numbers of the first kind
-$(w_0, w_1, w_2, w_3) = (1, 6, 11, 6)$ read off from
-$\chi_{M(K_4)}(t) = (t - 1)(t - 2)(t - 3)$.
-\end{exercise}
-
-\begin{exercise}
-Sketch the geometric picture: for the rank-$2$ uniform matroid
-$U_{2, 4}$, draw the Bergman fan in $\mathbb R^3$ as a tropical
-linear space, and identify the cones corresponding to the flats of
-$U_{2, 4}$.
-\end{exercise}
-
 %====================================================================
 \subsection{The Permanent, Matching Counting, and \#P-Hardness}\label{subsec:permanent}
 %====================================================================
@@ -2253,71 +1665,6 @@ $n^{O(\log n - \log \varepsilon)}$, that \emph{approximates} the
 permanent within a factor $e^{\pm \varepsilon}$ for real matrices whose
 entries all lie between a fixed $\delta > 0$ and $1$ (Barvinok, 2017).
 
-\subsubsection{Exercises}
-
-\paragraph{Easy Questions.}
-
-\begin{exercise}
-Compute $\mathrm{perm}(A)$ and $\det(A)$ for
-$A = \begin{pmatrix} 1 & 1 \\ 1 & 0 \end{pmatrix}$ and verify that
-$\mathrm{perm}(A) = 1$ counts the unique perfect matching of $P_4$
-(viewed as a bipartite graph $\{a_1, a_2\} \cup \{b_1, b_2\}$).
-\end{exercise}
-
-\begin{exercise}
-Use Theorem~\ref{thm:permmatch} to count perfect matchings of $K_{3,3}$:
-its biadjacency matrix is the all-ones $3 \times 3$ matrix $J_3$, so
-$\mathrm{perm}(J_3) = 3! = 6$.
-\end{exercise}
-
-\paragraph{Medium Questions.}
-
-\begin{exercise}
-Apply Ryser's formula (Theorem~\ref{thm:ryser}) to compute
-$\mathrm{perm}(J_4)$ (the all-ones $4 \times 4$ matrix), verifying
-the count $4! = 24$ for perfect matchings of $K_{4,4}$.
-\end{exercise}
-
-\begin{exercise}
-For a planar bipartite graph $G$, sketch the construction of a
-Kasteleyn orientation (Theorem~\ref{thm:kasteleyn}). Apply it to the
-$2 \times 2$ grid graph and verify that the Pfaffian count matches
-the direct enumeration of perfect matchings.
-\end{exercise}
-
-\paragraph{Hard Questions.}
-
-\begin{exercise}
-Show that computing $\mathrm{perm}(A) \mod 2$ for a $0/1$ matrix is
-in $\mathsf P$ (it equals $\det(A) \mod 2$), whereas Valiant (1979)
-showed that computing $\mathrm{perm}(A)$ modulo any fixed integer that
-is not a power of $2$ (for instance modulo $3$) is $\mathsf{UP}$-hard.
-This sharp dichotomy
-illustrates the depth of Theorem~\ref{thm:valiant}.
-\end{exercise}
-
-\begin{exercise}
-Use the Bregman--Minc inequality
-$\mathrm{perm}(A) \le \prod_i (r_i!)^{1/r_i}$ for a $0/1$ matrix
-$A$ with row sums $r_i$, to bound the number of perfect matchings of
-a $d$-regular bipartite graph by $(d!)^{n/d}$.
-\end{exercise}
-
-\paragraph{Diagram Questions.}
-
-\begin{exercise}
-Draw the bipartite graph corresponding to the biadjacency matrix
-$\begin{pmatrix} 1 & 1 & 0 \\ 0 & 1 & 1 \\ 1 & 0 & 1 \end{pmatrix}$
-and enumerate its perfect matchings to verify the permanent is $2$.
-\end{exercise}
-
-\begin{exercise}
-For the $3 \times 3$ grid bipartite graph (vertices = cells,
-edges = horizontal/vertical adjacency), draw a Kasteleyn orientation
-and verify the Pfaffian count $\#\text{perfect matchings} = 0$
-(impossible because of the odd-vertex parity).
-\end{exercise}
-
 %====================================================================
 \subsection{Weisfeiler--Leman, Color Refinement, and Graph Isomorphism}\label{subsec:weisfeiler-leman}
 %====================================================================
@@ -2434,66 +1781,6 @@ to overcome the 1-WL bottleneck. The resulting GNN--WL correspondence
 is now standard background in graph machine learning.
 \end{remark}
 
-\subsubsection{Exercises}
-
-\paragraph{Easy Questions.}
-
-\begin{exercise}
-Apply 1-WL to the cycle $C_4$ and to the disjoint union of two $C_3$'s.
-Confirm that 1-WL produces different colour multisets, distinguishing
-the graphs.
-\end{exercise}
-
-\begin{exercise}
-Show that 1-WL cannot distinguish the cycle $C_6$ from the disjoint
-union of two $C_3$'s. (Both are $2$-regular with the same number of
-vertices.)
-\end{exercise}
-
-\paragraph{Medium Questions.}
-
-\begin{exercise}
-Construct a pair of $3$-regular non-isomorphic graphs on $n = 8$
-vertices that are 1-WL indistinguishable. (Hint: use a small
-CFI-style construction.)
-\end{exercise}
-
-\begin{exercise}
-Prove that $k$-WL is at least as strong as $(k - 1)$-WL: any pair
-distinguished by $(k-1)$-WL is also distinguished by $k$-WL.
-\end{exercise}
-
-\paragraph{Hard Questions.}
-
-\begin{exercise}
-State the precise CFI gadget construction (Theorem~\ref{thm:cfi}) and
-verify that $k$-WL on the resulting graphs does not distinguish them.
-\end{exercise}
-
-\begin{exercise}
-Prove that 1-WL is equivalent to vertex colour-refinement
-\emph{in the sense of equitable partitions}: the stable colouring of
-1-WL on $G$ corresponds to the coarsest equitable partition of $V(G)$.
-Connect this to the spectrum of the quotient matrix from \S\ref{subsec:equitable-partitions}.
-\end{exercise}
-
-\paragraph{Diagram Questions.}
-
-\begin{exercise}
-Draw the trace of 1-WL on the Petersen graph: at each iteration, label
-each vertex with its current colour. Observe that the algorithm
-stabilises in $\le 2$ iterations with a single colour class, as it must
-for every vertex-transitive graph. Explain why this does \emph{not}
-confirm vertex-transitivity: the $3$-regular Frucht graph also receives
-a single colour, yet its only automorphism is the identity.
-\end{exercise}
-
-\begin{exercise}
-For a small CFI gadget on $4$ vertices, draw both graphs and label
-the vertices with their 1-WL colours after stabilisation. Verify
-that 1-WL fails to distinguish them.
-\end{exercise}
-
 %====================================================================
 \subsection{Cluster Algebras from Quivers}\label{subsec:cluster-algebras}
 %====================================================================
@@ -2604,68 +1891,6 @@ For the hexagon (the disk with $6$ marked boundary points), the
 cluster algebra is of type $A_3$. Its $14$ triangulations correspond
 to the $14$ clusters; flips between them realise mutation.
 \end{example}
-
-\subsubsection{Exercises}
-
-\paragraph{Easy Questions.}
-
-\begin{exercise}
-Verify $\mu_k^2 = \mathrm{id}$ on the exchange matrix
-$B = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}$ at vertex $k = 1$.
-\end{exercise}
-
-\begin{exercise}
-Compute all clusters of the rank-$2$ cluster algebra of type $A_2$
-(quiver: $1 \to 2$). The five clusters are $\{x_1, x_2\}, \{x_1, (1+x_1)/x_2\}, \ldots$
-\end{exercise}
-
-\paragraph{Medium Questions.}
-
-\begin{exercise}
-Verify the Laurent phenomenon for the cluster algebra of type $A_2$:
-all $5$ cluster variables are Laurent polynomials in $x_1, x_2$ with
-non-negative integer coefficients.
-\end{exercise}
-
-\begin{exercise}
-Prove that mutation $\mu_k$ on a quiver with no oriented $2$-cycles
-again produces a quiver with no oriented $2$-cycles, given that the
-formula resolves cancellations correctly.
-\end{exercise}
-
-\paragraph{Hard Questions.}
-
-\begin{exercise}
-Prove that any two adjacent triangulations of a polygon (differing
-by one diagonal flip) correspond to clusters related by a single
-mutation, completing the bijection of Theorem~\ref{thm:fst} for the
-disk.
-\end{exercise}
-
-\begin{exercise}
-Show that the cluster algebra of an orientation of $A_n$ has finitely
-many clusters (indeed, exactly $\binom{2(n+1)}{n+1}/(n+2)$
-Catalan-many, one for each triangulation of an $(n+3)$-gon),
-confirming Theorem~\ref{thm:fzfinite} for type $A$. (Finiteness of
-the set of quivers reachable by mutation would not suffice: the
-Kronecker quiver $1 \rightrightarrows 2$ is fixed by mutation up to
-relabeling but has infinitely many cluster variables.)
-\end{exercise}
-
-\paragraph{Diagram Questions.}
-
-\begin{exercise}
-Draw the cluster exchange graph (vertices = clusters) of type $A_2$:
-$5$ vertices, each connected to its two neighbours by an edge labeled
-with the mutation index. Verify it is the pentagon.
-\end{exercise}
-
-\begin{exercise}
-Sketch a triangulation of the hexagon with $3$ diagonals and the
-corresponding adjacency quiver. Apply a flip to a chosen diagonal and
-verify the resulting quiver is the mutation of the original at the
-corresponding vertex.
-\end{exercise}
 
 %====================================================================
 \subsection{Chip-Firing, Sandpile Groups, and Riemann--Roch for Graphs}\label{subsec:chip-firing}
@@ -2788,64 +2013,6 @@ Caporaso--Viviani).
         analogue of the Clifford theorem on algebraic curves.
 \end{itemize}
 
-\subsubsection{Exercises}
-
-\paragraph{Easy Questions.}
-
-\begin{exercise}
-Compute the sandpile group of $C_4$. (Answer: $\mathbb Z / 4 \mathbb Z$,
-matching $\tau(C_4) = 4$.)
-\end{exercise}
-
-\begin{exercise}
-For $K_4$, compute the canonical divisor $K_{K_4}$ and verify
-$\deg(K_{K_4}) = 2g - 2$ where $g = 6 - 4 + 1 = 3$.
-\end{exercise}
-
-\paragraph{Medium Questions.}
-
-\begin{exercise}
-Verify Theorem~\ref{thm:sandpile} for $K_3$: compute $L$ explicitly,
-identify the sandpile group as $\mathbb Z / 3 \mathbb Z$, and check
-that $|K(K_3)| = 3 = \tau(K_3)$.
-\end{exercise}
-
-\begin{exercise}
-Apply the Baker--Norine theorem to a divisor of degree $g$ on $K_4$
-and verify $r(D) - r(K_G - D) = \deg(D) - g + 1 = 1$ holds for at
-least one such $D$.
-\end{exercise}
-
-\paragraph{Hard Questions.}
-
-\begin{exercise}
-Prove the matrix-tree count $|K(G)| = \tau(G)$ from
-Theorem~\ref{thm:sandpile}: the Smith normal form of the reduced
-Laplacian gives both the abelian-group structure and the determinant
-$\det(L_{\text{reduced}}) = \tau(G)$.
-\end{exercise}
-
-\begin{exercise}
-Sketch a proof of the Baker--Norine Riemann--Roch theorem
-(\ref{thm:bakernorine}) via Dhar's burning algorithm and the
-\emph{$q$-reduced} divisor canonical form.
-\end{exercise}
-
-\paragraph{Diagram Questions.}
-
-\begin{exercise}
-Draw a chip-firing trajectory on $K_4$ starting from
-$D_0 = 5 v_1 + 0 v_2 + 0 v_3 + 0 v_4$ until the configuration
-stabilises. Identify the resulting divisor as a representative of an
-element of $K(K_4)$.
-\end{exercise}
-
-\begin{exercise}
-For the complete bipartite graph $K_{2, 3}$, draw all $12$ spanning
-trees and verify $\tau = 12 = |K(K_{2,3})|$ by computing the sandpile
-group explicitly via Smith normal form.
-\end{exercise}
-
 %====================================================================
 \subsection{Random Walks via Representation Theory}\label{subsec:random-walks-rep}
 %====================================================================
@@ -2957,69 +2124,6 @@ simple random walk on every $d$-regular Ramanujan graph. Whether
 exhibits cutoff is a well-known open problem (a conjecture of Peres).
 \end{remark}
 
-\subsubsection{Exercises}
-
-\paragraph{Easy Questions.}
-
-\begin{exercise}
-For the lazy random walk on $C_n$, verify the eigenvalues $\lambda_k = (1 + \cos(2\pi k / n))/2$
-and bound the mixing time by $O(n^2)$.
-\end{exercise}
-
-\begin{exercise}
-Apply Theorem~\ref{thm:dsubl} to the lazy random walk on $\mathbb Z_2^n$
-(driven by the measure with mass $1/2$ at $0$ and mass $1/(2n)$ on each
-standard basis vector; the uniform measure on the basis vectors alone
-gives a periodic walk). Use the
-character formula to recover the cutoff time $\tfrac{1}{2} n \log n$.
-\end{exercise}
-
-\paragraph{Medium Questions.}
-
-\begin{exercise}
-For the random transposition walk on $S_n$, compute the first-order
-upper bound on TV-distance using only the trivial representation, the
-sign representation, and the standard $(n-1)$-dimensional
-representation.
-\end{exercise}
-
-\begin{exercise}
-Prove the cutoff phenomenon for the lazy random walk on the hypercube
-$Q_n$ at time $\tfrac{1}{2} n \log n$, using the Diaconis--Shahshahani
-lemma and the explicit eigenvalues.
-\end{exercise}
-
-\paragraph{Hard Questions.}
-
-\begin{exercise}
-State and prove the Diaconis--Shahshahani upper bound lemma
-(Theorem~\ref{thm:dsubl}) using the Plancherel formula on $\Gamma$.
-\end{exercise}
-
-\begin{exercise}
-Fix a prime $\ell \equiv 1 \pmod 4$. Construct the
-Lubotzky--Phillips--Sarnak Ramanujan graphs: explicit
-$(\ell+1)$-regular Cayley graphs on $\mathrm{PSL}(2, p)$ or
-$\mathrm{PGL}(2, p)$ for primes $p \equiv 1 \pmod 4$, $p \ne \ell$
-(so the degree is at least $6$), and prove they have spectral gap
-$\Omega(1)$ uniformly in $p$.
-\end{exercise}
-
-\paragraph{Diagram Questions.}
-
-\begin{exercise}
-Sketch the TV-distance to stationarity as a function of step number
-$k$ for the lazy random walk on $Q_5$. Highlight the cutoff window
-around $k = \tfrac{1}{2} \cdot 5 \cdot \log 5 \approx 4$ steps.
-\end{exercise}
-
-\begin{exercise}
-Draw the Cayley graph of $S_3$ generated by $\{(12), (23)\}$ (the
-hexagon), and trace the first three steps of the random walk from the
-identity. Use the explicit non-abelian character formula to compute
-$\mu^{*1}, \mu^{*2}, \mu^{*3}$.
-\end{exercise}
-
 %====================================================================
 \subsection{Electrical Networks and Effective Resistance}\label{subsec:electrical}
 %====================================================================
@@ -3124,61 +2228,6 @@ simultaneously with orthogonal crossings (Brightwell--Scheinerman,
 gaps: Spielman and Teng used them to prove that a planar graph on $n$
 vertices with maximum degree $\Delta$ has $\lambda_2(L) \le 8\Delta/n$.
 \end{remark}
-
-\subsubsection{Exercises}
-
-\paragraph{Easy Questions.}
-
-\begin{exercise}
-Compute $R_{\mathrm{eff}}$ between adjacent vertices of $C_4$. Verify
-Foster's theorem: $4 \cdot R_{\mathrm{eff}} = 3$.
-\end{exercise}
-
-\begin{exercise}
-For the path $P_n$, derive $R_{\mathrm{eff}}(1, n) = n - 1$ and verify
-Foster's theorem.
-\end{exercise}
-
-\paragraph{Medium Questions.}
-
-\begin{exercise}
-For the Petersen graph, compute $R_{\mathrm{eff}}$ between adjacent
-vertices and between non-adjacent vertices using its spectrum
-$\{3, 1^{(5)}, -2^{(4)}\}$ and the Laplacian-pseudoinverse formula.
-\end{exercise}
-
-\begin{exercise}
-Verify Theorem~\ref{thm:effspan} for $K_4$: compute $\tau(K_4) = 16$
-and $\tau(K_4 / e) = ?$ for an edge $e$, and check the formula
-$R_{\mathrm{eff}}(e) = \tau(K_4 / e) / \tau(K_4)$.
-\end{exercise}
-
-\paragraph{Hard Questions.}
-
-\begin{exercise}
-Prove Foster's network theorem (\ref{thm:foster}) by computing
-$\mathrm{tr}(L L^+) = n - 1$ via the trace identity.
-\end{exercise}
-
-\begin{exercise}
-Prove the Chandra--Raghavan formula $C(u, v) = 2|E| R_{\mathrm{eff}}(u, v)$
-by relating both quantities to harmonic functions on $G \setminus \{v\}$
-and the Laplacian pseudoinverse.
-\end{exercise}
-
-\paragraph{Diagram Questions.}
-
-\begin{exercise}
-Draw the circle packing of the cube graph $Q_3$ on the sphere
-(stereographically projected to the plane). Verify there are $8$
-circles, with adjacencies matching the edges.
-\end{exercise}
-
-\begin{exercise}
-Sketch a current flow of $1$ ampere from one vertex of $K_4$ to another
-vertex. Label each edge with the current $\phi_i - \phi_j$.
-Verify Kirchhoff's current law at each internal vertex.
-\end{exercise}
 
 %====================================================================
 \subsection{Crystal Graphs and the Plactic Monoid}\label{subsec:crystals}
@@ -3300,71 +2349,6 @@ on $s_\lambda(1, \ldots, 1) = |\mathrm{SSYT}(\lambda, n)|$ vertices. As a \emph{
         connects the symmetric group $S_n$ to combinatorial graph
         invariants like the longest increasing subsequence.
 \end{itemize}
-
-\subsubsection{Exercises}
-
-\paragraph{Easy Questions.}
-
-\begin{exercise}
-Compute the crystal graph $B(1, 1)$ over the alphabet $\{1, 2, 3\}$:
-the SSYT of shape $(1, 1)$ are columns $\binom{i}{j}$ with $i < j$,
-giving $\binom{3}{2} = 3$ vertices. Draw the crystal with
-$\widetilde f_1, \widetilde f_2$ edges.
-\end{exercise}
-
-\begin{exercise}
-Apply Schensted insertion to the word $w = 3 1 4 1 5$ and confirm that
-the reading word of the resulting tableau is the unique tableau word
-in the Knuth equivalence class of $w$ (the class itself has several
-elements).
-\end{exercise}
-
-\paragraph{Medium Questions.}
-
-\begin{exercise}
-Verify Theorem~\ref{thm:crysrep} for $\lambda = (2, 1)$ over $\{1, 2\}$:
-the crystal has $2$ tableaux (first row $1\,1$ or $1\,2$, second row
-$2$), and its character
-$\mathrm{ch}(B(2, 1)) = x_1^2 x_2 + x_1 x_2^2$ (degree-$3$ Schur with
-two parts).
-\end{exercise}
-
-\begin{exercise}
-Implement the Knuth-equivalence relations on $\{1, 2, 3\}^4$ and count
-the equivalence classes. Verify the count against the number
-$\sum_\lambda |\mathrm{SSYT}(\lambda, 3)|$ of semistandard tableaux with
-$4$ boxes and entries in $\{1, 2, 3\}$ (sum over partitions $\lambda$ of
-$4$), and check that $\sum_\lambda |\mathrm{SSYT}(\lambda, 3)|\, f^\lambda = 3^4$.
-\end{exercise}
-
-\paragraph{Hard Questions.}
-
-\begin{exercise}
-Prove the Littlewood--Richardson rule using crystal techniques: the
-connected components of $B(\mu) \otimes B(\nu)$ correspond to
-Yamanouchi tableaux of shape $\lambda / \mu$ and content $\nu$.
-\end{exercise}
-
-\begin{exercise}
-Show that the longest increasing subsequence in a permutation $\pi$
-equals the length of the first row of $P(\pi)$ (Schensted's theorem),
-using the crystal-graph interpretation of the RSK correspondence.
-\end{exercise}
-
-\paragraph{Diagram Questions.}
-
-\begin{exercise}
-Draw the crystal graph $B(1, 1, 1)$ over $\{1, 2, 3\}$: the unique
-SSYT of shape $(1, 1, 1)$ is the column $1, 2, 3$, so the crystal has
-a single vertex. Verify $\mathrm{ch}(B) = x_1 x_2 x_3$.
-\end{exercise}
-
-\begin{exercise}
-Sketch the crystal $B(2)$ over $\{1, 2, 3\}$ (single-row SSYT of
-length $2$). It has $\binom{4}{2} = 6$ vertices; draw the
-$\widetilde f_1, \widetilde f_2$ edges and verify the character
-$h_2(x_1, x_2, x_3) = \sum_{i \le j} x_i x_j$.
-\end{exercise}
 
 %====================================================================
 \subsection{Further Reading and Pointers}
@@ -3562,3 +2546,617 @@ much of the underlying combinatorial machinery. Lov\'asz's
 classical problem book. The arXiv \texttt{math.CO} archive contains
 recent research; for graduate-level surveys see the
 \emph{S\'eminaire Lotharingien de Combinatoire} archive.
+
+\subsection{Chapter 12 Exercises}
+
+\subsubsection{Easy Questions}
+\begin{enumerate}
+\item Compute $\mu(C_5, x)$ and $\mu(C_6, x)$ from the recurrence
+$\mu(C_n, x) = \mu(P_n, x) - \mu(P_{n-2}, x)$, which follows from
+Theorem~\ref{thm:matchrec} applied to a single edge of $C_n$.
+
+\item Verify Proposition~\ref{prop:matchforest} for the path $P_4$ by
+computing both $\mu(P_4, x)$ from the matching definition and
+$\det(xI - A(P_4))$ from the adjacency matrix.
+
+\item Show that the orbit partition of any subgroup of $\mathrm{Aut}(G)$ is
+equitable.
+
+\item Find an equitable partition of the Petersen graph into two parts
+(outer pentagon and inner pentagram). Write its $2 \times 2$ quotient
+matrix and verify both eigenvalues appear in the Petersen spectrum
+$\{3, 1^{(5)}, -2^{(4)}\}$.
+
+\item Verify that the cycle $C_6$ is distance-regular and compute its
+intersection array. Compare with the array of the Petersen graph.
+
+\item Show that every connected strongly regular graph with parameters
+$(n, k, \lambda, \mu)$ that is not complete is distance-regular of
+diameter $2$ with intersection array $\{k, k - 1 - \lambda; 1, \mu\}$.
+(Both hypotheses are needed with the definition of \S\ref{subsec:spectral}: $2K_3$ is
+strongly regular with parameters $(6, 2, 1, 0)$ but disconnected, and
+$K_n$ has diameter $1$.)
+
+\item Identify each of the following as a Cayley graph if possible: $K_4$,
+$K_{3,3}$, $C_5$, $Q_3$, the Petersen graph.
+
+\item Compute the spectrum of the circulant graph $C_8(\{1, 3\})$ using
+Theorem~\ref{thm:cayleyabelian}.
+
+\item Compute $T_{C_4}(x, y)$ from Definition~\ref{def:tutte} by enumerating
+all $2^4 = 16$ subsets of edges. Verify your answer against the
+deletion--contraction recursion (Theorem~\ref{thm:tuttedc}).
+
+\item Use Theorem~\ref{thm:tuttechrom} to derive the chromatic polynomial
+$\chi_{K_4}(k)$ from $T_{K_4}(x, y)$. Compare with the direct formula
+$\chi_{K_n}(k) = k(k - 1)(k - 2) \cdots (k - n + 1)$.
+
+\item List all heaps of pieces on the path commutation graph $C = P_3$ with
+pieces $\{a, b, c\}$ (so $a$ commutes with $b$, and $b$ with $c$) and
+weights $w(a) = w(b) = w(c) = 1$, of total
+size $\le 3$. Verify the trivial-heap generating function
+$\mathcal T(z) = 1 - 3z + 2z^2$ and the master theorem
+$\mathcal H(z) = 1/(1 - 3z + 2z^2)$.
+
+\item For the weighted matchings polynomial of $K_3$ with unit weights
+(Corollary~\ref{cor:viennot}), verify that
+$1/\mu_w(K_3, z) = 1/(1 - 3z) = \sum_{k \ge 0} 3^k z^k$ in formal power
+series, and interpret the coefficients as counts of heaps of edges in
+$K_3$ (no two edges of $K_3$ commute).
+
+\item Compute $Z_{K_4}(u)$ explicitly using the Ihara--Bass formula. ($K_4$
+is $3$-regular with adjacency spectrum $\{3, -1, -1, -1\}$ and
+$r = 6 - 4 + 1 = 3$.)
+
+\item Verify Theorem~\ref{thm:ramanujangrh} for the Petersen graph: its
+spectrum $\{3, 1^{(5)}, -2^{(4)}\}$ lies in
+$\{3\} \cup [-2\sqrt{2}, 2\sqrt{2}]$, so it is Ramanujan, and hence
+all non-trivial poles of $Z_P(u)$ lie on $|u| = 1/\sqrt{2}$.
+
+\item Verify that the coproduct
+$\Delta(G) = \sum_{S \subseteq V} G[S] \otimes G[V \setminus S]$ is
+coassociative on the path $P_3$.
+
+\item Compute $\Delta(K_3)$ in $\mathcal G$ explicitly. The result should
+be a sum of $2^3 = 8$ terms, including the trivial pieces
+$K_3 \otimes \emptyset$ and $\emptyset \otimes K_3$.
+
+\item Verify the Read--Hoggar log-concavity conjecture by hand for the chromatic
+polynomial of $C_4$:
+$\chi_{C_4}(k) = (k - 1)^4 + (k - 1) = k^4 - 4k^3 + 6k^2 - 4k + (k - 1) + 1$.
+Identify the absolute coefficients and check $a_i^2 \ge a_{i-1} a_{i+1}$.
+
+\item For the uniform matroid $U_{3,5}$ of rank $3$ on $5$ elements,
+compute the $f$-vector $(f_0, f_1, f_2, f_3) = (1, 5, 10, 10)$ and
+verify ultra-log-concavity: $f_i / \binom{5}{i}$ should be log-concave.
+
+\item Compute $\mathrm{perm}(A)$ and $\det(A)$ for
+$A = \begin{pmatrix} 1 & 1 \\ 1 & 0 \end{pmatrix}$ and verify that
+$\mathrm{perm}(A) = 1$ counts the unique perfect matching of $P_4$
+(viewed as a bipartite graph $\{a_1, a_2\} \cup \{b_1, b_2\}$).
+
+\item Use Theorem~\ref{thm:permmatch} to count perfect matchings of $K_{3,3}$:
+its biadjacency matrix is the all-ones $3 \times 3$ matrix $J_3$, so
+$\mathrm{perm}(J_3) = 3! = 6$.
+
+\item Apply 1-WL to the cycle $C_4$ and to the disjoint union of two $C_3$'s.
+Confirm that 1-WL produces different colour multisets, distinguishing
+the graphs.
+
+\item Show that 1-WL cannot distinguish the cycle $C_6$ from the disjoint
+union of two $C_3$'s. (Both are $2$-regular with the same number of
+vertices.)
+
+\item Verify $\mu_k^2 = \mathrm{id}$ on the exchange matrix
+$B = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}$ at vertex $k = 1$.
+
+\item Compute all clusters of the rank-$2$ cluster algebra of type $A_2$
+(quiver: $1 \to 2$). The five clusters are $\{x_1, x_2\}, \{x_1, (1+x_1)/x_2\}, \ldots$
+
+\item Compute the sandpile group of $C_4$. (Answer: $\mathbb Z / 4 \mathbb Z$,
+matching $\tau(C_4) = 4$.)
+
+\item For $K_4$, compute the canonical divisor $K_{K_4}$ and verify
+$\deg(K_{K_4}) = 2g - 2$ where $g = 6 - 4 + 1 = 3$.
+
+\item For the lazy random walk on $C_n$, verify the eigenvalues $\lambda_k = (1 + \cos(2\pi k / n))/2$
+and bound the mixing time by $O(n^2)$.
+
+\item Apply Theorem~\ref{thm:dsubl} to the lazy random walk on $\mathbb Z_2^n$
+(driven by the measure with mass $1/2$ at $0$ and mass $1/(2n)$ on each
+standard basis vector; the uniform measure on the basis vectors alone
+gives a periodic walk). Use the
+character formula to recover the cutoff time $\tfrac{1}{2} n \log n$.
+
+\item Compute $R_{\mathrm{eff}}$ between adjacent vertices of $C_4$. Verify
+Foster's theorem: $4 \cdot R_{\mathrm{eff}} = 3$.
+
+\item For the path $P_n$, derive $R_{\mathrm{eff}}(1, n) = n - 1$ and verify
+Foster's theorem.
+
+\item Compute the crystal graph $B(1, 1)$ over the alphabet $\{1, 2, 3\}$:
+the SSYT of shape $(1, 1)$ are columns $\binom{i}{j}$ with $i < j$,
+giving $\binom{3}{2} = 3$ vertices. Draw the crystal with
+$\widetilde f_1, \widetilde f_2$ edges.
+
+\item Apply Schensted insertion to the word $w = 3 1 4 1 5$ and confirm that
+the reading word of the resulting tableau is the unique tableau word
+in the Knuth equivalence class of $w$ (the class itself has several
+elements).
+\end{enumerate}
+
+\subsubsection{Medium Questions}
+\begin{enumerate}[resume]
+\item Prove $\mu(G, x) = \mu(G \setminus e, x) - \mu(G \setminus \{u, v\}, x)$
+in detail by induction on $|E(G)|$, taking care of the edge-case
+$|M| = 0$.
+
+\item Show that $\mu(G \cup H, x) = \mu(G, x) \cdot \mu(H, x)$ for the
+disjoint union of $G$ and $H$, and use this to compute $\mu(mK_2, x)$.
+Then show that there is no such shortcut for Cartesian products:
+$C_4 \cup K_1$ and the tree obtained from $K_{1,3}$ by subdividing one
+edge both have matchings polynomial $x^5 - 4x^3 + 2x$, but their
+Cartesian products with $K_2$ have different matchings polynomials.
+(So $\mu(Q_5, x)$, where $Q_5 = Q_4 \,\square\, K_2$ is two copies of
+$Q_4$ joined by a perfect matching, cannot be computed from
+$\mu(Q_4, x)$ and $\mu(K_2, x)$ by a general rule; apply the edge
+recurrence of Theorem~\ref{thm:matchrec} to the $16$ edges joining the
+two copies instead.)
+
+\item Prove Theorem~\ref{thm:quotientspec} from the matrix identity
+$AS = SB$. Show further that the $k$ eigenvalues of $B$ are exactly
+the eigenvalues of $A$ whose eigenvectors are constant on each cell
+of $\pi$.
+
+\item Apply the Hoffman ratio bound (Corollary~\ref{cor:haemers}) to the
+Petersen graph and to the Kneser graph $K(5, 2)$ (which is the
+Petersen graph). Compare with the exact independence number $\alpha(P) = 4$.
+
+\item Compute the intersection array of the Hamming graph $H(3, 2) = Q_3$.
+Verify directly using Definition~\ref{def:drg}.
+
+\item Verify that for the Johnson scheme $J(5, 2)$, the graph $R_2$ is the
+Petersen graph (vertices: $2$-subsets of $[5]$; edges: disjoint
+$2$-subsets), while $R_1$ is its complement, the triangular graph
+$T(5) = J(5, 2)$.
+
+\item Show that $\mathrm{Cay}(\mathbb Z_n, S)$ is connected iff $\gcd(S) = 1$,
+where $\gcd(S)$ is the GCD of the elements of $S \cup (-S) \cup \{n\}$.
+
+\item Verify that the Cayley graph $\mathrm{Cay}(D_8, \{r, r^{-1}, s\})$
+(dihedral group with rotation $r$ of order $4$ and reflection $s$) is
+isomorphic to the cube $Q_3$. Use Sabidussi's theorem to conclude that
+$Q_3$ has at least two non-equivalent presentations as a Cayley graph.
+
+\item Prove the deletion--contraction recursion (Theorem~\ref{thm:tuttedc})
+from Definition~\ref{def:tutte} by partitioning $A \subseteq E$ into
+those containing $e$ and those not.
+
+\item Show that $T_G(2, 1) = $ number of spanning forests of $G$,
+$T_G(1, 1) = $ number of spanning trees (for connected $G$), and
+$T_G(2, 0) = $ number of acyclic orientations of $G$ (Stanley).
+
+\item Use Theorem~\ref{thm:cartierfoata} to derive the Lindstr\"om--Gessel--Viennot
+lemma in the special case of vertex-disjoint paths in a planar
+acyclic digraph.
+
+\item Apply Flajolet's theorem (\ref{thm:flajolet}) with $b_n = 0$ and
+$\lambda_n = n$ to recover the moment generating function of the
+Hermite polynomials, $\sum_k (2k - 1)!! \, z^{2k}$.
+
+\item Prove the cycle formula $Z_{C_n}(u) = (1 - u^n)^{-2}$ directly from
+Definition~\ref{def:ihara} by enumerating prime closed walks.
+
+\item Verify Bass's three-term identity for the Hashimoto matrix:
+$\det(I - u B) = (1 - u^2)^{r - 1} \det(I - u A + u^2 (D - I))$, by
+explicitly computing both sides for $K_3$.
+
+\item Verify Theorem~\ref{thm:stanleychr} for $G = K_3$: compute $X_{K_3}$
+directly from the definition, then show that the unique character-preserving
+map $\mathcal G \to \mathrm{QSym}$ produces the same symmetric function.
+
+\item Show that the chromatic polynomial $\chi_G(k)$ is the principal
+specialisation of $X_G$:
+$\chi_G(k) = X_G(1, 1, \ldots, 1, 0, 0, \ldots)$ with $k$ ones.
+
+\item Prove that log-concavity is preserved under \emph{Hadamard products}:
+if $(a_i)$ and $(b_i)$ are non-negative log-concave, so is
+$(a_i b_i)$.
+
+\item Use Theorem~\ref{thm:hrlc} (Hodge--Riemann implies log-concavity) to
+re-derive the log-concavity of the coefficients of the chromatic
+polynomial of a cycle $C_n$ via the Chow ring of the cycle matroid
+$U_{n - 1, n}$.
+
+\item Apply Ryser's formula (Theorem~\ref{thm:ryser}) to compute
+$\mathrm{perm}(J_4)$ (the all-ones $4 \times 4$ matrix), verifying
+the count $4! = 24$ for perfect matchings of $K_{4,4}$.
+
+\item For a planar bipartite graph $G$, sketch the construction of a
+Kasteleyn orientation (Theorem~\ref{thm:kasteleyn}). Apply it to the
+$2 \times 2$ grid graph and verify that the Pfaffian count matches
+the direct enumeration of perfect matchings.
+
+\item Construct a pair of $3$-regular non-isomorphic graphs on $n = 8$
+vertices that are 1-WL indistinguishable. (Hint: use a small
+CFI-style construction.)
+
+\item Prove that $k$-WL is at least as strong as $(k - 1)$-WL: any pair
+distinguished by $(k-1)$-WL is also distinguished by $k$-WL.
+
+\item Verify the Laurent phenomenon for the cluster algebra of type $A_2$:
+all $5$ cluster variables are Laurent polynomials in $x_1, x_2$ with
+non-negative integer coefficients.
+
+\item Prove that mutation $\mu_k$ on a quiver with no oriented $2$-cycles
+again produces a quiver with no oriented $2$-cycles, given that the
+formula resolves cancellations correctly.
+
+\item Verify Theorem~\ref{thm:sandpile} for $K_3$: compute $L$ explicitly,
+identify the sandpile group as $\mathbb Z / 3 \mathbb Z$, and check
+that $|K(K_3)| = 3 = \tau(K_3)$.
+
+\item Apply the Baker--Norine theorem to a divisor of degree $g$ on $K_4$
+and verify $r(D) - r(K_G - D) = \deg(D) - g + 1 = 1$ holds for at
+least one such $D$.
+
+\item For the random transposition walk on $S_n$, compute the first-order
+upper bound on TV-distance using only the trivial representation, the
+sign representation, and the standard $(n-1)$-dimensional
+representation.
+
+\item Prove the cutoff phenomenon for the lazy random walk on the hypercube
+$Q_n$ at time $\tfrac{1}{2} n \log n$, using the Diaconis--Shahshahani
+lemma and the explicit eigenvalues.
+
+\item For the Petersen graph, compute $R_{\mathrm{eff}}$ between adjacent
+vertices and between non-adjacent vertices using its spectrum
+$\{3, 1^{(5)}, -2^{(4)}\}$ and the Laplacian-pseudoinverse formula.
+
+\item Verify Theorem~\ref{thm:effspan} for $K_4$: compute $\tau(K_4) = 16$
+and $\tau(K_4 / e) = ?$ for an edge $e$, and check the formula
+$R_{\mathrm{eff}}(e) = \tau(K_4 / e) / \tau(K_4)$.
+
+\item Verify Theorem~\ref{thm:crysrep} for $\lambda = (2, 1)$ over $\{1, 2\}$:
+the crystal has $2$ tableaux (first row $1\,1$ or $1\,2$, second row
+$2$), and its character
+$\mathrm{ch}(B(2, 1)) = x_1^2 x_2 + x_1 x_2^2$ (degree-$3$ Schur with
+two parts).
+
+\item Implement the Knuth-equivalence relations on $\{1, 2, 3\}^4$ and count
+the equivalence classes. Verify the count against the number
+$\sum_\lambda |\mathrm{SSYT}(\lambda, 3)|$ of semistandard tableaux with
+$4$ boxes and entries in $\{1, 2, 3\}$ (sum over partitions $\lambda$ of
+$4$), and check that $\sum_\lambda |\mathrm{SSYT}(\lambda, 3)|\, f^\lambda = 3^4$.
+\end{enumerate}
+
+\subsubsection{Hard Questions}
+\begin{enumerate}[resume]
+\item Prove the path-tree identity (Theorem~\ref{thm:pathtree}) by
+applying the vertex recurrence simultaneously to $G$ and to
+$T(G, u)$ at the root, then inducting on the depth of expansion.
+
+\item Use the Heilmann--Lieb theorem and the identity
+$\mu(G, x) = x^{n} Z_G(-x^{-2})$ to show that every zero of the partition
+function $Z_G(\lambda) = \sum_M \lambda^{|M|}$ is real and negative and,
+when $\Delta \ge 2$, lies in $(-\infty, -1/(4(\Delta - 1)))$. Conclude
+that $\log Z_G$ extends holomorphically to the slit plane
+$\mathbb C \setminus (-\infty, -1/(4(\Delta - 1))]$, a zero-free region
+for $Z_G$ that does not depend on the number of vertices of $G$.
+
+\item Prove that a connected graph is distance-regular iff every distance
+partition $\pi_v$ ($v \in V$) is equitable with the \emph{same}
+quotient matrix (Theorem~\ref{thm:drgequit}).
+
+\item Let $G$ be a graph with an equitable partition $\pi$. Show that the
+spectrum of $G$ decomposes as $\sigma(B) \cup \sigma(A_{\pi^\perp})$,
+where $A_{\pi^\perp}$ is $A$ restricted to vectors that sum to zero on
+each cell. Conclude that all ``new'' eigenvalues of $G$ relative to
+$B$ have eigenvectors orthogonal to the constant-on-cells subspace.
+
+\item Prove Theorem~\ref{thm:bosemesner}: the matrices $A_0, \ldots, A_d$
+of an association scheme commute pairwise and span a commutative
+algebra. Use the symmetry $A_i^\top = A_i$ and the multiplication rule
+$A_i A_j = \sum_k p_{ij}^k A_k$.
+
+\item Use the Delsarte LP bound on the Johnson scheme $J(n, k)$ to recover
+the Erd\H{o}s--Ko--Rado theorem: a family of pairwise-intersecting
+$k$-subsets of $[n]$ ($n \ge 2k$) has size at most $\binom{n-1}{k-1}$.
+
+\item Let $\Gamma$ be a finite abelian group of order $N$ and $S$ a symmetric
+generating set with $|S| = d$. Prove that for every integer $m \ge 2$
+with $m^{d} < N$, the second-largest eigenvalue $\lambda_2$ of
+$\mathrm{Cay}(\Gamma, S)$ satisfies $\lambda_2 \ge d \cos(2\pi/m)$.
+(Hint: write $\chi(s) = e^{2\pi i \theta_\chi(s)}$ and apply the
+pigeonhole principle to the $N$ points $(\theta_\chi(s))_{s \in S}$,
+$\chi \in \widehat{\Gamma}$, of the torus $(\mathbb R/\mathbb Z)^{d}$ cut
+into $m^{d}$ boxes of side $1/m$.) Conclude that abelian Cayley graphs
+cannot be expanders if the generating set has bounded size.
+
+\item Use the character formula for non-abelian Cayley graphs to compute
+the spectrum of the Cayley graph of $S_3$ with generating set
+$\{(12), (13), (23)\}$. Identify the resulting graph.
+
+\item Prove Whitney's broken-circuit theorem (Theorem~\ref{thm:whitneybc})
+by inclusion--exclusion on the cycles of $G$, ordered by their largest
+edge.
+
+\item Show that if $G$ is chordal, then every root of $\chi_G(k)$ is a
+non-negative integer. (Hint: chromatic polynomials of chordal graphs
+factor into linear pieces by a perfect elimination ordering.) Show that
+the converse fails: if $H$ is obtained from $K_6$ minus an edge $ab$ by
+adding a new vertex adjacent to exactly $a$ and $b$, then $H$ has an
+induced $4$-cycle, yet $\chi_H(k) = k(k-1)(k-2)(k-3)^3(k-4)$.
+
+\item Prove Theorem~\ref{thm:cyclesheap}: expand $\det(I - zA)$ over
+permutations (the non-trivial cycles of a permutation form a family of
+vertex-disjoint oriented cycles) to obtain $Q(z) = \det(I - zA)$, apply
+Theorem~\ref{thm:cartierfoata} on the cycle commutation
+graph $C^{\mathrm{cyc}}(G)$, and use
+$\sum_{k \ge 1} \mathrm{tr}(A^k) z^k = -z \frac{d}{dz} \log \det(I - zA)$.
+
+\item Generalise Flajolet's theorem to closed walks on a weighted bipartite
+graph: derive the Stieltjes continued fraction
+$\sum m_k z^k = 1/(1 - c_1 z/(1 - c_2 z/(1 - \cdots)))$ and identify
+the corresponding orthogonal polynomials.
+
+\item Use the non-backtracking matrix $B$ and the Perron--Frobenius theorem
+to prove that for a connected $d$-regular non-bipartite graph, the
+spectral radius of $B$ is exactly $d - 1$, and the corresponding
+eigenvector is the all-ones vector.
+
+\item Show that the Ihara zeta function of an infinite $d$-regular tree
+has no poles, in agreement with the universal-cover spectrum
+$[-2\sqrt{d - 1}, 2\sqrt{d - 1}]$.
+
+\item Prove the Humpert--Martin antipode formula for $\mathcal G$ stated in
+Section~\ref{subsec:hopf}. (Hint: start from Schmitt's formula
+$S(G) = \sum_{\pi} (-1)^{|\pi|}\, |\pi|!\, G_\pi$, the sum over set
+partitions $\pi$ of $V(G)$, where $G_\pi$ is the disjoint union of the
+induced subgraphs on the blocks; group the terms according to the flat
+$F = E(G_\pi)$, and use Stanley's theorem
+$\chi_H(-1) = (-1)^{|V(H)|}\, a(H)$ with $H = G/F$.)
+
+\item Use the Aguiar--Bergeron--Sottile universal property
+(Theorem~\ref{thm:abs}) to derive the Stanley--Reisner $h$-vector
+formula for the order complex of a poset.
+
+\item Construct the Chow ring $A^*(U_{2, 3})$ of the uniform matroid of
+rank $2$ on $3$ elements explicitly, including its Stanley--Reisner
+relations. Verify Poincar\'e duality and Hard Lefschetz directly.
+
+\item Show that the matroid Hodge--Riemann relations of
+Theorem~\ref{thm:hodgepkg} reduce, in the case of a realisable
+matroid, to the Hodge--Riemann relations on the cohomology of the
+De Concini--Procesi wonderful compactification.
+
+\item Show that computing $\mathrm{perm}(A) \mod 2$ for a $0/1$ matrix is
+in $\mathsf P$ (it equals $\det(A) \mod 2$), whereas Valiant (1979)
+showed that computing $\mathrm{perm}(A)$ modulo any fixed integer that
+is not a power of $2$ (for instance modulo $3$) is $\mathsf{UP}$-hard.
+This sharp dichotomy
+illustrates the depth of Theorem~\ref{thm:valiant}.
+
+\item Use the Bregman--Minc inequality
+$\mathrm{perm}(A) \le \prod_i (r_i!)^{1/r_i}$ for a $0/1$ matrix
+$A$ with row sums $r_i$, to bound the number of perfect matchings of
+a $d$-regular bipartite graph by $(d!)^{n/d}$.
+
+\item State the precise CFI gadget construction (Theorem~\ref{thm:cfi}) and
+verify that $k$-WL on the resulting graphs does not distinguish them.
+
+\item Prove that 1-WL is equivalent to vertex colour-refinement
+\emph{in the sense of equitable partitions}: the stable colouring of
+1-WL on $G$ corresponds to the coarsest equitable partition of $V(G)$.
+Connect this to the spectrum of the quotient matrix from \S\ref{subsec:equitable-partitions}.
+
+\item Prove that any two adjacent triangulations of a polygon (differing
+by one diagonal flip) correspond to clusters related by a single
+mutation, completing the bijection of Theorem~\ref{thm:fst} for the
+disk.
+
+\item Show that the cluster algebra of an orientation of $A_n$ has finitely
+many clusters (indeed, exactly $\binom{2(n+1)}{n+1}/(n+2)$
+Catalan-many, one for each triangulation of an $(n+3)$-gon),
+confirming Theorem~\ref{thm:fzfinite} for type $A$. (Finiteness of
+the set of quivers reachable by mutation would not suffice: the
+Kronecker quiver $1 \rightrightarrows 2$ is fixed by mutation up to
+relabeling but has infinitely many cluster variables.)
+
+\item Prove the matrix-tree count $|K(G)| = \tau(G)$ from
+Theorem~\ref{thm:sandpile}: the Smith normal form of the reduced
+Laplacian gives both the abelian-group structure and the determinant
+$\det(L_{\text{reduced}}) = \tau(G)$.
+
+\item Sketch a proof of the Baker--Norine Riemann--Roch theorem
+(\ref{thm:bakernorine}) via Dhar's burning algorithm and the
+\emph{$q$-reduced} divisor canonical form.
+
+\item State and prove the Diaconis--Shahshahani upper bound lemma
+(Theorem~\ref{thm:dsubl}) using the Plancherel formula on $\Gamma$.
+
+\item Fix a prime $\ell \equiv 1 \pmod 4$. Construct the
+Lubotzky--Phillips--Sarnak Ramanujan graphs: explicit
+$(\ell+1)$-regular Cayley graphs on $\mathrm{PSL}(2, p)$ or
+$\mathrm{PGL}(2, p)$ for primes $p \equiv 1 \pmod 4$, $p \ne \ell$
+(so the degree is at least $6$), and prove they have spectral gap
+$\Omega(1)$ uniformly in $p$.
+
+\item Prove Foster's network theorem (\ref{thm:foster}) by computing
+$\mathrm{tr}(L L^+) = n - 1$ via the trace identity.
+
+\item Prove the Chandra--Raghavan formula $C(u, v) = 2|E| R_{\mathrm{eff}}(u, v)$
+by relating both quantities to harmonic functions on $G \setminus \{v\}$
+and the Laplacian pseudoinverse.
+
+\item Prove the Littlewood--Richardson rule using crystal techniques: the
+connected components of $B(\mu) \otimes B(\nu)$ correspond to
+Yamanouchi tableaux of shape $\lambda / \mu$ and content $\nu$.
+
+\item Show that the longest increasing subsequence in a permutation $\pi$
+equals the length of the first row of $P(\pi)$ (Schensted's theorem),
+using the crystal-graph interpretation of the RSK correspondence.
+\end{enumerate}
+
+\subsubsection{Diagram Questions}
+\begin{enumerate}[resume]
+\item Draw the path-tree $T(C_4, v)$ for any vertex $v$ of the $4$-cycle
+$C_4$. Verify that $T(C_4, v)$ is the path $P_7$ with $v$ in the middle
+(the infinite $2$-regular tree truncated at depth $3$), compute its
+characteristic polynomial, and check that it is divisible by
+$\mu(C_4, x)$.
+
+\item Mark the roots of $\mu(K_4, x)$ on the real line and shade the
+Heilmann--Lieb interval $(-2\sqrt{2}, 2\sqrt{2})$ to confirm strict
+containment. Compare with the actual adjacency spectrum
+$\{3, -1, -1, -1\}$ of $K_4$ (which lies on $\mathbb{Z}$, not on the
+matching polynomial roots).
+
+\item Draw the cycle $C_6$ and find an equitable partition into three cells
+of size $2$ each (alternating cells). Write the $3 \times 3$ quotient
+matrix and verify that its eigenvalues $\{2, -1, -1\}$ appear among
+the cycle spectrum $\{2, 1, -1, -2, -1, 1\}$.
+
+\item Sketch the distance partition of the cube $Q_3$ from a corner vertex.
+Verify that it is equitable into four cells of sizes $1, 3, 3, 1$, and
+write its tridiagonal quotient matrix.
+
+\item Draw the Hamming graph $H(2, 3)$ (vertices: $\{0, 1, 2\}^2$; edges:
+words differing in one coordinate). Identify it as the rook graph
+$3 \times 3$ and compute its spectrum.
+
+\item Sketch the partition $\{R_0, R_1, R_2\}$ of the vertex pairs of $C_5$
+by distance. Verify the intersection numbers $p_{ij}^k$ from the
+multiplication table $A_i A_j = \sum_k p_{ij}^k A_k$.
+
+\item Draw $\mathrm{Cay}(\mathbb Z_2^3, \{e_1, e_2, e_3\}) = Q_3$ and label
+the eigenvectors $\chi_T$ for each $T \subseteq \{1, 2, 3\}$. Color
+each vertex by the sign $\chi_T(g) = \pm 1$ for $T = \{1, 2\}$ and
+verify that this colouring is balanced and orthogonal to the all-ones
+vector.
+
+\item Draw the Cayley graph of $\mathbb Z_5$ with generating set
+$\{\pm 1\}$ (the pentagon $C_5$). Mark the eigenvectors
+$\chi_j(k) = e^{2\pi i j k/5}$ for $j = 1, 2$ and verify that the
+corresponding eigenvalues are $2 \cos(2\pi/5)$ and $2 \cos(4\pi/5)$.
+
+\item For the planar graph $G = K_4$ minus an edge, draw both $G$ and its
+planar dual $G^*$. Verify directly that $T_{G^*}(x, y) = T_G(y, x)$
+by computing both polynomials and comparing.
+
+\item Draw the broken-circuit complex of the triangle $K_3$ with edges
+ordered $e_1 < e_2 < e_3$. Identify the unique broken circuit
+$\{e_1, e_2\}$, and verify
+$\chi_{K_3}(k) = k^3 - 3k^2 + 2k$ from the broken-circuit sum of
+Theorem~\ref{thm:whitneybc}.
+
+\item Draw a sample heap of $4$ pieces on the commutation graph
+$C = $ disjoint union of $K_2$ and an isolated vertex (i.e.\ pieces
+$a, b, c$ with $a \sim b$ and $c$ isolated). Sketch the heap as a
+``stack'' picture and identify which pieces are at the bottom.
+
+\item Sketch the cycle commutation graph $C^{\mathrm{cyc}}(K_4)$. Identify
+the oriented cycles of $K_4$ (six $2$-cycles, one for each edge; eight
+oriented triangles; six oriented $4$-cycles) and the disjointness
+relations between them (the only vertex-disjoint pairs are the three
+pairs of $2$-cycles on opposite edges), so that
+$Q(z) = 1 - 6z^2 - 8z^3 - 3z^4 = \det(I - zA(K_4))$. Verify Theorem~\ref{thm:cyclesheap}
+gives $W_4(K_4) = $ number of closed walks of length $4$ in $K_4$
+($= \mathrm{tr}(A(K_4)^4) = 3^4 + (-1)^4 + (-1)^4 + (-1)^4 = 84$).
+
+\item For the graph $K_4$, list all prime closed walks of length $\le 6$
+(up to cyclic rotation and inversion), grouped by length. Compute the
+first few coefficients of $\log Z_{K_4}(u) = \sum_k N_k u^k / k$
+where $N_k$ counts tailless non-backtracking closed walks of length $k$.
+
+\item Sketch the Hashimoto matrix $B$ for the triangle $K_3$, showing the
+$6 \times 6$ structure indexed by the $6$ directed edges. Verify by
+hand that $\det(I - uB) = (1 - u^3)^2 = (1 - u)^2 (1 + u + u^2)^2$,
+in agreement with $Z_{C_3}(u) = (1 - u^3)^{-2}$.
+
+\item Draw all $2^4 = 16$ pairs of induced subgraphs of $C_4 = $ the $4$-cycle that
+appear in $\Delta(C_4)$. Group them by the size of the left factor and
+verify the $\Delta$ sum.
+
+\item Sketch the Hopf algebra structure on rooted trees of size $\le 3$ via
+the Connes--Kreimer coproduct $\Delta(T) = \sum_c T_c^{\mathrm{trunk}} \otimes T_c^{\mathrm{branches}}$
+over admissible cuts $c$. Compute $\Delta$ on the path $P_3$ and the
+star $S_3$.
+
+\item Draw the lattice of flats of the cycle matroid of $K_4$ (which is
+the partition lattice $\Pi_4$, with $15$ elements). Identify the
+Whitney numbers of the second kind $W_i = $ number of flats of rank
+$i$, and verify that $(W_0, W_1, W_2, W_3) = (1, 6, 7, 1)$ is
+log-concave. Compare with the Whitney numbers of the first kind
+$(w_0, w_1, w_2, w_3) = (1, 6, 11, 6)$ read off from
+$\chi_{M(K_4)}(t) = (t - 1)(t - 2)(t - 3)$.
+
+\item Sketch the geometric picture: for the rank-$2$ uniform matroid
+$U_{2, 4}$, draw the Bergman fan in $\mathbb R^3$ as a tropical
+linear space, and identify the cones corresponding to the flats of
+$U_{2, 4}$.
+
+\item Draw the bipartite graph corresponding to the biadjacency matrix
+$\begin{pmatrix} 1 & 1 & 0 \\ 0 & 1 & 1 \\ 1 & 0 & 1 \end{pmatrix}$
+and enumerate its perfect matchings to verify the permanent is $2$.
+
+\item For the $3 \times 3$ grid bipartite graph (vertices = cells,
+edges = horizontal/vertical adjacency), draw a Kasteleyn orientation
+and verify the Pfaffian count $\#\text{perfect matchings} = 0$
+(impossible because of the odd-vertex parity).
+
+\item Draw the trace of 1-WL on the Petersen graph: at each iteration, label
+each vertex with its current colour. Observe that the algorithm
+stabilises in $\le 2$ iterations with a single colour class, as it must
+for every vertex-transitive graph. Explain why this does \emph{not}
+confirm vertex-transitivity: the $3$-regular Frucht graph also receives
+a single colour, yet its only automorphism is the identity.
+
+\item For a small CFI gadget on $4$ vertices, draw both graphs and label
+the vertices with their 1-WL colours after stabilisation. Verify
+that 1-WL fails to distinguish them.
+
+\item Draw the cluster exchange graph (vertices = clusters) of type $A_2$:
+$5$ vertices, each connected to its two neighbours by an edge labeled
+with the mutation index. Verify it is the pentagon.
+
+\item Sketch a triangulation of the hexagon with $3$ diagonals and the
+corresponding adjacency quiver. Apply a flip to a chosen diagonal and
+verify the resulting quiver is the mutation of the original at the
+corresponding vertex.
+
+\item Draw a chip-firing trajectory on $K_4$ starting from
+$D_0 = 5 v_1 + 0 v_2 + 0 v_3 + 0 v_4$ until the configuration
+stabilises. Identify the resulting divisor as a representative of an
+element of $K(K_4)$.
+
+\item For the complete bipartite graph $K_{2, 3}$, draw all $12$ spanning
+trees and verify $\tau = 12 = |K(K_{2,3})|$ by computing the sandpile
+group explicitly via Smith normal form.
+
+\item Sketch the TV-distance to stationarity as a function of step number
+$k$ for the lazy random walk on $Q_5$. Highlight the cutoff window
+around $k = \tfrac{1}{2} \cdot 5 \cdot \log 5 \approx 4$ steps.
+
+\item Draw the Cayley graph of $S_3$ generated by $\{(12), (23)\}$ (the
+hexagon), and trace the first three steps of the random walk from the
+identity. Use the explicit non-abelian character formula to compute
+$\mu^{*1}, \mu^{*2}, \mu^{*3}$.
+
+\item Draw the circle packing of the cube graph $Q_3$ on the sphere
+(stereographically projected to the plane). Verify there are $8$
+circles, with adjacencies matching the edges.
+
+\item Sketch a current flow of $1$ ampere from one vertex of $K_4$ to another
+vertex. Label each edge with the current $\phi_i - \phi_j$.
+Verify Kirchhoff's current law at each internal vertex.
+
+\item Draw the crystal graph $B(1, 1, 1)$ over $\{1, 2, 3\}$: the unique
+SSYT of shape $(1, 1, 1)$ is the column $1, 2, 3$, so the crystal has
+a single vertex. Verify $\mathrm{ch}(B) = x_1 x_2 x_3$.
+
+\item Sketch the crystal $B(2)$ over $\{1, 2, 3\}$ (single-row SSYT of
+length $2$). It has $\binom{4}{2} = 6$ vertices; draw the
+$\widetilde f_1, \widetilde f_2$ edges and verify the character
+$h_2(x_1, x_2, x_3) = \sum_{i \le j} x_i x_j$.
+\end{enumerate}

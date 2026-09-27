@@ -16,8 +16,6 @@
 \newtheorem{example}{Example}
 
 
-
-
 % Graphics and drawing packages
 
 \usepackage{tikz}
@@ -187,7 +185,6 @@ If $G$ is a graph and $v \in V(G)$, then:
 \item The degree of $v$ is $d(v) = d_G(v) = |N_G(v)|$
 \end{itemize}
 \end{definition}
-
 
 
 \begin{figure}[H]
@@ -3969,8 +3966,6 @@ then $G$ is Hamiltonian.
 \end{theorem}
 
 
-
-
 \begin{figure}[h!]
 \begin{center}
 \begin{minipage}{0.48\textwidth}
@@ -4063,7 +4058,6 @@ $i$ & $d_i \leq i?$ & If yes, $d_{n-i} \geq n-i?$ \\
 \label{fig:chvatal-condition}
 \end{center}
 \end{figure}
-
 
 
 \begin{lemma}[Bondy-Chvátal Closure]
@@ -6669,8 +6663,6 @@ Starting with the weighted graph shown in Figure~\ref{fig:dijkstra-example}, we 
 \end{itemize}
 
 
-
-
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}[
@@ -6937,7 +6929,6 @@ $\begin{pmatrix}
 \end{itemize}
 
 
-
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}[
@@ -7025,10 +7016,6 @@ $\begin{pmatrix}
 \EndProcedure
 \end{algorithmic}
 \end{algorithm}
-
-
-
-
 
 
 \pagebreak
@@ -7874,7 +7861,6 @@ Perform a DFS traversal starting from vertex A and classify each edge as a tree 
 
 \pagebreak
 \newpage
-
 
 
 \section{Structure of Connected Graphs}
@@ -8764,7 +8750,6 @@ A vertex $v$ in a connected graph $G$ is a cut vertex if and only if there exist
 \begin{definition}
 For any vertices $u, v \in V(G)$, non-adjacent, let $\kappa(u,v)$ be the minimum size of a $uv$-separator.
 \end{definition}
-
 
 
 \begin{definition}
@@ -9913,7 +9898,6 @@ which is the second identity of the lemma. The first identity, $\alpha'(G) + \be
 \end{proof}
 
 
-
 \begin{example}
 Consider the cycle graph $C_5$ shown below:
 
@@ -10951,8 +10935,6 @@ $|S_1\cup S_2\cup S_3| = |\{1,2,3\}| = 3 = |I|$
 
 The condition is satisfied with equality here (and it holds for every $I$), so an SDR exists by the theorem. The structure forces it: $3$ must represent $S_2$, then $1$ must represent $S_1$, and $2$ represents $S_3$.
 \end{example}
-
-
 
 
 \begin{figure}[ht]
@@ -12329,7 +12311,6 @@ The theorem represents one of the most elegant and important results in edge col
 A key result related to Vizing's Theorem is König's Line Coloring Theorem, which states that any bipartite graph is Class 1. Here's an example of a bipartite graph with maximum degree 3:
 
 
-
 \begin{center}
 \noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.2]
@@ -12633,7 +12614,6 @@ For $K_5$:
 \end{itemize}
 
 $K_5$ requires exactly 5 colors, showing that Vizing's bound is tight (this is a Class 2 graph).
-
 
 
 \begin{center}
@@ -13234,7 +13214,6 @@ Shannon's edge coloring theorem has several important implications:
 Shannon originally developed this result in the context of analyzing switching networks in communication systems, demonstrating the practical motivations behind this theoretical advance.
 
 \subsection{Degenerate Graphs and Their Coloring Properties}
-
 
 
 \begin{figure}[ht]
@@ -15746,10 +15725,6 @@ In the example,
 \newpage
 
 
-
-
-
-
 \clearpage
 \section{Planar Graphs}
 \subsection{Definition and Basic Properties}
@@ -16030,7 +16005,6 @@ The results that $K_5$ and $K_{3,3}$ are not planar will be on the exam.
 \pagebreak
 \newpage
 \clearpage
-
 
 
 % TikZ libraries
@@ -17556,100 +17530,6 @@ The regularity partition preserves the excess density, and the
 counting lemma turns it into an embedding count of $H$.
 \end{proof}
 
-\subsubsection{Exercises}
-
-\paragraph{Easy Questions.}
-
-\begin{exercise}
-Prove Mantel's theorem by induction on $n$: remove an edge $uv$ from
-a triangle-free graph $G$, bound $|E(G - \{u, v\})|$ inductively, and
-account for the removed degrees.
-\end{exercise}
-
-\begin{exercise}
-Show that the Tur\'an graph $T(n, r)$ has chromatic number exactly
-$r$ when $n \ge r$. Deduce from Tur\'an's theorem the \emph{chromatic} density
-bound: any graph on $n$ vertices with chromatic number at most $r$
-has at most $t(n, r)$ edges.
-\end{exercise}
-
-\begin{exercise}
-Compute the number of triangles in $T(n, r)$. For which $r$ does
-$T(n, r)$ maximize the number of triangles among all $K_{r+1}$-free
-graphs on $n$ vertices?
-\end{exercise}
-
-\paragraph{Medium Questions.}
-
-\begin{exercise}
-Prove that every $K_4$-free graph on $n$ vertices contains an
-independent set of size $\ge \lfloor n^{1/3} \rfloor$. (Hint: the
-neighborhood of any vertex spans a triangle-free graph, and a
-triangle-free graph on $m$ vertices has an independent set of size
-$\ge \lfloor \sqrt{m} \rfloor$; if every degree is below $n^{2/3}$, use
-Tur\'an's theorem on the complement.) Show that $\sqrt{n}$ would be false
-in general: the Paley graph on $17$ vertices is $K_4$-free with
-independence number $3 < \sqrt{17}$.
-\end{exercise}
-
-\begin{exercise}
-Prove Reiman's bound
-$\mathrm{ex}(n, K_{2, 2}) \le \tfrac{n}{4}(1 + \sqrt{4n - 3})$
-directly, using the fact that any two vertices have at most one
-common neighbor in a $K_{2, 2}$-free graph.
-\end{exercise}
-
-\begin{exercise}
-Show that the incidence graph of a projective plane of order $q$
-has $2(q^2 + q + 1)$ vertices, is $(q + 1)$-regular, and has girth
-$6$. Verify that it achieves the Moore bound with equality.
-\end{exercise}
-
-\paragraph{Hard Questions.}
-
-\begin{exercise}[Kruskal--Katona warm-up]
-Let $G$ be a graph with $m$ edges, and write $m = \binom{x}{2}$ with
-real $x \ge 2$. Show that the number of triangles in $G$ is at most
-$\binom{x}{3} \le \tfrac{\sqrt{2}}{3}\, m^{3/2}$, with equality in the
-first inequality for $G = K_x$ when $x$ is an integer.
-\end{exercise}
-
-\begin{exercise}
-Prove that every graph on $n$ vertices and at least $\lfloor n^2/4 \rfloor + 1$
-edges contains at least $\lfloor n/2 \rfloor$ triangles. (This is
-Rademacher's theorem, a supersaturation result extending Mantel.)
-\end{exercise}
-
-\begin{exercise}
-Let $G$ be a triangle-free graph with $|V(G)| = n$ and
-$\delta(G) > 2n/5$. Prove that $G$ is bipartite
-(Andr\'asfai--Erd\H{o}s--S\'os). Construct a triangle-free,
-non-bipartite graph with $\delta(G) = 2n/5$, showing that the hypothesis
-cannot be weakened to $\delta(G) \ge 2n/5$. (Hint: blow up $C_5$.)
-\end{exercise}
-
-\begin{exercise}[Erd\H{o}s--Gallai]
-Show that every graph on $n$ vertices with more than
-$\tfrac{1}{2}(k - 1) n$ edges contains a path of length $k$.
-\end{exercise}
-
-\paragraph{Diagram Questions.}
-
-\begin{exercise}
-Draw $T(8, 3)$ and $T(8, 4)$. For each, count the edges directly and
-verify the formula $t(n, r) = \binom{n}{2} - \sum_i \binom{|V_i|}{2}$.
-\end{exercise}
-
-\begin{exercise}
-Draw a $3$-regular graph on $10$ vertices with girth $5$ that achieves
-the odd Moore bound $1 + 3 + 3 \cdot 2 = 10$ with equality. The Petersen
-graph is the canonical example---draw it in the standard
-pentagon-pentagram form and label the girth witness. (By
-Theorem~\ref{thm:moore}, a $4$-regular graph of girth $5$ needs at least
-$1 + 4 + 4 \cdot 3 = 17$ vertices; the smallest one, the Robertson graph,
-has $19$.)
-\end{exercise}
-
 \subsection{Ramsey Theory}
 
 Ramsey theory sits opposite extremal theory. Instead of asking how
@@ -18014,99 +17894,6 @@ edge-coloring of $G$, there is an induced copy of $H$ in $G$ whose
 edges are monochromatic.
 \end{theorem}
 
-\subsubsection{Exercises}
-
-\paragraph{Easy Questions.}
-
-\begin{exercise}
-Prove that $R(3, 3) = 6$ by exhibiting a two-coloring of $K_5$ with
-no monochromatic triangle (Figure~\ref{fig:r33}, left) and arguing
-$R(3, 3) \le 6$ directly via pigeonhole on a vertex.
-\end{exercise}
-
-\begin{exercise}
-Compute $R(3, 4)$ exactly. (Upper bound: $R(3, 4) \le R(2, 4) + R(3, 3) = 4 + 6 = 10$;
-then sharpen to $9$.)
-\end{exercise}
-
-\begin{exercise}
-Verify the values $R(2, t) = t$ and $R(s, 2) = s$ that anchor the
-inductive proof of Theorem~\ref{thm:ramsey}.
-\end{exercise}
-
-\paragraph{Medium Questions.}
-
-\begin{exercise}
-Suppose $R(s - 1, t)$ and $R(s, t - 1)$ are both even, and let
-$N = R(s - 1, t) + R(s, t - 1) - 1$. Show that in a red/blue coloring of
-$K_N$ with no red $K_s$ and no blue $K_t$ every vertex would have red
-degree exactly $R(s - 1, t) - 1$, an odd number, contradicting the
-handshake lemma since $N$ is odd. Conclude that
-$R(s, t) < R(s - 1, t) + R(s, t - 1)$ when both addends are even.
-\end{exercise}
-
-\begin{exercise}
-Prove Schur's theorem for three colors by showing $R(3, 3, 3) \le 17$.
-(Due to Greenwood and Gleason, 1955, who also gave the $3$-coloring of
-$K_{16}$ without monochromatic triangles that shows $R(3, 3, 3) = 17$;
-Kalbfleisch and Stanton later showed there are exactly two such colorings.)
-\end{exercise}
-
-\begin{exercise}
-Prove the infinite Ramsey theorem---every $2$-coloring of the edges
-of $K_\infty$ has an infinite monochromatic clique---and deduce the
-finite version (Theorem~\ref{thm:ramsey}) from it by a compactness
-argument (K\H{o}nig's lemma).
-\end{exercise}
-
-\begin{exercise}
-Let $\chi(G)$ denote chromatic number. Show that
-$R(K_s, G) \ge (s - 1)(\chi(G) - 1) + 1$ for every graph $G$, and that
-$R(K_s, G) \ge (s - 1)(|V(G)| - 1) + 1$ when $G$ is connected
-(Chv\'atal--Harary).
-\end{exercise}
-
-\paragraph{Hard Questions.}
-
-\begin{exercise}
-Use the probabilistic method to show $R(s, t) > (1 - o(1))\, t^{(s-1)/2}$
-for fixed $s$ and $t \to \infty$.
-\end{exercise}
-
-\begin{exercise}
-Prove Chv\'atal's theorem $R(T_n, K_s) = (s - 1)(n - 1) + 1$ for trees,
-filling in the degeneracy details.
-\end{exercise}
-
-\begin{exercise}
-Use the Lov\'asz Local Lemma to show $R(3, k) \ge c \cdot k^2 / \log^2 k$.
-(A weaker form of Kim's bound, but significantly sharper than the
-first-moment lower bound.)
-\end{exercise}
-
-\begin{exercise}
-Prove van der Waerden's theorem $W(2, 3) = 9$: any $2$-coloring of
-$\{1, \dots, 9\}$ has a monochromatic $3$-AP, and some $2$-coloring
-of $\{1, \dots, 8\}$ avoids one.
-\end{exercise}
-
-\paragraph{Diagram Questions.}
-
-\begin{exercise}
-Reproduce the Greenwood--Gleason $3$-coloring of $K_{16}$ with no
-monochromatic triangle. Hint: the nonzero cubes form a subgroup $C$ of
-index $3$ in the multiplicative group $\mathbb F_{16}^{*}$; color the edge
-$xy$ by the coset of $C$ containing $x + y$ ($= x - y$). Each color class
-is a copy of the Clebsch graph.
-\end{exercise}
-
-\begin{exercise}
-Draw the blow-up coloring witnessing the Chv\'atal lower
-bound $R(T, K_s) > (s - 1)(t - 1)$: $s - 1$ red cliques of size
-$t - 1$ joined blue across blocks. Verify directly that no red
-$T_t$ and no blue $K_s$ appears.
-\end{exercise}
-
 \subsection{The Probabilistic Method}
 
 The \emph{probabilistic method}, pioneered by Erd\H{o}s in the 1940s
@@ -18423,104 +18210,6 @@ $(X_1, \dots, X_n)$,
 \begin{corollary}[Kruskal--Katona-type triangle bound]
 A graph with $m$ edges has at most $\tfrac{1}{6}(2m)^{3/2}$ triangles.
 \end{corollary}
-
-\subsubsection{Exercises}
-
-\paragraph{Easy Questions.}
-
-\begin{exercise}
-Using linearity of expectation, show that every graph on $m$ edges
-has a bipartite subgraph with at least $m/2$ edges, and a $k$-partite
-subgraph with at least $(1 - 1/k)m$ edges.
-\end{exercise}
-
-\begin{exercise}
-Show that every tournament on $n \ge 2$ vertices has a dominating set of
-size at most $\lceil \log_2 n \rceil$. (Hint: by averaging, some vertex
-beats at least $\lceil (n-1)/2 \rceil$ others; take it, discard it and
-the vertices it beats, and repeat.)
-\end{exercise}
-
-\begin{exercise}
-Compute the variance of the triangle count $X$ in $G(n, p)$ for
-$p = 1/2$ and verify $\mathrm{Var}(X) = O(n^4)$ while
-$\mathbb{E}[X] = \Theta(n^3)$.
-\end{exercise}
-
-\paragraph{Medium Questions.}
-
-\begin{exercise}
-Use the vertex-exposure martingale and Azuma's inequality to show
-that $\chi(G(n, 1/2))$ is concentrated within $O(\sqrt{n \log n})$ of
-its median.
-\end{exercise}
-
-\begin{exercise}
-Prove that some tournament on $n$ vertices contains at least
-$n!/2^{n - 1}$ Hamiltonian paths (Szele), and show that the transitive
-tournament contains exactly one, so ``some'' cannot be replaced by
-``every''. (Alon showed, using Br\'egman's permanent inequality, that
-no tournament has more than $O(n^{3/2}\, n!/2^{n})$ Hamiltonian paths.)
-\end{exercise}
-
-\begin{exercise}
-Identify the regime $p = p(n)$ where the triangle count $X$ in
-$G(n,p)$ satisfies $X/\mathbb{E}[X] \to 1$ in probability via
-Chebyshev's inequality (Theorem~\ref{thm:chebyshev}).
-\end{exercise}
-
-\paragraph{Hard Questions.}
-
-\begin{exercise}
-Use LLL to show that every graph $G$ of maximum degree $\Delta$ has a
-\emph{proper} edge-colouring with at most $C \cdot \Delta$ colours in
-which the union of any two colour classes is \emph{acyclic} (no
-bichromatic cycle). (This is the acyclic edge-colouring theorem of Alon,
-McDiarmid, and Reed; $C = 64$ suffices.)
-\end{exercise}
-
-\begin{exercise}
-State and prove the \emph{Lopsided} LLL: the dependency condition may
-be relaxed to a bound on $\Pr[A_i \mid \bigcap_{j \in J} \overline{A_j}]$
-for $J$ disjoint from the dependency neighborhood of $i$.
-\end{exercise}
-
-\begin{exercise}
-Use dependent random choice (Lemma~\ref{lem:drc}) to prove:
-every $n$-vertex graph with $\ge 2n^{2 - 1/t}$ edges contains $K_{t, t}$.
-\end{exercise}
-
-\begin{exercise}
-Use Shearer's entropy lemma to bound the number of labeled copies
-of $C_4$ in a graph with $m$ edges.
-\end{exercise}
-
-\begin{exercise}
-Prove the second-moment concentration for subgraph counts: if
-$H$ has $v$ vertices and $e$ edges, $m^*(H) = \max_{H' \subseteq H} |E(H')|/|V(H')|$,
-and $np^{m^*(H)} \to \infty$, then the number $X_H$ of copies of $H$ in
-$G(n, p)$ satisfies $X_H/\mathbb{E}[X_H] \to 1$ in probability. (For
-balanced $H$, i.e.\ $m^*(H) = e/v$, the condition is $np^{e/v} \to \infty$;
-show by an example such as $K_4$ plus a pendant edge that
-$np^{e/v} \to \infty$ alone does not suffice.)
-\end{exercise}
-
-\paragraph{Diagram Questions.}
-
-\begin{exercise}
-Draw the dependency graph $D$ for the events ``the $4$-set $S$ is
-monochromatic'' as $S$ ranges over $\binom{[6]}{4}$ in the
-random $2$-coloring of $E(K_6)$. Estimate the dependency degree $d$
-and check whether the symmetric LLL applies.
-\end{exercise}
-
-\begin{exercise}
-For a triangle-free graph $G$ found by the deletion method on
-$G(n, c/n)$ with $c = 5$, sketch (schematically) the typical local
-structure: degree distribution, isolated vertices, short cycles,
-and the surviving sparse independent-set witness for high
-chromatic number.
-\end{exercise}
 
 \subsection{Spectral Graph Theory}\label{subsec:spectral}
 
@@ -18926,85 +18615,6 @@ $\chi(P) \ge 3$; in fact $\chi(P) = 3$.
 \end{figure}
 \end{example}
 
-\subsubsection{Exercises}
-
-\paragraph{Easy Questions.}
-
-\begin{exercise}
-Compute the adjacency spectrum of $K_n$, $K_{n, n}$, $C_n$, and the
-Petersen graph.
-\end{exercise}
-
-\begin{exercise}
-Use the Matrix-Tree theorem to count spanning trees of $K_{m, n}$.
-Answer: $m^{n - 1} n^{m - 1}$.
-\end{exercise}
-
-\begin{exercise}
-Prove that a graph is bipartite iff its adjacency spectrum is
-symmetric about $0$.
-\end{exercise}
-
-\paragraph{Medium Questions.}
-
-\begin{exercise}
-For the cycle $C_n$, compute the Laplacian eigenvalues explicitly as
-$2 - 2\cos(2\pi k/n)$ for $k = 0, 1, \dots, n - 1$. Identify $\mu_2$
-and comment on how it scales with $n$.
-\end{exercise}
-
-\begin{exercise}
-Prove that the hypercube $Q_n = K_2^{\square n}$ has Laplacian
-spectrum $\{2k : k = 0, 1, \dots, n\}$ with multiplicity $\binom{n}{k}$.
-\end{exercise}
-
-\begin{exercise}
-Prove Hoffman's theorem: $\chi(G) \ge 1 - \lambda_1/\lambda_n$, by
-applying interlacing to any independent-set partition.
-\end{exercise}
-
-\begin{exercise}
-Show that the proof of the expander mixing lemma actually gives
-$\big|\, |E(S, T)| - d|S||T|/n \,\big| \le |\lambda|\sqrt{|S|(1 - |S|/n)\,|T|(1 - |T|/n)}$,
-and apply it with $T = V \setminus S$ to prove the lower bound
-$h(G) \ge (d - |\lambda|)/2$. Explain why the expander mixing lemma
-cannot give Cheeger's upper bound $h(G) \le \sqrt{2 d \mu_2}$.
-\end{exercise}
-
-\paragraph{Hard Questions.}
-
-\begin{exercise}
-Prove Theorem~\ref{thm:srgspectrum} on the three-eigenvalue spectrum
-of a strongly regular graph.
-\end{exercise}
-
-\begin{exercise}
-Show that if $G$ is a $d$-regular $\lambda$-expander, then the
-diameter of $G$ satisfies $\mathrm{diam}(G) \le \lceil \log_{d/\lambda} n \rceil$.
-\end{exercise}
-
-\begin{exercise}
-Prove the Alon--Boppana bound $\lambda_2 \ge 2\sqrt{d - 1} - o(1)$ by
-a trace / walk-counting argument on the $d$-regular infinite tree.
-\end{exercise}
-
-\paragraph{Diagram Questions.}
-
-\begin{exercise}
-Draw the Fiedler eigenvector $v_2$ of the path $P_6$ as a colored
-sequence (positive on one end, negative on the other) and use the
-threshold-cut sweep on $v_2$ to recover the bisection $\{1, 2, 3\}$
-vs $\{4, 5, 6\}$. Verify directly that this is the Cheeger optimal
-cut.
-\end{exercise}
-
-\begin{exercise}
-Draw the Petersen graph (Figure~\ref{fig:petersen-spectrum}) with a
-proper $3$-coloring of its vertices, and verify that no smaller
-proper coloring exists by combining the Hoffman bound with a parity
-argument on the outer pentagon.
-\end{exercise}
-
 \subsection{Random Graphs}
 
 Random graph theory, initiated by Erd\H{o}s and R\'enyi in their
@@ -19270,95 +18880,6 @@ $n^2(1 - p) \to \infty$, then (and only then)
   \frac{X_H - \mathbb{E}[X_H]}{\sqrt{\mathrm{Var}(X_H)}} \;\xrightarrow{d}\; \mathcal{N}(0, 1).
 \]
 \end{theorem}
-
-\subsubsection{Exercises}
-
-\paragraph{Easy Questions.}
-
-\begin{exercise}
-Prove that the threshold for $G(n, p)$ to contain a triangle is
-$p = 1/n$: show $\mathbb{E}[\#K_3] = \binom{n}{3} p^3$ and apply Markov's
-inequality (first moment) for the $0$-statement, and use Chebyshev's
-inequality (second moment) for the $1$-statement.
-\end{exercise}
-
-\begin{exercise}
-Compute the threshold for the appearance of $C_4$ in $G(n, p)$.
-Answer: $p = n^{-1}$ (using $m^*(C_4) = 1$).
-\end{exercise}
-
-\begin{exercise}
-Prove that the random $3$-regular graph is connected whp.
-\end{exercise}
-
-\paragraph{Medium Questions.}
-
-\begin{exercise}
-Prove that $\alpha(G(n, 1/2)) = (2 + o(1)) \log_2 n$ whp. (First
-moment for the upper bound; second moment / alteration for the
-matching lower bound.)
-\end{exercise}
-
-\begin{exercise}
-Prove Theorem~\ref{thm:bt} (Bollob\'as--Thomason) assuming monotonicity,
-using the fact that the union of $k$ independent copies of $G(n, p)$ is
-distributed as $G(n, 1 - (1 - p)^k)$.
-\end{exercise}
-
-\begin{exercise}
-Prove that for $p = 1/n$ (critical), the expected number of
-\emph{tree} components of size $k$ in $G(n, p)$ is asymptotically
-$n \cdot k^{k - 2} e^{-k}/k!$. (Use Cayley's formula.)
-\end{exercise}
-
-\paragraph{Hard Questions.}
-
-\begin{exercise}
-Prove that if $p n^{2/3} \to \infty$ and $n^2(1 - p) \to \infty$, the
-number of triangles in $G(n, p)$ is asymptotically normal. (Variance
-computation plus Stein's method or the method of moments. By
-Ruci\'nski's theorem, $np \to \infty$ and $n^2(1 - p) \to \infty$ already suffice.)
-\end{exercise}
-
-\begin{exercise}
-Show that for $p = c/n$ with $c > 1$, the distance between two uniformly
-random vertices of the giant component of $G(n, p)$ is
-$(1 + o(1))\log n / \log c$ whp. (The diameter of the giant is larger:
-Fernholz--Ramachandran and Riordan--Wormald showed that it is
-$(1 + o(1))\big(\log n/\log c + 2\log n/\log(1/c_*)\big)$ whp, where
-$c_* < 1$ satisfies $c_* e^{-c_*} = c e^{-c}$.)
-\end{exercise}
-
-\begin{exercise}
-Let $p = c/n$ with $c > 1$. Show that the fraction of vertices in
-components of size $\le k$ converges to an explicit value involving
-the Borel distribution.
-\end{exercise}
-
-\begin{exercise}
-Use Azuma's inequality on the vertex-exposure martingale to show
-$\chi(G(n, p))$ is concentrated within $O(\sqrt{n \log n})$ of its
-median, for any $p$.
-\end{exercise}
-
-\paragraph{Diagram Questions.}
-
-\begin{exercise}
-Sketch the qualitative shape of the survival probability $\rho_c$
-(the unique positive root of $1 - \rho = e^{-c\rho}$) as a function
-of $c$ on $[0, 3]$. Mark the critical point $c = 1$ and the
-horizontal asymptote $\rho_\infty = 1$. Annotate the picture with
-the three regimes (subcritical / critical / supercritical) of
-Theorem~\ref{thm:giant}.
-\end{exercise}
-
-\begin{exercise}
-Draw a sample $G(8, 1/2)$ and identify by inspection: the largest
-component, all isolated vertices, the maximum and minimum degree.
-Compare with the expectations $\mathbb{E}[X_0] = 8 \cdot (1/2)^7 = 1/16$
-and $\mathbb{E}[d(v)] = 7/2$ (so $\mathbb{E}[\Delta] \ge 7/2$; in fact
-$\mathbb{E}[\Delta] \approx 5.2$).
-\end{exercise}
 
 \subsection{Szemer\'edi's Regularity Lemma}
 
@@ -19669,92 +19190,6 @@ triangle-freeness the query complexity of one-sided testers is
 super-polynomial (via Behrend's construction), and Alon showed that
 $H$-freeness can be tested with one-sided error using
 $\mathrm{poly}(1/\varepsilon)$ queries if and only if $H$ is bipartite.
-
-\subsubsection{Exercises}
-
-\paragraph{Easy Questions.}
-
-\begin{exercise}
-Prove the \emph{symmetry} of regularity: if $(X, Y)$ is $\varepsilon$-regular
-with density $d$, then so is $(Y, X)$.
-\end{exercise}
-
-\begin{exercise}
-Show that a random bipartite graph with edge probability $p$ is
-$\varepsilon$-regular with high probability for any fixed $\varepsilon > 0$.
-\end{exercise}
-
-\begin{exercise}
-Using the counting lemma, give a short proof of the Erd\H{o}s--Stone
-theorem.
-\end{exercise}
-
-\paragraph{Medium Questions.}
-
-\begin{exercise}
-Prove that the triangle removal lemma implies the corner theorem
-(Ajtai--Szemer\'edi): every subset of $[N]^2$ of positive density
-contains, for $N$ large, a \emph{corner} $\{(x, y), (x + d, y), (x, y + d)\}$ with $d > 0$.
-\end{exercise}
-
-\begin{exercise}
-Use the triangle removal lemma together with Mantel's theorem
-$\mathrm{ex}(n, K_3) \le n^2/4$ to prove the supersaturation statement: every
-graph with more than $(1/4 + \varepsilon) n^2$ edges contains $\Omega(n^3)$
-triangles.
-\end{exercise}
-
-\begin{exercise}
-Show that the graph removal lemma is equivalent to the following
-statement: for any fixed $H$ and $\varepsilon > 0$, every graph with
-fewer than $\delta n^{|V(H)|}$ copies of $H$ contains an
-$H$-free spanning subgraph with at least $e(G) - \varepsilon n^2$ edges.
-\end{exercise}
-
-\begin{exercise}
-Using the regularity lemma, give a proof of the Erd\H{o}s--Simonovits
-stability theorem.
-\end{exercise}
-
-\paragraph{Hard Questions.}
-
-\begin{exercise}
-Using Behrend's construction of a subset of $[N]$ of size
-$N/\exp(O(\sqrt{\log N}))$ with no 3-AP, together with the Ruzsa $3$-AP
-graph, show that $\delta(\eta)$ in the triangle removal lemma must satisfy
-$\delta \le \eta^{c \log(1/\eta)}$ for some absolute constant $c > 0$ and all
-small $\eta$; in particular $\delta$ cannot be taken polynomial in $\eta$.
-\end{exercise}
-
-\begin{exercise}
-Prove the hypergraph version: for $3$-uniform hypergraphs, every
-$H$ with few copies can be made $H$-free by deleting few edges.
-(Use the hypergraph regularity lemma of Gowers / R\"odl--Schacht.)
-\end{exercise}
-
-\begin{exercise}
-Show that cut-distance $d_\square(W_1, W_2)$ is a metric on the space
-of graphons modulo measure-preserving relabelings, and that it is
-compatible with subgraph densities in the sense of Lov\'asz--Szegedy.
-\end{exercise}
-
-\paragraph{Diagram Questions.}
-
-\begin{exercise}
-For the graph $G$ obtained as the disjoint union of $K_{4,4}$ and an
-independent set of $4$ vertices, construct an $\varepsilon$-regular
-partition with $\varepsilon = 0.1$ into $k = 3$ parts (the two sides of
-the biclique and the independent set). Tabulate the $3 \times 3$
-density matrix as in Figure~\ref{fig:regularity-partition} and verify
-that all pairs are $0.1$-regular.
-\end{exercise}
-
-\begin{exercise}
-Draw the Ruzsa $3$-AP graph $G_A$ for $A = \{1, 4\} \subset [5]$.
-Identify all triangles of $G_A$ and verify that the trivial triangles
-correspond to the elements $1$ and $4$ of $A$ themselves, and that
-$A$ contains no $3$-AP.
-\end{exercise}
 
 \subsection{Graph Minors and Treewidth}
 
@@ -20074,178 +19509,430 @@ This is a major consequence of the Structure Theorem: while the
 problem is $\mathrm{NP}$-hard when $k$ is part of the input, any
 fixed number of terminal pairs can be handled in polynomial time.
 
-\subsubsection{Exercises}
+\subsection{Chapter 11 Exercises}
 
-\paragraph{Easy Questions.}
+\subsubsection{Easy Questions}
+\begin{enumerate}
+\item Prove Mantel's theorem by induction on $n$: remove an edge $uv$ from
+a triangle-free graph $G$, bound $|E(G - \{u, v\})|$ inductively, and
+account for the removed degrees.
 
-\begin{exercise}
-Show that every graph with treewidth at most $k$ has at most $kn$
+\item Show that the Tur\'an graph $T(n, r)$ has chromatic number exactly
+$r$ when $n \ge r$. Deduce from Tur\'an's theorem the \emph{chromatic} density
+bound: any graph on $n$ vertices with chromatic number at most $r$
+has at most $t(n, r)$ edges.
+
+\item Compute the number of triangles in $T(n, r)$. For which $r$ does
+$T(n, r)$ maximize the number of triangles among all $K_{r+1}$-free
+graphs on $n$ vertices?
+
+\item Prove that $R(3, 3) = 6$ by exhibiting a two-coloring of $K_5$ with
+no monochromatic triangle (Figure~\ref{fig:r33}, left) and arguing
+$R(3, 3) \le 6$ directly via pigeonhole on a vertex.
+
+\item Compute $R(3, 4)$ exactly. (Upper bound: $R(3, 4) \le R(2, 4) + R(3, 3) = 4 + 6 = 10$;
+then sharpen to $9$.)
+
+\item Verify the values $R(2, t) = t$ and $R(s, 2) = s$ that anchor the
+inductive proof of Theorem~\ref{thm:ramsey}.
+
+\item Using linearity of expectation, show that every graph on $m$ edges
+has a bipartite subgraph with at least $m/2$ edges, and a $k$-partite
+subgraph with at least $(1 - 1/k)m$ edges.
+
+\item Show that every tournament on $n \ge 2$ vertices has a dominating set of
+size at most $\lceil \log_2 n \rceil$. (Hint: by averaging, some vertex
+beats at least $\lceil (n-1)/2 \rceil$ others; take it, discard it and
+the vertices it beats, and repeat.)
+
+\item Compute the variance of the triangle count $X$ in $G(n, p)$ for
+$p = 1/2$ and verify $\mathrm{Var}(X) = O(n^4)$ while
+$\mathbb{E}[X] = \Theta(n^3)$.
+
+\item Compute the adjacency spectrum of $K_n$, $K_{n, n}$, $C_n$, and the
+Petersen graph.
+
+\item Use the Matrix-Tree theorem to count spanning trees of $K_{m, n}$.
+Answer: $m^{n - 1} n^{m - 1}$.
+
+\item Prove that a graph is bipartite iff its adjacency spectrum is
+symmetric about $0$.
+
+\item Prove that the threshold for $G(n, p)$ to contain a triangle is
+$p = 1/n$: show $\mathbb{E}[\#K_3] = \binom{n}{3} p^3$ and apply Markov's
+inequality (first moment) for the $0$-statement, and use Chebyshev's
+inequality (second moment) for the $1$-statement.
+
+\item Compute the threshold for the appearance of $C_4$ in $G(n, p)$.
+Answer: $p = n^{-1}$ (using $m^*(C_4) = 1$).
+
+\item Prove that the random $3$-regular graph is connected whp.
+
+\item Prove the \emph{symmetry} of regularity: if $(X, Y)$ is $\varepsilon$-regular
+with density $d$, then so is $(Y, X)$.
+
+\item Show that a random bipartite graph with edge probability $p$ is
+$\varepsilon$-regular with high probability for any fixed $\varepsilon > 0$.
+
+\item Using the counting lemma, give a short proof of the Erd\H{o}s--Stone
+theorem.
+
+\item Show that every graph with treewidth at most $k$ has at most $kn$
 edges. Show that the converse fails badly: planar graphs have at most
 $3n - 6$ edges, yet the $m \times m$ grid (planar, with $n = m^2$ vertices
 and fewer than $2n$ edges) has treewidth $m = \sqrt n$.
-\end{exercise}
 
-\begin{exercise}
-Compute the treewidth of the Petersen graph.
-\end{exercise}
+\item Compute the treewidth of the Petersen graph.
 
-\begin{exercise}
-Verify directly that the cycle $C_5$ has treewidth $2$ by exhibiting
+\item Verify directly that the cycle $C_5$ has treewidth $2$ by exhibiting
 a width-$2$ tree decomposition.
-\end{exercise}
 
-\paragraph{Medium Questions.}
+\item Show that the chromatic number of the Tur\'an graph $T(n, r)$ is
+exactly $r$ when $n \ge r$. Deduce from Tur\'an's theorem that every graph with
+more than $(1 - 1/r) n^2/2$ edges has chromatic number $\ge r + 1$.
 
-\begin{exercise}
-Prove that $\mathrm{tw}(G) \le k$ iff $G$ has a chordal supergraph
+\end{enumerate}
+
+\subsubsection{Medium Questions}
+\begin{enumerate}[resume]
+\item Prove that every $K_4$-free graph on $n$ vertices contains an
+independent set of size $\ge \lfloor n^{1/3} \rfloor$. (Hint: the
+neighborhood of any vertex spans a triangle-free graph, and a
+triangle-free graph on $m$ vertices has an independent set of size
+$\ge \lfloor \sqrt{m} \rfloor$; if every degree is below $n^{2/3}$, use
+Tur\'an's theorem on the complement.) Show that $\sqrt{n}$ would be false
+in general: the Paley graph on $17$ vertices is $K_4$-free with
+independence number $3 < \sqrt{17}$.
+
+\item Prove Reiman's bound
+$\mathrm{ex}(n, K_{2, 2}) \le \tfrac{n}{4}(1 + \sqrt{4n - 3})$
+directly, using the fact that any two vertices have at most one
+common neighbor in a $K_{2, 2}$-free graph.
+
+\item Show that the incidence graph of a projective plane of order $q$
+has $2(q^2 + q + 1)$ vertices, is $(q + 1)$-regular, and has girth
+$6$. Verify that it achieves the Moore bound with equality.
+
+\item Suppose $R(s - 1, t)$ and $R(s, t - 1)$ are both even, and let
+$N = R(s - 1, t) + R(s, t - 1) - 1$. Show that in a red/blue coloring of
+$K_N$ with no red $K_s$ and no blue $K_t$ every vertex would have red
+degree exactly $R(s - 1, t) - 1$, an odd number, contradicting the
+handshake lemma since $N$ is odd. Conclude that
+$R(s, t) < R(s - 1, t) + R(s, t - 1)$ when both addends are even.
+
+\item Prove Schur's theorem for three colors by showing $R(3, 3, 3) \le 17$.
+(Due to Greenwood and Gleason, 1955, who also gave the $3$-coloring of
+$K_{16}$ without monochromatic triangles that shows $R(3, 3, 3) = 17$;
+Kalbfleisch and Stanton later showed there are exactly two such colorings.)
+
+\item Prove the infinite Ramsey theorem---every $2$-coloring of the edges
+of $K_\infty$ has an infinite monochromatic clique---and deduce the
+finite version (Theorem~\ref{thm:ramsey}) from it by a compactness
+argument (K\H{o}nig's lemma).
+
+\item Let $\chi(G)$ denote chromatic number. Show that
+$R(K_s, G) \ge (s - 1)(\chi(G) - 1) + 1$ for every graph $G$, and that
+$R(K_s, G) \ge (s - 1)(|V(G)| - 1) + 1$ when $G$ is connected
+(Chv\'atal--Harary).
+
+\item Use the vertex-exposure martingale and Azuma's inequality to show
+that $\chi(G(n, 1/2))$ is concentrated within $O(\sqrt{n \log n})$ of
+its median.
+
+\item Prove that some tournament on $n$ vertices contains at least
+$n!/2^{n - 1}$ Hamiltonian paths (Szele), and show that the transitive
+tournament contains exactly one, so ``some'' cannot be replaced by
+``every''. (Alon showed, using Br\'egman's permanent inequality, that
+no tournament has more than $O(n^{3/2}\, n!/2^{n})$ Hamiltonian paths.)
+
+\item Identify the regime $p = p(n)$ where the triangle count $X$ in
+$G(n,p)$ satisfies $X/\mathbb{E}[X] \to 1$ in probability via
+Chebyshev's inequality (Theorem~\ref{thm:chebyshev}).
+
+\item For the cycle $C_n$, compute the Laplacian eigenvalues explicitly as
+$2 - 2\cos(2\pi k/n)$ for $k = 0, 1, \dots, n - 1$. Identify $\mu_2$
+and comment on how it scales with $n$.
+
+\item Prove that the hypercube $Q_n = K_2^{\square n}$ has Laplacian
+spectrum $\{2k : k = 0, 1, \dots, n\}$ with multiplicity $\binom{n}{k}$.
+
+\item Prove Hoffman's theorem: $\chi(G) \ge 1 - \lambda_1/\lambda_n$, by
+applying interlacing to any independent-set partition.
+
+\item Show that the proof of the expander mixing lemma actually gives
+$\big|\, |E(S, T)| - d|S||T|/n \,\big| \le |\lambda|\sqrt{|S|(1 - |S|/n)\,|T|(1 - |T|/n)}$,
+and apply it with $T = V \setminus S$ to prove the lower bound
+$h(G) \ge (d - |\lambda|)/2$. Explain why the expander mixing lemma
+cannot give Cheeger's upper bound $h(G) \le \sqrt{2 d \mu_2}$.
+
+\item Prove that $\alpha(G(n, 1/2)) = (2 + o(1)) \log_2 n$ whp. (First
+moment for the upper bound; second moment / alteration for the
+matching lower bound.)
+
+\item Prove Theorem~\ref{thm:bt} (Bollob\'as--Thomason) assuming monotonicity,
+using the fact that the union of $k$ independent copies of $G(n, p)$ is
+distributed as $G(n, 1 - (1 - p)^k)$.
+
+\item Prove that for $p = 1/n$ (critical), the expected number of
+\emph{tree} components of size $k$ in $G(n, p)$ is asymptotically
+$n \cdot k^{k - 2} e^{-k}/k!$. (Use Cayley's formula.)
+
+\item Prove that the triangle removal lemma implies the corner theorem
+(Ajtai--Szemer\'edi): every subset of $[N]^2$ of positive density
+contains, for $N$ large, a \emph{corner} $\{(x, y), (x + d, y), (x, y + d)\}$ with $d > 0$.
+
+\item Use the triangle removal lemma together with Mantel's theorem
+$\mathrm{ex}(n, K_3) \le n^2/4$ to prove the supersaturation statement: every
+graph with more than $(1/4 + \varepsilon) n^2$ edges contains $\Omega(n^3)$
+triangles.
+
+\item Show that the graph removal lemma is equivalent to the following
+statement: for any fixed $H$ and $\varepsilon > 0$, every graph with
+fewer than $\delta n^{|V(H)|}$ copies of $H$ contains an
+$H$-free spanning subgraph with at least $e(G) - \varepsilon n^2$ edges.
+
+\item Using the regularity lemma, give a proof of the Erd\H{o}s--Simonovits
+stability theorem.
+
+\item Prove that $\mathrm{tw}(G) \le k$ iff $G$ has a chordal supergraph
 with clique number $\le k + 1$ (Theorem~\ref{thm:chordaltw}).
-\end{exercise}
 
-\begin{exercise}
-Show that $K_{3, 3}$ and $K_5$ are the only two minor-minimal
+\item Show that $K_{3, 3}$ and $K_5$ are the only two minor-minimal
 non-planar graphs, completing Wagner's theorem
 (Theorem~\ref{thm:wagner}).
-\end{exercise}
 
-\begin{exercise}
-Prove Kruskal's tree theorem from Higman's lemma.
-\end{exercise}
+\item Prove Kruskal's tree theorem from Higman's lemma.
 
-\begin{exercise}
-Show that the class of \emph{series--parallel} graphs (graphs with no
+\item Show that the class of \emph{series--parallel} graphs (graphs with no
 $K_4$-minor) coincides with graphs of treewidth at most $2$.
-\end{exercise}
 
-\begin{exercise}
-Using Courcelle's theorem, show that $3$-coloring is solvable in
+\item Using Courcelle's theorem, show that $3$-coloring is solvable in
 linear time on graphs of bounded treewidth. Construct an explicit DP
 algorithm with running time $O(3^k \cdot k \cdot n)$.
-\end{exercise}
 
-\paragraph{Hard Questions.}
+\item Show that every tournament on $n$ vertices contains a Hamiltonian path
+(induct on $n$, inserting the new vertex into a Hamiltonian path of the
+rest). Then use linearity of expectation to show that some tournament on
+$n$ vertices has at least $n!/2^{n-1}$ Hamiltonian paths.
 
-\begin{exercise}
-Prove that the $n \times n$ grid graph has treewidth exactly $n$.
+\item Prove Kirchhoff's Matrix-Tree theorem for the complete graph $K_n$
+and deduce Cayley's formula: $K_n$ has $n^{n-2}$ spanning trees.
+\end{enumerate}
+
+\subsubsection{Hard Questions}
+\begin{enumerate}[resume]
+\item \textbf{Kruskal--Katona warm-up.} Let $G$ be a graph with $m$ edges, and write $m = \binom{x}{2}$ with
+real $x \ge 2$. Show that the number of triangles in $G$ is at most
+$\binom{x}{3} \le \tfrac{\sqrt{2}}{3}\, m^{3/2}$, with equality in the
+first inequality for $G = K_x$ when $x$ is an integer.
+
+\item Prove that every graph on $n$ vertices and at least $\lfloor n^2/4 \rfloor + 1$
+edges contains at least $\lfloor n/2 \rfloor$ triangles. (This is
+Rademacher's theorem, a supersaturation result extending Mantel.)
+
+\item Let $G$ be a triangle-free graph with $|V(G)| = n$ and
+$\delta(G) > 2n/5$. Prove that $G$ is bipartite
+(Andr\'asfai--Erd\H{o}s--S\'os). Construct a triangle-free,
+non-bipartite graph with $\delta(G) = 2n/5$, showing that the hypothesis
+cannot be weakened to $\delta(G) \ge 2n/5$. (Hint: blow up $C_5$.)
+
+\item \textbf{Erd\H{o}s--Gallai.} Show that every graph on $n$ vertices with more than
+$\tfrac{1}{2}(k - 1) n$ edges contains a path of length $k$.
+
+\item Use the probabilistic method to show $R(s, t) > (1 - o(1))\, t^{(s-1)/2}$
+for fixed $s$ and $t \to \infty$.
+
+\item Prove Chv\'atal's theorem $R(T_n, K_s) = (s - 1)(n - 1) + 1$ for trees,
+filling in the degeneracy details.
+
+\item Use the Lov\'asz Local Lemma to show $R(3, k) \ge c \cdot k^2 / \log^2 k$.
+(A weaker form of Kim's bound, but significantly sharper than the
+first-moment lower bound.)
+
+\item Prove van der Waerden's theorem $W(2, 3) = 9$: any $2$-coloring of
+$\{1, \dots, 9\}$ has a monochromatic $3$-AP, and some $2$-coloring
+of $\{1, \dots, 8\}$ avoids one.
+
+\item Use LLL to show that every graph $G$ of maximum degree $\Delta$ has a
+\emph{proper} edge-colouring with at most $C \cdot \Delta$ colours in
+which the union of any two colour classes is \emph{acyclic} (no
+bichromatic cycle). (This is the acyclic edge-colouring theorem of Alon,
+McDiarmid, and Reed; $C = 64$ suffices.)
+
+\item State and prove the \emph{Lopsided} LLL: the dependency condition may
+be relaxed to a bound on $\Pr[A_i \mid \bigcap_{j \in J} \overline{A_j}]$
+for $J$ disjoint from the dependency neighborhood of $i$.
+
+\item Use dependent random choice (Lemma~\ref{lem:drc}) to prove:
+every $n$-vertex graph with $\ge 2n^{2 - 1/t}$ edges contains $K_{t, t}$.
+
+\item Use Shearer's entropy lemma to bound the number of labeled copies
+of $C_4$ in a graph with $m$ edges.
+
+\item Prove the second-moment concentration for subgraph counts: if
+$H$ has $v$ vertices and $e$ edges, $m^*(H) = \max_{H' \subseteq H} |E(H')|/|V(H')|$,
+and $np^{m^*(H)} \to \infty$, then the number $X_H$ of copies of $H$ in
+$G(n, p)$ satisfies $X_H/\mathbb{E}[X_H] \to 1$ in probability. (For
+balanced $H$, i.e.\ $m^*(H) = e/v$, the condition is $np^{e/v} \to \infty$;
+show by an example such as $K_4$ plus a pendant edge that
+$np^{e/v} \to \infty$ alone does not suffice.)
+
+\item Prove Theorem~\ref{thm:srgspectrum} on the three-eigenvalue spectrum
+of a strongly regular graph.
+
+\item Show that if $G$ is a $d$-regular $\lambda$-expander, then the
+diameter of $G$ satisfies $\mathrm{diam}(G) \le \lceil \log_{d/\lambda} n \rceil$.
+
+\item Prove the Alon--Boppana bound $\lambda_2 \ge 2\sqrt{d - 1} - o(1)$ by
+a trace / walk-counting argument on the $d$-regular infinite tree.
+
+\item Prove that if $p n^{2/3} \to \infty$ and $n^2(1 - p) \to \infty$, the
+number of triangles in $G(n, p)$ is asymptotically normal. (Variance
+computation plus Stein's method or the method of moments. By
+Ruci\'nski's theorem, $np \to \infty$ and $n^2(1 - p) \to \infty$ already suffice.)
+
+\item Show that for $p = c/n$ with $c > 1$, the distance between two uniformly
+random vertices of the giant component of $G(n, p)$ is
+$(1 + o(1))\log n / \log c$ whp. (The diameter of the giant is larger:
+Fernholz--Ramachandran and Riordan--Wormald showed that it is
+$(1 + o(1))\big(\log n/\log c + 2\log n/\log(1/c_*)\big)$ whp, where
+$c_* < 1$ satisfies $c_* e^{-c_*} = c e^{-c}$.)
+
+\item Let $p = c/n$ with $c > 1$. Show that the fraction of vertices in
+components of size $\le k$ converges to an explicit value involving
+the Borel distribution.
+
+\item Use Azuma's inequality on the vertex-exposure martingale to show
+$\chi(G(n, p))$ is concentrated within $O(\sqrt{n \log n})$ of its
+median, for any $p$.
+
+\item Using Behrend's construction of a subset of $[N]$ of size
+$N/\exp(O(\sqrt{\log N}))$ with no 3-AP, together with the Ruzsa $3$-AP
+graph, show that $\delta(\eta)$ in the triangle removal lemma must satisfy
+$\delta \le \eta^{c \log(1/\eta)}$ for some absolute constant $c > 0$ and all
+small $\eta$; in particular $\delta$ cannot be taken polynomial in $\eta$.
+
+\item Prove the hypergraph version: for $3$-uniform hypergraphs, every
+$H$ with few copies can be made $H$-free by deleting few edges.
+(Use the hypergraph regularity lemma of Gowers / R\"odl--Schacht.)
+
+\item Show that cut-distance $d_\square(W_1, W_2)$ is a metric on the space
+of graphons modulo measure-preserving relabelings, and that it is
+compatible with subgraph densities in the sense of Lov\'asz--Szegedy.
+
+\item Prove that the $n \times n$ grid graph has treewidth exactly $n$.
 (The upper bound is easy via a sweeping decomposition; the lower
 bound uses Theorem~\ref{thm:brambleduality}.)
-\end{exercise}
 
-\begin{exercise}
-Prove Hadwiger's conjecture for $k = 4$: every graph of chromatic
+\item Prove Hadwiger's conjecture for $k = 4$: every graph of chromatic
 number $4$ contains $K_4$ as a minor. (Use an inductive
 decomposition.)
-\end{exercise}
 
-\begin{exercise}
-Prove that every graph with no $K_t$-minor has chromatic number
+\item Prove that every graph with no $K_t$-minor has chromatic number
 $O(t \sqrt{\log t})$. (Use the Kostochka--Thomason density bound.)
-\end{exercise}
 
-\begin{exercise}
-Show that well-quasi-ordering of finite graphs under \emph{topological
+\item Show that well-quasi-ordering of finite graphs under \emph{topological
 minor} fails: construct an infinite antichain of graphs under that
 relation.
-\end{exercise}
 
-\begin{exercise}
-Prove the grid-minor theorem (Theorem~\ref{thm:gridminor}) with a
+\item Prove the grid-minor theorem (Theorem~\ref{thm:gridminor}) with a
 weaker, exponential bound such as $f(k) = 2^{O(k^5)}$
 (Robertson--Seymour--Thomas), using an induction on treewidth
 and the separator / tangle machinery.
-\end{exercise}
 
-\paragraph{Diagram Questions.}
 
-\begin{exercise}
-For the $3 \times 3$ grid, construct an explicit width-$3$ tree
+\item Using the triangle removal lemma, prove the following: for every
+$\eta > 0$ there exists $n_0$ such that any subset of
+$\{1, \dots, n\}$ with $n \ge n_0$ and density at least $\eta$ contains
+a non-trivial $3$-term arithmetic progression. (Construct the Ruzsa $3$-AP graph.)
+\end{enumerate}
+
+\subsubsection{Diagram Questions}
+\begin{enumerate}[resume]
+\item Draw $T(8, 3)$ and $T(8, 4)$. For each, count the edges directly and
+verify the formula $t(n, r) = \binom{n}{2} - \sum_i \binom{|V_i|}{2}$.
+
+\item Draw a $3$-regular graph on $10$ vertices with girth $5$ that achieves
+the odd Moore bound $1 + 3 + 3 \cdot 2 = 10$ with equality. The Petersen
+graph is the canonical example---draw it in the standard
+pentagon-pentagram form and label the girth witness. (By
+Theorem~\ref{thm:moore}, a $4$-regular graph of girth $5$ needs at least
+$1 + 4 + 4 \cdot 3 = 17$ vertices; the smallest one, the Robertson graph,
+has $19$.)
+
+\item Reproduce the Greenwood--Gleason $3$-coloring of $K_{16}$ with no
+monochromatic triangle. Hint: the nonzero cubes form a subgroup $C$ of
+index $3$ in the multiplicative group $\mathbb F_{16}^{*}$; color the edge
+$xy$ by the coset of $C$ containing $x + y$ ($= x - y$). Each color class
+is a copy of the Clebsch graph.
+
+\item Draw the blow-up coloring witnessing the Chv\'atal lower
+bound $R(T, K_s) > (s - 1)(t - 1)$: $s - 1$ red cliques of size
+$t - 1$ joined blue across blocks. Verify directly that no red
+$T_t$ and no blue $K_s$ appears.
+
+\item Draw the dependency graph $D$ for the events ``the $4$-set $S$ is
+monochromatic'' as $S$ ranges over $\binom{[6]}{4}$ in the
+random $2$-coloring of $E(K_6)$. Estimate the dependency degree $d$
+and check whether the symmetric LLL applies.
+
+\item For a triangle-free graph $G$ found by the deletion method on
+$G(n, c/n)$ with $c = 5$, sketch (schematically) the typical local
+structure: degree distribution, isolated vertices, short cycles,
+and the surviving sparse independent-set witness for high
+chromatic number.
+
+\item Draw the Fiedler eigenvector $v_2$ of the path $P_6$ as a colored
+sequence (positive on one end, negative on the other) and use the
+threshold-cut sweep on $v_2$ to recover the bisection $\{1, 2, 3\}$
+vs $\{4, 5, 6\}$. Verify directly that this is the Cheeger optimal
+cut.
+
+\item Draw the Petersen graph (Figure~\ref{fig:petersen-spectrum}) with a
+proper $3$-coloring of its vertices, and verify that no smaller
+proper coloring exists by combining the Hoffman bound with a parity
+argument on the outer pentagon.
+
+\item Sketch the qualitative shape of the survival probability $\rho_c$
+(the unique positive root of $1 - \rho = e^{-c\rho}$) as a function
+of $c$ on $[0, 3]$. Mark the critical point $c = 1$ and the
+horizontal asymptote $\rho_\infty = 1$. Annotate the picture with
+the three regimes (subcritical / critical / supercritical) of
+Theorem~\ref{thm:giant}.
+
+\item Draw a sample $G(8, 1/2)$ and identify by inspection: the largest
+component, all isolated vertices, the maximum and minimum degree.
+Compare with the expectations $\mathbb{E}[X_0] = 8 \cdot (1/2)^7 = 1/16$
+and $\mathbb{E}[d(v)] = 7/2$ (so $\mathbb{E}[\Delta] \ge 7/2$; in fact
+$\mathbb{E}[\Delta] \approx 5.2$).
+
+\item For the graph $G$ obtained as the disjoint union of $K_{4,4}$ and an
+independent set of $4$ vertices, construct an $\varepsilon$-regular
+partition with $\varepsilon = 0.1$ into $k = 3$ parts (the two sides of
+the biclique and the independent set). Tabulate the $3 \times 3$
+density matrix as in Figure~\ref{fig:regularity-partition} and verify
+that all pairs are $0.1$-regular.
+
+\item Draw the Ruzsa $3$-AP graph $G_A$ for $A = \{1, 4\} \subset [5]$.
+Identify all triangles of $G_A$ and verify that the trivial triangles
+correspond to the elements $1$ and $4$ of $A$ themselves, and that
+$A$ contains no $3$-AP.
+
+\item For the $3 \times 3$ grid, construct an explicit width-$3$ tree
 decomposition (the upper bound is achieved by a path of $6$ bags of
 size $4$: list the vertices row by row as $v_1, \dots, v_9$ and take
 $B_t = \{v_t, v_{t+1}, v_{t+2}, v_{t+3}\}$ for $t = 1, \dots, 6$). Draw the
 decomposition analogously to Figure~\ref{fig:treewidth}.
-\end{exercise}
 
-\begin{exercise}
-Draw $K_5$ and $K_{3,3}$ side by side. For each, exhibit a
+\item Draw $K_5$ and $K_{3,3}$ side by side. For each, exhibit a
 $K_5$-minor (resp.\ $K_{3,3}$-minor) inside the Petersen graph by
 choosing five (resp.\ six) connected branch sets and verifying that
 the required adjacencies hold.
-\end{exercise}
+\end{enumerate}
 
-\subsection{Comprehensive Chapter Exercises}
 
-\paragraph{Easy Questions.}
-
-\begin{exercise}
-Prove Mantel's theorem by induction on $n$: remove an edge $uv$ from
-a triangle-free graph $G$, bound $|E(G - \{u, v\})|$ inductively,
-and account for the removed degrees.
-\end{exercise}
-
-\begin{exercise}
-Show that the chromatic number of the Tur\'an graph $T(n, r)$ is
-exactly $r$ when $n \ge r$. Deduce from Tur\'an's theorem that every graph with
-more than $(1 - 1/r) n^2/2$ edges has chromatic number $\ge r + 1$.
-\end{exercise}
-
-\begin{exercise}
-Prove that $R(3, 3) = 6$ by exhibiting a two-coloring of $K_5$ with
-no monochromatic triangle and arguing $R(3,3) \le 6$ directly.
-\end{exercise}
-
-\paragraph{Medium Questions.}
-
-\begin{exercise}
-Show that every tournament on $n$ vertices contains a Hamiltonian path
-(induct on $n$, inserting the new vertex into a Hamiltonian path of the
-rest). Then use linearity of expectation to show that some tournament on
-$n$ vertices has at least $n!/2^{n-1}$ Hamiltonian paths.
-\end{exercise}
-
-\begin{exercise}
-For the cycle $C_n$, compute the Laplacian eigenvalues explicitly as
-$2 - 2\cos(2\pi k / n)$ for $k = 0, 1, \dots, n - 1$. Identify $\mu_2$
-and comment on how it scales with $n$.
-\end{exercise}
-
-\begin{exercise}
-Prove that the threshold for $G(n, p)$ to contain a triangle is
-$p = 1/n$: show $\mathbb{E}[\#K_3] = \binom{n}{3} p^3$ and apply Markov's
-inequality (first moment) for the $0$-statement, and use Chebyshev's
-inequality (second moment) for the $1$-statement.
-\end{exercise}
-
-\begin{exercise}
-Prove Kirchhoff's Matrix-Tree theorem for the complete graph $K_n$
-and deduce Cayley's formula: $K_n$ has $n^{n-2}$ spanning trees.
-\end{exercise}
-
-\paragraph{Hard Questions.}
-
-\begin{exercise}
-Show that every graph with treewidth at most $k$ has at most $kn$
-edges. Show that the converse fails badly: planar graphs have at most
-$3n - 6$ edges, yet the $m \times m$ grid (planar, with $n = m^2$ vertices
-and fewer than $2n$ edges) has treewidth $m = \sqrt n$.
-\end{exercise}
-
-\begin{exercise}
-Prove that the $n \times n$ grid graph has treewidth exactly $n$.
-(The upper bound is easy via a sweeping decomposition; the lower
-bound requires a connectivity/cops-and-robbers argument.)
-\end{exercise}
-
-\begin{exercise}
-Using the triangle removal lemma, prove the following: for every
-$\eta > 0$ there exists $n_0$ such that any subset of
-$\{1, \dots, n\}$ with $n \ge n_0$ and density at least $\eta$ contains
-a non-trivial $3$-term arithmetic progression. (Construct the Ruzsa $3$-AP graph.)
-\end{exercise}
 
 %%% NEW CHAPTER 12 FOLLOWS
 \input{chapter12_algebraic.tex}
 
 \end{document}
-
-
-
-
