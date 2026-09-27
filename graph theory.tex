@@ -12267,11 +12267,11 @@ If $G$ is a bipartite graph, then the edge-chromatic number $\chi'(G)$ equals th
 \begin{proof}[Proof via Regular Extension]
 The key insight in this proof is to extend the bipartite graph to a regular bipartite graph, which allows us to apply properties of matchings.
 
-We first establish that $\chi'(G) \geq \Delta(G)$ for any graph $G$, since edges incident to a vertex of maximum degree must have different colors. To prove that $\chi'(G) \leq \Delta(G)$ for a bipartite graph $G = (A \cup B, E)$, we construct a $\Delta(G)$-regular bipartite graph $H$ that contains $G$ as a subgraph. To construct $H$, take two copies of $G$, denoted $G_1 = (A_1 \cup B_1, E_1)$ and $G_2 = (A_2 \cup B_2, E_2)$. For each vertex $v \in G$ with degree $d_G(v) < \Delta(G)$, we add $\Delta(G) - d_G(v)$ new edges between the corresponding vertices $v_1 \in G_1$ and $v_2 \in G_2$. The resulting graph $H$ is $\Delta(G)$-regular and bipartite with partite sets $(A_1 \cup A_2)$ and $(B_1 \cup B_2)$. By Hall's Theorem, a $k$-regular bipartite graph can be decomposed into $k$ perfect matchings. Therefore, $H$ can be decomposed into $\Delta(G)$ perfect matchings $M_1, M_2, \ldots, M_{\Delta(G)}$. Each matching $M_i$ defines a color class. The subgraph of $H$ corresponding to $G$ inherits this coloring, which gives us a proper $\Delta(G)$-edge-coloring of $G$. Therefore, $\chi'(G) \leq \Delta(G)$. Combining this with the lower bound, we conclude that $\chi'(G) = \Delta(G)$.
+We first establish that $\chi'(G) \geq \Delta(G)$ for any graph $G$, since edges incident to a vertex of maximum degree must have different colors. To prove that $\chi'(G) \leq \Delta(G)$ for a bipartite graph $G = (A \cup B, E)$, we construct a $\Delta(G)$-regular bipartite graph $H$ that contains $G$ as a subgraph. To construct $H$, take two copies of $G$, denoted $G_1 = (A_1 \cup B_1, E_1)$ and $G_2 = (A_2 \cup B_2, E_2)$. For each vertex $v \in G$ with degree $d_G(v) < \Delta(G)$, we add $\Delta(G) - d_G(v)$ new edges between the corresponding vertices $v_1 \in G_1$ and $v_2 \in G_2$. The resulting graph $H$ is $\Delta(G)$-regular, and it is bipartite with partite sets $A_1 \cup B_2$ and $B_1 \cup A_2$: the edges of $G_1$ join $A_1$ to $B_1$, the edges of $G_2$ join $A_2$ to $B_2$, and each new edge $v_1v_2$ joins $A_1$ to $A_2$ (if $v \in A$) or $B_1$ to $B_2$ (if $v \in B$). If $\Delta(G) - d_G(v) \geq 2$ for some $v$, then $H$ has parallel edges, so in general $H$ is a bipartite multigraph. By Hall's Theorem, which holds for bipartite multigraphs as well, a $k$-regular bipartite (multi)graph with $k \geq 1$ can be decomposed into $k$ perfect matchings. Therefore, $H$ can be decomposed into $\Delta(G)$ perfect matchings $M_1, M_2, \ldots, M_{\Delta(G)}$. Each matching $M_i$ defines a color class. The subgraph of $H$ corresponding to $G$ inherits this coloring, which gives us a proper $\Delta(G)$-edge-coloring of $G$. Therefore, $\chi'(G) \leq \Delta(G)$. Combining this with the lower bound, we conclude that $\chi'(G) = \Delta(G)$.
 \end{proof}
 
 \begin{proof}[Proof via Induction]
-This proof uses induction on the number of edges and a color-interchange argument. Base case: If $|E(G)| = 0$, then $\chi'(G) = 0 = \Delta(G)$, and the theorem holds. Induction hypothesis: Assume the theorem holds for all bipartite graphs with fewer than $m$ edges, where $m \geq 1$. Induction step: Let $G$ be a bipartite graph with exactly $m$ edges and maximum degree $\Delta(G)$. Select any edge $e = \{x, y\} \in E(G)$. By the induction hypothesis, the graph $G' = G - e$ has a proper edge-coloring using $\Delta(G')$ colors. If $\Delta(G') < \Delta(G)$, then $G'$ can be colored with at most $\Delta(G) - 1$ colors. In this case, we can assign a new color $\Delta(G)$ to edge $e$, obtaining a proper $\Delta(G)$-edge-coloring of $G$. If $\Delta(G') = \Delta(G)$, then $G'$ has a proper $\Delta(G)$-edge-coloring. If there exists a color $c$ that doesn't appear at either $x$ or $y$, we can assign color $c$ to edge $e$ to obtain a proper $\Delta(G)$-edge-coloring of $G$. Otherwise, let's assume the colors at $x$ are $\{1, 2, \ldots, \Delta(G)-1\}$ and the colors at $y$ are $\{2, 3, \ldots, \Delta(G)\}$. Note that color 1 is missing at $y$ and color $\Delta(G)$ is missing at $x$. Consider the subgraph $H$ of $G'$ containing only edges colored 1 or $\Delta(G)$. Each component of $H$ is either a path or an even cycle (since $G$ is bipartite). The component containing $x$ must be a path $P$ (not a cycle) that starts at $x$, since $x$ has no incident edge of color $\Delta(G)$ in $G'$.This path $P$ cannot end at $y$, because if it did, $P$ would have odd length (since $G$ is bipartite), and $y$ would be incident with an edge of color 1, which contradicts our assumption. So $P$ ends at a vertex $z \neq y$. Now we swap colors 1 and $\Delta(G)$ along the path $P$. This is still a proper edge-coloring of $G'$, but now color 1 is missing at both $x$ and $y$. Finally, we assign color 1 to edge $e = \{x, y\}$, resulting in a proper $\Delta(G)$-edge-coloring of $G$. Therefore, $\chi'(G) \leq \Delta(G)$. Since we already know that $\chi'(G) \geq \Delta(G)$ for any graph, we conclude that $\chi'(G) = \Delta(G)$.
+This proof uses induction on the number of edges and a color-interchange argument. Base case: If $|E(G)| = 0$, then $\chi'(G) = 0 = \Delta(G)$, and the theorem holds. Induction hypothesis: Assume the theorem holds for all bipartite graphs with fewer than $m$ edges, where $m \geq 1$. Induction step: Let $G$ be a bipartite graph with exactly $m$ edges and maximum degree $\Delta(G)$. Select any edge $e = \{x, y\} \in E(G)$. By the induction hypothesis, the graph $G' = G - e$ has a proper edge-coloring using $\Delta(G')$ colors. If $\Delta(G') < \Delta(G)$, then $G'$ can be colored with at most $\Delta(G) - 1$ colors. In this case, we can assign a new color $\Delta(G)$ to edge $e$, obtaining a proper $\Delta(G)$-edge-coloring of $G$. If $\Delta(G') = \Delta(G)$, then $G'$ has a proper $\Delta(G)$-edge-coloring. If there exists a color $c$ that doesn't appear at either $x$ or $y$, we can assign color $c$ to edge $e$ to obtain a proper $\Delta(G)$-edge-coloring of $G$. Otherwise, no color is missing at both $x$ and $y$. Since $x$ and $y$ each have at most $\Delta(G)-1$ incident edges in $G'$, some color is missing at $x$ and some color is missing at $y$; after renaming the colors we may assume that color $\Delta(G)$ is missing at $x$ and color 1 is missing at $y$. Then color 1 appears at $x$ and color $\Delta(G)$ appears at $y$. Consider the subgraph $H$ of $G'$ containing only edges colored 1 or $\Delta(G)$. Each component of $H$ is either a path or an even cycle (since $G$ is bipartite). The component containing $x$ must be a path $P$ (not a cycle) that starts at $x$, since $x$ has no incident edge of color $\Delta(G)$ in $G'$.This path $P$ cannot end at $y$, because if it did, $P$ would have odd length (since $G$ is bipartite), and $y$ would be incident with an edge of color 1, which contradicts our assumption. So $P$ ends at a vertex $z \neq y$. Now we swap colors 1 and $\Delta(G)$ along the path $P$. This is still a proper edge-coloring of $G'$, but now color 1 is missing at both $x$ and $y$. Finally, we assign color 1 to edge $e = \{x, y\}$, resulting in a proper $\Delta(G)$-edge-coloring of $G$. Therefore, $\chi'(G) \leq \Delta(G)$. Since we already know that $\chi'(G) \geq \Delta(G)$ for any graph, we conclude that $\chi'(G) = \Delta(G)$.
 \end{proof}
 
 \subsubsection{Implications and Significance}
@@ -12281,9 +12281,9 @@ König's Theorem has several important implications:
 \begin{enumerate}
 \item \textbf{Computational Tractability:} Unlike general graphs where determining the edge-chromatic number is NP-hard, for bipartite graphs, we can determine the edge-chromatic number simply by finding the maximum degree of the graph, which can be done in linear time.
 
-\item \textbf{Relation to Matchings:} König's Theorem is closely related to matchings in bipartite graphs. In fact, a proper edge-coloring of a bipartite graph decomposes its edge set into perfect matchings, with each color class forming a matching.
+\item \textbf{Relation to Matchings:} König's Theorem is closely related to matchings in bipartite graphs. In fact, a proper edge-coloring of any graph decomposes its edge set into matchings (its color classes); when $G$ is $k$-regular and bipartite and $k$ colors are used, every color class is a perfect matching. Thus König's Theorem says that the edges of a bipartite graph can be partitioned into $\Delta(G)$ matchings.
 
-\item \textbf{Special Case of Vizing's Theorem:} König's Theorem can be seen as a special case of Vizing's Theorem, which states that for any simple graph $G$, $\Delta(G) \leq \chi'(G) \leq \Delta(G) + 1$. König's Theorem confirms that bipartite graphs always achieve the lower bound.
+\item \textbf{Sharpening of Vizing's Theorem for Bipartite Graphs:} Vizing's Theorem states that for any simple graph $G$, $\Delta(G) \leq \chi'(G) \leq \Delta(G) + 1$. König's Theorem does not follow from Vizing's Theorem; it sharpens it for bipartite graphs by showing that they always achieve the lower bound (and it holds for bipartite multigraphs as well).
 
 \item \textbf{Application to Scheduling:} In scheduling problems where conflicts are represented by a bipartite graph, König's Theorem guarantees that the minimum number of time slots needed equals the maximum number of conflicts any single entity has.
 \end{enumerate}
@@ -12340,17 +12340,17 @@ The lower bound $\chi'(G) \geq \Delta(G)$ is immediate since all edges incident 
 \begin{proof}
 Since $\Delta$ different colors are needed at a vertex of degree $\Delta$ in $G$, we have $\chi'(G) \geq \Delta$. 
 
-We now prove by induction on $|E(G)|$ that $G$ is $(\Delta + 1)$-colorable, which gives $\chi'(G) \leq \Delta + 1$. 
+We now prove by induction on $|E(G)|$ that $G$ is $(\Delta + 1)$-edge-colorable, which gives $\chi'(G) \leq \Delta + 1$. 
 
 \textbf{Base Case:} If $|E(G)| = 0$, then the theorem is trivially true.
 
-\textbf{Induction Step:} Suppose $|E(G)| > 0$, and let $\{x, y_1\} \in E(G)$ be any edge of $G$. By induction hypothesis, $G_1 = G - \{x, y_1\}$ is $(\Delta + 1)$-colorable. 
+\textbf{Induction Step:} Suppose $|E(G)| > 0$, and let $\{x, y_1\} \in E(G)$ be any edge of $G$. By induction hypothesis, $G_1 = G - \{x, y_1\}$ is $(\Delta + 1)$-edge-colorable. 
 
 If there is a color, say color $c_1$, missing at both $y_1$ and $x$, then we can assign edge $\{x, y_1\}$ the color $c_1$ and we're done.
 
 So we may assume that every color missing at $x$ appears on an edge incident to $y_1$. Let $c$ be a color missing at $x$ – we know $c$ appears on $y_1$, otherwise $\{x, y_1\}$ could be colored with color $c$.
 
-In general, we construct a maximal sequence $y_1, y_2, \ldots, y_k$ of neighbors of $x$ such that:
+In general, we construct a maximal sequence $y_1, y_2, \ldots, y_k$ of distinct neighbors of $x$ such that:
 \begin{itemize}
 \item $c_i$ is missing at $y_i$ for all $i \leq k$
 \item $\{x, y_{i+1}\}$ has color $c_i$ for all $i < k$
@@ -12370,7 +12370,7 @@ In this case, we recolor all edges $\{x, y_j\}$ for $j \leq i$ with color $c_j$ 
 
 Then $\{x, y_{i+1}\}$ is the new uncolored edge, since the edge $\{x, y_1\}$ has now received color $c_1$. Let $H$ denote the subgraph of $G$ consisting of edges of color $c$ and edges of color $c_k$. Then the components of $H$ are paths and cycles, since $H$ has maximum degree at most two. 
 
-Also $x$, $y_{i+1}$, and $y_k$ all have degree one in $H$, so either $x$ and $y_{i+1}$ are in different components of $H$, or $x$ and $y_k$ are in different components of $H$. We consider these cases separately:
+Also $x$ has degree exactly one in $H$ (color $c$ is missing at $x$, while $c_k = c_i$ appears on $\{x, y_i\}$), and $y_{i+1}$ and $y_k$ have degree at most one in $H$, since $c_k$ is missing at both of them: at $y_k$ by the choice of $c_k$, and at $y_{i+1}$ because its only edge of color $c_i = c_k$ was $\{x, y_{i+1}\}$, which is now uncolored. Moreover $y_{i+1} \neq y_k$: the edge $\{x, y_k\}$ has color $c_{k-1}$ while $c_k$ is missing at $y_k$, so $c_k \neq c_{k-1}$ and hence $i < k - 1$. A path has only two ends, so $x$, $y_{i+1}$, and $y_k$ cannot all lie in the same component of $H$. Therefore either $x$ and $y_{i+1}$ are in different components of $H$, or $x$ and $y_k$ are in different components of $H$. We consider these cases separately:
 
 \textbf{Subcase 2.1:} If $x$ and $y_{i+1}$ are in different components of $H$, then we interchange colors $c$ and $c_i$ in the component of $H$ containing $y_{i+1}$. In this new coloring, color $c$ is missing at $x$ and missing at $y_{i+1}$, so we can assign the edge $\{x, y_{i+1}\}$ the color $c$.
 
@@ -12381,13 +12381,17 @@ This completes the proof.
 
 \subsubsection{Key Lemmas Supporting Vizing's Theorem}
 
-\begin{lemma}[Vizing's Adjacency Lemma]
-If $G$ is a simple graph, $uv$ is an edge of $G$, and $\phi$ is a proper $(\Delta(G) + 1)$-edge-coloring of $G - uv$, then there is at least one color that appears at $u$ but not at $v$ in $\phi$.
+\begin{lemma}[Missing Colors]
+Let $G$ be a simple graph, let $uv$ be an edge of $G$, and let $\phi$ be a proper $(\Delta(G) + 1)$-edge-coloring of $G - uv$. Then at least one color is missing at every vertex (that is, it appears on no edge incident to that vertex), and at least two colors are missing at each of $u$ and $v$.
 \end{lemma}
 
 \begin{proof}
-Since $G$ is simple, $u$ and $v$ have at most one common neighbor. Each of $u$ and $v$ has at most $\Delta(G) - 1$ neighbors other than each other. So the number of colors appearing at both $u$ and $v$ is at most 1 + $\min(\Delta(G) - 1, \Delta(G) - 1) = \Delta(G)$. Since there are $\Delta(G) + 1$ colors in total, by the pigeonhole principle, there must be at least one color that appears at $u$ but not at $v$ (and vice versa).
+The edges incident to a vertex $w$ receive distinct colors, and $w$ has at most $\Delta(G)$ incident edges in $G - uv$, so at most $\Delta(G)$ of the $\Delta(G) + 1$ colors appear at $w$. The vertices $u$ and $v$ have at most $\Delta(G) - 1$ incident edges in $G - uv$, so at least $(\Delta(G) + 1) - (\Delta(G) - 1) = 2$ colors are missing at each of them.
 \end{proof}
+
+\begin{remark}[Vizing's Adjacency Lemma]
+The name \emph{Vizing's Adjacency Lemma} refers to a deeper result of Vizing (1965) about critical graphs. A simple graph $G$ with maximum degree $\Delta$ is \emph{$\Delta$-critical} if $\chi'(G) = \Delta + 1$ and $\chi'(H) < \chi'(G)$ for every proper subgraph $H$ of $G$. Vizing's Adjacency Lemma states that if $G$ is $\Delta$-critical and $xy$ is an edge of $G$, then $x$ is adjacent to at least $\Delta - d(y) + 1$ vertices of degree $\Delta$ other than $y$. Its proof refines the fan-recoloring argument used above.
+\end{remark}
 
 \begin{lemma}[Color Alternating Path Lemma]
 Let $\phi$ be a proper edge-coloring of a graph $G$, and let $\alpha$ and $\beta$ be two colors. Each component of the subgraph of $G$ induced by edges colored $\alpha$ or $\beta$ is either a path or an even cycle where the colors $\alpha$ and $\beta$ alternate.
@@ -12614,10 +12618,10 @@ Determining whether a graph is Class 1 or Class 2 is generally NP-complete. Howe
 
 \begin{itemize}
     \item Bipartite graphs are always Class 1 (König's theorem)
-    \item Complete graphs $K_n$ are Class 1 if $n$ is even, and Class 2 if $n$ is odd
+    \item Complete graphs $K_n$ are Class 1 if $n$ is even, and Class 2 if $n \geq 3$ is odd
     \item Cycles $C_n$ are Class 1 if $n$ is even, and Class 2 if $n$ is odd
-    \item A graph with maximum degree $\Delta > \frac{n}{2}$ is Class 2
-    \item The Petersen graph and most of its generalizations are Class 2
+    \item A graph with $n$ vertices and more than $\Delta \lfloor n/2 \rfloor$ edges (an \emph{overfull} graph) is Class 2, because each color class is a matching and so has at most $\lfloor n/2 \rfloor$ edges; in particular, every regular graph with an odd number of vertices and at least one edge is Class 2. A large maximum degree alone does not force Class 2: $K_4$, $K_6$, and the wheel $W_5$ have $\Delta > \frac{n}{2}$ but are Class 1
+    \item The Petersen graph is Class 2. In contrast, every other generalized Petersen graph $GP(n,k)$ with $1 \leq k < n/2$ (an outer cycle $u_1 u_2 \cdots u_n$, inner edges $v_i v_{i+k}$ with indices modulo $n$, and spokes $u_i v_i$; the Petersen graph is $GP(5,2)$) is Class 1 (Castagna and Prins, 1972)
 \end{itemize}
 
 The complete graph $K_5$ has maximum degree $\Delta(K_5) = 4$. According to Vizing's theorem, it requires at most 5 colors:
