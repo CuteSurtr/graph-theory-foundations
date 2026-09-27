@@ -17014,80 +17014,68 @@ of capacity $3 + 2 = 5$. Max flow value is $2 + 2 + 1 = 5 = c(S, T)$,
 confirming Theorem~\ref{thm:mfmc}.
 \end{example}
 
-\subsection{Exercises}
+\subsection{Chapter 10 Exercises}
 
 \subsubsection{Easy Questions}
 
-\begin{exercise}
-Prove the ``other half'' of Lemma~\ref{lem:netflow}: for any flow
+\begin{enumerate}
+\item Prove the ``other half'' of Lemma~\ref{lem:netflow}: for any flow
 $f$, the net flow into the sink $t$ equals $|f|$.
-\end{exercise}
 
-\begin{exercise}
-Derive the vertex form of Menger's theorem from the edge form using
+\item Derive the vertex form of Menger's theorem from the edge form using
 the vertex-splitting construction described above.
-\end{exercise}
 
-\begin{exercise}
-On the network of Figure~\ref{fig:mfmc-example}, list all augmenting
+\item On the network of Figure~\ref{fig:mfmc-example}, list all augmenting
 paths the algorithm could explore in some order, and verify that the
 final flow value is independent of the order.
-\end{exercise}
+\end{enumerate}
 
 \subsubsection{Medium Questions}
 
-\begin{exercise}
-Let $N$ be a flow network with integer capacities bounded by $C$ and
+\begin{enumerate}[resume]
+\item Let $N$ be a flow network with integer capacities bounded by $C$ and
 $m$ arcs. Show that the Ford--Fulkerson algorithm (using any
 augmenting paths) runs in $O(m C |V|)$ time. Give an example where
 this bound is tight up to constants.
-\end{exercise}
 
-\begin{exercise}
-Use the max-flow min-cut theorem to prove Hall's marriage theorem:
+\item Use the max-flow min-cut theorem to prove Hall's marriage theorem:
 a bipartite graph $G = (A \cup B, E)$ has a matching saturating $A$
 iff $|N(S)| \ge |S|$ for every $S \subseteq A$.
-\end{exercise}
 
-\begin{exercise}
-Given an undirected graph $G$ with edge capacities, define the
+\item Given an undirected graph $G$ with edge capacities, define the
 \emph{global minimum cut} as the partition $(S, V \setminus S)$ with
 $\emptyset \ne S \ne V$ minimizing the total capacity of edges
 crossing the cut. Show how to compute it with $|V| - 1$ calls to a
 max-flow subroutine.
-\end{exercise}
+\end{enumerate}
 
 \subsubsection{Hard Questions}
 
-\begin{exercise}
-Construct an example with \emph{irrational} capacities on which a
+\begin{enumerate}[resume]
+\item Construct an example with \emph{irrational} capacities on which a
 particular choice of augmenting paths causes Ford--Fulkerson to
 run forever while the flow value converges to a number strictly
 smaller than the true maximum. (This is the classical Ford--Fulkerson
 counterexample; it motivates the Edmonds--Karp rule.)
-\end{exercise}
 
-\begin{exercise}
-Prove the Edmonds--Karp bound: if augmenting paths are always chosen
+\item Prove the Edmonds--Karp bound: if augmenting paths are always chosen
 by BFS (shortest first), Ford--Fulkerson terminates after at most
 $O(|V| \cdot |E|)$ augmentations and runs in $O(|V| \cdot |E|^2)$
 time, regardless of capacities.
-\end{exercise}
+\end{enumerate}
 
 \subsubsection{Diagram Questions}
 
-\begin{exercise}
-Draw a flow network on $\{s, x, y, z, t\}$ with five arcs of capacity
+\begin{enumerate}[resume]
+\item Draw a flow network on $\{s, x, y, z, t\}$ with five arcs of capacity
 at most $4$ such that the max-flow value equals $3$ and the
 min-cut consists of exactly two arcs. Mark the saturating cut.
-\end{exercise}
 
-\begin{exercise}
-For the diamond network with vertices $\{s, u, v, t\}$ and arcs
+\item For the diamond network with vertices $\{s, u, v, t\}$ and arcs
 $s\to u\,(10),\ s\to v\,(10),\ u\to v\,(1),\ u\to t\,(10),\ v\to t\,(10)$,
 draw the residual graph after pushing $10$ units along $s \to u \to t$
 and identify the next augmenting path.
-\end{exercise}
+\end{enumerate}
 
 \clearpage
 \section{Advanced Topics in Graph Theory}\label{sec:advanced-topics}
