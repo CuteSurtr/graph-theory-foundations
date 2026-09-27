@@ -3148,9 +3148,9 @@ where $\oplus$ is XOR, produces the De Bruijn sequence $00010111$, which include
     \item Determine whether the following graph is Eulerian, semi-Eulerian, or neither:
     A graph with vertices $\{A, B, C, D, E\}$ and edges $\{(A,B), (B,C), (C,D), (D,E), (E,A), (A,C), (C,E)\}$
     
-    \item Prove that a connected graph has an Eulerian path if and only if it has exactly 0 or 2 vertices with odd degree.
+    \item Prove that a connected graph has an Eulerian trail if and only if it has exactly 0 or 2 vertices with odd degree.
     
-    \item Construct a simple graph with 6 vertices that has an Eulerian circuit. How many edges must such a graph have at minimum?
+    \item Construct a connected simple graph with 6 vertices that has an Eulerian circuit. How many edges must such a graph have at minimum?
     
     \item Given a connected graph where all vertices have even degree, prove that it has an Eulerian circuit.
 
@@ -3159,13 +3159,13 @@ where $\oplus$ is XOR, produces the De Bruijn sequence $00010111$, which include
 
 \subsubsection{Medium Problems: Eulerian Graphs}
 \begin{enumerate}[resume]
-    \item A village has 7 bridges connecting different areas. Is it possible to walk through the village crossing each bridge exactly once? If so, find such a path. If not, explain why.
+    \item A town is divided by a river into four land areas $A$, $B$, $C$, $D$, joined by 7 bridges: two between $A$ and $B$, two between $A$ and $C$, and one each between $A$ and $D$, $B$ and $D$, and $C$ and $D$ (the bridges of K\"onigsberg). Is it possible to walk through the town crossing each bridge exactly once? If so, find such a walk. If not, explain why.
     
-    \item Show that if $G$ is a connected graph where every vertex has even degree, then removing any edge results in a graph that has an Eulerian path but not an Eulerian circuit.
+    \item Show that if $G$ is a connected graph where every vertex has even degree, then removing any edge results in a graph that has an Eulerian trail but not an Eulerian circuit.
     
-    \item Given a connected graph $G$ with $2k$ vertices of odd degree ($k \geq 1$), what is the minimum number of paths needed to cover all edges of $G$ exactly once?
+    \item Given a connected graph $G$ with $2k$ vertices of odd degree ($k \geq 1$), what is the minimum number of edge-disjoint trails needed to cover all edges of $G$ exactly once?
     
-    \item Prove that if $G$ is a connected graph with exactly two vertices of odd degree, say $u$ and $v$, then there exists an Eulerian path from $u$ to $v$.
+    \item Prove that if $G$ is a connected graph with exactly two vertices of odd degree, say $u$ and $v$, then there exists an Eulerian trail from $u$ to $v$.
 \end{enumerate}
 
 \subsubsection{Hard Problems: Eulerian Graphs}
@@ -3174,9 +3174,9 @@ where $\oplus$ is XOR, produces the De Bruijn sequence $00010111$, which include
     
     \item Consider a complete graph $K_n$. For which values of $n$ does $K_n$ have an Eulerian circuit? Provide a proof for your answer.
     
-    \item Let $G$ be a connected graph with an even number of edges. Prove that the edges of $G$ can be partitioned into paths of length 2 if and only if $G$ has no vertices of odd degree.
+    \item Let $G$ be a connected graph. Prove that the edges of $G$ can be partitioned into paths of length 2 if and only if $G$ has an even number of edges.
     
-    \item For a connected graph $G$, let $o(G)$ denote the number of vertices with odd degree. If $G_1, G_2, \ldots, G_k$ are the connected components of $G$, prove that $\sum_{i=1}^{k} o(G_i)$ is even.
+    \item For a graph $G$, let $o(G)$ denote the number of vertices with odd degree. If $G_1, G_2, \ldots, G_k$ are the connected components of $G$, prove that $\sum_{i=1}^{k} o(G_i)$ is even.
 \end{enumerate}
 
 \subsubsection{Easy Problems: De Bruijn Sequences}
@@ -3215,7 +3215,7 @@ where $\oplus$ is XOR, produces the De Bruijn sequence $00010111$, which include
     \item Draw the De Bruijn Graph of order 1 for the binary alphabet $\{0,1\}$. How many vertices and edges does it have?
     
     \item For a ternary alphabet $\{0,1,2\}$, construct the De Bruijn Graph of order 1. How many vertices and edges does it have?
-    \item Draw the De Bruijn Graph of order 2 for the binary alphabet $\{0,1\}$. Then trace a path through this diagram that generates a De Bruijn sequence of order 3.
+    \item Draw the De Bruijn Graph of order 2 for the binary alphabet $\{0,1\}$. Then trace an Eulerian circuit in this diagram that generates a De Bruijn sequence of order 3.
     
     \item Draw a binary De Bruijn Graph of order 1 (with vertices $0$ and $1$). Then draw the corresponding De Bruijn Graph of order 2 using the line graph construction.
     
@@ -3226,14 +3226,14 @@ where $\oplus$ is XOR, produces the De Bruijn sequence $00010111$, which include
 \begin{enumerate}[resume]
     \item Prove that the De Bruijn Graph $B(k,n)$ has $k^n$ vertices and $k^{n+1}$ edges.
     
-    \item Consider a modified De Bruijn graph where certain transitions are forbidden. Specifically, in a binary De Bruijn graph of order 3, transitions to states containing "$111$" are prohibited. Is it still possible to find an Eulerian path in this modified diagram? If so, construct one. If not, explain why.
+    \item Consider a modified De Bruijn graph where certain transitions are forbidden. Specifically, in a binary De Bruijn graph of order 3, transitions to states containing "$111$" are prohibited. Is it still possible to find an Eulerian trail in this modified diagram? If so, construct one. If not, explain why.
 \end{enumerate}
 
 \subsubsection{Hard Problems: De Bruijn Graphs}
 \begin{enumerate}[resume]
     \item Let $B(k,n)$ be the De Bruijn graph of order $n$ over an alphabet of size $k$. Prove that the line graph of $B(k,n)$ is isomorphic to $B(k,n+1)$.
     
-    \item For a De Bruijn Graph $B(2,n)$, determine the chromatic number of the underlying undirected graph and prove your answer.
+    \item For a De Bruijn Graph $B(2,n)$, determine the chromatic number of the underlying undirected simple graph (ignore edge directions, delete the loops at $00\cdots0$ and $11\cdots1$, and merge parallel edges) and prove your answer.
 \end{enumerate}
 
 \clearpage
