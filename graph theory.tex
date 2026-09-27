@@ -1986,7 +1986,7 @@ An Eulerian tour (or Eulerian circuit) is a tour that traverses every edge of th
 \end{definition}
 
 \begin{theorem}
-Let $G$ be a connected graph (or multigraph), and let $u, v \in V(G)$. Then:
+Let $G$ be a connected graph (or multigraph), and let $u, v \in V(G)$ with $u \neq v$. Then:
 \begin{enumerate}
 \item The graph has an Eulerian tour if and only if all vertices have even degree.
 \item The graph has an Eulerian trail from $u$ to $v$ if and only if $u$ and $v$ have odd degree and all other vertices have even degree.
@@ -2091,36 +2091,32 @@ Let $G$ be a connected graph (or multigraph), and let $u, v \in V(G)$. Then:
 \end{figure}
 
 \begin{proof}[Proof of (1)]
-$(\Rightarrow)$ Suppose there is an Eulerian tour $C = v_1, v_2, \ldots, v_m, v_1$. We prove all vertices have even degree by induction on $|E(G)|$.
+$(\Rightarrow)$ Suppose there is an Eulerian tour $C = v_1, v_2, \ldots, v_m, v_{m+1}$ with $v_{m+1} = v_1$, so that $G$ has $m$ edges. We prove that all vertices have even degree by strong induction on $m = |E(G)|$. Connectivity is not needed for this direction, so the induction runs over all graphs (or multigraphs) that have an Eulerian tour.
 
-Base case: $|E(G)| = 1$. The Eulerian tour is $v_1, v_1$, so $d(v_1) = 2$.
+Base case: $m = 0$. Every vertex has degree $0$, which is even.
 
-Suppose the strong induction statement is true for all graphs with fewer than $m$ edges.
-Let $C = v_1, v_2, \ldots, v_m, v_1$ be an Eulerian tour in $G$ with $m$ edges.
-Let $j = \min\{i > 1 : v_i = v_j \text{ for some } j < i\}$.
+Suppose $m \geq 1$ and the statement is true for all graphs with fewer than $m$ edges. Let $j$ be the smallest index $i > 1$ such that $v_i = v_k$ for some $k < i$, and fix this $k$. (Such an index exists because $v_{m+1} = v_1$.) By the minimality of $j$, the vertices $v_k, v_{k+1}, \ldots, v_{j-1}$ are distinct, so the closed trail $D = v_k, v_{k+1}, \ldots, v_j$ (where $v_j = v_k$) is a cycle; in a multigraph it may also be a loop or a pair of parallel edges. Hence every vertex is incident with exactly $0$ or $2$ edges of $D$ (a loop counted twice).
 
-If $j = m+1$, then the entire tour is a simple cycle with $m$ edges, so every vertex has degree 2.
+If $D$ uses all $m$ edges, then every vertex of $G$ has degree $0$ or $2$. Otherwise, remove the edges of $D$. The remaining edges form the closed trail
+\begin{align*}
+C' = v_1, \ldots, v_k, v_{j+1}, \ldots, v_{m+1},
+\end{align*}
+which is an Eulerian tour of the graph $H$ with vertex set $V(G)$ and the remaining edges. Since $H$ has fewer than $m$ edges, the induction hypothesis shows that every vertex has even degree in $H$. For every vertex $x$ we have $d_G(x) = d_H(x) + d_D(x)$ with $d_D(x) \in \{0, 2\}$. Therefore, all vertices in the original graph have even degree.
 
-If $j < m+1$:
-\begin{itemize}
-\item Remove all edges $\{v_1, v_2\}, \{v_2, v_3\}, \ldots, \{v_{j-1}, v_j\}$
-\end{itemize}
-
-By induction, the remaining edges form an Eulerian tour $v_j, v_{j+1}, \ldots, v_m, v_1$, so all vertices in this subgraph have even degree.
-Also, $C' = v_1, v_2, \ldots, v_j$ is also an Eulerian tour in its subgraph, so all those vertices have even degree.
-Therefore, all vertices in the original graph have even degree.
-
-$(\Leftarrow)$ Let $C = v_1, v_2, \ldots, v_n$ be a longest trail in the graph.
+$(\Leftarrow)$ Suppose all vertices have even degree, and let $C = v_1, v_2, \ldots, v_n$ be a longest trail in the graph.
 
 Case 1: Suppose $v_n \neq v_1$.
-Since $v_n$ has even degree, we know an edge $\{v_n, v_{n+1}\}$ not in the trail exists.
-Now $C' = v_1, v_2, \ldots, v_n, v_{n+1}$ is a longer trail, a contradiction.
+Each time $C$ passes through $v_n$ before its last step it uses two edges at $v_n$, and its last edge uses one more, so $C$ uses an odd number of the edges at $v_n$. Since $v_n$ has even degree, we know an edge $\{v_n, v_{n+1}\}$ not in the trail exists.
+Now $C' = v_1, v_2, \ldots, v_n, v_{n+1}$ is a longer trail, a contradiction. Hence $v_n = v_1$.
 
 Case 2: $v_n = v_1$.
-Since $G$ is connected, all edges must be used by the trail.
-Otherwise, relabel the trail as $v'_1, v'_2, \ldots, v'_{n-1}, v'_n = v'_1$.
-We can add $\{v'_i, v'_{n+1}\}$ to create a longer trail, contradiction.
-Therefore, the graph has an Eulerian tour.
+Suppose some edge of $G$ is not used by the trail. Since $G$ is connected, some unused edge $\{u, v_i\}$ has an endpoint $v_i$ on the trail. (If an unused edge $xy$ has no endpoint on the trail, then a path in $G$ from $v_1$ to $x$ contains an edge with exactly one endpoint on the trail, and this edge is unused.)
+Then
+\begin{align*}
+u, v_i, v_{i+1}, \ldots, v_n = v_1, v_2, \ldots, v_i
+\end{align*}
+is a trail with one more edge than $C$, a contradiction.
+Therefore the trail uses every edge, and the graph has an Eulerian tour.
 \end{proof}
 
 \begin{figure}[ht]
@@ -2608,10 +2604,10 @@ By part (1), $G'$ has an Eulerian tour. This tour must use the edge $e$ at some 
 \subsubsection{Eulerian Digraphs}
 
 \begin{definition}[Eulerian Directed Graphs]
-A directed graph (digraph) is Eulerian if there exists a closed walk that traverses each edge exactly once. The following properties characterize Eulerian digraphs:
+A directed graph (digraph) is Eulerian if there exists a closed walk that traverses each edge exactly once. The following properties characterize Eulerian digraphs without isolated vertices (here ``connected'' means that the underlying undirected graph is connected):
 \begin{enumerate}
     \item A digraph is Eulerian if and only if it is connected and the in-degree equals the out-degree for every vertex.
-    \item A digraph has an Eulerian path (but not necessarily a cycle) if and only if:
+    \item A digraph has an Eulerian trail (but not necessarily a closed one) if and only if it is connected and:
     \begin{itemize}
         \item At most one vertex has $(\text{out-degree}) - (\text{in-degree}) = 1$
         \item At most one vertex has $(\text{in-degree}) - (\text{out-degree}) = 1$
@@ -2623,7 +2619,7 @@ For a directed graph $G = (V, E)$, define:
     d^+(v) &= \text{out-degree of vertex } v\\
     d^-(v) &= \text{in-degree of vertex } v
 \end{align}
-Then $G$ is Eulerian if and only if:
+Then a digraph $G$ without isolated vertices is Eulerian if and only if:
 \begin{enumerate}
     \item $G$ is connected (or more precisely, the underlying undirected graph of $G$ is connected)
     \item $\forall v \in V, d^+(v) = d^-(v)$
