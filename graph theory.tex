@@ -16987,7 +16987,7 @@ Prove that every quadrilateral requires at most 1 guard.
 
 \subsubsection{Medium Questions}
 \begin{enumerate}[start=11]
-\item Prove that $K_5$ is not planar using Euler's formula and the fact that every face in a simple planar graph has degree at least 3.
+\item Prove that $K_5$ is not planar using Euler's formula and the fact that every face of a connected simple planar graph with at least three vertices has degree at least 3.
 
 \item Show that the complete bipartite graph $K_{3,3}$ is not planar by counting faces and applying appropriate bounds.
 
@@ -17001,7 +17001,7 @@ Prove that every quadrilateral requires at most 1 guard.
 
 \item Describe the algorithm for solving the art gallery problem using triangulation and 3-coloring. Prove its correctness.
 
-\item For triangle-free planar graphs, prove the stronger bound $|E| \leq 2|V| - 4$.
+\item For triangle-free simple planar graphs with $|V| \geq 3$, prove the stronger bound $|E| \leq 2|V| - 4$.
 
 \item What is the chromatic number of a planar graph? State the Four Color Theorem and explain its significance for art gallery problems.
 
@@ -17014,19 +17014,19 @@ Prove that every quadrilateral requires at most 1 guard.
 
 \item Let $G$ be a planar graph with $n$ vertices where every face has degree at least $k$. Derive a bound on the number of edges in terms of $n$ and $k$.
 
-\item Prove that the art gallery decision problem (determining if $k$ guards suffice for a given polygon) is NP-complete.
+\item Prove that the art gallery decision problem (determining if $k$ guards suffice for a given polygon) is NP-hard. (Hint: begin with vertex guards, following Lee and Lin.)
 
 \item For orthogonal polygons (edges parallel to coordinate axes), state and prove the bound $g_{\text{orth}}(n) = \lfloor n/4 \rfloor$.
 
-\item Show that for $y$-monotone polygons with $n$ vertices, $g_{\text{monotone}}(n) = \lfloor (n-2)/2 \rfloor$.
+\item Show that for $y$-monotone polygons with $n$ vertices, $g_{\text{monotone}}(n) = \lfloor n/3 \rfloor$. (Hint: the comb polygon can be made monotone.)
 
-\item Prove that in 3D, there exist polyhedra with $n$ vertices that require $\Omega(n)$ guards, showing that no constant fraction suffices.
+\item Prove that in 3D, there exist polyhedra with $n$ vertices that require $\Omega(n^{3/2})$ guards, showing that no constant fraction suffices.
 
 \item Design and analyze a greedy approximation algorithm for the art gallery problem. What approximation ratio can you achieve?
 
-\item For the fortress problem (guarding the exterior of a polygon), prove that $g_{\text{fortress}}(n) = \lceil n/2 \rceil$.
+\item For the fortress problem (guarding the exterior of a polygon with guards at its vertices), prove that $g_{\text{fortress}}(n) = \lceil n/2 \rceil$.
 
-\item Investigate mobile guards that can patrol along edges. Prove that $g_{\text{mobile}}(n) = \lfloor n/4 \rfloor$.
+\item Investigate mobile guards that can patrol along edges or diagonals of the polygon. Prove that $g_{\text{mobile}}(n) = \lfloor n/4 \rfloor$ for $n \geq 4$.
 
 \item Analyze the complexity of computing the exact chromatic number of planar graphs and its relationship to guard placement problems.
 \end{enumerate}
@@ -17037,7 +17037,7 @@ Prove that every quadrilateral requires at most 1 guard.
 
 \item Illustrate the comb polygon construction. Draw a comb with 16 vertices, place the optimal number of guards, and show why fewer guards are insufficient.
 
-\item Create a planar graph with 7 vertices and exactly 12 edges. Verify that this achieves the maximum possible number of edges for a simple planar graph with 7 vertices.
+\item Create a planar graph with 7 vertices and exactly 15 edges. Verify that this achieves the maximum possible number of edges, $3 \cdot 7 - 6 = 15$, for a simple planar graph with 7 vertices.
 
 \item Draw the wheel graph $W_6$ (cycle $C_6$ with central vertex). Determine if it's planar and find its chromatic number.
 
@@ -17047,7 +17047,7 @@ Prove that every quadrilateral requires at most 1 guard.
 
 \item Draw an orthogonal polygon with 12 vertices that requires exactly 3 guards. Show the guard placement and prove optimality.
 
-\item Create a $y$-monotone polygon with 10 vertices. Find the minimum guard set and verify it matches the theoretical bound.
+\item Create a $y$-monotone polygon with 10 vertices. Find a minimum guard set and verify that it uses at most $\lfloor 10/3 \rfloor = 3$ guards, as guaranteed for monotone polygons.
 
 \item Design a star-shaped polygon and clearly indicate its kernel region. Show that one guard placed in the kernel can see the entire polygon.
 
@@ -17074,7 +17074,7 @@ Prove that every quadrilateral requires at most 1 guard.
 
 \item Prove that the visibility graph of any set of points in a convex polygon is the complete graph.
 
-\item Demonstrate that determining the minimum number of guards for a specific polygon is equivalent to finding the minimum dominating set in its visibility graph.
+\item Show that if a set $S$ of vertices guards a polygon $P$, then $S$ is a dominating set of the visibility graph of $P$. Give examples showing that the converse fails and that the minimum number of guards can differ from the minimum size of a dominating set of the visibility graph.
 \end{enumerate}
 
 \subsubsection{Advanced Applications}
