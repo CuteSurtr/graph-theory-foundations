@@ -11499,10 +11499,9 @@ If $M$ is a matching in a graph $G$, then $M$ is a maximum matching if and only 
       \State \textbf{return} $M$ \Comment{No more augmenting paths, $M$ is maximum}
     \EndIf
     \State $P \gets \emptyset$ \Comment{Set of vertex-disjoint augmenting paths}
+    \State Mark all vertices as unvisited
     \ForAll{exposed vertices $u \in U$}
-      \While{$\text{DFS}(L, u, M, P)$} \Comment{Find augmenting path starting at $u$}
-        \Comment{DFS returns true if it finds an augmenting path}
-      \EndWhile
+      \State $\text{DFS}(L, u, M, P)$ \Comment{Look for one augmenting path starting at $u$}
     \EndFor
     \ForAll{augmenting paths $p \in P$}
       \State $M \gets M \oplus p$ \Comment{Augment matching using symmetric difference}
@@ -11533,8 +11532,10 @@ If $M$ is a matching in a graph $G$, then $M$ is a maximum matching if and only 
       \ForAll{edges $(u,v) \in E$ where $(u,v) \notin M$} \Comment{Only non-matching edges}
         \If{$\text{level}[v] = \infty$}
           \State $\text{level}[v] \gets \text{level}[u] + 1$
-          \State Add edge $(u,v)$ to $L$
           \State $\text{queue.enqueue}(v)$
+        \EndIf
+        \If{$\text{level}[v] = \text{level}[u] + 1$}
+          \State Add edge $(u,v)$ to $L$ \Comment{Keep all edges between consecutive layers}
         \EndIf
       \EndFor
     \Else \Comment{$u \in V$, vertex in right partition}
@@ -11560,13 +11561,13 @@ If $M$ is a matching in a graph $G$, then $M$ is a maximum matching if and only 
 \caption{DFS to Find Augmenting Path}
 \begin{algorithmic}[1]
 \Procedure{DFS}{$L, u, M, P$}
+  \State Mark $u$ as visited \Comment{Keeps the paths in $P$ vertex-disjoint}
   \If{$u$ is exposed in $V$} \Comment{Found augmenting path ending at exposed vertex in $V$}
     \State Add current path to $P$
     \State \textbf{return} true
   \EndIf
   
-  \ForAll{edges $(u,v)$ in $L$}
-    \State Mark $(u,v)$ as visited
+  \ForAll{edges $(u,v)$ in $L$ with $v$ unvisited}
     \If{$\text{DFS}(L, v, M, P)$}
       \State \textbf{return} true
     \EndIf
@@ -11656,16 +11657,16 @@ If $M$ is a non‐maximum matching in $G$, then there exists an augmenting path 
 
 \begin{lemma}[Hopcroft–Karp Distance Bound]
 \label{lem:hk-distance}
-Let $M$ be the current matching and $M^*$ a maximum matching in a bipartite graph $G$.  If there is no $M$‐augmenting path of length $\le 2k-1$, then
+Let $M$ be the current matching and $M^*$ a maximum matching in a bipartite graph $G$, and let $k \geq 1$.  If there is no $M$‐augmenting path of length $\le 2k-1$, then
 \[
-|M| \;\ge\;\bigl|M^*\bigr| - k.
+|M| \;\ge\; \frac{k}{k+1}\,\bigl|M^*\bigr|.
 \]
-Equivalently, $M$ is at most $k$ edges short of optimal.
+Equivalently, $|M^*| - |M| \le |M|/k$, so $M$ is at most $|M|/k \le |V|/(2k)$ edges short of optimal.
 \end{lemma}
 
 \begin{lemma}[Phase Count]
 \label{lem:hk-phases}
-In the Hopcroft–Karp algorithm, the length of the shortest augmenting paths strictly increases between phases, and hence the total number of phases is
+In the Hopcroft–Karp algorithm, the length of the shortest augmenting paths strictly increases between phases. Combined with Lemma~\ref{lem:hk-distance} (applied after about $\sqrt{|V|}$ phases), this shows that the total number of phases is
 \[
 O\bigl(\sqrt{|V|}\bigr).
 \]
@@ -11681,7 +11682,7 @@ If $M$ is a non‐maximum matching and $M^*$ is a maximum matching, then $M \opl
 
 
 \begin{lemma}[Blocking‐Flow Phase Bound]
-In a unit‐capacity network (equivalent to the bipartite level graph), each blocking‐flow phase can be found in $O(|E|)$ time, and there are at most $O(\sqrt{|V|})$ such phases.
+In a unit network, i.e.\ a network with unit capacities in which every vertex other than the source and the sink has a single entering edge or a single leaving edge (such as the flow network of a bipartite matching problem), each blocking‐flow phase can be found in $O(|E|)$ time, and there are at most $O(\sqrt{|V|})$ such phases.
 \end{lemma}
 
 \begin{definition}[Hungarian Algorithm]
@@ -11692,7 +11693,7 @@ The algorithm works by iteratively improving a feasible vertex labeling and a ma
 \begin{algorithm}
 \caption{Hungarian Algorithm (Minimization Version)}
 \begin{algorithmic}[1]
-\Require Bipartite graph $G = (U \cup V, E)$ with weights $w: E \rightarrow \mathbb{R}$
+\Require Complete bipartite graph $G = (U \cup V, E)$ with $|U| = |V| = n$ and weights $w: E \rightarrow \mathbb{R}$
 \Ensure Perfect matching $M$ with minimum total weight
 
 \State Initialize feasible labeling $l: U \cup V \rightarrow \mathbb{R}$ where:
@@ -11705,12 +11706,12 @@ The algorithm works by iteratively improving a feasible vertex labeling and a ma
     \If{there exists an augmenting path $P$ in $G_l$}
         \State $M \gets M \oplus P$ \Comment{Augment matching using path $P$}
     \Else
-        \State $S \gets \{$ unmatched vertices in $U\}$
-        \State $T \gets \{$ vertices in $V$ reachable from $S$ through alternating paths in $G_l\}$
-        \State $\alpha \gets \min_{u \in S, v \in V \setminus T} \{l(u) + l(v) - w(u,v)\}$
+        \State $Z \gets \{$ vertices reachable from the unmatched vertices of $U$ through alternating paths in $G_l\}$ (including these unmatched vertices)
+        \State $S \gets Z \cap U$ and $T \gets Z \cap V$
+        \State $\alpha \gets \min_{u \in S, v \in V \setminus T} \{w(u,v) - l(u) - l(v)\}$ \Comment{$\alpha > 0$}
         \State Update labels:
-        \State $l(u) \gets l(u) - \alpha$ for all $u \in S$
-        \State $l(v) \gets l(v) + \alpha$ for all $v \in T$
+        \State $l(u) \gets l(u) + \alpha$ for all $u \in S$
+        \State $l(v) \gets l(v) - \alpha$ for all $v \in T$
     \EndIf
 \EndWhile
 \State \Return $M$
@@ -11725,11 +11726,11 @@ If $l$ is a feasible labeling and $M$ is a perfect matching in the equality grap
 \end{lemma}
 
 \begin{lemma}[Complementary Slackness]
-For a feasible labeling $l$ and a matching $M$, if $(u,v) \in M$ implies $l(u) + l(v) = w(u,v)$, then $M$ is an optimal matching.
+For a feasible labeling $l$ and a perfect matching $M$, if $(u,v) \in M$ implies $l(u) + l(v) = w(u,v)$, then $M$ is an optimal (minimum-weight) perfect matching.
 \end{lemma}
 
 \begin{lemma}[Labeling Update Invariant]
-The update rule $l(u) \gets l(u) - \alpha$ for $u \in S$ and $l(v) \gets l(v) + \alpha$ for $v \in T$ (where $\alpha = \min_{u \in S, v \in V \setminus T} \{l(u) + l(v) - w(u,v)\}$) maintains the feasibility of the labeling.
+Let $S \subseteq U$ and $T \subseteq V$ be the sets of vertices reachable from unmatched vertices of $U$ by alternating paths in $G_l$. The update rule $l(u) \gets l(u) + \alpha$ for $u \in S$ and $l(v) \gets l(v) - \alpha$ for $v \in T$ (where $\alpha = \min_{u \in S, v \in V \setminus T} \{w(u,v) - l(u) - l(v)\}$) maintains the feasibility of the labeling and keeps every edge of $M$ in the equality graph.
 \end{lemma}
 
 \begin{lemma}[Labeling Value and Matching Weight]
@@ -11737,7 +11738,7 @@ For any feasible labeling $l$ and any perfect matching $M$, the sum of all verte
 \end{lemma}
 
 \begin{lemma}[Duality Gap]
-For a feasible labeling $l$ and matching $M$, the difference between the sum of labels $\sum_{v \in U \cup V} l(v)$ and the weight of $M$ is zero if and only if $M$ is optimal.
+For a feasible labeling $l$ and a perfect matching $M$, the difference between the weight of $M$ and the sum of labels $\sum_{v \in U \cup V} l(v)$ is nonnegative, and it is zero if and only if every edge of $M$ lies in the equality graph $G_l$; in that case $M$ is optimal. Conversely, an optimal $M$ has zero gap with respect to every feasible labeling of maximum total value (see the Strong Duality theorem below), but not necessarily with respect to every feasible labeling.
 \end{lemma}
 
 
@@ -11774,10 +11775,10 @@ The time complexity of the Kuhn-Munkres algorithm is $O(n^3)$, where $n$ is the 
     \EndIf
     
     \If{$N_l(S) = T$} \Comment{$N_l(S)$ is the neighbors of $S$ in the equality subgraph}
-        \State $\alpha \gets \min_{u \in S, v \in V \setminus T} \{l(u) + l(v) - w(u,v)\}$
+        \State $\alpha \gets \min_{u \in S, v \in V \setminus T} \{w(u,v) - l(u) - l(v)\}$ \Comment{$\alpha > 0$}
         \State Update labels:
-        \State $l(u) \gets l(u) - \alpha$ for all $u \in S$
-        \State $l(v) \gets l(v) + \alpha$ for all $v \in T$
+        \State $l(u) \gets l(u) + \alpha$ for all $u \in S$
+        \State $l(v) \gets l(v) - \alpha$ for all $v \in T$
     \Else
         \State Choose $v \in N_l(S) \setminus T$
         \If{$v$ is not matched in $M$}
@@ -11809,14 +11810,14 @@ The minimum weight of a perfect matching equals the maximum value of $\sum_{u \i
 Throughout the execution of the Kuhn-Munkres algorithm, for any edge $(u,v) \in M$, the equality $l(u) + l(v) = w(u,v)$ is maintained.
 \end{lemma}
 \begin{lemma}[Labeling Update Property]
-The labeling update rule:
+The labeling update rule (applied when $N_l(S) = T$):
 \begin{equation}
-\alpha = \min_{u \in S, v \in V \setminus T} \{l(u) + l(v) - w(u,v)\}
+\alpha = \min_{u \in S, v \in V \setminus T} \{w(u,v) - l(u) - l(v)\}
 \end{equation}
 \begin{equation}
 l'(x) = \begin{cases}
-l(x) - \alpha & \text{if } x \in S\\
-l(x) + \alpha & \text{if } x \in T\\
+l(x) + \alpha & \text{if } x \in S\\
+l(x) - \alpha & \text{if } x \in T\\
 l(x) & \text{otherwise}
 \end{cases}
 \end{equation}
@@ -11866,28 +11867,26 @@ The algorithm operates by iteratively finding augmenting paths in $G$ relative t
 
 The key innovation of Edmonds' algorithm is the handling of \textit{blossoms} -- odd-length cycles in the graph that require special treatment. When a blossom is detected, it is temporarily contracted into a single vertex, the matching problem is solved in the resulting contracted graph, and then the blossom is expanded to obtain a solution for the original graph.
 
-The time complexity of the original algorithm is $O(|V|^3)$, where $|V|$ is the number of vertices in the graph. More efficient implementations can achieve $O(|V| \cdot |E|)$ complexity.
+The time complexity of the original algorithm is $O(|V|^4)$, where $|V|$ is the number of vertices in the graph. More efficient implementations achieve $O(|V|^3)$ and even $O(|V| \cdot |E|)$ complexity, and the algorithm of Micali and Vazirani runs in $O(|E|\sqrt{|V|})$ time.
 \end{definition}
 
 \begin{algorithm}
 \caption{Find Augmenting Path}
 \begin{algorithmic}[1]
 \Procedure{FindAugmentingPath}{$G = (V, E)$, $M$}
-    \State Let $F$ be the forest of alternating trees rooted at free vertices
-    \While{$F$ can be expanded}
-        \If{there exists an edge $(u, v)$ where $u$ is in $F$, $v$ is not in $F$, and $v$ is free}
-            \State Add $v$ and edge $(u, v)$ to $F$
-            \State \Return the augmenting path from the root of $u$'s tree to $v$
-        \ElsIf{there exists an edge $(u, v)$ where $u$ is in $F$, $v$ is not in $F$, and $v$ is matched}
+    \State Let $F$ be the forest with one single-vertex tree $\{r\}$ for each free vertex $r$; label each root \emph{even}
+    \While{there is an unexamined edge $(u, v)$ such that $u$ is an even vertex of $F$}
+        \State Mark $(u, v)$ as examined
+        \If{$v$ is not in $F$} \Comment{then $v$ is matched, since every free vertex is a root of $F$}
             \State Let $w$ be the vertex matched to $v$ in $M$
-            \State Add $v$, $w$, and edges $(u, v)$, $(v, w)$ to $F$
-        \ElsIf{there exists an edge $(u, v)$ where $u, v$ are in $F$ but in different trees}
-            \State \Return the augmenting path through $u$ and $v$
-        \ElsIf{there exists an edge $(u, v)$ where $u, v$ are in $F$ and in the same tree}
-            \State Contract the blossom containing $u$ and $v$ into a single vertex
-            \State Update $F$ and $G$ accordingly
-        \Else
-            \State \Return No augmenting path exists
+            \State Add $v$, $w$, and edges $(u, v)$, $(v, w)$ to $F$; label $v$ \emph{odd} and $w$ \emph{even}
+        \ElsIf{$v$ is even and lies in a different tree from $u$}
+            \State \Return the augmenting path from the root of $u$'s tree to $u$, then to $v$, then to the root of $v$'s tree
+        \ElsIf{$v$ is even and lies in the same tree as $u$}
+            \State Contract the blossom formed by $(u, v)$ and the tree paths from $u$ and $v$ to their lowest common ancestor into a single even vertex
+            \State Update $F$, $G$ and $M$ accordingly \Comment{a path found later is lifted by expanding the blossom}
+        \Else \Comment{$v$ is odd}
+            \State Ignore the edge $(u, v)$
         \EndIf
     \EndWhile
     \State \Return No augmenting path exists
@@ -11897,7 +11896,7 @@ The time complexity of the original algorithm is $O(|V|^3)$, where $|V|$ is the 
 
 
 \begin{lemma}[Blossom Lemma]
-Let $G = (V, E)$ be a graph with matching $M$. If $B \subset V$ forms a blossom with respect to $M$, and $G'$ is the graph obtained by contracting $B$ to a single vertex $b$, with matching $M'$ derived from $M$, then $G$ contains an augmenting path with respect to $M$ if and only if $G'$ contains an augmenting path with respect to $M'$.
+Let $G = (V, E)$ be a graph with matching $M$. Suppose $B \subset V$ forms a blossom with respect to $M$, i.e.\ $B$ is the vertex set of a cycle of length $2k+1$ containing $k$ edges of $M$, and suppose that the base of $B$ (the vertex of the cycle not matched to another vertex of the cycle) is either free or joined to a free vertex by an $M$-alternating path of even length that meets $B$ only in the base (a \emph{stem}); every blossom contracted by \textsc{FindAugmentingPath} has this property. If $G'$ is the graph obtained by contracting $B$ to a single vertex $b$, with matching $M'$ derived from $M$, then $G$ contains an augmenting path with respect to $M$ if and only if $G'$ contains an augmenting path with respect to $M'$.
 \end{lemma}
 
 \begin{theorem}[Tutte-Berge Formula]
@@ -11926,12 +11925,12 @@ Moreover, this decomposition has the following properties:
 \end{lemma}
 
 \begin{theorem}[Dulmage-Mendelsohn Decomposition]
-Let $G = (X \cup Y, E)$ be a bipartite graph with bipartition $(X, Y)$. Let $M$ be a maximum matching in $G$. Then there exists a partition of $X$ into sets $X_1, X_2, X_3$ and a partition of $Y$ into sets $Y_1, Y_2, Y_3$ such that:
+Let $G = (X \cup Y, E)$ be a bipartite graph with bipartition $(X, Y)$. Let $X_1$ (resp.\ $Y_3$) be the set of vertices of $X$ (resp.\ $Y$) that are left unmatched by at least one maximum matching of $G$. Put $Y_1 = N(X_1)$, $X_3 = N(Y_3)$, $X_2 = X \setminus (X_1 \cup X_3)$ and $Y_2 = Y \setminus (Y_1 \cup Y_3)$. Then:
 \begin{enumerate}
-  \item $M$ matches $X_1$ to $Y_1$, $X_2$ to $Y_2$, and leaves all vertices in $X_3 \cup Y_3$ unmatched.
-  \item There are no edges between $X_1$ and $Y_3$, or between $X_3$ and $Y_1$.
-  \item All maximum matchings in $G$ match $X_1$ exactly to $Y_1$.
-  \item Every matching of maximum size in the subgraph induced by $X_2 \cup Y_2$ can be extended to a maximum matching of $G$ by including a perfect matching between $X_1$ and $Y_1$.
+  \item $X_1, X_2, X_3$ is a partition of $X$ and $Y_1, Y_2, Y_3$ is a partition of $Y$ (in particular, there are no edges between $X_1$ and $Y_3$).
+  \item There are no edges between $X_1$ and $Y_2 \cup Y_3$, and no edges between $Y_3$ and $X_1 \cup X_2$.
+  \item Every maximum matching of $G$ matches each vertex of $Y_1$ to a vertex of $X_1$, matches each vertex of $X_3$ to a vertex of $Y_3$, and matches $X_2$ perfectly onto $Y_2$.
+  \item Consequently $|X_2| = |Y_2|$ and $\nu(G) = |Y_1| + |X_2| + |X_3|$.
 \end{enumerate}
 \end{theorem}
 
@@ -11944,12 +11943,12 @@ Tutte's theorem is a generalization of Petersen's theorem, which states that eve
 \end{remark}
 
 \begin{lemma}[Blossoms Intersection]
-Let $B_1$ and $B_2$ be two distinct blossoms in graph $G$ with respect to matching $M$. If $B_1 \cap B_2 \neq \emptyset$, then either:
+Let $B_1$ and $B_2$ be two distinct blossoms that are contracted during the same search for an augmenting path in Edmonds' algorithm, viewed as sets of vertices of the original graph $G$. If $B_1 \cap B_2 \neq \emptyset$, then either:
 \begin{enumerate}
-  \item $|B_1 \cap B_2| = 1$, i.e., the blossoms share exactly one vertex, or
   \item $B_1 \subset B_2$, i.e., one blossom is entirely contained within the other, or
   \item $B_2 \subset B_1$.
 \end{enumerate}
+That is, these blossoms form a laminar family. (For two arbitrary blossoms with respect to $M$ this fails: two $5$-cycles through the same four vertices can both be blossoms.)
 \end{lemma}
 
 \begin{algorithm}
@@ -11988,7 +11987,7 @@ Let $B_1$ and $B_2$ be two distinct blossoms in graph $G$ with respect to matchi
 \end{algorithm}
 
 \begin{remark}
-    The time complexity of Edmonds' algorithm is $O(|V|^3)$ where $|V|$ is the number of vertices in the graph. This can be improved to $O(|V|^2|E|)$ or even $O(|V||E|)$ with more sophisticated implementations.
+    The time complexity of Edmonds' original algorithm is $O(|V|^4)$ where $|V|$ is the number of vertices in the graph; the straightforward implementation described above runs in $O(|V|^2|E|)$ time. This can be improved to $O(|V|^3)$ or even $O(|V||E|)$ with more sophisticated implementations, and to $O(|E|\sqrt{|V|})$ by the algorithm of Micali and Vazirani.
 \end{remark}
 
 \begin{definition}[Stable Matching]
