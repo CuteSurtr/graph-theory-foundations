@@ -2013,7 +2013,7 @@ Let $G$ be a connected graph (or multigraph), and let $u, v \in V(G)$ with $u \n
         \draw[thick] (C) -- (D);
         
         \node at (1,-2.5) {Complete graph $K_4$};
-        \node at (1,-3) {Eulerian tour exists};
+        \node at (1,-3) {No Eulerian tour or trail};
     \end{scope}
     
     % Example 2: Graph with Eulerian Trail but no Tour
@@ -2036,7 +2036,7 @@ Let $G$ be a connected graph (or multigraph), and let $u, v \in V(G)$ with $u \n
 
 \vspace{0.3cm}
 {\centering
-\small Figure 26: Example graphs illustrating Eulerian concepts. Left: Complete graph $K_4$ where all vertices have degree 3 (odd). Although it doesn't have an Eulerian tour, it does have an Eulerian trail. Right: A graph with exactly two odd-degree vertices (P and Q) that has an Eulerian trail but no Eulerian tour.
+\small Figure 26: Example graphs illustrating Eulerian concepts. Left: Complete graph $K_4$, where all four vertices have degree 3 (odd). Since it has four vertices of odd degree, it has neither an Eulerian tour nor an Eulerian trail. Right: A graph with exactly two odd-degree vertices (P and Q) that has an Eulerian trail but no Eulerian tour.
 \par}
 \end{figure}
 
@@ -2052,12 +2052,15 @@ Let $G$ be a connected graph (or multigraph), and let $u, v \in V(G)$ with $u \n
         \node[circle, draw, fill=blue!40, minimum size=0.8cm] (D) at (0,2) {D};
         
         % Edges with directed arrows showing an Eulerian tour
+        % (B-C and D-A are each joined by two parallel edges)
         \draw[thick, ->, >=stealth] (A) -- node[below] {1} (B);
-        \draw[thick, ->, >=stealth] (B) -- node[right] {2} (C);
+        \draw[thick, ->, >=stealth] (B) -- node[left] {2} (C);
         \draw[thick, ->, >=stealth] (C) -- node[above] {3} (D);
-        \draw[thick, ->, >=stealth] (D) -- node[left] {4} (A);
+        \draw[thick, ->, >=stealth] (D) -- node[right] {4} (A);
         \draw[thick, ->, >=stealth] (A) -- node[near start, left] {5} (C);
-        \draw[thick, ->, >=stealth] (B) -- node[near start, below] {6} (D);
+        \draw[thick, ->, >=stealth] (C) to[bend left=40] node[right] {6} (B);
+        \draw[thick, ->, >=stealth] (B) -- node[near start, below] {7} (D);
+        \draw[thick, ->, >=stealth] (D) to[bend right=40] node[left] {8} (A);
         
         \node at (1,-1) {Eulerian tour: A-B-C-D-A-C-B-D-A};
         \node at (1,-1.5) {All vertices have degree 4 (even)};
@@ -2072,21 +2075,23 @@ Let $G$ be a connected graph (or multigraph), and let $u, v \in V(G)$ with $u \n
         \node[circle, draw, fill=red!40, minimum size=0.8cm] (Z) at (4,1) {Z};
         
         % Edges with directed arrows showing an Eulerian trail
-        \draw[thick, ->, >=stealth] (W) -- node[above, sloped] {1} (X);
+        % (W and X are joined by two parallel edges)
+        \draw[thick, ->, >=stealth] (W) -- node[below, sloped] {1} (X);
         \draw[thick, ->, >=stealth] (X) -- node[right] {2} (Y);
         \draw[thick, ->, >=stealth] (Y) -- node[below, sloped] {3} (W);
-        \draw[thick, ->, >=stealth] (X) -- node[above, sloped] {4} (Z);
-        \draw[thick, ->, >=stealth] (Z) -- node[below, sloped] {5} (Y);
+        \draw[thick, ->, >=stealth] (W) to[bend left=40] node[above, sloped] {4} (X);
+        \draw[thick, ->, >=stealth] (X) -- node[above, sloped] {5} (Z);
+        \draw[thick, ->, >=stealth] (Z) -- node[below, sloped] {6} (Y);
         
         \node at (2,-1) {Eulerian trail: W-X-Y-W-X-Z-Y};
         \node at (2,-1.5) {W and Y have degree 3 (odd)};
-        \node at (2,-2) {X and Z have degree 2 and 4 (even)};
+        \node at (2,-2) {X and Z have degree 4 and 2 (even)};
     \end{scope}
 \end{tikzpicture}
 
 \vspace{0.3cm}
 {\centering
-\small Figure 27: Explicit examples of Eulerian tours and trails. Left: A graph where every vertex has even degree (4), with a complete Eulerian tour shown by numbered edges. The tour visits every edge exactly once and returns to the starting vertex A. Right: A graph with exactly two odd-degree vertices (W and Y), showing an Eulerian trail that traverses every edge exactly once but doesn't form a closed circuit.
+\small Figure 27: Explicit examples of Eulerian tours and trails. Left: A multigraph (with two parallel edges between B and C and two between D and A) where every vertex has even degree (4), with a complete Eulerian tour shown by numbered edges. The tour visits every edge exactly once and returns to the starting vertex A. Right: A multigraph (with two parallel edges between W and X) with exactly two odd-degree vertices (W and Y), showing an Eulerian trail that traverses every edge exactly once but doesn't form a closed circuit.
 \par}
 \end{figure}
 
@@ -2133,19 +2138,20 @@ Therefore the trail uses every edge, and the graph has an Eulerian tour.
         \node[circle, draw, fill=yellow!40, minimum size=0.8cm] (F) at (-1,1) {$v_6$};
         
         % Eulerian tour - directed arrows
+        % (v_1v_4 and v_2v_6 are each joined by two parallel edges)
         \draw[thick, ->, >=stealth, blue] (A) -- (B);
         \draw[thick, ->, >=stealth, blue] (B) -- (C);
         \draw[thick, ->, >=stealth, blue] (C) -- (D);
         \draw[thick, ->, >=stealth, blue] (D) -- (E);
         \draw[thick, ->, >=stealth, blue] (E) -- (F);
         \draw[thick, ->, >=stealth, blue] (F) -- (A);
-        \draw[thick, ->, >=stealth, blue] (A) -- (D);
-        \draw[thick, ->, >=stealth, blue] (D) -- (A);
-        \draw[thick, ->, >=stealth, blue] (B) -- (F);
-        \draw[thick, ->, >=stealth, blue] (F) -- (B);
+        \draw[thick, ->, >=stealth, blue] (A) to[bend left=20] (D);
+        \draw[thick, ->, >=stealth, blue] (D) to[bend left=20] (A);
+        \draw[thick, ->, >=stealth, blue] (B) to[bend left=20] (F);
+        \draw[thick, ->, >=stealth, blue] (F) to[bend left=20] (B);
 
-        \node at (0.5,-3) {Eulerian tour: each vertex is};
-        \node at (0.5,-3.5) {visited an even number of times};
+        \node at (0.5,-3) {Eulerian tour: each pass through};
+        \node at (0.5,-3.5) {a vertex uses two of its edges};
     \end{scope}
     
     % Visual for the induction step - decomposition
@@ -2154,32 +2160,32 @@ Therefore the trail uses every edge, and the graph has an Eulerian tour.
         \node[circle, draw, fill=yellow!40, minimum size=0.8cm] (A) at (0,0) {$v_1$};
         \node[circle, draw, fill=yellow!40, minimum size=0.8cm] (B) at (2,1) {$v_2$};
         \node[circle, draw, fill=yellow!40, minimum size=0.8cm] (C) at (3,-1) {$v_3$};
-        \node[circle, draw, fill=yellow!40, minimum size=0.8cm] (D) at (0,-2) {$v_j$};
+        \node[circle, draw, fill=yellow!40, minimum size=0.8cm] (D) at (0,-2) {$v_4$};
         \node[circle, draw, fill=yellow!40, minimum size=0.8cm] (E) at (-2,-1) {$v_5$};
         \node[circle, draw, fill=yellow!40, minimum size=0.8cm] (F) at (-1,1) {$v_6$};
         
-        % First cycle (removed in induction)
+        % First cycle v_1 v_2 v_3 v_4 v_1 (removed in induction)
         \draw[thick, ->, >=stealth, red, dashed] (A) -- (B);
         \draw[thick, ->, >=stealth, red, dashed] (B) -- (C);
         \draw[thick, ->, >=stealth, red, dashed] (C) -- (D);
+        \draw[thick, ->, >=stealth, red, dashed] (D) to[bend left=20] (A);
         
-        % Second cycle (remaining after removal)
+        % Remaining closed trail v_1 v_4 v_5 v_6 v_2 v_6 v_1
+        \draw[thick, ->, >=stealth, blue] (A) to[bend left=20] (D);
         \draw[thick, ->, >=stealth, blue] (D) -- (E);
         \draw[thick, ->, >=stealth, blue] (E) -- (F);
+        \draw[thick, ->, >=stealth, blue] (F) to[bend left=20] (B);
+        \draw[thick, ->, >=stealth, blue] (B) to[bend left=20] (F);
         \draw[thick, ->, >=stealth, blue] (F) -- (A);
-        \draw[thick, ->, >=stealth, blue] (A) -- (D);
-        \draw[thick, ->, >=stealth, blue] (D) -- (A);
-        \draw[thick, ->, >=stealth, blue] (B) -- (F);
-        \draw[thick, ->, >=stealth, blue] (F) -- (B);
         
-        \node at (0.5,-3) {Induction step: Decompose into};
-        \node at (0.5,-3.5) {smaller Eulerian tours};
+        \node at (0.5,-3) {Induction step: remove the cycle};
+        \node at (0.5,-3.5) {$v_1 v_2 v_3 v_4 v_1$ (dashed)};
     \end{scope}
 \end{tikzpicture}
 
 \vspace{0.3cm}
 {\centering
-\small Figure 28: Visualization of the forward direction proof - showing why Eulerian tours imply even degrees. Left: A graph with an Eulerian tour (blue arrows) where each vertex must be visited and departed from an equal number of times, giving each vertex an even degree. Right: The induction step showing how an Eulerian tour can be decomposed into smaller Eulerian subcircuits.
+\small Figure 28: Visualization of the forward direction proof - showing why Eulerian tours imply even degrees. Left: A multigraph ($v_1$ and $v_4$ are joined by two edges, as are $v_2$ and $v_6$) with the Eulerian tour $v_1, v_2, v_3, v_4, v_1, v_4, v_5, v_6, v_2, v_6, v_1$ (blue arrows). Each time the tour passes through a vertex it enters along one edge and leaves along another, so every vertex has even degree: $v_3$ and $v_5$ are passed once and have degree 2, and the other vertices are passed twice and have degree 4. Right: The induction step for this tour. The first repeated vertex is the fifth one, $v_1$ (so $j = 5$ and $k = 1$), so the cycle $v_1, v_2, v_3, v_4, v_1$ (red, dashed) is removed; the remaining edges form the closed trail $v_1, v_4, v_5, v_6, v_2, v_6, v_1$ (blue), which is an Eulerian tour of a graph with fewer edges.
 \par}
 \end{figure}
 
@@ -2255,12 +2261,14 @@ By part (1), $G'$ has an Eulerian tour. This tour must use the edge $e$ at some 
         \node[circle, draw, fill=cyan!40, minimum size=0.8cm] (C) at (1.5,2) {$w$};
         \node[circle, draw, fill=cyan!40, minimum size=0.8cm] (D) at (1.5,-2) {$x$};
         
-        % Original graph edges - Eulerian trail
+        % Original graph edges - Eulerian trail u, w, v, x, u, x, v
+        % (x is joined to u by two edges and to v by two edges)
         \draw[thick, blue] (A) -- (C);
         \draw[thick, blue] (C) -- (B);
         \draw[thick, blue] (B) -- (D);
         \draw[thick, blue] (D) -- (A);
-        \draw[thick, blue] (A) -- (D);
+        \draw[thick, blue] (A) to[bend right=35] (D);
+        \draw[thick, blue] (B) to[bend left=35] (D);
         
         % Additional edge to create Eulerian tour
         \draw[thick, red, dashed] (A) to[bend left=40] node[above] {$e$} (B);
@@ -2273,7 +2281,7 @@ By part (1), $G'$ has an Eulerian tour. This tour must use the edge $e$ at some 
 
 \vspace{0.3cm}
 {\centering
-\small Figure 30: Visualization of the proof for part (2) - Converting between Eulerian trails and tours. By adding a new edge $e$ (red dashed line) between the two odd-degree vertices $u$ and $v$, we transform the graph into one where every vertex has even degree. This creates a graph with an Eulerian tour, and removing edge $e$ gives us the original Eulerian trail.
+\small Figure 30: Visualization of the proof for part (2) - Converting between Eulerian trails and tours. In this multigraph, $u$ and $v$ have degree 3, $w$ has degree 2 and $x$ has degree 4, and $u, w, v, x, u, x, v$ is an Eulerian trail. By adding a new edge $e$ (red dashed line) between the two odd-degree vertices $u$ and $v$, we transform the graph into one where every vertex has even degree. This creates a graph with an Eulerian tour, and removing edge $e$ gives us the original Eulerian trail.
 \par}
 \end{figure}
 
@@ -2300,14 +2308,14 @@ By part (1), $G'$ has an Eulerian tour. This tour must use the edge $e$ at some 
     \draw[thick] (v6) -- (v1);
     \draw[thick] (v1) -- (v2);
     \draw[thick] (v2) -- (v3);
-    \draw[thick] (v1) -- (v5);
+    \draw[thick] (v3) to[bend right=30] (v4);
     
     % Start marker
-    \node[text=red, font=\bfseries, draw=none, fill=none, minimum size=0cm] at (0,0.3) {Start};
+    \node[text=red, font=\bfseries, draw=none, fill=none, minimum size=0cm] at (-0.6,0) {Start};
 \end{tikzpicture}
 \par}
 {\centering
-\small Figure 31: Graph for applying Fleury's Algorithm. This figure displays the initial connected graph with six vertices labeled $v_1$ through $v_6$ arranged in a rectangular pattern. Vertex $v_4$ is highlighted in orange as the starting point, indicated by the red ``Start'' label. The graph has seven edges connecting the vertices in a way that allows for an Eulerian trail.
+\small Figure 31: Graph for applying Fleury's Algorithm. This figure displays the initial connected graph with six vertices labeled $v_1$ through $v_6$ and seven edges. The vertices $v_3$ and $v_4$ have degree 3 and all other vertices have degree 2, so the graph has an Eulerian trail but no Eulerian tour, and every Eulerian trail starts at one of $v_3, v_4$ and ends at the other. Vertex $v_4$ is highlighted in orange as the starting point, indicated by the red ``Start'' label.
 \par}
 \end{figure}
 
@@ -2330,11 +2338,11 @@ By part (1), $G'$ has an Eulerian tour. This tour must use the edge $e$ at some 
     \draw[thick] (v6) -- (v1);
     \draw[thick] (v1) -- (v2);
     \draw[thick] (v2) -- (v3);
-    \draw[thick] (v1) -- (v5);
+    \draw[thick] (v3) to[bend right=30] (v4);
 \end{tikzpicture}
 \par}
 {\centering
-\small Figure 32: Step 1: Choose edge $\{v_4,v_5\}$. This figure shows the first step of Fleury's Algorithm. Vertices $v_4$ and $v_5$ are both highlighted in orange, with a red directed arrow indicating the traversal from $v_4$ to $v_5$. This represents the first edge chosen in the Eulerian trail.
+\small Figure 32: Step 1: Choose edge $\{v_4,v_5\}$. This figure shows the first step of Fleury's Algorithm. None of the three edges at $v_4$ is a bridge, so any of them may be chosen. Vertices $v_4$ and $v_5$ are both highlighted in orange, with a red directed arrow indicating the traversal from $v_4$ to $v_5$. This represents the first edge chosen in the Eulerian trail.
 \par}
 \end{figure}
 
@@ -2345,119 +2353,7 @@ By part (1), $G'$ has an Eulerian tour. This tour must use the edge $e$ at some 
     % Vertices - Step 2
     \node[fill=blue!30] (v4) at (0,0) {$v_4$};
     \node[fill=orange!40] (v5) at (2,0) {$v_5$};
-    \node[fill=blue!30] (v3) at (4,0) {$v_3$};
-    \node[fill=orange!40] (v6) at (0,-2) {$v_6$};
-    \node[fill=blue!30] (v1) at (2,-2) {$v_1$};
-    \node[fill=blue!30] (v2) at (4,-2) {$v_2$};
-    
-    % Edges
-    \draw[thick, dashed, gray] (v4) -- (v5);
-    \draw[thick] (v5) -- (v3);
-    \draw[thick] (v4) -- (v6);
-    \draw[thick] (v6) -- (v1);
-    \draw[thick] (v1) -- (v2);
-    \draw[thick] (v2) -- (v3);
-    \draw[thick, red, ->] (v5) -- (v6);
-    \draw[thick] (v1) -- (v5);
-\end{tikzpicture}
-\par}
-{\centering
-\small Figure 33: Step 2: Choose edge $\{v_5,v_6\}$. Vertices $v_5$ and $v_6$ are highlighted in orange. The previously traversed edge (from $v_4$ to $v_5$) is shown as a dashed gray line. A red directed arrow connects $v_5$ to $v_6$, showing the second edge chosen in the algorithm, following the rule of selecting edges that don't disconnect the graph.
-\par}
-\end{figure}
-
-\begin{figure}[p]
-{\centering
-\begin{tikzpicture}[scale=1.8, 
-    every node/.style={circle, draw, minimum size=0.8cm}]
-    % Vertices - Step 3
-    \node[fill=blue!30] (v4) at (0,0) {$v_4$};
-    \node[fill=blue!30] (v5) at (2,0) {$v_5$};
-    \node[fill=blue!30] (v3) at (4,0) {$v_3$};
-    \node[fill=orange!40] (v6) at (0,-2) {$v_6$};
-    \node[fill=orange!40] (v1) at (2,-2) {$v_1$};
-    \node[fill=blue!30] (v2) at (4,-2) {$v_2$};
-    
-    % Edges
-    \draw[thick, dashed, gray] (v4) -- (v5);
-    \draw[thick] (v5) -- (v3);
-    \draw[thick] (v4) -- (v6);
-    \draw[thick, red, ->] (v6) -- (v1);
-    \draw[thick] (v1) -- (v2);
-    \draw[thick] (v2) -- (v3);
-    \draw[thick, dashed, gray] (v5) -- (v6);
-    \draw[thick] (v1) -- (v5);
-\end{tikzpicture}
-\par}
-{\centering
-\small Figure 34: Step 3: Choose edge $\{v_6,v_1\}$. Vertices $v_6$ and $v_1$ are highlighted in orange. Previously traversed edges ($v_4$-$v_5$ and $v_5$-$v_6$) are shown as dashed gray lines. A red directed arrow connects $v_6$ to $v_1$, representing the current edge being traversed in the Eulerian trail.
-\par}
-\end{figure}
-
-\begin{figure}[p]
-{\centering
-\begin{tikzpicture}[scale=1.8, 
-    every node/.style={circle, draw, minimum size=0.8cm}]
-    % Vertices - Step 4
-    \node[fill=blue!30] (v4) at (0,0) {$v_4$};
-    \node[fill=blue!30] (v5) at (2,0) {$v_5$};
-    \node[fill=blue!30] (v3) at (4,0) {$v_3$};
-    \node[fill=blue!30] (v6) at (0,-2) {$v_6$};
-    \node[fill=orange!40] (v1) at (2,-2) {$v_1$};
-    \node[fill=orange!40] (v2) at (4,-2) {$v_2$};
-    
-    % Edges
-    \draw[thick, dashed, gray] (v4) -- (v5);
-    \draw[thick] (v5) -- (v3);
-    \draw[thick] (v4) -- (v6);
-    \draw[thick, dashed, gray] (v6) -- (v1);
-    \draw[thick, red, ->] (v1) -- (v2);
-    \draw[thick] (v2) -- (v3);
-    \draw[thick, dashed, gray] (v5) -- (v6);
-    \draw[thick] (v1) -- (v5);
-\end{tikzpicture}
-\par}
-{\centering
-\small Figure 35: Step 4: Choose edge $\{v_1,v_2\}$. Vertices $v_1$ and $v_2$ are highlighted in orange. Three edges have now been traversed and appear as dashed gray lines. The current traversal from $v_1$ to $v_2$ is shown with a red directed arrow, continuing to follow the principle of choosing edges that maintain connectivity when possible.
-\par}
-\end{figure}
-
-\begin{figure}[p]
-{\centering
-\begin{tikzpicture}[scale=1.8, 
-    every node/.style={circle, draw, minimum size=0.8cm}]
-    % Vertices - Step 5
-    \node[fill=blue!30] (v4) at (0,0) {$v_4$};
-    \node[fill=blue!30] (v5) at (2,0) {$v_5$};
     \node[fill=orange!40] (v3) at (4,0) {$v_3$};
-    \node[fill=blue!30] (v6) at (0,-2) {$v_6$};
-    \node[fill=blue!30] (v1) at (2,-2) {$v_1$};
-    \node[fill=orange!40] (v2) at (4,-2) {$v_2$};
-    
-    % Edges
-    \draw[thick, dashed, gray] (v4) -- (v5);
-    \draw[thick] (v5) -- (v3);
-    \draw[thick] (v4) -- (v6);
-    \draw[thick, dashed, gray] (v6) -- (v1);
-    \draw[thick, dashed, gray] (v1) -- (v2);
-    \draw[thick, red, ->] (v2) -- (v3);
-    \draw[thick, dashed, gray] (v5) -- (v6);
-    \draw[thick] (v1) -- (v5);
-\end{tikzpicture}
-\par}
-{\centering
-\small Figure 36: Step 5: Choose edge $\{v_2,v_3\}$. Vertices $v_2$ and $v_3$ are highlighted in orange. Four previously traversed edges are shown as dashed gray lines. The current edge being traversed from $v_2$ to $v_3$ is indicated by a red directed arrow.
-\par}
-\end{figure}
-
-\begin{figure}[p]
-{\centering
-\begin{tikzpicture}[scale=1.8, 
-    every node/.style={circle, draw, minimum size=0.8cm}]
-    % Vertices - Step 6
-    \node[fill=orange!40] (v4) at (0,0) {$v_4$};
-    \node[fill=orange!40] (v5) at (2,0) {$v_5$};
-    \node[fill=blue!30] (v3) at (4,0) {$v_3$};
     \node[fill=blue!30] (v6) at (0,-2) {$v_6$};
     \node[fill=blue!30] (v1) at (2,-2) {$v_1$};
     \node[fill=blue!30] (v2) at (4,-2) {$v_2$};
@@ -2466,15 +2362,14 @@ By part (1), $G'$ has an Eulerian tour. This tour must use the edge $e$ at some 
     \draw[thick, dashed, gray] (v4) -- (v5);
     \draw[thick, red, ->] (v5) -- (v3);
     \draw[thick] (v4) -- (v6);
-    \draw[thick, dashed, gray] (v6) -- (v1);
-    \draw[thick, dashed, gray] (v1) -- (v2);
-    \draw[thick, dashed, gray] (v2) -- (v3);
-    \draw[thick, dashed, gray] (v5) -- (v6);
-    \draw[thick, dashed, gray] (v1) -- (v5);
+    \draw[thick] (v6) -- (v1);
+    \draw[thick] (v1) -- (v2);
+    \draw[thick] (v2) -- (v3);
+    \draw[thick] (v3) to[bend right=30] (v4);
 \end{tikzpicture}
 \par}
 {\centering
-\small Figure 37: Step 6: Choose edge $\{v_5,v_3\}$. Vertices $v_4$ and $v_5$ are highlighted in orange. Most edges have been traversed (shown as dashed gray lines). The current traversal is from $v_5$ to $v_3$, indicated by a red directed arrow. Note that the algorithm now traverses the remaining edges to complete the Eulerian trail.
+\small Figure 33: Step 2: Choose edge $\{v_5,v_3\}$. Vertices $v_5$ and $v_3$ are highlighted in orange. The previously traversed edge (from $v_4$ to $v_5$) is shown as a dashed gray line. Since $\{v_5,v_3\}$ is now the only unused edge at $v_5$, the algorithm must take it; the red directed arrow from $v_5$ to $v_3$ shows the second edge of the trail.
 \par}
 \end{figure}
 
@@ -2482,7 +2377,7 @@ By part (1), $G'$ has an Eulerian tour. This tour must use the edge $e$ at some 
 {\centering
 \begin{tikzpicture}[scale=1.8, 
     every node/.style={circle, draw, minimum size=0.8cm}]
-    % Vertices - Step 7
+    % Vertices - Step 3
     \node[fill=orange!40] (v4) at (0,0) {$v_4$};
     \node[fill=blue!30] (v5) at (2,0) {$v_5$};
     \node[fill=orange!40] (v3) at (4,0) {$v_3$};
@@ -2493,17 +2388,123 @@ By part (1), $G'$ has an Eulerian tour. This tour must use the edge $e$ at some 
     % Edges
     \draw[thick, dashed, gray] (v4) -- (v5);
     \draw[thick, dashed, gray] (v5) -- (v3);
+    \draw[thick] (v4) -- (v6);
+    \draw[thick] (v6) -- (v1);
+    \draw[thick] (v1) -- (v2);
+    \draw[thick] (v2) -- (v3);
     \draw[thick, red, ->] (v3) to[bend right=30] (v4);
-    \draw[thick, dashed, gray] (v6) -- (v1);
-    \draw[thick, dashed, gray] (v1) -- (v2);
-    \draw[thick, dashed, gray] (v2) -- (v3);
-    \draw[thick, dashed, gray] (v5) -- (v6);
-    \draw[thick, dashed, gray] (v1) -- (v5);
-    
 \end{tikzpicture}
 \par}
 {\centering
-\small Figure 38: Step 7: Choose final edge $\{v_3,v_4\}$ to complete the tour. Vertices $v_4$ and $v_3$ are highlighted in orange with a red directed arrow from $v_3$ to $v_4$. This represents the completion of the Eulerian trail as the algorithm returns to the starting vertex after having traversed all edges in the graph exactly once.
+\small Figure 34: Step 3: Choose edge $\{v_3,v_4\}$. Vertices $v_3$ and $v_4$ are highlighted in orange. Previously traversed edges ($v_4$-$v_5$ and $v_5$-$v_3$) are shown as dashed gray lines. The unused edges form the cycle $v_3, v_4, v_6, v_1, v_2, v_3$, so neither unused edge at $v_3$ is a bridge and either may be chosen; the red directed arrow from $v_3$ to $v_4$ shows the choice made here.
+\par}
+\end{figure}
+
+\begin{figure}[p]
+{\centering
+\begin{tikzpicture}[scale=1.8, 
+    every node/.style={circle, draw, minimum size=0.8cm}]
+    % Vertices - Step 4
+    \node[fill=orange!40] (v4) at (0,0) {$v_4$};
+    \node[fill=blue!30] (v5) at (2,0) {$v_5$};
+    \node[fill=blue!30] (v3) at (4,0) {$v_3$};
+    \node[fill=orange!40] (v6) at (0,-2) {$v_6$};
+    \node[fill=blue!30] (v1) at (2,-2) {$v_1$};
+    \node[fill=blue!30] (v2) at (4,-2) {$v_2$};
+    
+    % Edges
+    \draw[thick, dashed, gray] (v4) -- (v5);
+    \draw[thick, dashed, gray] (v5) -- (v3);
+    \draw[thick, red, ->] (v4) -- (v6);
+    \draw[thick] (v6) -- (v1);
+    \draw[thick] (v1) -- (v2);
+    \draw[thick] (v2) -- (v3);
+    \draw[thick, dashed, gray] (v3) to[bend right=30] (v4);
+\end{tikzpicture}
+\par}
+{\centering
+\small Figure 35: Step 4: Choose edge $\{v_4,v_6\}$. Vertices $v_4$ and $v_6$ are highlighted in orange. Three edges have now been traversed and appear as dashed gray lines. The only unused edge at $v_4$ is $\{v_4,v_6\}$, shown with a red directed arrow from $v_4$ to $v_6$.
+\par}
+\end{figure}
+
+\begin{figure}[p]
+{\centering
+\begin{tikzpicture}[scale=1.8, 
+    every node/.style={circle, draw, minimum size=0.8cm}]
+    % Vertices - Step 5
+    \node[fill=blue!30] (v4) at (0,0) {$v_4$};
+    \node[fill=blue!30] (v5) at (2,0) {$v_5$};
+    \node[fill=blue!30] (v3) at (4,0) {$v_3$};
+    \node[fill=orange!40] (v6) at (0,-2) {$v_6$};
+    \node[fill=orange!40] (v1) at (2,-2) {$v_1$};
+    \node[fill=blue!30] (v2) at (4,-2) {$v_2$};
+    
+    % Edges
+    \draw[thick, dashed, gray] (v4) -- (v5);
+    \draw[thick, dashed, gray] (v5) -- (v3);
+    \draw[thick, dashed, gray] (v4) -- (v6);
+    \draw[thick, red, ->] (v6) -- (v1);
+    \draw[thick] (v1) -- (v2);
+    \draw[thick] (v2) -- (v3);
+    \draw[thick, dashed, gray] (v3) to[bend right=30] (v4);
+\end{tikzpicture}
+\par}
+{\centering
+\small Figure 36: Step 5: Choose edge $\{v_6,v_1\}$. Vertices $v_6$ and $v_1$ are highlighted in orange. Four previously traversed edges are shown as dashed gray lines. The current edge being traversed from $v_6$ to $v_1$ is indicated by a red directed arrow.
+\par}
+\end{figure}
+
+\begin{figure}[p]
+{\centering
+\begin{tikzpicture}[scale=1.8, 
+    every node/.style={circle, draw, minimum size=0.8cm}]
+    % Vertices - Step 6
+    \node[fill=blue!30] (v4) at (0,0) {$v_4$};
+    \node[fill=blue!30] (v5) at (2,0) {$v_5$};
+    \node[fill=blue!30] (v3) at (4,0) {$v_3$};
+    \node[fill=blue!30] (v6) at (0,-2) {$v_6$};
+    \node[fill=orange!40] (v1) at (2,-2) {$v_1$};
+    \node[fill=orange!40] (v2) at (4,-2) {$v_2$};
+    
+    % Edges
+    \draw[thick, dashed, gray] (v4) -- (v5);
+    \draw[thick, dashed, gray] (v5) -- (v3);
+    \draw[thick, dashed, gray] (v4) -- (v6);
+    \draw[thick, dashed, gray] (v6) -- (v1);
+    \draw[thick, red, ->] (v1) -- (v2);
+    \draw[thick] (v2) -- (v3);
+    \draw[thick, dashed, gray] (v3) to[bend right=30] (v4);
+\end{tikzpicture}
+\par}
+{\centering
+\small Figure 37: Step 6: Choose edge $\{v_1,v_2\}$. Vertices $v_1$ and $v_2$ are highlighted in orange. Most edges have been traversed (shown as dashed gray lines). The current traversal is from $v_1$ to $v_2$, indicated by a red directed arrow.
+\par}
+\end{figure}
+
+\begin{figure}[p]
+{\centering
+\begin{tikzpicture}[scale=1.8, 
+    every node/.style={circle, draw, minimum size=0.8cm}]
+    % Vertices - Step 7
+    \node[fill=blue!30] (v4) at (0,0) {$v_4$};
+    \node[fill=blue!30] (v5) at (2,0) {$v_5$};
+    \node[fill=orange!40] (v3) at (4,0) {$v_3$};
+    \node[fill=blue!30] (v6) at (0,-2) {$v_6$};
+    \node[fill=blue!30] (v1) at (2,-2) {$v_1$};
+    \node[fill=orange!40] (v2) at (4,-2) {$v_2$};
+    
+    % Edges
+    \draw[thick, dashed, gray] (v4) -- (v5);
+    \draw[thick, dashed, gray] (v5) -- (v3);
+    \draw[thick, dashed, gray] (v4) -- (v6);
+    \draw[thick, dashed, gray] (v6) -- (v1);
+    \draw[thick, dashed, gray] (v1) -- (v2);
+    \draw[thick, red, ->] (v2) -- (v3);
+    \draw[thick, dashed, gray] (v3) to[bend right=30] (v4);
+\end{tikzpicture}
+\par}
+{\centering
+\small Figure 38: Step 7: Choose final edge $\{v_2,v_3\}$ to complete the trail. Vertices $v_2$ and $v_3$ are highlighted in orange with a red directed arrow from $v_2$ to $v_3$. All seven edges have now been traversed exactly once. The trail ends at $v_3$, the other vertex of odd degree, and not at the starting vertex: since the graph has two vertices of odd degree, the result is an Eulerian trail, not an Eulerian tour.
 \par}
 \end{figure}
 
@@ -2512,7 +2513,7 @@ By part (1), $G'$ has an Eulerian tour. This tour must use the edge $e$ at some 
 \begin{tikzpicture}[scale=1.8, 
     every node/.style={circle, draw, minimum size=0.8cm}]
     
-    % Full tour
+    % Full trail
     \node[fill=orange!40] (v4) at (0,0) {$v_4$};
     \node[fill=orange!40] (v5) at (2,0) {$v_5$};
     \node[fill=orange!40] (v3) at (4,0) {$v_3$};
@@ -2520,19 +2521,18 @@ By part (1), $G'$ has an Eulerian tour. This tour must use the edge $e$ at some 
     \node[fill=orange!40] (v1) at (2,-2) {$v_1$};
     \node[fill=orange!40] (v2) at (4,-2) {$v_2$};
     
-    % Completed tour edges
+    % Completed trail edges
     \draw[->, thick, purple] (v4) to node[above] {1} (v5);
-    \draw[->, thick, purple] (v5) to node[below] {6} (v6);
-    \draw[->, thick, purple] (v6) to node[above] {3} (v1);
-    \draw[->, thick, purple] (v1) to node[above] {4} (v2);
-    \draw[->, thick, purple] (v2) to node[left] {5} (v3);
-    \draw[->, thick, purple] (v3) to[bend right=30] node[above] {7} (v4);
     \draw[->, thick, purple] (v5) to node[above] {2} (v3);
-    \draw[->, thick, purple] (v1) to[bend right=30] node[left] {8} (v5);
+    \draw[->, thick, purple] (v3) to[bend right=30] node[above] {3} (v4);
+    \draw[->, thick, purple] (v4) to node[left] {4} (v6);
+    \draw[->, thick, purple] (v6) to node[above] {5} (v1);
+    \draw[->, thick, purple] (v1) to node[above] {6} (v2);
+    \draw[->, thick, purple] (v2) to node[right] {7} (v3);
 \end{tikzpicture}
 \par}
 {\centering
-\small Figure 39: Complete Eulerian tour using Fleury's Algorithm: $v_4 \rightarrow v_5 \rightarrow v_3 \rightarrow v_4 \rightarrow v_6 \rightarrow v_1 \rightarrow v_2 \rightarrow v_3$. All vertices are highlighted in orange, and all edges are shown as purple directed arrows with numbers indicating the order of traversal (1-8). This figure displays the entire Eulerian path found by the algorithm, showing how every edge in the graph is traversed exactly once.
+\small Figure 39: Complete Eulerian trail found by Fleury's Algorithm: $v_4 \rightarrow v_5 \rightarrow v_3 \rightarrow v_4 \rightarrow v_6 \rightarrow v_1 \rightarrow v_2 \rightarrow v_3$. All vertices are highlighted in orange, and all seven edges are shown as purple directed arrows with numbers indicating the order of traversal (1-7). This figure displays the entire Eulerian trail found by the algorithm, showing how every edge in the graph is traversed exactly once; the trail starts at $v_4$ and ends at $v_3$, the two vertices of odd degree.
 \par}
 \end{figure}
 
@@ -2553,7 +2553,7 @@ By part (1), $G'$ has an Eulerian tour. This tour must use the edge $e$ at some 
     \node[fill=blue!30] (v8) at (4,-2) {$v_8$};
     
     % Edges for the example
-    \draw[->, thick, purple] (v4) to node[above, sloped] {1} (v5);
+    \draw[->, thick, purple] (v4) to node[below, sloped] {1} (v5);
     \draw[->, thick, purple] (v5) to node[above, sloped] {2} (v6);
     \draw[->, thick, purple] (v6) to node[right, sloped] {3} (v1);
     \draw[->, thick, purple] (v1) to node[below, sloped] {4} (v2);
@@ -2564,18 +2564,19 @@ By part (1), $G'$ has an Eulerian tour. This tour must use the edge $e$ at some 
     \draw[->, thick, purple] (v10) to node[right] {9} (v13);
     \draw[->, thick, purple] (v13) to node[right] {10} (v8);
     \draw[->, thick, purple] (v8) to node[below, sloped] {11} (v5);
-    \draw[->, thick, purple] (v5) to node[below, sloped] {12} (v4);
+    \draw[->, thick, purple] (v5) to[bend right=35] node[above, sloped] {12} (v4);
 \end{tikzpicture}
 \par}
 {\centering
-\small Figure 40: Example Eulerian tour: $v_4 \rightarrow v_5 \rightarrow v_6 \rightarrow v_1 \rightarrow v_2 \rightarrow v_3 \rightarrow v_4 \rightarrow v_9 \rightarrow v_{10} \rightarrow v_{13} \rightarrow v_8 \rightarrow v_5 \rightarrow v_4$. This figure shows a more complex example of an Eulerian tour on a larger graph with 10 vertices. The starting vertex $v_4$ is highlighted in red, and the complete tour is shown with purple directed arrows numbered 1-12. This demonstrates how Fleury's Algorithm scales to larger graphs while still finding a valid Eulerian path that traverses each edge exactly once before returning to the starting vertex.
+\small Figure 40: Example Eulerian tour: $v_4 \rightarrow v_5 \rightarrow v_6 \rightarrow v_1 \rightarrow v_2 \rightarrow v_3 \rightarrow v_4 \rightarrow v_9 \rightarrow v_{10} \rightarrow v_{13} \rightarrow v_8 \rightarrow v_5 \rightarrow v_4$. This figure shows a more complex example of an Eulerian tour on a larger multigraph with 10 vertices, in which $v_4$ and $v_5$ are joined by two parallel edges (edges 1 and 12), so that $v_4$ and $v_5$ have degree 4 and all other vertices have degree 2. The starting vertex $v_4$ is highlighted in red, and the complete tour is shown with purple directed arrows numbered 1-12. This demonstrates how Fleury's Algorithm scales to larger graphs while still finding a valid Eulerian tour that traverses each edge exactly once before returning to the starting vertex.
 \par}
 
 \vspace{1em}
 \begin{minipage}{\linewidth}
 \begin{algorithm}[H]
-\caption{Fleury's Algorithm for finding an Eulerian path or circuit}
+\caption{Fleury's Algorithm for finding an Eulerian trail or circuit}
 \begin{algorithmic}[1]
+\Require $G$ is connected and has $0$ or $2$ vertices of odd degree; if it has two, $start$ is one of them
 \Procedure{Fleury}{$G(V,E)$, $start$}
     \State Let $currentVertex \gets start$
     \State Initialize empty list $path$
@@ -2583,7 +2584,7 @@ By part (1), $G'$ has an Eulerian tour. This tour must use the edge $e$ at some 
         \If{degree of $currentVertex$ is 1}
             \State Let $nextEdge$ be the only edge incident to $currentVertex$
         \Else
-            \State Let $nextEdge$ be any edge incident to $currentVertex$ such that removing $nextEdge$ doesn't disconnect the graph
+            \State Let $nextEdge$ be any edge incident to $currentVertex$ that is not a bridge of the current graph $(V, E)$
         \EndIf
         \State Let $nextVertex$ be the vertex at the other end of $nextEdge$
         \State Add $currentVertex$ to $path$
@@ -2598,7 +2599,7 @@ By part (1), $G'$ has an Eulerian tour. This tour must use the edge $e$ at some 
 \end{minipage}
 \end{figure}
 
-\pagebreak
+\clearpage
 
 \subsection{Eulerian Digraphs and DeBruijn Sequences}
 \subsubsection{Eulerian Digraphs}
