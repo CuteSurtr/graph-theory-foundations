@@ -6783,12 +6783,12 @@ Starting with the weighted graph shown in Figure 70, we apply Dijkstra's algorit
     
     % Shortest Path Tree Edges with order
     \draw[blue, ultra thick] (0) -- node[above, sloped, blue] {2354 (1)} (1);
-    \draw[blue, ultra thick] (0) -- node[right, blue] {6445 (3)} (2);
+    \draw[blue, ultra thick] (0) -- node[right, blue] {6445 (4)} (2);
     \draw[blue, ultra thick] (0) -- node[above, sloped, blue] {5588 (2)} (3);
-    \draw[blue, ultra thick] (1) -- node[above, blue] {3284 (4)} (4);
-    \draw[blue, ultra thick] (4) -- node[right, blue] {5239 (6)} (5);
+    \draw[blue, ultra thick] (1) -- node[above, blue] {3284 (3)} (4);
+    \draw[blue, ultra thick] (4) -- node[right, blue] {5239 (7)} (5);
     \draw[blue, ultra thick] (0) -- node[below, sloped, blue] {8543 (5)} (6);
-    \draw[blue, ultra thick] (2) -- node[right, blue] {3476 (7)} (7);
+    \draw[blue, ultra thick] (2) -- node[right, blue] {3476 (6)} (7);
     
     % Original edges (grayed out)
     \draw[gray, thin, opacity=0.3] (1) -- node[below, sloped, gray] {7832} (3);
@@ -6799,7 +6799,7 @@ Starting with the weighted graph shown in Figure 70, we apply Dijkstra's algorit
     \draw[gray, thin, opacity=0.3] (7) -- node[below, sloped, gray] {9764} (5);
 \end{tikzpicture}
 \\
-\small Figure 70: Finding the shortest paths using Dijkstra's Algorithm. Numbers in parentheses indicate the order in which vertices were processed.
+\small Figure 70: Finding the shortest paths using Dijkstra's Algorithm. Numbers in parentheses indicate the order in which vertices were processed after the source 0; the number for each vertex is written on the tree edge joining it to its predecessor.
 \end{figure}
 
 \begin{algorithm}
@@ -7049,19 +7049,19 @@ $\begin{pmatrix}
     \node[vertex] (7) at (2,-1) {7};
     
     % All edges with weights
-    \draw[thick] (0) -- node[above, sloped] {2354} (1);
-    \draw[thick] (0) -- node[left] {6445} (2);
-    \draw[thick] (0) -- node[above, sloped] {5588} (3);
-    \draw[thick] (0) -- node[above, sloped] {8543} (6);
-    \draw[thick] (1) -- node[above, sloped] {7832} (3);
-    \draw[thick] (1) -- node[above] {3284} (4);
-    \draw[thick] (2) -- node[above, sloped] {8901} (3);
-    \draw[thick] (2) -- node[right] {3476} (7);
-    \draw[thick] (3) -- node[below, sloped] {4662} (4);
-    \draw[thick] (3) -- node[above, sloped] {7123} (5);
-    \draw[thick] (4) -- node[right] {5239} (5);
-    \draw[thick] (6) -- node[below, sloped] {4095} (7);
-    \draw[thick] (7) -- node[below, sloped] {9764} (5);
+    \draw[thick, ->] (0) -- node[above, sloped] {2354} (1);
+    \draw[thick, ->] (0) -- node[left] {6445} (2);
+    \draw[thick, ->] (0) -- node[above, sloped] {5588} (3);
+    \draw[thick, ->] (0) -- node[above, sloped] {8543} (6);
+    \draw[thick, ->] (1) -- node[above, sloped] {7832} (3);
+    \draw[thick, ->] (1) -- node[above] {3284} (4);
+    \draw[thick, ->] (2) -- node[above, sloped] {8901} (3);
+    \draw[thick, ->] (2) -- node[right] {3476} (7);
+    \draw[thick, ->] (3) -- node[below, sloped] {4662} (4);
+    \draw[thick, ->] (3) -- node[above, sloped] {7123} (5);
+    \draw[thick, ->] (4) -- node[right] {5239} (5);
+    \draw[thick, ->] (6) -- node[below, sloped] {4095} (7);
+    \draw[thick, ->] (7) -- node[below, sloped] {9764} (5);
     
     % Highlight example shortest path
     \draw[blue, ultra thick, ->] (0) -- node[above, sloped, blue] {} (1);
@@ -7073,7 +7073,7 @@ $\begin{pmatrix}
     \draw[blue, ->] (7,2) -- (5.5,1.5);
 \end{tikzpicture}
 \\
-\small Figure 71: Graph for the Floyd-Warshall algorithm. The blue arrows highlight an example shortest path.
+\small Figure 71: Directed graph for the Floyd-Warshall algorithm. The blue arrows highlight an example shortest path.
 \end{figure}
 
 \begin{algorithm}
@@ -7645,10 +7645,10 @@ A bipartite graph $G = (X \cup Y, E)$ is \textit{biregular} (also called \textit
     \draw (x1) -- (y2);
     \draw (x2) -- (y1);
     \draw (x2) -- (y2);
-    \draw (x3) -- (y2);
+    \draw (x3) -- (y1);
     \draw (x3) -- (y3);
     \draw (x4) -- (y2);
-    \draw (x4) -- (y3);
+    \draw (x4) -- (y4);
     \draw (x5) -- (y3);
     \draw (x5) -- (y4);
     \draw (x6) -- (y3);
