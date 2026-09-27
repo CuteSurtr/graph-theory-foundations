@@ -1,6 +1,6 @@
 # Graph Theory Foundations
 
-A comprehensive 262-page LaTeX textbook on graph theory, combining
+A comprehensive 315-page LaTeX textbook on graph theory, combining
 mathematical rigor with visualization, algorithmic implementations,
 and exercise sets at multiple difficulty levels. Originally written
 for UC San Diego MATH 154, the book also serves as a self-study
@@ -45,7 +45,12 @@ resource for advanced undergraduates and beginning graduate students.
     and the Heilmann-Lieb theorem, equitable partitions and quotient
     interlacing, distance-regular graphs and association schemes,
     Cayley graphs and vertex-transitive graphs, the Tutte polynomial
-    and graphic matroids.
+    and graphic matroids, heaps of pieces, the Ihara zeta function,
+    combinatorial Hopf algebras, Hodge theory of matroids and
+    log-concavity, permanents and #P-hardness, Weisfeiler-Leman and
+    graph isomorphism, cluster algebras, chip-firing and sandpile
+    groups, random walks via representation theory, electrical
+    networks, and crystal graphs.
 
 ## Repository Contents
 
@@ -53,8 +58,8 @@ resource for advanced undergraduates and beginning graduate students.
 |------|-------------|
 | `graph theory.tex` | Master LaTeX source (chapters 1-11) |
 | `chapter12_algebraic.tex` | Auxiliary chapter on algebraic graph theory |
-| `graph theory.pdf` | Compiled book, 262 pages |
-| `graph_algorithms.py` | Companion Python implementations of the algorithms in chapters 5-10 |
+| `graph theory.pdf` | Compiled book, 315 pages |
+| `graph_algorithms.py` | Companion Python implementations of algorithms from chapters 2, 3, 5-8, and 10 |
 | `README.md` | This file |
 | `.gitignore` | Excludes LaTeX build artifacts |
 
@@ -100,7 +105,8 @@ Theory*, or West, *Introduction to Graph Theory* (2nd ed.).
 
 ## License
 
-The text and figures are released for non-commercial educational use.
+The text and figures are licensed under the Creative Commons
+Attribution 4.0 International License (CC BY 4.0); see `LICENSE`.
 The companion code in `graph_algorithms.py` is released under the MIT
 license.
 
