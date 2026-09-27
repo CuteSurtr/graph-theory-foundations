@@ -571,10 +571,12 @@ class GraphAlgorithms:
         """
         Check Dirac's condition for Hamiltonian cycle.
         
-        Time Complexity: O(V)
-        Space Complexity: O(1)
+        Time Complexity: O(V + E)
+        Space Complexity: O(V)
         
-        Dirac's theorem: If every vertex has degree ≥ n/2, then Hamiltonian cycle exists.
+        Dirac's theorem: If G is a simple graph with n ≥ 3 vertices and every
+        vertex has degree ≥ n/2, then G has a Hamiltonian cycle.  The condition
+        is sufficient, not necessary: False only means the condition fails.
         """
         if graph.directed:
             return False
@@ -584,7 +586,9 @@ class GraphAlgorithms:
             return False
             
         for vertex in graph.get_vertices():
-            if len(graph.get_neighbors(vertex)) < n // 2:
+            # degree in the underlying simple graph (ignore loops, parallel edges)
+            degree = len({u for u, _ in graph.get_neighbors(vertex) if u != vertex})
+            if 2 * degree < n:  # i.e. degree < n/2 (n // 2 is too weak for odd n)
                 return False
                 
         return True
@@ -604,9 +608,6 @@ class GraphAlgorithms:
         if not vertices:
             return []
             
-        if start is None:
-            start = vertices[0]
-            
         def backtrack(path, visited):
             if len(path) == len(vertices):
                 return path
@@ -622,7 +623,13 @@ class GraphAlgorithms:
                     
             return None
             
-        return backtrack([start], {start})
+        # Without a prescribed start vertex a Hamiltonian path may begin at
+        # any vertex, so try every vertex as the start.
+        for s in (vertices if start is None else [start]):
+            result = backtrack([s], {s})
+            if result:
+                return result
+        return None
 
 
 class TSPAlgorithms:
@@ -713,8 +720,8 @@ class TSPAlgorithms:
             mask ^= (1 << cities.index(current))
             current = next_city
             
-        tour.append(start_city)
-        tour.reverse()
+        tour.reverse()           # start_city, ..., last_city
+        tour.append(start_city)  # return to the start to close the tour
         
         return min_cost, tour
     
