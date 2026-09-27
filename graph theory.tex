@@ -148,11 +148,12 @@ E &= \{\{v_i, v_{i+1 \bmod n}\} : 0 \leq i < n\}
 
 \subsection{Paths}
 \begin{definition}
-A path of length $k$ is the graph $P_k = (V, E)$ where:
+A path of length $k$ (that is, a path on $k+1$ vertices) is the graph $P_{k+1} = (V, E)$ where:
 \begin{align*}
 V &= \{v_0, v_1, \ldots, v_k\}\\
 E &= \{\{v_i, v_{i+1}\} : 0 \leq i < k\}
 \end{align*}
+In general, $P_n$ denotes the path on $n$ vertices; it has $n-1$ edges.
 \end{definition}
 
 \begin{figure}[H]
@@ -172,7 +173,7 @@ E &= \{\{v_i, v_{i+1}\} : 0 \leq i < k\}
     \draw (v\i) -- (v\j);
   }
 \end{tikzpicture}
-\caption{A path graph $P_5$ with 6 vertices.}
+\caption{A path graph $P_6$ with 6 vertices (a path of length 5).}
 \end{figure}
 
 \subsection{Degrees and Neighborhoods}
@@ -452,12 +453,12 @@ A star graph has one central vertex connected to $n-1$ leaf vertices.
 \end{center}
 
 \subsubsection{Wheel Graph $W_n$}
-A wheel graph is formed by connecting a single vertex to all vertices of a cycle.
+A wheel graph $W_n$ ($n \geq 3$) is formed by connecting a single new vertex to all vertices of a cycle $C_n$, so $W_n$ has $n+1$ vertices.
 \begin{itemize}
-    \item For central vertex $c$: $\deg(c) = n-1$
+    \item For central vertex $c$: $\deg(c) = n$
     \item For vertices on the cycle: $\deg(v) = 3$
-    \item Example: In $W_8$, the central vertex has $\deg(c) = 7$, and the 7 outer vertices each have $\deg(v) = 3$
-    \item Total edges: $|E| = 2(n-1) = 14$
+    \item Example: In $W_7$, the central vertex has $\deg(c) = 7$, and the 7 outer vertices each have $\deg(v) = 3$
+    \item Total edges: $|E| = 2n = 14$
 \end{itemize}
 
 \begin{center}
@@ -507,7 +508,7 @@ A wheel graph is formed by connecting a single vertex to all vertices of a cycle
   
   % Add Figure 7 caption
   \node[align=left, text width=12cm] at (0,-4.3) {
-    Figure 7: In this wheel graph $W_8$ with 8 vertices, the central vertex $v_1$ has degree 7, while all cycle vertices $v_2$ through $v_8$ have degree 3. Total number of edges = $2(n-1) = 14$
+    Figure 7: In this wheel graph $W_7$ with 8 vertices, the central vertex $v_1$ has degree 7, while all cycle vertices $v_2$ through $v_8$ have degree 3. Total number of edges = $2n = 14$
   };
 \end{tikzpicture}
 \end{center}
