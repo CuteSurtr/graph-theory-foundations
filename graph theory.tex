@@ -17322,10 +17322,15 @@ $u$ and $v$ together contribute $d(u) + d(v) - 1 \le n - 1$ edges, so
 \begin{proof}[Proof 3: weight-shifting / LP relaxation]
 Assign each vertex $v$ weight $x_v \ge 0$ with $\sum x_v = 1$. Define
 $f(\mathbf{x}) = \sum_{uv \in E} x_u x_v$. Triangle-freeness makes
-$f$ at most $1/4$: indeed, if $x_u > 0$ and $x_v > 0$ for some edge
-$uv$, either $x_u > x_v$ (shift all weight of $v$ onto $u$,
-increasing $f$) or $x_v \ge x_u$ (shift the other way), so the max
-is at a two-vertex support, giving $f \le \max_{t \in [0,1]} t(1 - t) = 1/4$.
+$f$ at most $1/4$: indeed, let $\mathbf{x}$ maximize $f$ with the
+fewest positive coordinates. If two \emph{non-adjacent} vertices $u, v$
+both have positive weight, put $s_u = \sum_{w \in N(u)} x_w$ and
+$s_v = \sum_{w \in N(v)} x_w$; since $uv \notin E$, neither sum involves
+$x_u$ or $x_v$, so $f = x_u s_u + x_v s_v + (\text{terms free of } x_u, x_v)$.
+If $s_u \ge s_v$, shifting all weight of $v$ onto $u$ does not decrease $f$
+(symmetrically if $s_v > s_u$) and shrinks the support, a contradiction.
+Hence the support of $\mathbf{x}$ is a clique, so (as $G$ is triangle-free)
+it has at most two vertices, giving $f \le \max_{t \in [0,1]} t(1 - t) = 1/4$.
 Now set $x_v = 1/n$ to obtain $m/n^2 \le 1/4$.
 \end{proof}
 
@@ -17345,15 +17350,18 @@ triangles. In particular a triangle-free graph has $m \le n^2/4$.
 \end{theorem}
 
 \begin{proof}
-Count, for each vertex $v$, the number of \emph{cherry} subgraphs
-(paths of length $2$) with $v$ as endpoint: this is $\binom{d(v)}{2}$
-but also counts, for each non-edge $xy$ with $v \in N(x) \cap N(y)$,
-one cherry. Each triangle is counted thrice, so the number of
-triangles is
+For an edge $xy$, both $N(x)$ and $N(y)$ lie in $V$, so
+$|N(x) \cap N(y)| \ge d(x) + d(y) - n$, and each common neighbor $z$
+gives a triangle $xyz$. Every triangle contains exactly three edges, so,
+writing $T$ for the number of triangles,
 \[
-  T = \tfrac{1}{3}\Big( \sum_v \binom{d(v)}{2} - \# (\text{paths ending in non-edges}) \Big).
+  3T \;=\; \sum_{xy \in E} |N(x) \cap N(y)|
+     \;\ge\; \sum_{xy \in E} \big(d(x) + d(y)\big) - mn
+     \;=\; \sum_{v} d(v)^2 - mn
+     \;\ge\; \frac{4m^2}{n} - mn,
 \]
-An application of Cauchy--Schwarz produces the stated lower bound.
+the last step by Cauchy--Schwarz exactly as in Proof~1 of Mantel's theorem.
+Dividing by $3$ gives $T \ge \frac{m}{3}\big(4m/n - n\big)$.
 \end{proof}
 
 \subsubsection{Tur\'an's Theorem}
@@ -17371,14 +17379,18 @@ is an equivalence relation on $V(G)$.
 
 \emph{Symmetry} and \emph{reflexivity} are automatic. For
 \emph{transitivity}, suppose $u \not\sim v$ and $v \not\sim w$ but
-$u \sim w$. Without loss of generality $d(u) \ge d(v)$.
-Delete $v$ and replace it by a clone $v'$ of $u$ with $N(v') = N(u)$.
-The new graph is still $K_{r+1}$-free (a clique through $v'$ would
-give a clique through $u$), and its edge count is
-$|E| - d(v) + d(u) \ge |E|$. In fact the inequality is strict unless
-$d(u) = d(v)$, but even when equal, iterating this move eventually
-makes all three vertices mutually non-adjacent, proving transitivity
-up to edge-preserving operations.
+$u \sim w$. If $d(v) < d(u)$, delete $v$ and replace it by a clone
+$v'$ of $u$ with $N(v') = N(u)$. The new graph is still $K_{r+1}$-free
+(a clique contains at most one of the non-adjacent twins $u, v'$, and
+$v'$ may be replaced by $u$), and its edge count is
+$|E| - d(v) + d(u) > |E|$, contradicting maximality; the case
+$d(v) < d(w)$ is symmetric. Otherwise $d(v) \ge d(u)$ and
+$d(v) \ge d(w)$: delete $u$ and $w$ and add two new clones of $v$. This
+removes $d(u) + d(w) - 1$ edges (the edge $uw$ is counted twice) and
+adds $2d(v)$, a net gain of at least $1$; the result is again
+$K_{r+1}$-free, since $v$ and its clones are pairwise non-adjacent with
+the same neighborhood. Either way maximality is contradicted, so
+non-adjacency is transitive.
 
 Thus in the extremal case $V(G)$ splits into classes of mutually
 non-adjacent vertices, with all edges between distinct classes
@@ -17400,9 +17412,12 @@ For any graph $G$ on $n$ vertices, setting $x_v = 1/n$ gives
 $\lambda(G) \ge m/n^2$. Motzkin and Straus proved
 $\lambda(G) = \tfrac{1}{2}(1 - 1/\omega(G))$, where $\omega(G)$ is the
 clique number. If $\omega(G) \le r$, then
-$m/n^2 \le \tfrac{1}{2}(1 - 1/r)$, giving Tur\'an's bound. The key to
-Motzkin--Straus is to observe that any optimal $\mathbf x$ is
-supported on a clique of $G$.
+$m/n^2 \le \tfrac{1}{2}(1 - 1/r)$, giving Tur\'an's bound in the weaker
+form $|E(G)| \le (1 - 1/r)n^2/2$, which equals $t(n, r)$ when $r \mid n$
+(the exact bound and the uniqueness need a finer argument such as
+Proof~1). The key to Motzkin--Straus is to observe that \emph{some}
+optimal $\mathbf x$ is supported on a clique of $G$ (not every one is:
+on $C_4$ the uniform weighting is optimal).
 \end{proof}
 
 \begin{proof}[Proof 3: induction via a max-degree vertex]
@@ -17421,7 +17436,7 @@ $\pi(K_{r+1}) = 1 - 1/r$.
 
 \begin{corollary}[Chromatic consequence]
 Every graph $G$ on $n$ vertices with $|E(G)| > t(n, r)$ edges
-contains a $K_{r+1}$; equivalently, any $G$ with $|E(G)| > (1 - 1/r) n^2/2$
+contains a $K_{r+1}$; in particular, any $G$ with $|E(G)| > (1 - 1/r) n^2/2$
 has chromatic number at least $r + 1$.
 \end{corollary}
 
@@ -17489,7 +17504,7 @@ difficulty in the \emph{degenerate} (bipartite) theory.
 
 \begin{remark}[Supersaturation]
 Erd\H{o}s and Simonovits also proved that exceeding $\mathrm{ex}(n, H)$
-by a constant fraction yields not merely one but $\Theta(n^{|V(H)|})$
+by $\varepsilon n^2$ edges yields not merely one but $\Theta(n^{|V(H)|})$
 copies of $H$: the dependence is \emph{supersaturated}. This is a
 quantitative strengthening routinely exploited.
 \end{remark}
@@ -17524,11 +17539,15 @@ gives the claimed bound.
 $\mathrm{ex}(n, C_4) = \mathrm{ex}(n, K_{2, 2}) \le \tfrac{1}{2}(1 + \sqrt{4n - 3}) \cdot n / 2 = O(n^{3/2})$.
 \end{corollary}
 
-\begin{theorem}[Reiman; Erd\H{o}s--R\'enyi--S\'os]
-The upper bound $\mathrm{ex}(n, C_4) \le \tfrac{1}{2}(1 + \sqrt{4n - 3})$
-is attained to leading order: the incidence graph of the projective
-plane $\mathrm{PG}(2, q)$ (a polarity graph) is $C_4$-free and has
-$(1 + o(1)) n^{3/2}/2$ edges when $n = q^2 + q + 1$.
+\begin{theorem}[Reiman; Erd\H{o}s--R\'enyi--S\'os, Brown]
+The upper bound $\mathrm{ex}(n, C_4) \le \tfrac{n}{4}(1 + \sqrt{4n - 3})$
+is attained to leading order: the Erd\H{o}s--R\'enyi \emph{polarity graph}
+of the projective plane $\mathrm{PG}(2, q)$, whose $n = q^2 + q + 1$
+vertices are the points of $\mathrm{PG}(2, q)$, with distinct points
+$x, y$ adjacent iff $x_0 y_0 + x_1 y_1 + x_2 y_2 = 0$, is $C_4$-free and has
+$\tfrac12 q(q+1)^2 = (1 + o(1)) n^{3/2}/2$ edges. (The point--line
+incidence graph of $\mathrm{PG}(2, q)$ is also $C_4$-free, but it has
+$2n$ vertices and only $(q+1)n$ edges.)
 \end{theorem}
 
 \begin{theorem}[Bondy--Simonovits, 1974]
@@ -17538,8 +17557,9 @@ For every integer $k \ge 2$,
 \]
 \end{theorem}
 
-Whether this is tight for $k \ge 4$ is a long-standing open problem;
-matching constructions are only known for $k \in \{2, 3, 5\}$
+Whether the exponent $1 + 1/k$ is tight for $k = 4$ and for $k \ge 6$
+is a long-standing open problem; matching constructions are only known
+for $k \in \{2, 3, 5\}$
 (projective plane, generalized quadrangle, generalized hexagon).
 
 \subsubsection{The Zarankiewicz Problem}
@@ -17547,12 +17567,13 @@ matching constructions are only known for $k \in \{2, 3, 5\}$
 \begin{definition}[Zarankiewicz function]
 $z(m, n; s, t)$ is the maximum number of $1$'s in an $m \times n$
 $0/1$-matrix with no all-ones $s \times t$ submatrix. Equivalently,
-it is the maximum edge count of a $K_{s, t}$-free bipartite graph
-with parts of sizes $m$ and $n$.
+it is the maximum edge count of a bipartite graph with parts of sizes
+$m$ and $n$ containing no $K_{s, t}$ whose $s$-vertex side lies in the
+part of size $m$.
 \end{definition}
 
 \begin{theorem}[K\H{o}v\'ari--S\'os--Tur\'an, bipartite form]
-$z(m, n; s, t) \le \tfrac{1}{2}\big((t - 1)^{1/s}(n - s + 1) m^{1 - 1/s} + (s - 1) m\big)$.
+$z(m, n; s, t) \le (t - 1)^{1/s}(m - s + 1)\, n^{1 - 1/s} + (s - 1) n$.
 \end{theorem}
 
 \subsubsection{Graphs of High Girth: The Moore Bound}
@@ -17609,8 +17630,9 @@ of the most famous unsolved problems in algebraic graph theory.
 \subsubsection{Supersaturation}
 
 \begin{theorem}[Erd\H{o}s--Simonovits supersaturation]
-For every graph $H$ and $\varepsilon > 0$ there is $c > 0$ such that any
-graph $G$ on $n$ vertices with $|E(G)| \ge (\pi(H) + \varepsilon) \binom{n}{2}$
+For every graph $H$ and $\varepsilon > 0$ there are $c > 0$ and $n_0$ such
+that any graph $G$ on $n \ge n_0$ vertices with
+$|E(G)| \ge (\pi(H) + \varepsilon) \binom{n}{2}$
 edges contains at least $c \cdot n^{|V(H)|}$ copies of $H$.
 \end{theorem}
 
