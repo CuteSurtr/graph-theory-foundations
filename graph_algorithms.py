@@ -179,17 +179,21 @@ class GraphAlgorithms:
         distances[start] = 0
         predecessors = {vertex: None for vertex in graph.get_vertices()}
         
-        # Relax edges V-1 times
+        # Relax edges V-1 times.  An undirected edge can be used in both
+        # directions, but get_edges() lists it only once.
         vertices = list(graph.get_vertices())
+        arcs = list(graph.get_edges())
+        if not graph.directed:
+            arcs += [(v, u, weight) for u, v, weight in graph.get_edges()]
         for _ in range(len(vertices) - 1):
-            for u, v, weight in graph.get_edges():
+            for u, v, weight in arcs:
                 if distances[u] + weight < distances[v]:
                     distances[v] = distances[u] + weight
                     predecessors[v] = u
         
         # Check for negative cycles
         has_negative_cycle = False
-        for u, v, weight in graph.get_edges():
+        for u, v, weight in arcs:
             if distances[u] + weight < distances[v]:
                 has_negative_cycle = True
                 break
@@ -219,9 +223,13 @@ class GraphAlgorithms:
                 else:
                     distances[(i, j)] = float('inf')
         
-        # Set edge weights
-        for u, v, weight in graph.get_edges():
-            distances[(u, v)] = weight
+        # Set edge weights.  Use the adjacency lists so that undirected edges
+        # count in both directions; keep the lightest of parallel edges, and
+        # never let a non-negative self-loop overwrite distances[(v, v)] = 0.
+        for u in vertices:
+            for v, weight in graph.get_neighbors(u):
+                if weight < distances[(u, v)]:
+                    distances[(u, v)] = weight
             
         # Floyd-Warshall main algorithm
         for k in vertices:
@@ -427,6 +435,13 @@ class GraphAlgorithms:
     def has_eulerian_path(graph: Graph) -> Tuple[bool, bool]:
         """
         Check if graph has Eulerian path or circuit.
+
+        Undirected: all edges lie in one connected component and the number
+        of odd-degree vertices is 0 (circuit) or 0 or 2 (path).
+        Directed: all edges lie in one component of the underlying undirected
+        graph and in-degree = out-degree at every vertex (circuit), or at every
+        vertex except one with out - in = 1 and one with in - out = 1 (path).
+        Isolated vertices are ignored: they are not incident to any edge.
         
         Time Complexity: O(V + E)
         Space Complexity: O(V)
@@ -434,8 +449,23 @@ class GraphAlgorithms:
         Returns:
             (has_eulerian_path, has_eulerian_circuit)
         """
-        if not GraphAlgorithms.is_connected(graph):
+        # Connectivity of the edges only (underlying undirected graph built
+        # from the edge list, so isolated vertices do not matter)
+        underlying = Graph(directed=False)
+        for u, v, w in graph.get_edges():
+            underlying.add_edge(u, v, w)
+        if not GraphAlgorithms.is_connected(underlying):
             return False, False
+
+        if graph.directed:
+            balance = defaultdict(int)  # out-degree minus in-degree
+            for u, v, _ in graph.get_edges():
+                balance[u] += 1
+                balance[v] -= 1
+            unbalanced = sorted(b for b in balance.values() if b != 0)
+            has_circuit = not unbalanced
+            has_path = has_circuit or unbalanced == [-1, 1]
+            return has_path, has_circuit
             
         odd_degree_vertices = 0
         for vertex in graph.get_vertices():
@@ -453,15 +483,23 @@ class GraphAlgorithms:
         """
         Fleury's algorithm to find Eulerian path/circuit.
         
-        Time Complexity: O(E²)
+        At each step it traverses an edge whose removal leaves every remaining
+        edge reachable from the edge's other end ("don't burn bridges"); a
+        bridge is used only when it is the last edge at the current vertex.
+        Works for multigraphs (parallel edges, loops) and directed graphs.
+
+        Time Complexity: O(E²)  (at most two O(V + E) bridge tests per edge)
         Space Complexity: O(V + E)
         
         Returns:
             Eulerian path/circuit or None if doesn't exist
+            (None also if a given start vertex cannot begin an Eulerian path)
         """
         has_path, has_circuit = GraphAlgorithms.has_eulerian_path(graph)
         if not has_path:
             return None
+        if not graph.get_edges():
+            return [start] if start is not None else list(graph.get_vertices())[:1]
             
         # Create mutable copy of graph
         temp_graph = Graph(graph.directed)
@@ -471,7 +509,14 @@ class GraphAlgorithms:
         # Find starting vertex
         if start is None:
             if has_circuit:
-                start = next(iter(graph.get_vertices()))
+                start = graph.get_edges()[0][0]  # any vertex that has an edge
+            elif graph.directed:
+                # the vertex with out-degree - in-degree = 1
+                balance = defaultdict(int)
+                for u, v, _ in graph.get_edges():
+                    balance[u] += 1
+                    balance[v] -= 1
+                start = next(v for v, b in balance.items() if b == 1)
             else:
                 # Find vertex with odd degree
                 for vertex in graph.get_vertices():
@@ -479,40 +524,44 @@ class GraphAlgorithms:
                         start = vertex
                         break
                         
+        def remaining_edges_reachable(vertex):
+            """True if every vertex that still has an edge is reachable from vertex."""
+            seen = {vertex}
+            stack = [vertex]
+            while stack:
+                x = stack.pop()
+                for y, _ in temp_graph.adj_list[x]:
+                    if y not in seen:
+                        seen.add(y)
+                        stack.append(y)
+            return all(x in seen for x, nbrs in temp_graph.adj_list.items() if nbrs)
+
         path = [start]
         current = start
         
         while temp_graph.get_neighbors(current):
-            # Choose edge that doesn't disconnect the graph
-            chosen_edge = None
-            for neighbor, weight in temp_graph.get_neighbors(current):
-                # Remove edge temporarily
-                temp_graph.adj_list[current] = [
-                    (v, w) for v, w in temp_graph.adj_list[current] if v != neighbor
-                ]
+            # Choose edge that doesn't disconnect the remaining edges
+            for neighbor, weight in list(temp_graph.get_neighbors(current)):
+                # Remove ONE copy of the edge (parallel copies must stay)
+                temp_graph.adj_list[current].remove((neighbor, weight))
                 if not temp_graph.directed:
-                    temp_graph.adj_list[neighbor] = [
-                        (v, w) for v, w in temp_graph.adj_list[neighbor] if v != current
-                    ]
+                    temp_graph.adj_list[neighbor].remove((current, weight))
                 
-                # Check if graph remains connected (simplified check)
-                remaining_edges = sum(len(neighbors) for neighbors in temp_graph.adj_list.values())
-                if remaining_edges == 0 or GraphAlgorithms.is_connected(temp_graph):
-                    chosen_edge = neighbor
+                if remaining_edges_reachable(neighbor):
                     break
-                else:
-                    # Restore edge
-                    temp_graph.adj_list[current].append((neighbor, weight))
-                    if not temp_graph.directed:
-                        temp_graph.adj_list[neighbor].append((current, weight))
             
-            if chosen_edge is None:
-                # If no safe edge found, take any edge
-                chosen_edge = temp_graph.get_neighbors(current)[0][0]
+                # Restore edge
+                temp_graph.adj_list[current].append((neighbor, weight))
+                if not temp_graph.directed:
+                    temp_graph.adj_list[neighbor].append((current, weight))
+            else:
+                return None  # no Eulerian path starts at the given start vertex
                 
-            path.append(chosen_edge)
-            current = chosen_edge
+            path.append(neighbor)
+            current = neighbor
             
+        if any(temp_graph.adj_list.values()):
+            return None  # edges left over: the given start vertex was not valid
         return path
     
     # ==================== HAMILTONIAN PATH ALGORITHMS ====================
