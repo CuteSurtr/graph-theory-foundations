@@ -414,27 +414,44 @@ eigenvalues $\beta_1 \ge \cdots \ge \beta_k$. Then
 \end{theorem}
 
 \begin{proof}
-Apply the Courant--Fischer min-max characterization
-(Theorem~\ref{thm:courantfischer}) to $A$ and to $\hat B = S^\top A S$
-on the $k$-dimensional column span of $S$. The Rayleigh quotient on
-this $k$-subspace lies between the top-$k$ and bottom-$k$ eigenvalues
-of $A$.
+Let $D = S^\top S = \mathrm{diag}(|V_1|, \ldots, |V_k|)$ and
+$N = S D^{-1/2}$, so that $N^\top N = I_k$. The matrix
+$C = N^\top A N = D^{-1/2} S^\top A S D^{-1/2}$ is symmetric, and
+$\hat B = D^{-1} S^\top A S = D^{-1/2} C D^{1/2}$ is similar to it, so
+$\beta_1 \ge \cdots \ge \beta_k$ are real and are the eigenvalues of
+$C$. (The unnormalized matrix $S^\top A S$ does \emph{not} interlace in
+general: for the one-cell partition of a $d$-regular graph it is
+$(nd)$, while $\hat B = (d)$.) Fix $i \le k$ and let $W \subseteq
+\mathbb R^k$ be spanned by orthonormal eigenvectors of $C$ for
+$\beta_1, \ldots, \beta_i$. Because $N$ has orthonormal columns, $NW$ is
+$i$-dimensional and $R_A(Ny) = R_C(y) \ge \beta_i$ for every non-zero
+$y \in W$, so Theorem~\ref{thm:courantfischer} gives
+$\lambda_i \ge \beta_i$. Applying this to $-A$ (whose normalized
+quotient is $-\hat B$) gives $\beta_i \ge \lambda_{n - k + i}$.
 \end{proof}
 
-\begin{corollary}[Hoffman-style ratio bound; Haemers, 1995]\label{cor:haemers}
-Let $G$ be a $k$-regular graph with smallest adjacency eigenvalue
-$\lambda_n$. Then
+\begin{corollary}[Hoffman ratio bound; interlacing proof: Haemers, 1995]\label{cor:haemers}
+Let $G$ be a $k$-regular graph on $n$ vertices, $k \ge 1$, with smallest
+adjacency eigenvalue $\lambda_n$. Then
 \[
   \alpha(G) \;\le\; \frac{-\lambda_n}{k - \lambda_n} \cdot n.
 \]
 \end{corollary}
 
 \begin{proof}
-Let $S \subseteq V(G)$ be a maximum independent set, and consider the
-partition $(S, V \setminus S)$. Compute the normalized quotient: the
-$2 \times 2$ matrix has trace $2 \cdot \frac{e(S, V \setminus S)}{|S|}$
-and determinant relating to the densities. Apply
-Theorem~\ref{thm:quotinter} and solve.
+Let $S \subseteq V(G)$ be a maximum independent set, $s = |S|$, and
+consider the partition $(S, V \setminus S)$; since $k \ge 1$ we have
+$s < n$. Every vertex of $S$ has all $k$ neighbours in $V \setminus S$,
+so $e(S, V \setminus S) = ks$ and the normalized quotient is
+\[
+  \hat B = \begin{pmatrix} 0 & k \\[2pt] \dfrac{ks}{n - s} & k - \dfrac{ks}{n - s} \end{pmatrix}.
+\]
+Its row sums equal $k$, so $k$ is an eigenvalue of $\hat B$; since
+$\mathrm{tr}\, \hat B = k - \frac{ks}{n - s}$, the other eigenvalue is
+$-\frac{ks}{n - s} \le 0 < k$. Thus $\beta_2 = -\frac{ks}{n - s}$, and
+Theorem~\ref{thm:quotinter} (with two cells) gives $\beta_2 \ge \lambda_n$,
+i.e.\ $ks \le -\lambda_n (n - s)$, so $s(k - \lambda_n) \le -\lambda_n n$;
+as $k - \lambda_n > 0$, this is the claimed bound.
 \end{proof}
 
 \subsubsection{Walk-Regularity and Distance Partitions}
@@ -491,7 +508,7 @@ of $\pi$.
 \end{exercise}
 
 \begin{exercise}
-Apply the Haemers ratio bound (Corollary~\ref{cor:haemers}) to the
+Apply the Hoffman ratio bound (Corollary~\ref{cor:haemers}) to the
 Petersen graph and to the Kneser graph $K(5, 2)$ (which is the
 Petersen graph). Compare with the exact independence number $\alpha(P) = 4$.
 \end{exercise}
@@ -532,7 +549,7 @@ write its tridiagonal quotient matrix.
 %====================================================================
 
 Distance-regular graphs (DRGs) sit at the algebraic core of extremal
-combinatorics: they include all strongly regular graphs (Section 11.4),
+combinatorics: they include all connected strongly regular graphs (Section 11.4),
 the Hamming and Johnson graphs (which underlie coding theory and
 the Erd\H{o}s--Ko--Rado problem), and the foundational examples of
 finite geometry. Their unified algebraic theory is the language of
@@ -639,24 +656,41 @@ matrix), so distance-regular schemes are exactly the
 \begin{example}[Hamming scheme $H(n, q)$]
 $X = [q]^n$; $(x, y) \in R_i$ iff the Hamming distance is $i$. The
 graph $H(n, q)$ above is the corresponding distance-regular graph.
-The Bose--Mesner algebra is the algebra of symmetric Latin-square
-type schemes; the $P$-matrix entries are values of \emph{Krawtchouk
+Its Bose--Mesner algebra is spanned by the $n + 1$ distance matrices
+$A_0, \ldots, A_n$ of $H(n, q)$ (for $n = 2$, $H(2, q)$ is the
+$q \times q$ grid, a strongly regular graph with Latin square
+parameters); the $P$-matrix entries are values of \emph{Krawtchouk
 polynomials}.
 \end{example}
 
 \begin{example}[Johnson scheme $J(n, k)$]
 $X = \binom{[n]}{k}$; $(A, B) \in R_i$ iff $|A \cap B| = k - i$. The
-$P$-matrix entries are values of \emph{Hahn polynomials}, and the
+$P$-matrix entries are values of \emph{Eberlein polynomials} (also
+called dual Hahn polynomials), and the
 LP bounds for codes/cliques in $J(n, k)$ specialize to the
 Erd\H{o}s--Ko--Rado theorem.
 \end{example}
 
 \begin{theorem}[Delsarte LP bound]\label{thm:delsarte}
-Let $\Gamma$ be an association scheme on $X$ with first eigenmatrix
-$P$. The maximum size of a \emph{clique} (a subset $C$ such that any
-two distinct elements of $C$ are in $R_1$) is bounded by the value of
-a linear program in variables $x = (x_0, \ldots, x_d)$ with constraints
-$x \ge 0$, $x_0 = 1$, $\sum_i x_i = |C|$, and $Q^\top x \ge 0$.
+Let $\Gamma$ be an association scheme on $X$ with second eigenmatrix
+$Q$, and let $D \subseteq \{1, \ldots, d\}$. Call $C \subseteq X$ a
+\emph{$D$-code} if any two distinct elements of $C$ are in some $R_i$
+with $i \in D$ (for $D = \{1\}$, a \emph{clique} of the graph $R_1$).
+Then $|C|$ is at most the optimum of the linear program
+\[
+  \text{maximize } \sum_{i = 0}^{d} x_i
+  \quad \text{subject to} \quad
+  \begin{cases}
+    x_0 = 1, \quad x \ge 0, \quad Q^\top x \ge 0, \\
+    x_i = 0 \ \text{ for } i \notin D \cup \{0\},
+  \end{cases}
+\]
+because the inner distribution $x_i = |(C \times C) \cap R_i| / |C|$ of
+$C$ is feasible and has $\sum_i x_i = |C|$: if $\mathbf 1_C$ is the
+indicator vector of $C$, then
+$(Q^\top x)_j = \frac{|X|}{|C|}\, \mathbf 1_C^\top E_j \mathbf 1_C \ge 0$
+because $E_j$ is positive semidefinite. (Without the constraints
+$x_i = 0$ the optimum is always $|X|$.)
 \end{theorem}
 
 The Delsarte LP gives the best-known general bounds on optimal codes
