@@ -10773,7 +10773,6 @@ Now $M_1\cup M_2$ is a matching in $G$ covering $A$, because $M_1$ and $M_2$ hav
     \node at (4,5) {Part $B'$};
     
     % Edges
-    \draw[nomatch] (a2p) -- (b2p);
     \draw[match] (a2p) -- (b3p);
     \draw[nomatch] (a3p) -- (b2p);
     \draw[match] (a3p) -- (b4p);
@@ -11291,12 +11290,12 @@ such that edges are alternately in and not in $M$.
 \draw[edge] (v2) -- (v7);
 \draw[edge] (v6) -- (v7);
 
-% Matching edges
-\draw[matching] (v1) -- (v5);
-\draw[matching] (v3) -- (v7);
-
 % M-alternating path
 \draw[line width=2pt, draw=blue] (v6) -- (v7) -- (v2) -- (v5) -- (v1) -- (v4);
+
+% Matching edges (drawn on top of the path)
+\draw[matching] (v1) -- (v5);
+\draw[matching] (v2) -- (v7);
 
 % Label
 \node at (2,0) {An M-alternating path: $P = (v_6, v_7, v_2, v_5, v_1, v_4)$};
@@ -11318,7 +11317,7 @@ An \textbf{M-augmenting path} is an M-alternating path starting and ending with 
     vertex/.style={circle, draw, minimum size=7mm},
     vertexL/.style={vertex, fill=blue!20},
     vertexR/.style={vertex, fill=red!20},
-    exposed/.style={circle, draw, minimum size=9mm, red, very thick},
+    exposed/.style={circle, draw=red, minimum size=9mm, very thick},
     edge/.style={-},
     matching/.style={line width=2pt, draw=magenta}
 ]
@@ -11388,7 +11387,7 @@ If $M$ is a matching in a graph $G$, then $M$ is a maximum matching if and only 
     % Vertices
     \node[vertexL, exposed] (a1) at (0,1) {$a_1$};
     \node[vertexL] (a2) at (0,0) {$a_2$};
-    \node[vertexL, exposed] (a3) at (0,-1) {$a_3$};
+    \node[vertexL] (a3) at (0,-1) {$a_3$};
     
     \node[vertexR] (b1) at (2,1) {$b_1$};
     \node[vertexR, exposed] (b2) at (2,0) {$b_2$};
@@ -11412,7 +11411,7 @@ If $M$ is a matching in a graph $G$, then $M$ is a maximum matching if and only 
     % Vertices
     \node[vertexL, exposed] (a1) at (0,1) {$a_1$};
     \node[vertexL] (a2) at (0,0) {$a_2$};
-    \node[vertexL, exposed] (a3) at (0,-1) {$a_3$};
+    \node[vertexL] (a3) at (0,-1) {$a_3$};
     
     \node[vertexR] (b1) at (2,1) {$b_1$};
     \node[vertexR, exposed] (b2) at (2,0) {$b_2$};
@@ -11439,7 +11438,7 @@ If $M$ is a matching in a graph $G$, then $M$ is a maximum matching if and only 
     % Vertices
     \node[vertexL] (a1) at (0,1) {$a_1$};
     \node[vertexL] (a2) at (0,0) {$a_2$};
-    \node[vertexL, exposed] (a3) at (0,-1) {$a_3$};
+    \node[vertexL] (a3) at (0,-1) {$a_3$};
     
     \node[vertexR] (b1) at (2,1) {$b_1$};
     \node[vertexR] (b2) at (2,0) {$b_2$};
@@ -11463,7 +11462,7 @@ If $M$ is a matching in a graph $G$, then $M$ is a maximum matching if and only 
     % Vertices
     \node[vertexL] (a1) at (0,1) {$a_1$};
     \node[vertexL] (a2) at (0,0) {$a_2$};
-    \node[vertexL, exposed] (a3) at (0,-1) {$a_3$};
+    \node[vertexL] (a3) at (0,-1) {$a_3$};
     
     \node[vertexR] (b1) at (2,1) {$b_1$};
     \node[vertexR] (b2) at (2,0) {$b_2$};
