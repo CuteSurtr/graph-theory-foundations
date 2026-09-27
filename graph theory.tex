@@ -12657,17 +12657,18 @@ The complete graph $K_5$ has maximum degree $\Delta(K_5) = 4$. According to Vizi
 \clearpage
 
 
-Before Vizing's theorem (1964), Shannon proved in 1949 that for any simple graph $G$, the edge chromatic number is bounded by:
+Before Vizing's theorem (1964), Shannon proved in 1949 that for any loopless multigraph $G$ (in particular, for any simple graph), the edge chromatic number is bounded by:
 \begin{equation}
 \chi'(G) \leq \left\lfloor\frac{3\Delta(G)}{2}\right\rfloor
 \end{equation}
 
-Vizing later improved this bound to:
+For simple graphs, Vizing later improved this bound to:
 \begin{equation}
 \chi'(G) \leq \Delta(G) + 1
 \end{equation}
+For multigraphs, Vizing's theorem gives $\chi'(G) \leq \Delta(G) + \mu(G)$ instead, where $\mu(G)$ is the largest number of parallel edges joining two vertices, and this is not always better than Shannon's bound.
 
-For a graph with maximum degree $\Delta = 4$:
+For a simple graph with maximum degree $\Delta = 4$:
 \begin{itemize}
     \item Shannon's bound gives $\chi'(G) \leq \lfloor\frac{3 \cdot 4}{2}\rfloor = \lfloor 6 \rfloor = 6$
     \item Vizing's bound gives $\chi'(G) \leq 4 + 1 = 5$
@@ -12792,23 +12793,23 @@ An edge coloring of a graph $G = (V, E)$ is an assignment of colors to the edges
 
 
 \begin{theorem}[Shannon's Edge Coloring Theorem (1949)]
-For any simple undirected graph $G$, the edge chromatic number $\chi'(G)$ is bounded by:
+For any loopless multigraph $G$ (in particular, for any simple graph), the edge chromatic number $\chi'(G)$ is bounded by:
 \begin{equation}
 \chi'(G) \leq \left\lfloor\frac{3\Delta(G)}{2}\right\rfloor
 \end{equation}
-where $\Delta(G)$ is the maximum degree of $G$.
+where $\Delta(G)$ is the maximum degree of $G$ (parallel edges are counted in the degree).
 \end{theorem}
 
 \subsubsection{Explanation of Shannon's Bound}
 
 Shannon's bound tells us that for any graph with maximum degree $\Delta$, we can color all of its edges using at most $\lfloor\frac{3\Delta}{2}\rfloor$ colors.
 
-Unlike Vizing's later theorem, which tightened the bound to $\Delta(G) + 1$, Shannon's bound can be looser, especially as $\Delta$ increases:
+For simple graphs, Vizing's later theorem tightened the bound to $\Delta(G) + 1$, so for simple graphs Shannon's bound is looser, especially as $\Delta$ increases. (For multigraphs, Vizing's bound is $\Delta(G) + \mu(G)$, where $\mu(G)$ is the largest number of parallel edges joining two vertices, and neither bound implies the other: for two vertices joined by $m$ parallel edges, $\Delta + \mu = 2m$ exceeds Shannon's bound $\lfloor 3m/2 \rfloor$.)
 
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
 \hline
-Maximum Degree $\Delta$ & Shannon's Bound $\lfloor\frac{3\Delta}{2}\rfloor$ & Vizing's Bound $\Delta + 1$ & Difference \\
+Maximum Degree $\Delta$ & Shannon's Bound $\lfloor\frac{3\Delta}{2}\rfloor$ & Vizing's Bound $\Delta + 1$ (simple) & Difference \\
 \hline
 2 & 3 & 3 & 0 \\
 3 & 4 & 4 & 0 \\
@@ -12825,10 +12826,10 @@ Maximum Degree $\Delta$ & Shannon's Bound $\lfloor\frac{3\Delta}{2}\rfloor$ & Vi
 As we can see, the gap between Shannon's bound and Vizing's bound grows as the maximum degree increases.
 
 \subsubsection{Proof of Shannon's Edge Coloring Theorem}
-The proof of Shannon's edge coloring theorem requires a methodical approach that builds upon several foundational results in graph theory. Unlike the previous sessions, the proof necessitates the introduction of auxiliary lemmas and theorems that establish the necessary framework for understanding Shannon's elegant bound. This structured approach allows us to navigate the technical aspects of the proof while maintaining clarity throughout the argument.
+The proof of Shannon's edge coloring theorem requires a methodical approach that builds upon several foundational results in graph theory. Unlike the previous sections, the proof necessitates the introduction of auxiliary lemmas and theorems that establish the necessary framework for understanding Shannon's elegant bound. This structured approach allows us to navigate the technical aspects of the proof while maintaining clarity throughout the argument.
 
 \subsection* {Preliminaries}
-Let $G = (V, E)$ be a multigraph with maximum degree $\Delta = \Delta(G)$. We aim to show that $G$ can be edge-colored using at most $\lfloor 3\Delta/2 \rfloor$ colors.
+Let $G = (V, E)$ be a loopless multigraph with maximum degree $\Delta = \Delta(G)$. We aim to show that $G$ can be edge-colored using at most $\lfloor 3\Delta/2 \rfloor$ colors.
 
 \begin{definition}[Line Graph]
 The line graph $L(G)$ of a graph $G$ is constructed as follows:
@@ -12873,7 +12874,7 @@ Since this applies to any edge $e$ in $G$, the maximum degree of $L(G)$ is at mo
 
 \subsection*{Constructive Coloring Approach}
 
-Shannon's key insight was to partition the edges around each vertex into distinct matchings.
+Recall that the color classes of a proper edge-coloring are matchings, and the edges at a single vertex must lie in pairwise different color classes.
 
 \begin{lemma}
 Let $v$ be a vertex of maximum degree $\Delta$ in $G$. The edges incident to $v$ can be partitioned into $\Delta$ matchings $M_1, M_2, \ldots, M_\Delta$.
@@ -12891,7 +12892,7 @@ Let $e_1, e_2, \ldots, e_\Delta$ be the edges incident to $v$. We can define:
 Each $M_i$ is trivially a matching since it contains just one edge.
 \end{proof}
 
-Let $G = (V, E)$ be a multigraph with maximum degree $\Delta = \Delta(G)$. We aim to show that $G$ can be edge-colored using at most $\lfloor 3\Delta/2 \rfloor$ colors.
+Let $G = (V, E)$ be a loopless multigraph with maximum degree $\Delta = \Delta(G)$. We aim to show that $G$ can be edge-colored using at most $\lfloor 3\Delta/2 \rfloor$ colors.
 
 \begin{definition}[Clique]
 A clique in a graph is a subset of vertices such that every two distinct vertices in the subset are adjacent (connected by an edge). In other words, a clique forms a complete subgraph where all possible edges between the vertices exist.
@@ -12919,14 +12920,14 @@ A clique in a graph is a subset of vertices such that every two distinct vertice
 \end{figure}
 
 \begin{lemma}
-The line graph $L(G)$ can be partitioned into $\Delta$ cliques.
+For each vertex $v$ of $G$, the edges incident to $v$ form a clique $Q_v$ in $L(G)$ with $|Q_v| = d_G(v) \leq \Delta$. Every vertex of $L(G)$ lies in exactly two of the cliques $Q_v$ (one for each endpoint of the corresponding edge), and every edge of $L(G)$ lies in at least one of them.
 \end{lemma}
 
 \begin{proof}
-For each vertex $v$ in $G$, the edges incident to $v$ form a clique in $L(G)$ (since any two edges sharing vertex $v$ are adjacent in $G$, so their corresponding vertices in $L(G)$ are adjacent).
-
-Therefore, for each vertex $v$ in $G$, we get a clique in $L(G)$. Since $G$ has maximum degree $\Delta$, each of these cliques has at most $\Delta$ vertices.
+Any two edges sharing the vertex $v$ are adjacent in $G$, so their corresponding vertices in $L(G)$ are adjacent; hence $Q_v$ is a clique, and it has $d_G(v) \leq \Delta$ vertices. An edge $e$ of $G$ with endpoints $u$ and $w$ lies in $Q_u$ and $Q_w$ and in no other $Q_v$. Finally, if $e$ and $f$ are adjacent vertices of $L(G)$, then the edges $e$ and $f$ share an endpoint $v$ in $G$, and both lie in $Q_v$.
 \end{proof}
+
+Note that the cliques $Q_v$ overlap, so in general they do not partition $V(L(G))$. For example, $L(C_5)$ is again a $5$-cycle, whose cliques have at most two vertices, so it cannot be partitioned into $\Delta(C_5) = 2$ cliques.
 
 \subsection* {Brooks' Theorem and Its Application}
 
@@ -13255,70 +13256,35 @@ Consider a graph $G$ with maximum degree $\Delta = 3$ that is neither a complete
 Each vertex in this example has degree at most 3, and the graph is neither $K_4$ nor an odd cycle. As predicted by Brooks' Theorem, it can be colored with exactly 3 colors.
 \end{example}
 
-\begin{corollary}[Generalized Brooks' Theorem for Clique Partitions]
-If a graph $G$ with maximum degree $\Delta$ can be partitioned into cliques, each of size at most $t$, then:
-\begin{equation}
-\chi(G) \leq \left\lfloor\frac{t\Delta}{t-1}\right\rfloor
-\end{equation}
-\end{corollary}
-
-\begin{proof}[Proof Sketch of Generalized Brooks' Theorem]
-The proof of this generalization builds on the original Brooks' Theorem and involves several steps:
-
-\begin{enumerate}
-    \item First, note that in a clique of size $t$, each vertex is connected to $t-1$ other vertices.
-    
-    \item When we partition graph $G$ into cliques of size at most $t$, the coloring constraints within each clique require at most $t$ colors.
-    
-    \item The challenge lies in managing the interactions between different cliques in the partition.
-    
-    \item By carefully analyzing the maximum number of conflicts a vertex can have based on its degree $\Delta$ and the clique structure, we can derive a bound on the total number of colors needed.
-    
-    \item The expression $\frac{t\Delta}{t-1}$ represents the worst-case scenario for the number of colors based on this analysis.
-\end{enumerate}
-
-This generalization is crucial for Shannon's proof because the line graph $L(G)$ can be partitioned into cliques corresponding to the edges incident to each vertex in the original graph $G$.
-\end{proof}
+\begin{remark}[What Brooks' Theorem Gives for Edge-Coloring]
+Since $\chi'(G) = \chi(L(G))$ and $\Delta(L(G)) \leq 2\Delta - 2$, a greedy coloring of $L(G)$ gives $\chi'(G) \leq 2\Delta - 1$, and Brooks' Theorem applied to $L(G)$ improves this to $\chi'(G) \leq \Delta(L(G)) \leq 2\Delta - 2$ whenever $L(G)$ is connected, has maximum degree at least 3, and is neither a complete graph nor an odd cycle. For $\Delta \geq 5$ this is weaker than Shannon's bound $\lfloor 3\Delta/2 \rfloor$, so Brooks' Theorem alone does not give Shannon's bound. The proof below uses recoloring along two-colored paths instead.
+\end{remark}
 
 \subsection*{Completing the Proof}
-We can now combine these results to complete the proof of Shannon's theorem.
+Together with the greedy coloring algorithm, the lemmas above give only $\chi'(G) = \chi(L(G)) \leq \Delta(L(G)) + 1 \leq 2\Delta - 1$. To reach $\lfloor 3\Delta/2 \rfloor$ we recolor edges along two-colored paths, as in the proofs of König's and Vizing's theorems. For a proper coloring of some of the edges and a vertex $z$, a color is \emph{missing} at $z$ if no colored edge incident to $z$ has that color, and $M(z)$ denotes the set of colors missing at $z$.
 
 \begin{proof}[Proof of Shannon's Theorem]
-We've established that:
-\begin{enumerate}
-    \item Edge coloring $G$ is equivalent to vertex coloring $L(G)$.
-    \item The maximum degree of $L(G)$ is at most $2\Delta - 2$.
-    \item $L(G)$ can be partitioned into cliques of size at most $\Delta$.
-\end{enumerate}
+If $\Delta = 0$, then $G$ has no edges and there is nothing to prove. Let $\Delta \geq 1$ and $k = \lfloor 3\Delta/2 \rfloor$. We prove by induction on the number of edges that every loopless multigraph with maximum degree at most $\Delta$ has a proper edge-coloring with colors from $\{1, 2, \ldots, k\}$. This is clear if there are no edges. Otherwise, let $G$ be such a multigraph, let $e$ be an edge of $G$ with endpoints $x$ and $y$, and let $\phi$ be a proper edge-coloring of $G - e$ with colors from $\{1, \ldots, k\}$, which exists by the induction hypothesis. In $G - e$ the vertices $x$ and $y$ have degree at most $\Delta - 1$ and every vertex has degree at most $\Delta$; since $k - \Delta = \lfloor \Delta/2 \rfloor$, this gives
+\begin{equation*}
+|M(x)| \geq \left\lfloor \tfrac{\Delta}{2} \right\rfloor + 1, \qquad |M(y)| \geq \left\lfloor \tfrac{\Delta}{2} \right\rfloor + 1, \qquad |M(z)| \geq \left\lfloor \tfrac{\Delta}{2} \right\rfloor \ \text{for every vertex } z.
+\end{equation*}
+We show that $\phi$ can be modified so that $e$ can be colored as well.
 
-Applying the generalized Brooks' result with $t = \Delta$ and max degree $2\Delta - 2$:
-\begin{align}
-\chi(L(G)) &\leq \left\lfloor\frac{\Delta \cdot (2\Delta - 2)}{\Delta - 1}\right\rfloor \\
-&= \left\lfloor\frac{2\Delta^2 - 2\Delta}{\Delta - 1}\right\rfloor \\
-&= \left\lfloor\frac{2\Delta(\Delta - 1)}{\Delta - 1}\right\rfloor \\
-&= \left\lfloor 2\Delta \right\rfloor \\
-&= 2\Delta
-\end{align}
+\textbf{Step 1.} If some color lies in $M(x) \cap M(y)$, we give $e$ that color and are done. So assume from now on that $M(x) \cap M(y) = \emptyset$.
 
-This would give us a bound of $2\Delta$, which is not as tight as Shannon's bound of $\lfloor \frac{3\Delta}{2} \rfloor$.
+\textbf{Step 2.} Let $\alpha \in M(x)$ and $\beta \in M(y)$. Then $\beta \notin M(x)$, so $x$ has an incident edge of color $\beta$ but none of color $\alpha$. By the Color Alternating Path Lemma, the component of the subgraph formed by the edges of colors $\alpha$ and $\beta$ that contains $x$ is a path $P$ with $x$ as one end. If $P$ does not end at $y$, then $y$ is not on $P$ at all (since $\beta$ is missing at $y$, the vertex $y$ could only be an end of $P$); interchange $\alpha$ and $\beta$ on $P$. Now $\beta$ is missing at both $x$ and $y$, and we color $e$ with $\beta$. So we may assume that for all $\alpha \in M(x)$ and $\beta \in M(y)$, the path of colors $\alpha$ and $\beta$ starting at $x$ ends at $y$.
 
-Shannon's tighter bound comes from a more careful analysis of the structure of $L(G)$. Specifically, Shannon shows that:
+\textbf{Step 3.} Fix $\alpha \in M(x)$ and $\beta \in M(y)$. Since $\alpha \notin M(y)$, some edge $f$ incident to $y$ has color $\alpha$; let $z$ be its other endpoint. Then $z \neq x$ because $\alpha$ is missing at $x$, and $z \neq y$ because $G$ has no loops. If some color $\gamma$ lies in $M(y) \cap M(z)$, recolor $f$ with $\gamma$; then $\alpha$ is missing at both $x$ and $y$, and we color $e$ with $\alpha$. So we may assume that $M(y) \cap M(z) = \emptyset$.
 
-\begin{equation}
-\chi(L(G)) \leq \left\lfloor\frac{3\Delta}{2}\right\rfloor
-\end{equation}
+\textbf{Step 4.} By Steps 1 and 3, both $M(x)$ and $M(z)$ are disjoint from $M(y)$. Since
+\begin{equation*}
+|M(x)| + |M(y)| + |M(z)| \geq 3\left\lfloor \tfrac{\Delta}{2} \right\rfloor + 2 > \left\lfloor \tfrac{3\Delta}{2} \right\rfloor = k,
+\end{equation*}
+the three sets cannot be pairwise disjoint subsets of $\{1, \ldots, k\}$. As $M(y)$ is disjoint from the other two, there is a color $\gamma \in M(x) \cap M(z)$.
 
-The detailed proof utilizes a more sophisticated coloring algorithm. The key insight is that we can partition the edges around each vertex more strategically.
+\textbf{Step 5.} By Step 2 (applied to $\gamma \in M(x)$ and $\beta \in M(y)$), the path $P$ of colors $\gamma$ and $\beta$ starting at $x$ ends at $y$. The vertex $z$ is not on $P$: since $\gamma$ is missing at $z$, the vertex $z$ could only be an end of $P$, and the ends of $P$ are $x$ and $y$. Interchange $\gamma$ and $\beta$ on $P$. Now $\gamma$ is missing at $y$ (the edge of $P$ at $y$ had color $\gamma$, since $\beta$ is missing at $y$, and it now has color $\beta$), and $\gamma$ is still missing at $z$. Moreover, $\alpha \notin \{\beta, \gamma\}$ because $\alpha$ appears at $y$ and at $z$, so the edge $f$ still has color $\alpha$, and $\alpha$ is still missing at $x$. As in Step 3, recolor $f$ with $\gamma$ and color $e$ with $\alpha$.
 
-For a vertex of degree $\Delta$, we can form $\lceil \frac{\Delta}{2} \rceil$ matchings as follows:
-\begin{itemize}
-    \item Pair up edges $(e_1, e_2), (e_3, e_4), \ldots$ and form matchings from each pair
-    \item If $\Delta$ is odd, the last edge forms its own matching
-\end{itemize}
-
-For each vertex, this gives us at most $\lceil \frac{\Delta}{2} \rceil$ matchings. Across the entire graph, the total number of matchings needed is at most $\lceil \frac{\Delta}{2} \rceil \cdot 3 = \frac{3\Delta}{2}$ (if $\Delta$ is even) or $\frac{3\Delta+1}{2}$ (if $\Delta$ is odd).
-
-Taking the floor function gives us $\lfloor \frac{3\Delta}{2} \rfloor$ as the bound on the edge chromatic number.
+In every case the edge-coloring of $G - e$ can be modified into a proper edge-coloring of $G$ with colors from $\{1, \ldots, k\}$. Hence $\chi'(G) \leq \lfloor 3\Delta/2 \rfloor$.
 \end{proof}
 
 \subsection*{Tightness of Shannon's Bound}
