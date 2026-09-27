@@ -1,115 +1,46 @@
 # Graph Theory Foundations
 
-A comprehensive 310-page LaTeX textbook on graph theory, combining
-mathematical rigor with visualization, algorithmic implementations,
-and exercise sets at multiple difficulty levels. Originally written
-for UC San Diego MATH 154, the book also serves as a self-study
-resource for advanced undergraduates and beginning graduate students.
+This is a graph theory textbook I wrote as an independent study project at UC San Diego. The first ten chapters follow MATH 154, the undergraduate graph theory course there, and the last two go on to topics that usually come up in a first graduate course.
 
-## Table of Contents
+The compiled book is `graph theory.pdf` (310 pages). I also wanted it to work for self-study, so an advanced undergraduate or a beginning graduate student should be able to read it without taking a class.
 
-**Part I: Foundations**
+## What's in it
 
-1. **Basic Classes of Graphs** -- cycles, paths, degrees, complete /
-   bipartite / star / wheel / hypercube / Petersen graphs, handshaking
-   lemma, walks and components.
-2. **Eulerian Graphs** -- Eulerian trails and circuits, Euler's
-   theorem, Eulerian digraphs, De Bruijn sequences and graphs.
-3. **Hamiltonian Graphs** -- Dirac's theorem (with visual proof),
-   Ore's theorem, Chvatal's theorem, traveling salesman approximation
-   algorithms.
-4. **Long Cycles** -- relationship to Hamiltonicity, algorithmic
-   discovery.
-5. **Trees and Forests** -- characterizations, BFS/DFS with comparison,
-   Prim's, Kruskal's, Dijkstra's, Floyd-Warshall, Bellman-Ford,
-   bipartiteness testing.
-6. **Structure of Connected Graphs** -- blocks, cut vertices, Menger's
-   theorem.
-7. **Matchings and Factors** -- independent sets, vertex covers,
-   Hall's theorem, augmenting-path matching algorithms.
-8. **Vertex and Edge-Coloring** -- Konig's theorem, Vizing's theorem,
-   Shannon's edge-coloring bound, degenerate graphs, scheduling
-   applications.
-9. **Planar Graphs** -- Euler's formula, Kuratowski-style obstructions,
-   art gallery problems, mobile guards, fortress problem.
-10. **Network Flows and the Max-Flow Min-Cut Theorem** -- residual
-    graphs, augmenting paths, Ford-Fulkerson, applications to Menger
-    and Konig.
-11. **Advanced Topics in Graph Theory** -- extremal theory (Turan,
-    Erdos-Stone, Kovari-Sos-Turan), Ramsey theory, the probabilistic
-    method (LLL, Azuma, dependent random choice, entropy), spectral
-    graph theory (Cheeger, Hoffman, expanders, Ramanujan), random
-    graphs (giant component, thresholds, scale-free), Szemeredi
-    regularity lemma, graph minors and treewidth.
-12. **Algebraic Graph Theory: Auxiliary Topics** -- matchings polynomial
-    and the Heilmann-Lieb theorem, equitable partitions and quotient
-    interlacing, distance-regular graphs and association schemes,
-    Cayley graphs and vertex-transitive graphs, the Tutte polynomial
-    and graphic matroids, heaps of pieces, the Ihara zeta function,
-    combinatorial Hopf algebras, Hodge theory of matroids and
-    log-concavity, permanents and #P-hardness, Weisfeiler-Leman and
-    graph isomorphism, cluster algebras, chip-firing and sandpile
-    groups, random walks via representation theory, electrical
-    networks, and crystal graphs.
+1. Basic classes of graphs: degrees and the handshaking lemma, walks and components, and the standard examples (cycles, paths, complete and bipartite graphs, stars, wheels, hypercubes, the Petersen graph).
+2. Eulerian graphs: Euler's theorem, Eulerian digraphs, and De Bruijn sequences and graphs.
+3. Hamiltonian graphs: the theorems of Dirac, Ore, and Chvátal, plus approximation algorithms for the traveling salesman problem.
+4. Long cycles: how long a cycle a minimum degree condition forces, and an algorithm that finds one.
+5. Trees and forests: characterizations of trees, BFS and DFS, minimum spanning trees (Prim and Kruskal), shortest paths (Dijkstra, Floyd-Warshall, Bellman-Ford), and bipartiteness.
+6. Structure of connected graphs: cut vertices, blocks, and Menger's theorem.
+7. Matchings and factors: independent sets and covers, Hall's theorem, and the Hungarian, Hopcroft-Karp, and blossom algorithms.
+8. Vertex and edge coloring: the theorems of Brooks, König, Vizing, and Shannon, degenerate graphs, and scheduling problems modeled as colorings.
+9. Planar graphs: Euler's formula, why K5 and K3,3 are not planar, and art gallery problems.
+10. Network flows: the max-flow min-cut theorem, the Ford-Fulkerson algorithm, and flow proofs of Menger's and König's theorems.
+11. Advanced topics: extremal graph theory, Ramsey theory, the probabilistic method, eigenvalues and expanders, random graphs, Szemerédi's regularity lemma, and graph minors and treewidth.
+12. Algebraic graph theory: the matchings polynomial, distance-regular and Cayley graphs, the Tutte and chromatic polynomials, the Ihara zeta function, counting perfect matchings, the Weisfeiler-Leman isomorphism test, chip-firing, and random walks and electrical networks on graphs.
 
-## Repository Contents
+Every chapter ends with exercises, most of them sorted by difficulty.
 
-| File | Description |
-|------|-------------|
-| `graph theory.tex` | Master LaTeX source (chapters 1-11) |
-| `chapter12_algebraic.tex` | Auxiliary chapter on algebraic graph theory |
-| `graph theory.pdf` | Compiled book, 310 pages |
-| `graph_algorithms.py` | Companion Python implementations of algorithms from chapters 2, 3, 5-8, and 10 |
-| `README.md` | This file |
-| `.gitignore` | Excludes LaTeX build artifacts |
+## Code
+
+`graph_algorithms.py` has Python versions of most of the algorithms in the book, including Euler tours, De Bruijn sequences, Hamiltonian paths, the traveling salesman problem, shortest paths, spanning trees, cut vertices and bridges, bipartite matching, greedy coloring, and maximum flow. It only needs the standard library. Running `python graph_algorithms.py` prints a short demo.
 
 ## Building the PDF
 
-The book uses standard LaTeX with TikZ for diagrams, `algorithm` /
-`algpseudocode` for pseudocode, and the AMS theorem packages.
+`graph theory.tex` is the main file, and it pulls in chapter 12 from `chapter12_algebraic.tex`. With TeX Live 2023 or newer, run pdflatex three times so the cross-references and the table of contents come out right:
 
 ```bash
 pdflatex "graph theory.tex"
-pdflatex "graph theory.tex"   # second pass for cross-references
-pdflatex "graph theory.tex"   # third pass for the table of contents
+pdflatex "graph theory.tex"
+pdflatex "graph theory.tex"
 ```
 
-A working TeX Live installation (2023 or later) is required.
+## Other books
 
-## Pedagogical Features
-
-- **Definitions, theorems, and proofs** in standard mathematical style.
-- **TikZ diagrams** illustrating every key concept (200+ figures).
-- **Worked examples** with explicit computation, especially for
-  algorithms.
-- **Exercises grouped by difficulty**: Easy / Medium / Hard / Diagram
-  in every chapter.
-- **Algorithm pseudocode** in `algorithmicx` style.
-- **Cross-references** between chapters using LaTeX labels.
-
-## References for Further Reading
-
-Chapter 12 draws on:
-
-- Godsil, *Algebraic Combinatorics* (Chapman & Hall, 1993)
-- Stanley, *Algebraic Combinatorics: Walks, Trees, Tableaux* (UTM, 2013)
-- Garsia & Egecioglu, *Lectures in Algebraic Combinatorics*
-  (LNM 2277, 2020)
-- Brouwer, Cohen, Neumaier, *Distance-Regular Graphs* (1989)
-- Brouwer & Haemers, *Spectra of Graphs* (2012)
-- Oxley, *Matroid Theory* (2nd ed., 2011)
-
-Chapters 1-11 follow the standard undergraduate sequence and can be paired
-with Diestel, *Graph Theory* (5th ed.), Bollobas, *Modern Graph
-Theory*, or West, *Introduction to Graph Theory* (2nd ed.).
+Chapters 1 to 11 pair well with West's *Introduction to Graph Theory*, Diestel's *Graph Theory*, or Bollobás's *Modern Graph Theory*. Chapter 12 draws on Godsil's *Algebraic Combinatorics*, Brouwer and Haemers' *Spectra of Graphs*, and Brouwer, Cohen, and Neumaier's *Distance-Regular Graphs*.
 
 ## License
 
-The text and figures are licensed under the Creative Commons
-Attribution 4.0 International License (CC BY 4.0); see `LICENSE`.
-The companion code in `graph_algorithms.py` is released under the MIT
-license.
+The text and figures are licensed under CC BY 4.0 (see `LICENSE`). The code in `graph_algorithms.py` is under the MIT license.
 
-## Contact
-
-Jiho Lee -- University of California, San Diego
+Jiho Lee, UC San Diego
