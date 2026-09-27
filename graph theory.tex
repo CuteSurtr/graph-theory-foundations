@@ -3430,18 +3430,17 @@ Let us classify the edges of the Petersen graph into three types:
 
 For a Hamiltonian cycle to exist, it must use exactly 2 edges incident to each vertex (entering and exiting). Since each vertex has degree 3, exactly one edge at each vertex must be omitted from the cycle. This means that the 5 omitted edges form a perfect matching (or 1-factor) of the Petersen graph.
 
-However, we can verify that no perfect matching can consist entirely of edges of a single type:
-\begin{itemize}
-    \item Type A edges form a 5-cycle, not a matching
-    \item Type B edges form a perfect matching, but if all Type B edges were omitted, the outer and inner vertices would be disconnected, making a Hamiltonian cycle impossible
-    \item Type C edges form a 5-cycle among inner vertices, not a matching
-\end{itemize}
+Now consider the Type B edges (the spokes). Deleting them separates the outer vertices from the inner vertices, so each time $C$ passes from the outer 5-cycle to the inner star along a spoke, it must later return along another spoke. Hence $C$ uses an even number of spokes, and it uses at least one, since otherwise it would never reach the inner vertices. So $C$ uses exactly 2 or exactly 4 spokes (equivalently, the omitted perfect matching contains exactly 3 spokes or exactly 1 spoke).
 
-Therefore, the 5 omitted edges must include edges of different types. But this creates a problem: if we omit some edges of each type, we can verify (by exhaustive case analysis or by using the symmetry of the graph) that it's impossible to form a Hamiltonian cycle with the remaining edges.
+\emph{Case 1: $C$ uses exactly two spokes, $v_iu_i$ and $v_ju_j$.} Each of the other three outer vertices does not use its spoke, so both of its outer edges lie in $C$, while $v_i$ and $v_j$ each have exactly one outer edge in $C$. Thus the outer edges of $C$ are four of the five edges of the outer 5-cycle, forming a path through all five outer vertices with ends $v_i$ and $v_j$. The omitted outer edge joins these two ends, so $v_i$ and $v_j$ are adjacent on the outer 5-cycle, i.e., $j \equiv i \pm 1 \pmod 5$. The same argument applied to the inner vertices shows that $u_i$ and $u_j$ are adjacent in the inner star, i.e., $j \equiv i \pm 2 \pmod 5$. These two conditions cannot both hold, a contradiction.
 
-For example, if we omit 2 Type A edges, 2 Type B edges, and 1 Type C edge, then some vertex will be either isolated or have both its cycle edges from the same component (inner or outer), making it impossible to form a cycle that visits all vertices.
+\emph{Case 2: $C$ uses exactly four spokes; say $v_iu_i$ is the one it omits (indices modulo 5).} Since $v_i$ has degree 3 and its spoke is not used, both outer edges $v_{i-1}v_i$ and $v_iv_{i+1}$ lie in $C$; likewise both inner edges $u_iu_{i+2}$ and $u_iu_{i-2}$ lie in $C$. The vertex $v_{i+1}$ already has two edges of $C$ (namely $v_iv_{i+1}$ and its spoke), so $v_{i+1}v_{i+2} \notin C$. Hence $v_{i+2}$ must use its other two edges, the spoke $v_{i+2}u_{i+2}$ and the outer edge $v_{i+2}v_{i+3}$. Since $i+3 \equiv i-2 \pmod 5$, the cycle $C$ now contains the five edges
+\[
+v_{i+2}v_{i-2}, \quad v_{i-2}u_{i-2}, \quad u_{i-2}u_i, \quad u_iu_{i+2}, \quad u_{i+2}v_{i+2},
+\]
+which form a cycle through only five vertices. A Hamiltonian cycle on 10 vertices cannot contain a shorter cycle, a contradiction.
 
-This contradiction proves that the Petersen graph cannot contain a Hamiltonian cycle.
+Both cases are impossible, so the Petersen graph cannot contain a Hamiltonian cycle.
 \end{proof}
 
 % Complete Graph definition
@@ -3827,12 +3826,12 @@ Not all cubic graphs are Hamiltonian. The Petersen graph is a well-known 3-regul
 \end{center}
 
 \begin{center}
-\small Figure 51: A graph on $n = 8$ vertices where each vertex has degree exactly 4 ($= \frac{n}{2}$), precisely meeting Dirac's minimum degree condition. The graph contains a Hamiltonian cycle (highlighted in red) along the outer cycle. This example illustrates a family of graphs that can be constructed for any even $n$ where each vertex has degree exactly $\frac{n}{2}$ by connecting vertices to their opposites in a regular $n$-gon.
+\small Figure 51: A graph on $n = 8$ vertices (the Wagner graph, also called the M\"obius ladder on 8 vertices) in which each vertex has degree exactly 3, one less than $\frac{n}{2} = 4$; so this graph does \emph{not} satisfy Dirac's minimum degree condition. Nevertheless, it contains a Hamiltonian cycle (highlighted in red) along the outer cycle, which shows once more that Dirac's condition is sufficient but not necessary. Connecting each vertex of a regular $n$-gon to its opposite vertex always produces a 3-regular graph, so this construction reaches Dirac's threshold $\frac{n}{2}$ only for $n \leq 6$ (for $n = 6$ it gives $K_{3,3}$, as in Figure 49).
 \end{center}
 \end{figure}
 
 \begin{definition}[Circulant Graph]
-A circulant graph $\text{Circ}(n; S)$ is a graph with vertex set $\{0, 1, 2, \ldots, n-1\}$ and an edge between vertices $i$ and $j$ if and only if $|i - j| \equiv s \pmod{n}$ for some $s$ in the connection set $S \subseteq \{1, 2, \ldots, \lfloor n/2 \rfloor\}$. In other words, it's a graph where vertices are arranged in a circle, and each vertex is connected to specific vertices at fixed distances around the circle.
+A circulant graph $\text{Circ}(n; S)$ is a graph with vertex set $\{0, 1, 2, \ldots, n-1\}$ and an edge between vertices $i$ and $j$ if and only if $i - j \equiv \pm s \pmod{n}$ for some $s$ in the connection set $S \subseteq \{1, 2, \ldots, \lfloor n/2 \rfloor\}$. In other words, it's a graph where vertices are arranged in a circle, and each vertex is connected to specific vertices at fixed distances around the circle.
 \end{definition}
 
 \begin{definition}[Graph Toughness]
@@ -3846,11 +3845,11 @@ The graph shown in Figure 51 is an example of a circulant graph $\text{Circ}(8;\
 \end{theorem}
 
 \begin{problem}
-Show that in the graph of Figure 51, there are exactly 8 distinct Hamiltonian cycles. Hint: Count the cycles that use only the outer edges versus those that must use the "diagonal" connections.
+Show that in the graph of Figure 51, there are exactly 5 distinct Hamiltonian cycles. Hint: Count the cycles that use only the outer edges versus those that must use the "diagonal" connections.
 \end{problem}
 
 \begin{lemma}[Toughness of Regular Graphs]
-The graph in Figure 51 has toughness exactly 1. In general, any $k$-regular graph with $k \geq 2$ has toughness at least $\frac{k}{2}$.
+The graph in Figure 51 has toughness exactly $\frac{4}{3}$: removing $S = \{v_1, v_2, v_4, v_7\}$ leaves the three components $\{v_3\}$, $\{v_8\}$, and $\{v_5, v_6\}$, and no vertex set gives a smaller ratio. In general, toughness is bounded \emph{above} by the degrees: if $G$ is not complete and $v$ is a vertex of minimum degree, then removing the $\delta(G)$ neighbors of $v$ leaves $v$ isolated together with at least one other component, so $t(G) \leq \frac{\delta(G)}{2}$. In particular, a non-complete $k$-regular graph has toughness at most $\frac{k}{2}$, and it can be much smaller (for example, a disconnected $k$-regular graph has toughness $0$).
 \end{lemma}
 
 
@@ -3873,7 +3872,6 @@ The graph in Figure 51 has toughness exactly 1. In general, any $k$-regular grap
     \draw (v1) -- (v5);
     \draw (v2) -- (v3);
     \draw (v3) -- (v4);
-    \draw (v4) -- (v5);
     
     % Highlight that v5 has degree 1
     \node[draw, circle, fill=red!20, thick] at (0,-1.5) {$v_5$};
@@ -3907,19 +3905,23 @@ The vertex $v_1$ in Figure 52 is a cut vertex; hence no Hamiltonian cycle can ex
 \end{lemma}
 
 \begin{proof}
-Removing $v_1$ disconnects the graph into separate components containing $\{v_3,v_4\}$ and $\{v_2,v_5\}$. By Lemma 1, no Hamiltonian cycle can exist in a graph with a cut vertex.
+Removing $v_1$ leaves two components, the path $v_2v_3v_4$ and the isolated vertex $v_5$. By the Connectivity Requirement lemma above, a graph with a Hamiltonian cycle is 2-connected and so has no cut vertex; hence no Hamiltonian cycle can exist in this graph.
 \end{proof}
 
 \begin{theorem}[Relaxed Degree Condition]
-If $\delta(G) \geq \frac{n-1}{2}$, then $G$ is either Hamiltonian or isomorphic to $K_m + \overline{K}_m$ with $n = 2m-1$.
+Let $G$ be a simple graph with $n \geq 3$ vertices. If $\delta(G) \geq \frac{n-1}{2}$, then $G$ is Hamiltonian unless $n = 2m+1$ is odd and $G$ is one of the following graphs:
+\begin{enumerate}
+    \item two copies of $K_{m+1}$ sharing exactly one vertex; or
+    \item a graph whose vertex set is partitioned into an independent set $I$ of $m+1$ vertices and a set $J$ of $m$ vertices, with every vertex of $I$ adjacent to every vertex of $J$ (the edges inside $J$ being arbitrary); for example, $K_{m,m+1}$.
+\end{enumerate}
 \end{theorem}
 
 \begin{remark}[Wheel-Graph Relation]
-The graph in Figure 52 can be viewed as a wheel graph $W_5$ with one edge removed. This removal causes the graph to fall just below Dirac's threshold, eliminating its Hamiltonian property.
+The graph in Figure 52 can be viewed as the wheel graph $W_4$ (the hub $v_1$ joined to every vertex of the 4-cycle $v_2v_3v_4v_5$) with the two rim edges $\{v_4,v_5\}$ and $\{v_5,v_2\}$ removed. Removing only one rim edge would not suffice, since $W_4$ minus a single rim edge is still Hamiltonian; removing both leaves $v_5$ as a pendant vertex, which destroys the Hamiltonian property.
 \end{remark}
 
-\begin{remark}[Dirac-Critical]
-The graph is Dirac-critical: adding edge $\{v_2,v_5\}$ increases the minimum degree to $\lceil n/2 \rceil$ and makes the graph Hamiltonian.
+\begin{remark}[Dirac's Condition Is Not Necessary]
+Adding the edge $\{v_2,v_5\}$ makes the graph Hamiltonian (for example, $v_1, v_4, v_3, v_2, v_5, v_1$ is a Hamiltonian cycle), even though the minimum degree then rises only to $2 < \frac{n}{2}$.
 \end{remark}
 
 \begin{problem}
@@ -4037,20 +4039,20 @@ then $G$ is Hamiltonian.
 \begin{lemma}[Ore's Condition and Path Graphs]
 Let $P_n$ be a path graph with $n \geq 4$ vertices. Then:
 \begin{enumerate}
-    \item For any non-adjacent vertices $u$ and $v$ in $P_n$, $\deg(u) + \deg(v) \leq 4 < n$
+    \item For any non-adjacent vertices $u$ and $v$ in $P_n$, $\deg(u) + \deg(v) < n$
     \item $P_n$ fails to satisfy Ore's condition
-    \item The graph in Figure 53 contains a path $P_4$ as a subgraph $(v_2, v_3, v_4, v_5)$
+    \item The graph in Figure 53 is itself the path $P_5 = (v_5, v_1, v_2, v_3, v_4)$; in particular, it contains $P_4$ as a subgraph, e.g., $(v_1, v_2, v_3, v_4)$
     \item Adding any single edge to Figure 53 is insufficient to satisfy Ore's condition
 \end{enumerate}
 \end{lemma}
 
 \begin{proof}
-In any path graph $P_n$ with $n \geq 4$, the maximum degree of any vertex is 2. Consider any pair of non-adjacent vertices $u$ and $v$. Their degree sum is at most $2 + 2 = 4$, which is less than $n$. Thus, $P_n$ always fails Ore's condition and cannot be Hamiltonian. The graph in Figure 53 contains the path $(v_2, v_3, v_4, v_5)$ and exhibits similar properties, with vertices $v_4$ and $v_5$ having degree only 1, making it even further from satisfying Ore's condition.
+In any path graph $P_n$ the maximum degree of any vertex is 2, and the two end vertices have degree 1. If $n \geq 5$, any two non-adjacent vertices have degree sum at most $2 + 2 = 4 < n$. If $n = 4$, the two vertices of degree 2 are adjacent, so every non-adjacent pair contains an end vertex and has degree sum at most $1 + 2 = 3 < 4$. Thus $P_n$ always fails Ore's condition. (Failing Ore's condition does not by itself rule out a Hamiltonian cycle, since the condition is only sufficient; $P_n$ has no Hamiltonian cycle because its end vertices have degree 1.) The graph in Figure 53 is the path $(v_5, v_1, v_2, v_3, v_4)$, with $v_4$ and $v_5$ of degree only 1. If a single edge is added and it does not join $v_4$ and $v_5$, then one of $v_4, v_5$ still has degree 1 and is non-adjacent to three vertices, each of degree at most 3, so some non-adjacent pair has degree sum at most $4 < 5$; if the new edge joins $v_4$ and $v_5$, the result is $C_5$, whose non-adjacent pairs have degree sum $4 < 5$.
 \end{proof}
 \subsubsection{Chvátal's Theorem}
 
 \begin{theorem}[Chvátal, 1972]
-Let $G$ be a simple graph with $n$ vertices and degree sequence $d_1 \leq d_2 \leq \ldots \leq d_n$. If for all $i < \frac{n}{2}$, 
+Let $G$ be a simple graph with $n \geq 3$ vertices and degree sequence $d_1 \leq d_2 \leq \ldots \leq d_n$. If for all $i < \frac{n}{2}$, 
 \[d_i \leq i \implies d_{n-i} \geq n-i,\]
 then $G$ is Hamiltonian.
 \end{theorem}
@@ -4174,11 +4176,11 @@ Suppose $\delta(G) \geq \frac{n}{2}$. Then for every vertex $v \in G$, we have $
 \end{proof}
 
 \begin{lemma}[Cycle Extension]
-Let $C$ be a cycle in a graph $G$. If there exists a vertex $v \not\in C$ that is adjacent to at least two vertices of $C$, then there exists a cycle $C'$ in $G$ such that $V(C) \cup \{v\} \subseteq V(C')$.
+Let $C$ be a cycle in a graph $G$. If there exists a vertex $v \not\in C$ that is adjacent to two consecutive vertices of $C$, then there exists a cycle $C'$ in $G$ with $V(C') = V(C) \cup \{v\}$.
 \end{lemma}
 
 \begin{proof}
-Let $C = v_1, v_2, \ldots, v_k, v_1$ be a cycle in $G$, and let $v \not\in C$ be a vertex adjacent to at least two vertices of $C$, say $v_i$ and $v_j$ with $i < j$. Then we can form a new cycle $C' = v_1, v_2, \ldots, v_i, v, v_j, v_{j+1}, \ldots, v_k, v_1$, which includes all vertices of $C$ plus $v$.
+Label $C$ as $v_1, v_2, \ldots, v_k, v_1$ so that the two consecutive neighbors of $v$ on $C$ are $v_k$ and $v_1$. Then $C' = v_1, v_2, \ldots, v_k, v, v_1$ is a cycle which includes all vertices of $C$ plus $v$. The hypothesis that the two neighbors of $v$ are consecutive on $C$ cannot be dropped: if $C = v_1v_2v_3v_4v_1$ and $v$ is adjacent only to $v_1$ and $v_3$, the resulting graph is $K_{2,3}$, which has no cycle through all five vertices.
 \end{proof}
 
 \begin{corollary}[Fan's Theorem]
@@ -4216,7 +4218,7 @@ Let $G$ be a graph. If $G$ contains a Hamiltonian cycle, then the following must
 \begin{enumerate}
     \item $G$ is connected.
     \item $G$ is 2-connected (has no cut vertices).
-    \item $G$ is 1-tough. That is, for any set $S$ of vertices, removing $S$ from $G$ results in at most $|S|$ connected components.
+    \item $G$ is 1-tough. That is, for any nonempty set $S$ of vertices, removing $S$ from $G$ results in at most $|S|$ connected components.
     \item If $G$ is bipartite with partite sets of sizes $a$ and $b$, then $a = b$.
     \item No vertex in $G$ has degree less than 2.
 \end{enumerate}
@@ -4244,19 +4246,19 @@ Let $G$ be a graph with $n \geq 3$ vertices. If the connectivity $\kappa(G)$ and
 \end{theorem}
 
 \begin{proof}[Sketch]
-The proof is based on showing that when $\kappa(G) \geq \alpha(G)$, the graph must satisfy Chvátal's condition on its degree sequence. The key insight is that high connectivity relative to the independence number forces a distribution of degrees that ensures Hamiltonicity.
+If $\alpha(G) = 1$, then $G$ is complete and hence Hamiltonian, so assume $\alpha(G) \geq 2$. Then $\kappa(G) \geq 2$, so every vertex has degree at least 2 and $G$ contains a cycle. Let $C$ be a longest cycle of $G$, oriented in one direction, and suppose some vertex lies outside $C$. Let $D$ be a component of $G - V(C)$, and let $U$ be the set of vertices of $C$ that have a neighbor in $D$. For $x \in U$ let $x^+$ be the successor of $x$ on $C$, and let $U^+ = \{x^+ : x \in U\}$. By the maximality of $C$, no vertex of $U^+$ lies in $U$, and no two vertices of $U^+$ are adjacent (otherwise $C$ could be rerouted through $D$ to give a longer cycle). Hence, for any vertex $d \in D$, the set $U^+ \cup \{d\}$ is independent, so $\alpha(G) \geq |U| + 1$. On the other hand, $U$ separates $D$ from $U^+$, so $|U| \geq \kappa(G)$. Therefore $\alpha(G) \geq \kappa(G) + 1$, contradicting $\kappa(G) \geq \alpha(G)$. Hence $C$ is a Hamiltonian cycle.
 \end{proof}
 
-\begin{corollary}
-If $\kappa(G) > \alpha(G)$, then $G$ is pancyclic (contains cycles of all lengths from 3 to $n$).
-\end{corollary}
+\begin{remark}
+Chvátal and Erdős also showed that if $\kappa(G) > \alpha(G)$, then $G$ is Hamiltonian-connected. Jackson and Ordaz (1990) conjectured that $\kappa(G) > \alpha(G)$ even implies that $G$ is pancyclic (contains cycles of all lengths from 3 to $n$); Letzter (2023) proved this conjecture for all sufficiently large graphs.
+\end{remark}
 
 \begin{remark}
 Intuitively, the Chvátal-Erdős theorem states that if a graph is "highly connected" relative to how many vertices can be independent, then it must contain a Hamiltonian cycle. High connectivity prevents the graph from being disconnected too easily, while a low independence number ensures sufficient edge density.
 \end{remark}
 
 \begin{remark}
-This theorem is particularly useful because it can identify Hamiltonian graphs that might not satisfy other conditions like those of Dirac or Ore. For example, the complete bipartite graph $K_{n,n}$ has minimum degree $n$ but might not satisfy Dirac's condition when $n < \frac{n}{2}$. However, it has $\kappa(K_{n,n}) = n$ and $\alpha(K_{n,n}) = n$, so it satisfies the Chvátal-Erdős condition.
+This theorem is particularly useful because it can identify Hamiltonian graphs that might not satisfy other conditions like those of Dirac or Ore. For example, the 5-cycle $C_5$ has minimum degree $2 < \frac{5}{2}$, and every pair of non-adjacent vertices has degree sum $4 < 5$, so neither Dirac's nor Ore's condition holds. However, $\kappa(C_5) = 2$ and $\alpha(C_5) = 2$, so $C_5$ satisfies the Chvátal-Erdős condition. (By contrast, $K_{n,n}$, with $2n$ vertices and minimum degree $n$, already satisfies Dirac's condition.)
 \end{remark}
 
 \begin{remark}
@@ -4265,7 +4267,8 @@ The lack of simple necessary and sufficient conditions for Hamiltonicity is conn
 
 \begin{theorem}[Hierarchy of Sufficient Conditions]
 The following implications hold for sufficient conditions of Hamiltonicity:
-\[Dirac \Rightarrow Ore \Rightarrow \text{Chv\'{a}tal} \Leftarrow \text{Chv\'{a}tal-Erd\H{o}s}\]
+\[Dirac \Rightarrow Ore \Rightarrow \text{Chv\'{a}tal}, \qquad Ore \Rightarrow \text{Chv\'{a}tal-Erd\H{o}s}.\]
+The last implication is due to Bondy (1978). Neither of the Chv\'{a}tal and Chv\'{a}tal-Erd\H{o}s conditions implies the other: $C_5$ has $\kappa(C_5) = \alpha(C_5) = 2$, but its degree sequence $2,2,2,2,2$ violates Chv\'{a}tal's condition at $i = 2$; conversely, the graph obtained from a triangle $abc$ by adding vertices $x, y, z$ with $x$ adjacent to $a, b$, $y$ adjacent to $b, c$, and $z$ adjacent to $c, a$ has degree sequence $2,2,2,4,4,4$, which satisfies Chv\'{a}tal's condition, while $\kappa = 2 < 3 = \alpha$.
 \end{theorem}
 
 \begin{remark}
