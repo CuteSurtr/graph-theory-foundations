@@ -4715,7 +4715,7 @@ If $G$ is a graph with minimum degree $k \geq 2$, it contains a cycle of length 
     
     Let $N_G(v) = \{v_1, v_2, \ldots, v_\ell\}$ where $\ell \geq k$. We can list these neighbors in the order they appear along the path $P$ from $u$ to $v$:
     \begin{align}
-        v_k, v_{k-1}, \ldots, v_2, v_1
+        v_\ell, v_{\ell-1}, \ldots, v_2, v_1
     \end{align}
     
     Now, consider the cycle $C'$ formed by:
@@ -4781,11 +4781,15 @@ This $C_4$ example shows that while the theorem guarantees a cycle of length at 
     \draw[blue, thick] (v) to[bend left=40] (v2);
     \draw[blue, thick] (v) to[bend left=60] (v1);
     
+    % Connect u to v_2 and v_3, so that every vertex has degree at least 3
+    \draw[thick] (u) to[bend left=30] (v2);
+    \draw[thick] (u) to[bend left=30] (v3);
+    
     % Label the longest path
     \node[below] at (4,-1.7) {$P$: Longest path from $u$ to $v$};
     
     % Label the neighbors
-    \node[blue] at (5,0.8) {$N_G(v) = \{v_1, v_2, v_3\}$};
+    \node[blue] at (7.4,1.0) {$N_G(v) = \{v_1, v_2, v_3\}$};
     
     % Highlight the cycle
     \draw[red, ultra thick, ->] (v) to[bend right=15] (v3);
@@ -4811,11 +4815,11 @@ If $G$ is a graph with minimum degree at least $k \geq 2$, then $G$ contains a c
 \end{theorem}
 
 \begin{lemma}[Path Extension]
-Let $P$ be a path in a graph $G$. If a vertex $v$ has a neighbor $w \notin V(P)$, then there exists a path $P'$ that is longer than $P$.
+Let $P$ be a path in a graph $G$. If an endpoint $v$ of $P$ has a neighbor $w \notin V(P)$, then there exists a path $P'$ that is longer than $P$.
 \end{lemma}
 
 \begin{proof}
-We can construct $P'$ by adding the edge $\{v,w\}$ to $P$. Since $w \notin V(P)$, this creates a strictly longer path.
+We can construct $P'$ by appending the vertex $w$ and the edge $\{v,w\}$ to $P$ at its endpoint $v$. Since $w \notin V(P)$, this creates a strictly longer path.
 \end{proof}
 
 \begin{lemma}[Endpoint Neighborhood Containment]
@@ -4827,78 +4831,86 @@ If $G$ has minimum degree $k$ and $P$ is a longest path with endpoint $v$, then 
 \end{corollary}
 
 \begin{remark}
-The Long Cycle Theorem is tight in the sense that for any $k \geq 2$, there exists a graph with minimum degree $k$ whose longest cycle has length exactly $k+1$. The complete bipartite graph $K_{1,k+1}$ (star graph) demonstrates this, as shown in Figure 59.
+The Long Cycle Theorem is tight in the sense that for any $k \geq 2$, there exists a graph with minimum degree $k$ whose longest cycle has length exactly $k+1$. The complete graph $K_{k+1}$ demonstrates this, as shown in Figure 60 for $k = 4$.
 \end{remark}
 
 \begin{remark}
-While the theorem guarantees a cycle of length at least $k+1$, specific graph structures may contain longer cycles. For instance, our example with minimum degree $k=3$ contains a cycle of length 4, which equals $k+1$. However, other graphs with minimum degree 3 might contain cycles of length 5 or more.
+While the theorem guarantees a cycle of length at least $k+1$, specific graph structures may contain longer cycles. For instance, in our example with minimum degree $k=3$, the proof produces a cycle of length 4, which equals $k+1$. However, the same graph also contains the cycle $(u, v_1, v, v_3, v_2, u)$ of length 5, and other graphs with minimum degree 3 may contain even longer cycles.
 \end{remark}
 
 
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}[scale=1.3]
-    % Draw a star with k=5 leaves
-    \node[draw, circle, fill=red!20, thick] (center) at (0,0) {$c$};
+    % The complete graph K_5 (minimum degree k = 4)
+    \node[draw, circle, thick] (v1) at (90:2) {$v_1$};
+    \node[draw, circle, thick] (v2) at (18:2) {$v_2$};
+    \node[draw, circle, thick] (v3) at (-54:2) {$v_3$};
+    \node[draw, circle, thick] (v4) at (-126:2) {$v_4$};
+    \node[draw, circle, thick] (v5) at (162:2) {$v_5$};
     
-    \node[draw, circle, fill=blue!20, thick] (v1) at (0,2) {$v_1$};
-    \node[draw, circle, fill=blue!20, thick] (v2) at (1.9,0.6) {$v_2$};
-    \node[draw, circle, fill=blue!20, thick] (v3) at (1.2,-1.7) {$v_3$};
-    \node[draw, circle, fill=blue!20, thick] (v4) at (-1.2,-1.7) {$v_4$};
-    \node[draw, circle, fill=blue!20, thick] (v5) at (-1.9,0.6) {$v_5$};
-    
-    % Draw edges with labels
-    \foreach \i in {1,...,5} {
-        \draw[thick] (center) -- (v\i);
+    % All ten edges of K_5
+    \foreach \i/\j in {1/2,1/3,1/4,1/5,2/3,2/4,2/5,3/4,3/5,4/5} {
+        \draw[thin] (v\i) -- (v\j);
     }
     
-    % Highlight a longest cycle with directional arrow
-    \draw[red, ultra thick, ->] (v1) to[bend right=15] (center);
-    \draw[red, ultra thick] (center) to[bend right=15] (v2);
-    \draw[red, ultra thick] (v2) to[bend right=15] (v1);
+    % Highlight a longest cycle (a Hamiltonian cycle)
+    \draw[ultra thick] (v1) -- (v2) -- (v3) -- (v4) -- (v5) -- (v1);
 \end{tikzpicture}
 
 \begin{center}
 \small
-$K_{1,5}$ (Star Graph)\\
-Degree Information: $d(c) = 5$, $d(v_i) = 1$ for all $i$, Minimum degree $k = 1$\\
-Cycle: $v_1 \xrightarrow{} c \xrightarrow{} v_2 \xrightarrow{} v_1$ has length 3 = $k+2$
+$K_5$ (Complete Graph)\\
+Degree Information: $d(v_i) = 4$ for all $i$, Minimum degree $k = 4$\\
+Cycle: $v_1 \xrightarrow{} v_2 \xrightarrow{} v_3 \xrightarrow{} v_4 \xrightarrow{} v_5 \xrightarrow{} v_1$ has length $5 = k+1$
 \end{center}
 
 \begin{center}
 \small
-Figure 60: A star graph $K_{1,5}$ demonstrating the tightness of the Long Cycle Theorem. 
-The red cycle $C = (v_1, c, v_2, v_1)$ has length 3, which equals $k+2$ where $k=1$ is 
+Figure 60: The complete graph $K_5$ demonstrating the tightness of the Long Cycle Theorem. 
+The thick cycle $C = (v_1, v_2, v_3, v_4, v_5, v_1)$ has length 5, which equals $k+1$ where $k=4$ is 
 the minimum degree. This shows the theorem's bound is tight, as no cycle longer than 
-$k+2$ exists in this graph.\\
-\textbf{Example (Star Graph - Tight Bound Example).}
+$k+1$ exists in this graph.\\
+\textbf{Example (Complete Graph - Tight Bound Example).}
 \end{center}
 \end{figure}
 
-This example demonstrates that the Long Cycle Theorem's bound cannot be improved in general. In the star graph $K_{1,5}$:
+This example demonstrates that the Long Cycle Theorem's bound cannot be improved in general. In the complete graph $K_5$:
 \begin{itemize}
-    \item The center vertex $c$ has degree 5
-    \item Each leaf vertex $v_i$ has degree 1, making the minimum degree $k=1$
-    \item The longest possible cycle has length 3, consisting of the center and any two leaves
-    \item This cycle length equals $k+2=3$, showing we cannot improve the theorem to guarantee cycles longer than $k+1$
+    \item Every vertex is adjacent to the other four vertices, so each vertex has degree 4
+    \item Hence the minimum degree is $k=4$, and the theorem guarantees a cycle of length at least $k+1=5$
+    \item A cycle cannot repeat vertices, so no cycle in $K_5$ has length greater than 5; the longest cycles are the Hamiltonian cycles, of length 5
+    \item This cycle length equals $k+1=5$, showing we cannot improve the theorem to guarantee cycles longer than $k+1$
 \end{itemize}
-While some graphs with minimum degree $k$ may contain cycles of length greater than $k+1$, this example proves that $k+1$ is the best possible universal guarantee for all graphs with minimum degree $k$.
+While some graphs with minimum degree $k$ may contain cycles of length greater than $k+1$, this example (and, more generally, the complete graph $K_{k+1}$ for every $k \geq 2$) proves that $k+1$ is the best possible universal guarantee for all graphs with minimum degree $k$.
 
-\begin{remark}[Star Graphs and the Cycle Bound]
-The star graph $K_{1,n}$ provides a valuable extremal case for understanding cycle structure. For any star graph, the minimum degree is always $k=1$ (at the leaves), and the maximum possible cycle length is always 3, regardless of how many leaves are added. This demonstrates that increasing the number of vertices while maintaining the same minimum degree does not necessarily lead to longer cycles.
+\begin{remark}[Star Graphs and the Hypothesis $k \geq 2$]
+The star graph $K_{1,n}$ shows why the Long Cycle Theorem requires $k \geq 2$. For any star graph, the minimum degree is $1$ (at the leaves), and $K_{1,n}$ contains no cycle at all: a cycle uses two edges at each of its vertices, so it cannot pass through a leaf, and the center alone cannot form a cycle. Thus minimum degree $1$ does not guarantee any cycle, regardless of how many leaves are added.
 \end{remark}
 
-\begin{corollary}[Improved Bound for 2-Connected Graphs]
+\begin{theorem}[Improved Bound for 2-Connected Graphs; Dirac, 1952]
 If $G$ is a 2-connected graph with minimum degree $k \geq 2$, then $G$ contains a cycle of length at least $\min\{2k, |V(G)|\}$.
-\end{corollary}
+\end{theorem}
 
 \begin{proof}[Sketch]
-In a 2-connected graph, for any vertex $v$, there exists a cycle containing $v$. Consider a longest cycle $C$ and assume for contradiction that $|C| < \min\{2k, |V(G)|\}$. Then either $|C| < 2k$ or $|C| < |V(G)|$. In the latter case, there exists a vertex $w \notin V(C)$. By 2-connectivity, there exist two vertex-disjoint paths from $w$ to $C$, which would allow us to create a longer cycle, contradicting the maximality of $C$. For the former case, a more detailed analysis of neighbor distribution along the cycle leads to a similar contradiction.
+Write $n = |V(G)|$ and suppose, for a contradiction, that every cycle of $G$ has length less than $\min\{2k, n\}$. Among all pairs $(C, P)$, where $C$ is a longest cycle and $P = u_1 u_2 \cdots u_{\ell+1}$ is a path that meets $C$ only in its first vertex $u_1$, choose one with $\ell$ as large as possible, and write $C = v_1 v_2 \cdots v_c v_1$ with $v_c = u_1$. Then $c < n$ and $c \leq 2k-1$. Since $c < n$ and $G$ is connected, $\ell \geq 1$. Let $y = u_{\ell+1}$. By the maximality of $\ell$, every neighbor of $y$ lies on $C$ or on $P$.
+
+\emph{Case 1: $y$ is adjacent to some $v_i$ with $1 \leq i \leq c-1$.} The cycle $v_i v_{i+1} \cdots v_c u_2 u_3 \cdots u_{\ell+1} v_i$ has length $c-i+\ell+1$, so the maximality of $C$ forces $i \geq \ell+1$; symmetrically, $i \leq c-\ell-1$. Moreover, $y$ is not adjacent to two consecutive vertices $v_i, v_{i+1}$ of $C$, since otherwise replacing the edge $\{v_i, v_{i+1}\}$ by the path $v_i\, y\, v_{i+1}$ would give a longer cycle. Hence $y$ has at most $\lceil (c-1-2\ell)/2 \rceil$ neighbors among $v_1, \ldots, v_{c-1}$ and at most $\ell$ neighbors among $u_1, \ldots, u_\ell$, so
+\[
+k \leq d(y) \leq \ell + \left\lceil \frac{c-1-2\ell}{2} \right\rceil = \left\lceil \frac{c-1}{2} \right\rceil \leq k-1,
+\]
+a contradiction.
+
+\emph{Case 2: every neighbor of $y$ lies on $P$.} This case uses a refinement, due to Dirac, of the fact that any two vertices of a 2-connected graph are joined by two internally disjoint paths: the two paths can be chosen so that each of them meets a prescribed path between the two vertices in the same order as that path does. We omit the details; see G.~A.~Dirac, \emph{Some theorems on abstract graphs}, Proc.\ London Math.\ Soc.\ (3) 2 (1952), 69--81 (Theorem 4), or A.~Kostochka, R.~Luo, and G.~McCourt, \emph{On a property of 2-connected graphs and Dirac's theorem}, Discrete Math.\ 347 (2024), 114153, for a short complete proof.
 \end{proof}
 
 \begin{theorem}[Extremal Graphs for the Long Cycle Theorem]
-For any $k \geq 1$, the star graph $K_{1,k}$ is an extremal graph for the Long Cycle Theorem in the following sense: it has minimum degree $k$ and maximum cycle length $k+1$, and removing any edge would disconnect the graph and eliminate all cycles.
+For any $k \geq 2$, the complete graph $K_{k+1}$ is an extremal graph for the Long Cycle Theorem in the following sense: it has minimum degree $k$ and its longest cycle has length exactly $k+1$.
 \end{theorem}
+
+\begin{proof}
+Every vertex of $K_{k+1}$ is adjacent to the other $k$ vertices, so $\delta(K_{k+1}) = k$. A cycle cannot repeat vertices, so no cycle of $K_{k+1}$ has length greater than $k+1$; on the other hand, listing the vertices in any order $v_1, v_2, \ldots, v_{k+1}$ gives the cycle $(v_1, v_2, \ldots, v_{k+1}, v_1)$ of length exactly $k+1$.
+\end{proof}
 
 \subsection{Algorithm for Finding Long Cycles}
 A simple algorithm to find a cycle of length at least $k+1$ in a graph with minimum degree $k \geq 2$:
@@ -4925,7 +4937,7 @@ A simple algorithm to find a cycle of length at least $k+1$ in a graph with mini
     
     \State \textbf{/* Phase 4: Build and return cycle */}
     \State $C \gets (v_j, v_{j+1}, \ldots, v_\ell, v_j)$
-    \State \Return $C$ \Comment{$|C| = \ell - j + 2 \geq k+1$}
+    \State \Return $C$ \Comment{$|C| = \ell - j + 1 \geq k+1$}
 \EndFunction
 
 \Function{FindLongestPath}{$G, start$}
