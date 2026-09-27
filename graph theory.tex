@@ -5081,7 +5081,7 @@ Let $T$ be a tree with $n$ vertices. Then $T$ has exactly $n-1$ edges.
 \begin{proof}
 We proceed by induction on $n$. For $n=1$, a tree with one vertex has 0 edges, and $1-1 = 0$.
 
-Assume that for some $k \geq 1$, any tree with $k$ vertices has $k-1$ edges. Consider a tree $T$ with $k+1$ vertices. Choose any edge $e = \{u, v\}$ in $T$. Removing $e$ disconnects $T$ into two components, each of which is a tree. Let $T_1$ have $n_1$ vertices and $T_2$ have $n_2$ vertices, where $n_1 + n_2 = k+1$. By the induction hypothesis, $T_1$ has $n_1 - 1$ edges and $T_2$ has $n_2 - 1$ edges. Therefore, $T$ has $(n_1 - 1) + (n_2 - 1) + 1 = n_1 + n_2 - 1 = (k+1) - 1 = k$ edges.
+Assume that for some $k \geq 1$, every tree with at most $k$ vertices has exactly one fewer edge than vertices (we use strong induction). Consider a tree $T$ with $k+1$ vertices. Choose any edge $e = \{u, v\}$ in $T$. Removing $e$ disconnects $T$ into two components, each of which is a tree: if $u$ and $v$ were still joined by a path in $T - e$, that path together with $e$ would form a cycle. Let $T_1$ have $n_1$ vertices and $T_2$ have $n_2$ vertices, where $n_1 + n_2 = k+1$ and $n_1, n_2 \geq 1$, so that $n_1, n_2 \leq k$. By the induction hypothesis, $T_1$ has $n_1 - 1$ edges and $T_2$ has $n_2 - 1$ edges. Therefore, $T$ has $(n_1 - 1) + (n_2 - 1) + 1 = n_1 + n_2 - 1 = (k+1) - 1 = k$ edges.
 \end{proof}
 
 \begin{lemma}[Unique Path in Trees]
@@ -5099,7 +5099,7 @@ Every tree with at least two vertices has at least two leaves (vertices of degre
 \begin{proof}
 Let $T$ be a tree with $n \geq 2$ vertices. The sum of all vertex degrees in $T$ is $2(n-1)$ since $T$ has $n-1$ edges and each edge contributes 2 to the total degree sum. If every vertex had degree at least 2, then the sum of degrees would be at least $2n$, which is a contradiction. Therefore, $T$ must have at least one vertex of degree 1.
 
-Now consider a longest path $P$ in $T$. Both endpoints of $P$ must have degree 1 in $T$. If not, then an endpoint would have a neighbor outside $P$, and we could extend $P$ to a longer path, contradicting our choice of $P$. Therefore, $T$ has at least two leaves.
+Now consider a longest path $P$ in $T$; since $T$ is connected and has $n \geq 2$ vertices, $P$ has at least one edge, so its two endpoints are distinct. Both endpoints of $P$ must have degree 1 in $T$. Indeed, suppose an endpoint $x$ of $P$ had a neighbor $y$ other than its neighbor on $P$. If $y \in V(P)$, then the subpath of $P$ from $x$ to $y$ together with the edge $\{x,y\}$ would form a cycle, contradicting that $T$ is acyclic. If $y \notin V(P)$, we could extend $P$ by $y$ to a longer path, contradicting our choice of $P$. Therefore, $T$ has at least two leaves.
 \end{proof}
 
 \begin{lemma}[Removal of Leaf]
@@ -5151,12 +5151,12 @@ A graph with $n$ vertices and fewer than $n-1$ edges is not connected. A graph w
 \end{lemma}
 
 \begin{proof}
-Let $G$ be a graph with $n$ vertices and $m$ edges. If $m < n-1$, then $G$ cannot be a tree (which would require exactly $n-1$ edges), and therefore cannot be connected.
+Let $G$ be a graph with $n$ vertices and $m$ edges. Suppose $m < n-1$, and suppose for contradiction that $G$ is connected. By the Spanning Trees lemma, $G$ has a spanning tree $T$, and by the Tree Edge Count lemma, $T$ has exactly $n-1$ edges. Since $E(T) \subseteq E(G)$, this gives $m \geq n-1$, a contradiction. Therefore $G$ is not connected.
 
 If $m > n-1$, suppose for contradiction that $G$ is acyclic. Then $G$ is a forest with $c$ components, where $c \geq 1$. By the formula $n - m = c$, we have $c = n - m < n - (n-1) = 1$, which is a contradiction. Therefore, $G$ must contain at least one cycle.
 \end{proof}
 
-\begin{example}[Trees with at most five vertices]
+\begin{example}[Trees with at most four vertices]
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}[scale=0.8]
@@ -5201,7 +5201,7 @@ If $m > n-1$, suppose for contradiction that $G$ is acyclic. Then $G$ is a fores
 Figure 61: Examples of all possible tree structures with 1 to 4 vertices. Notice that each tree with $n$ vertices has exactly $n-1$ edges. As the number of vertices increases, the variety of possible tree structures grows rapidly.
 \end{figure}
 
-This figure shows the fundamental tree structures with small numbers of vertices. For $n=1$, there is only one possible tree: a single isolated vertex. For $n=2$, there is again only one possible structure: two vertices connected by a single edge. Starting from $n=3$, we see multiple possible configurations emerging: a path with three vertices or a star with one central vertex connected to two leaves. For $n=4$, we show two representative structures: a path of length 3 and a star with one central vertex connected to three leaves.Each of these structures satisfies the definition of a tree: they are connected and acyclic. No matter how complex a tree becomes, it will always have exactly $n-1$ edges, where $n$ is the number of vertices.
+This figure shows the fundamental tree structures with small numbers of vertices. For $n=1$, there is only one possible tree: a single isolated vertex. For $n=2$, there is again only one possible structure: two vertices connected by a single edge. For $n=3$, there is still only one tree up to isomorphism: the path with three vertices, which is the same graph as the star with one central vertex connected to two leaves. Starting from $n=4$, we see multiple possible configurations emerging: up to isomorphism there are exactly two trees with four vertices, a path of length 3 and a star with one central vertex connected to three leaves, and both are shown. (There are three trees with five vertices.) Each of these structures satisfies the definition of a tree: they are connected and acyclic. No matter how complex a tree becomes, it will always have exactly $n-1$ edges, where $n$ is the number of vertices.
 \end{example}
 \begin{definition} [Bridge]
 A bridge in a graph $G$ is an edge $e \in E(G)$ such that $G - e$ has more components than $G$.
@@ -5227,7 +5227,8 @@ If $G$ is a tree, then every edge is a bridge.
         
         % Edges
         \draw[thick] (v1) -- (v2) -- (v3);
-        \draw[thick] (v1) -- (v4) -- (v5) -- (v6) -- (v3);
+        \draw[thick] (v1) -- (v4) -- (v5);
+        \draw[thick] (v6) -- (v3);
         \draw[thick] (v2) -- (v5);
         
         % Bridge highlighted
@@ -5249,7 +5250,8 @@ If $G$ is a tree, then every edge is a bridge.
         
         % Edges
         \draw[thick] (w1) -- (w2);
-        \draw[thick] (w1) -- (w4) -- (w5) -- (w6) -- (w3);
+        \draw[thick] (w1) -- (w4) -- (w5);
+        \draw[thick] (w6) -- (w3);
         \draw[thick] (w2) -- (w5);
         
         % Disconnected components highlighted
@@ -5292,15 +5294,11 @@ We'll prove the equivalence by showing $(1) \Rightarrow (2) \Rightarrow (3) \Rig
     
     \item $(2) \Rightarrow (3)$: If $G$ is connected and acyclic, then for any edge $e = \{u,v\}$, removing $e$ would disconnect $u$ and $v$. If there were still a path from $u$ to $v$ after removing $e$, then this path together with $e$ would form a cycle, contradicting that $G$ is acyclic.
     
-    \item $(3) \Rightarrow (4)$: We proceed by induction on $|V(G)|$. 
+    \item $(3) \Rightarrow (4)$: Suppose $G$ is connected and every edge is a bridge.
     \begin{itemize}
-        \item For $|V(G)| = 1$, the statement is trivial.
-        \item Assume the statement holds for all connected graphs with $n$ vertices where every edge is a bridge.
-        \item Consider a connected graph $G$ with $n+1$ vertices where every edge is a bridge.
-        \item Choose any leaf $v$ (which must exist by the Leaf Existence Lemma) and let $e$ be its incident edge.
-        \item The graph $G-v$ remains connected, has $n$ vertices, and every edge is still a bridge.
-        \item By the induction hypothesis, $G-v$ has $n-1$ edges.
-        \item Therefore, $G$ has $(n-1) + 1 = n = |V(G)| - 1$ edges.
+        \item $G$ is acyclic: if $G$ contained a cycle $C$ and $e = \{u,v\}$ were an edge of $C$, then $C - e$ would be a $u,v$-path in $G - e$, so $G - e$ would still be connected and $e$ would not be a bridge.
+        \item Hence $G$ is connected and acyclic, i.e., $G$ is a tree.
+        \item By the Tree Edge Count Lemma, $G$ has exactly $|V(G)| - 1$ edges.
     \end{itemize}
     
     \item $(4) \Rightarrow (5)$: We need to show that if $G$ is connected with $|V(G)| - 1$ edges, then $G$ is acyclic.
@@ -5465,12 +5463,12 @@ Let $G$ be a connected graph. If $G$ has no cycles, then it is already a tree an
 \end{tikzpicture}
 \\
 \small
-Figure 64: Construction of a spanning tree from a connected graph. Left: Original connected graph with two cycles ($abc$ and $abd$). Center: After removing edge $bc$ from the first cycle. Right: Final spanning tree after removing edge $bd$ from the second cycle. The result is a connected acyclic subgraph that includes all vertices of the original graph.
+Figure 64: Construction of a spanning tree from a connected graph. Left: Original connected graph with three cycles ($abc$, $abd$, and $acbd$). Center: After removing edge $bc$ from the first cycle. Right: Final spanning tree after removing edge $bd$ from the second cycle. The result is a connected acyclic subgraph that includes all vertices of the original graph.
 \label{fig:spanning-tree-construction}
 \end{figure}
 
 \begin{example}[Finding a Spanning Tree]
-To find a spanning tree in the graph shown in Figure 62:
+To find a spanning tree in the graph shown in Figure 64:
 \begin{enumerate}
     \item We start with the connected graph on the left, which contains cycles.
     \item First, we identify the cycle formed by vertices $a$, $b$, and $c$, and remove the edge $\{b,c\}$.
