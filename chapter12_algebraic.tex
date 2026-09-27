@@ -2634,14 +2634,19 @@ the Frobenius norm.
 \subsubsection{Worked Examples}
 
 \begin{example}[Random transposition walk on $S_n$; Diaconis--Shahshahani, 1981]
-The walk on $S_n$ driven by the uniform measure on transpositions
-satisfies
+The random transposition walk on $S_n$ is driven by the measure $\mu$
+with $\mu(\mathrm{id}) = 1/n$ and $\mu(\tau) = 2/n^2$ for each
+transposition $\tau$ (choose two cards independently and uniformly
+and swap them). (The uniform measure on transpositions alone would
+give a periodic walk: $\mu^{*k}$ would be supported on permutations
+of sign $(-1)^k$, at distance at least $1/2$ from $U$ for every $k$.)
+For every fixed $\varepsilon \in (0, 1)$, as $n \to \infty$,
 \[
   \big\| \mu^{*k} - U \big\|_{\mathrm{TV}}
-  \;=\;
+  \;\longrightarrow\;
   \begin{cases}
-    1 - o(1) & \text{if } k = \tfrac{1}{2} n \log n - c n, \\
-    o(1) & \text{if } k = \tfrac{1}{2} n \log n + c n,
+    1 & \text{if } k \le (1 - \varepsilon) \tfrac{1}{2} n \log n, \\
+    0 & \text{if } k \ge (1 + \varepsilon) \tfrac{1}{2} n \log n,
   \end{cases}
 \]
 exhibiting a sharp \textbf{cutoff} at time $\tfrac{1}{2} n \log n$.
@@ -2650,14 +2655,19 @@ transpositions in terms of Young-diagram contents.
 \end{example}
 
 \begin{example}[Riffle shuffle; Bayer--Diaconis, 1992]
-The Gilbert--Shannon--Reeds riffle shuffle on $52$ cards exhibits
-cutoff at time $\tfrac{3}{2} \log_2 52 \approx 8.5$ shuffles, justifying
-the famous ``seven shuffles'' rule of thumb.
+The Gilbert--Shannon--Reeds riffle shuffle of $n$ cards exhibits
+cutoff at time $\tfrac{3}{2} \log_2 n$ (for $n = 52$ this is
+$\approx 8.5$). Cutoff is an asymptotic statement; for $n = 52$ Bayer
+and Diaconis computed the exact total-variation distances, about
+$0.92$, $0.61$, $0.33$, $0.17$ after $5$, $6$, $7$, $8$ shuffles, and
+this sharp drop is the basis of the famous ``seven shuffles'' rule of
+thumb.
 \end{example}
 
 \begin{example}[Hypercube random walk]
-The lazy random walk on $Q_n$ (driven by the measure putting equal
-mass on $e_1, \ldots, e_n$ and a self-loop) has eigenvalues
+The lazy random walk on $Q_n$ (driven by the measure putting mass
+$1/2$ on the identity, i.e.\ a self-loop, and mass $1/(2n)$ on each of
+$e_1, \ldots, e_n$) has eigenvalues
 $\lambda_k = (1 + (1 - 2k/n))/2$. The mixing time is
 $t_{\mathrm{mix}} = \tfrac{1}{2} n \log n + c n$, with cutoff at this
 time.
@@ -2666,22 +2676,31 @@ time.
 \subsubsection{Cutoff Phenomenon}
 
 \begin{definition}[Cutoff]\label{def:cutoff}
-A family of Markov chains $\{P_n\}$ exhibits \textbf{cutoff} at
-times $t_n$ with window $w_n$ if for every $\varepsilon > 0$,
+A family of Markov chains $\{P_n\}$ with uniform stationary
+distributions $U_n$ exhibits \textbf{cutoff} at times $t_n$ with window
+$w_n = o(t_n)$ if, writing
+$d_n(t) = \max_x d_{\mathrm{TV}}(P_n^{t}(x, \cdot), U_n)$, for every
+$\varepsilon > 0$ there is $C = C(\varepsilon)$ such that
 \[
-  \lim_{n \to \infty} d_{\mathrm{TV}}(P_n^{t_n - C w_n}, U_n) = 1
+  \liminf_{n \to \infty} d_n(t_n - C w_n) \ge 1 - \varepsilon
   \quad\text{and}\quad
-  \lim_{n \to \infty} d_{\mathrm{TV}}(P_n^{t_n + C w_n}, U_n) = 0
+  \limsup_{n \to \infty} d_n(t_n + C w_n) \le \varepsilon .
 \]
-for sufficiently large $C = C(\varepsilon)$.
 \end{definition}
 
-\begin{theorem}[Cutoff for transitive expanders; Lubetzky--Sly, 2011]
-Every sequence of vertex-transitive graphs satisfying a uniform
-Cheeger expansion bound exhibits cutoff for the lazy simple random
-walk, with cutoff time $\log n / \log(1/\lambda)$ where $\lambda$ is
-the second-largest absolute eigenvalue.
+\begin{theorem}[Cutoff on random regular graphs; Lubetzky--Sly, 2010]
+Fix $d \ge 3$. With probability tending to $1$ as $n \to \infty$, the
+simple random walk on a uniformly random $d$-regular graph on $n$
+vertices exhibits cutoff at time $\frac{d}{d-2} \log_{d-1} n$, with
+window of order $\sqrt{\log n}$.
 \end{theorem}
+
+\begin{remark}
+Lubetzky and Peres (2016) proved cutoff at the same time for the
+simple random walk on every $d$-regular Ramanujan graph. Whether
+\emph{every} sequence of bounded-degree vertex-transitive expanders
+exhibits cutoff is a well-known open problem (a conjecture of Peres).
+\end{remark}
 
 \subsubsection{Exercises}
 
@@ -2762,10 +2781,13 @@ treatment in Lyons--Peres, \emph{Probability on Trees and Networks}
 \begin{definition}[Effective resistance]\label{def:efftr}
 Let $G$ be a connected graph with each edge assigned conductance $1$.
 The \textbf{effective resistance} between vertices $u, v \in V(G)$,
-denoted $R_{\mathrm{eff}}(u, v)$, is the voltage drop induced by
-injecting $1$ unit of current at $u$ and extracting it at $v$, with
-the resulting voltage function $\phi$ chosen to minimise the
-quadratic form $\sum_{e = ij \in E} (\phi_i - \phi_j)^2$.
+denoted $R_{\mathrm{eff}}(u, v)$, is the voltage drop $\phi_u - \phi_v$
+induced by injecting $1$ unit of current at $u$ and extracting it at
+$v$, where the voltage function $\phi$ is determined (up to an additive
+constant) by Kirchhoff's laws, $L\phi = e_u - e_v$. Variationally
+(Dirichlet's principle), $1/R_{\mathrm{eff}}(u, v)$ is the minimum of
+the quadratic form $\sum_{e = ij \in E} (\phi_i - \phi_j)^2$ over all
+$\phi$ with $\phi_u = 1$ and $\phi_v = 0$.
 Equivalently, $R_{\mathrm{eff}}(u, v) = (e_u - e_v)^\top L^+ (e_u - e_v)$
 where $L^+$ is the Moore--Penrose pseudoinverse of the Laplacian.
 \end{definition}
@@ -2814,23 +2836,34 @@ steps for the walk started at $u$ to first reach $v$. The
 
 \begin{remark}
 Theorem~\ref{thm:crrst} translates between random-walk and electrical
-quantities exactly, and is the basis of the \emph{spectral sparsifier}
-algorithms of Spielman--Teng (2004): a graph $G$ can be approximated
+quantities exactly. Effective resistances are also the basis of the
+\emph{spectral sparsification} algorithm of Spielman--Srivastava
+(2008), which samples each edge with probability proportional to its
+effective resistance (spectral sparsifiers were introduced by
+Spielman--Teng, 2004): a graph $G$ can be approximated
 in nearly-linear time by a sparse graph $H$ such that
 $L_G \approx L_H$ in the L\"owner sense, and consequently
 $R_{\mathrm{eff}}^G \approx R_{\mathrm{eff}}^H$ everywhere.
 \end{remark}
 
-\subsubsection{Schramm--Lov\'asz Circle Packings}
+\subsubsection{Circle Packings}
 
-\begin{theorem}[Schramm--Lov\'asz, 1990s]
-Every $3$-connected planar graph admits an essentially unique
-\emph{circle packing}: each vertex corresponds to a circle in the
-plane, with two circles externally tangent iff the vertices are
-adjacent. The Cheeger constant of the graph is comparable to the
-\emph{conformal modulus} of the corresponding packing, providing a
-geometric route to spectral gaps.
+\begin{theorem}[Koebe--Andreev--Thurston circle packing theorem]
+Every finite simple planar graph admits a \emph{circle packing}: each
+vertex corresponds to a closed disk in the plane, the disks have
+pairwise disjoint interiors, and two disks are externally tangent iff
+the vertices are adjacent. If the graph is maximal planar, the packing
+is unique up to M\"obius transformations and reflections.
 \end{theorem}
+
+\begin{remark}
+For $3$-connected planar graphs uniqueness holds for \emph{primal--dual}
+circle packings, in which the graph and its planar dual are packed
+simultaneously with orthogonal crossings (Brightwell--Scheinerman,
+1993). Circle packings give a geometric route to bounds on spectral
+gaps: Spielman and Teng used them to prove that a planar graph on $n$
+vertices with maximum degree $\Delta$ has $\lambda_2(L) \le 8\Delta/n$.
+\end{remark}
 
 \subsubsection{Exercises}
 
@@ -2947,7 +2980,7 @@ The \textbf{plactic monoid} $\mathcal P_n$ is $[n]^* / \sim_K$, with
 multiplication inherited from concatenation.
 \end{definition}
 
-\begin{theorem}[Lascoux--Sch\"utzenberger, 1981]\label{thm:plactic}
+\begin{theorem}[Knuth, 1970; Lascoux--Sch\"utzenberger, 1981]\label{thm:plactic}
 Knuth equivalence classes are in bijection with semistandard Young
 tableaux: each word $w$ has a unique tableau $P(w)$ such that
 $w \sim_K \mathrm{row}(P(w))$ (the row reading word). Hence
@@ -2959,11 +2992,21 @@ sets, and the multiplication corresponds to the
 \subsubsection{Robinson--Schensted as a Graph Homomorphism}
 
 \begin{theorem}[RSK and crystal graphs]
-The Robinson--Schensted correspondence $\pi \mapsto (P, Q)$ for
-permutations $\pi \in S_n$ is realised by the morphism of crystals
-$B(1)^{\otimes n} \to \bigsqcup_\lambda B(\lambda) \otimes B(\lambda)$
-given by Knuth-equivalence-class extraction. The shape $\lambda$ is
-the connected component containing $\pi$.
+The vertices of $B(1)^{\otimes N}$ are the words of length $N$ over
+$[n]$. The Robinson--Schensted--Knuth map $w \mapsto (P(w), Q(w))$ is
+an isomorphism of crystals
+\[
+  B(1)^{\otimes N} \;\cong\; \bigsqcup_{\lambda} B(\lambda) \times \mathrm{SYT}(\lambda),
+\]
+where $\lambda$ runs over partitions of $N$ with at most $n$ parts,
+$\mathrm{SYT}(\lambda)$ is the set of standard Young tableaux of shape
+$\lambda$, the crystal operators act on the insertion tableau $P(w)$
+(the Knuth-class representative), and the recording tableau $Q(w)$ is
+constant on connected components. Thus the connected component
+containing $w$ consists of all words with recording tableau $Q(w)$, and
+it is isomorphic to $B(\lambda)$, where $\lambda$ is the common shape of
+$P(w)$ and $Q(w)$. Permutations $\pi \in S_n$ are the words with
+$N = n$ distinct letters.
 \end{theorem}
 
 \subsubsection{Application: Littlewood--Richardson Rule}
@@ -2979,13 +3022,18 @@ $B(\lambda) \hookrightarrow B(\mu) \otimes B(\nu)$.
 \subsubsection{Connection to Graph Theory}
 
 The crystal graph of $B(\lambda)$ is an edge-labelled directed graph
-on $\dim s_\lambda$ vertices. As a \emph{graph}:
+on $s_\lambda(1, \ldots, 1) = |\mathrm{SSYT}(\lambda, n)|$ vertices. As a \emph{graph}:
 \begin{itemize}
   \item Connectivity = irreducibility of the underlying representation.
-  \item The graph's automorphism group is closely tied to the Weyl
-        group of $\mathrm{GL}_n$.
-  \item Counting paths in crystal graphs of products $B(\lambda) \otimes B(\mu)$
-        recovers the Littlewood--Richardson coefficients.
+  \item As an edge-labelled directed graph, $B(\lambda)$ has only the
+        trivial automorphism (an automorphism must fix the unique
+        highest-weight vertex and commute with every $\widetilde f_i$).
+        The Weyl group $S_n$ of $\mathrm{GL}_n$ acts on the vertex set
+        (the simple reflection $s_i$ reverses every $i$-string), but not
+        by graph automorphisms.
+  \item Counting the highest-weight vertices (those with no incoming
+        edge) of weight $\nu$ in $B(\lambda) \otimes B(\mu)$ recovers
+        the Littlewood--Richardson coefficient $c^{\nu}_{\lambda\mu}$.
   \item Specialisation to the standard alphabet recovers the
         \emph{RSK correspondence} bijection between permutations and
         pairs of standard tableaux---a foundational result that
