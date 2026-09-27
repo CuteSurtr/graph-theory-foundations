@@ -2026,7 +2026,8 @@ For an $n \times n$ matrix $A$,
 \[
   \mathrm{perm}(A) \;=\; (-1)^n \sum_{S \subseteq [n]} (-1)^{|S|} \prod_{i = 1}^{n} \Big(\sum_{j \in S} a_{ij}\Big).
 \]
-This formula computes the permanent in $O(n \cdot 2^n)$ arithmetic
+Evaluated with the subsets $S$ in Gray-code order, this formula
+computes the permanent in $O(n \cdot 2^n)$ arithmetic
 operations---the fastest known algorithm for general matrices.
 \end{theorem}
 
@@ -2038,16 +2039,21 @@ columns, and so on.
 
 \begin{remark}
 Despite its exponential complexity, Ryser's formula is the basis of
-many practical permanent codes; the Glynn--Kogan formula gives a
-similar bound with parity-check refinement.
+many practical permanent codes; the Balasubramanian--Bax--Franklin--Glynn
+formula
+\[
+  \mathrm{perm}(A) \;=\; \frac{1}{2^{n-1}} \sum_{\delta} \Big(\prod_{k = 1}^{n} \delta_k\Big) \prod_{j = 1}^{n} \sum_{i = 1}^{n} \delta_i a_{ij},
+\]
+summed over $\delta \in \{\pm 1\}^n$ with $\delta_1 = 1$, has the same
+$O(n \cdot 2^n)$ cost with half as many terms.
 \end{remark}
 
 \subsubsection{Valiant's Theorem: \#P-Completeness}
 
-\begin{theorem}[Valiant, 1979]\label{thm:valiant}
-Computing the permanent of a $0/1$ matrix is \textbf{\#P-complete},
-even when restricted to matrices arising from $3$-regular bipartite
-graphs.
+\begin{theorem}[Valiant, 1979; Dagum--Luby, 1992]\label{thm:valiant}
+Computing the permanent of a $0/1$ matrix is \textbf{\#P-complete}
+(Valiant), even when restricted to matrices arising from $3$-regular
+bipartite graphs (Dagum--Luby).
 \end{theorem}
 
 \begin{remark}
@@ -2063,13 +2069,16 @@ $\mathsf{P}^{\#P}$ contains the entire polynomial hierarchy
 
 \subsubsection{The Permanent--Determinant Gap}
 
-\begin{theorem}[P\'olya, 1913]\label{thm:polya}
-There is no $\pm 1$ matrix $D$ obtained from a $0/1$ matrix $A$ by
-sign substitution such that $\det(D) = \mathrm{perm}(A)$ for all $A$,
-when $A$ has size $n \ge 3$.
+\begin{theorem}[P\'olya's question; Szeg\H{o}, 1913]\label{thm:polya}
+For $n \ge 3$ there is no fixed pattern of sign changes of the entries
+of $n \times n$ matrices $A$ such that the resulting matrix $D$
+satisfies $\det(D) = \mathrm{perm}(A)$ for all $A$. Indeed, for
+$A = J_n$ (the all-ones matrix) every such $D$ is a $\pm 1$ matrix, so
+$|\det D| \le n^{n/2} < n! = \mathrm{perm}(J_n)$ by Hadamard's
+inequality.
 \end{theorem}
 
-\begin{theorem}[Kasteleyn, 1961]\label{thm:kasteleyn}
+\begin{theorem}[Kasteleyn, 1961--1967]\label{thm:kasteleyn}
 For a planar graph $G$, the number of perfect matchings can be
 computed in polynomial time via the FKT \emph{Pfaffian} algorithm:
 choose a special $\pm 1$ orientation (\emph{Kasteleyn orientation})
@@ -2097,8 +2106,9 @@ in time $\mathrm{poly}(n, 1/\varepsilon, \log(1/\delta))$.
 
 \begin{proof}[Proof sketch]
 Construct a Markov chain on the union of the set of perfect matchings
-and \emph{near-perfect} matchings (missing exactly one edge from each
-side). Bound the spectral gap using a sophisticated canonical-paths
+and \emph{near-perfect} matchings (matchings with $n - 1$ edges, which
+leave exactly one vertex uncovered on each side). Bound the spectral
+gap using a sophisticated canonical-paths
 analysis. Use the chain to sample matchings nearly uniformly, then
 estimate the permanent by sampling and reweighting along a chain of
 auxiliary matrices.
@@ -2110,16 +2120,19 @@ The permanent is the bridge between three areas:
 \begin{itemize}
   \item \textbf{Combinatorics}: counts matchings, $0/1$ tilings,
         Latin squares, and lattice tilings.
-  \item \textbf{Linear algebra}: a multilinear form invariant under
-        \emph{row} permutations but not column permutations.
+  \item \textbf{Linear algebra}: a multilinear form in the rows that,
+        unlike the alternating determinant, is \emph{symmetric}: it is
+        invariant under all row and column permutations (and under
+        transposition).
   \item \textbf{Complexity}: the canonical \#P-complete problem,
         whose tractability boundary (planar / dense / non-negative)
         traces a frontier of computational complexity.
 \end{itemize}
-Modern research includes deep neural-network embeddings of permanent
-estimation (Sumi--Vempala, 2022) and the Barvinok polynomial
-interpolation method, which gives a quasipolynomial deterministic
-algorithm for permanents of \emph{strictly positive} matrices.
+Modern research includes the Barvinok polynomial interpolation method,
+which gives a deterministic algorithm, running in quasi-polynomial time
+$n^{O(\log n - \log \varepsilon)}$, that \emph{approximates} the
+permanent within a factor $e^{\pm \varepsilon}$ for real matrices whose
+entries all lie between a fixed $\delta > 0$ and $1$ (Barvinok, 2017).
 
 \subsubsection{Exercises}
 
@@ -2128,7 +2141,7 @@ algorithm for permanents of \emph{strictly positive} matrices.
 \begin{exercise}
 Compute $\mathrm{perm}(A)$ and $\det(A)$ for
 $A = \begin{pmatrix} 1 & 1 \\ 1 & 0 \end{pmatrix}$ and verify that
-$\mathrm{perm}(A) = 1$ counts the unique perfect matching of $P_3$
+$\mathrm{perm}(A) = 1$ counts the unique perfect matching of $P_4$
 (viewed as a bipartite graph $\{a_1, a_2\} \cup \{b_1, b_2\}$).
 \end{exercise}
 
@@ -2157,8 +2170,10 @@ the direct enumeration of perfect matchings.
 
 \begin{exercise}
 Show that computing $\mathrm{perm}(A) \mod 2$ for a $0/1$ matrix is
-in $\mathsf P$ (it equals $\det(A) \mod 2$), but computing
-$\mathrm{perm}(A) \mod 3$ is \#P-hard (Valiant). This sharp dichotomy
+in $\mathsf P$ (it equals $\det(A) \mod 2$), whereas Valiant (1979)
+showed that computing $\mathrm{perm}(A)$ modulo any fixed integer that
+is not a power of $2$ (for instance modulo $3$) is $\mathsf{UP}$-hard.
+This sharp dichotomy
 illustrates the depth of Theorem~\ref{thm:valiant}.
 \end{exercise}
 
