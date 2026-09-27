@@ -14730,7 +14730,7 @@ Scheduling problems form a rich and varied family of optimization problems with 
 
 The field of scheduling theory continues to evolve, with researchers developing new algorithms and studying the complexity of various scheduling problems. The interaction between scheduling theory and practice leads to both theoretical advances and improved practical solutions to real-world scheduling problems.
 
-\subsubsection{Axillary Algorithms for Scheduling Problems}
+\subsubsection{Auxiliary Algorithms for Scheduling Problems}
 
 \begin{definition}[Scheduling Problem $1||\sum U_j$]
 Consider the single-machine scheduling problem denoted as $1||\sum U_j$, where:
@@ -14837,9 +14837,13 @@ With this implementation, the time complexity is $O(n \log n)$, as each heap ope
 \end{remark}
 \end{lemma}
 
+\begin{definition}[Scheduling Problem $1|prec|\sum w_jT_j$]
+In this single-machine problem, each job $j$ has a processing time $p_j > 0$, a due date $d_j \geq 0$ and a weight $w_j \geq 0$; its completion time $C_j$ is determined by the schedule, and its tardiness is $T_j = \max(0, C_j - d_j)$.
+
 Precedence constraints are given as a directed acyclic graph where an edge $(i, j)$ means job $i$ must be completed before job $j$ can start.
 
 The goal is to find a schedule that minimizes $\sum_{j=1}^{n} w_jT_j$, i.e., the weighted sum of tardiness across all jobs while respecting precedence constraints.
+\end{definition}
 
 \begin{lemma}[Lawler's Dynamic Programming Algorithm]
 Lawler's algorithm provides an optimal solution to the $1|prec|\sum w_jT_j$ problem using dynamic programming based on subsets of jobs.
@@ -14910,7 +14914,7 @@ With these optimizations, many practical instances with up to 20-30 jobs can be 
 \end{lemma}
 
 \begin{remark}[Special Cases]
-For the special case where all weights are equal ($w_j = 1$ for all $j$), or when there are no precedence constraints, more efficient algorithms exist. However, Lawler's approach remains one of the most effective exact methods for the general $1|prec|\sum w_jT_j$ problem.
+Neither restriction alone makes the problem easy. Without precedence constraints, $1||\sum w_jT_j$ is still strongly NP-hard (Lenstra, Rinnooy Kan and Brucker 1977). With equal weights, $1|prec|\sum T_j$ is still NP-hard, since it contains $1|prec|\sum C_j$ (take all $d_j = 0$), which Lenstra and Rinnooy Kan (1978) proved NP-hard. Only when both restrictions hold, i.e.\ for $1||\sum T_j$, is a pseudo-polynomial algorithm available (Lawler 1977); even this problem is NP-hard in the ordinary sense (Du and Leung 1990). Subset dynamic programming of the above type therefore remains a standard exact method for the general $1|prec|\sum w_jT_j$ problem.
 \end{remark}
 
 
@@ -15145,7 +15149,7 @@ Let $x_{jt} \in \{0, 1\}$ indicate whether job $j$ starts at time $t$.
 \begin{align}
 \min \quad & \sum_{j=1}^{n} \sum_{t=0}^{T-p_j} w_j(t + p_j)x_{jt} \\
 \text{s.t.} \quad & \sum_{t=0}^{T-p_j} x_{jt} = 1 \quad \forall j \in \{1, 2, \ldots, n\} \\
-& \sum_{j=1}^{n} \sum_{s=\max(0, t-p_j+1)}^{t} x_{js} \leq 1 \quad \forall t \in \{0, 1, \ldots, T-1\} \\
+& \sum_{j=1}^{n} \sum_{s=\max(0, t-p_j+1)}^{\min(t,\, T-p_j)} x_{js} \leq 1 \quad \forall t \in \{0, 1, \ldots, T-1\} \\
 & x_{jt} \in \{0, 1\} \quad \forall j \in \{1, 2, \ldots, n\}, t \in \{0, 1, \ldots, T-p_j\}
 \end{align}
 
@@ -15173,7 +15177,7 @@ Cover inequalities and strengthened precedence constraints are valid inequalitie
 \end{theorem}
 
 \begin{remark}[Practical Performance of MIP]
-Commercial MIP solvers like Gurobi, CPLEX, and SCIP can handle scheduling problems with up to a few hundred jobs, particularly when:
+MIP solvers like Gurobi and CPLEX (commercial) and SCIP (open source) can handle scheduling problems with up to a few hundred jobs, particularly when:
 \begin{itemize}
     \item The formulation is tight (small integrality gap)
     \item Problem-specific cuts are implemented
@@ -15222,7 +15226,7 @@ The Column Generation approach for scheduling problems follows this general patt
 \end{algorithm}
 
 \begin{remark}
-The pricing subproblem often takes the form of a resource-constrained shortest path problem or a knapsack problem, which can be solved efficiently using dynamic programming.
+The pricing subproblem often takes the form of a resource-constrained shortest path problem or a knapsack problem. These problems are NP-hard in general, but they can often be solved effectively in practice using dynamic programming (for the knapsack problem, in pseudo-polynomial time).
 \end{remark}
 \end{lemma}
 
@@ -15908,7 +15912,7 @@ Scheduling algorithms form a hierarchy based on solution quality vs. speed:
 \end{itemize}
 
 \begin{proof}
-This hierarchy follows from complexity theory and empirical evidence. Exact methods guarantee optimality but require exponential time. Approximation schemes provide worst-case bounds at the cost of higher runtime. Heuristics sacrifice guarantees for speed.
+This hierarchy follows from complexity theory and empirical evidence. Exact methods guarantee optimality but, on NP-hard problems, cannot run in polynomial time unless P = NP. Approximation schemes provide worst-case bounds at the cost of higher runtime. Heuristics sacrifice guarantees for speed.
 \end{proof}
 \end{theorem}
 
@@ -16018,7 +16022,7 @@ To illustrate the selection process, consider these common scheduling scenarios:
     \item \textbf{Production scheduling (50 jobs, 5 identical machines):}
     \begin{itemize}
         \item Makespan objective: LPT is quick and effective, or PTAS for near-optimality
-        \item Tardiness objective: MIP for optimality, or shifting bottleneck for larger instances
+        \item Tardiness objective: MIP for optimality, or local search and metaheuristics for larger instances
     \end{itemize}
     
     \item \textbf{Employee shift scheduling with complex constraints:}
