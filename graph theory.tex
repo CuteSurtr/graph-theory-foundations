@@ -8060,8 +8060,6 @@ Let $G$ be a connected graph. A vertex $v \in V(G)$ is called a \textit{cut vert
     \node[redvertex] (v7) at (6,0) {$v_7$};
     
     % Edges without v3
-    \draw (v1) -- (v2); % NOTE: This edge doesn't appear in your image,
-                        % but should be there if v1 and v2 form a connected component
     \draw (v4) -- (v6);
     \draw (v5) -- (v6);
     \draw (v6) -- (v7);
@@ -8069,7 +8067,7 @@ Let $G$ be a connected graph. A vertex $v \in V(G)$ is called a \textit{cut vert
     \node at (2,-2.5) {$G - \{v_3\}$ is disconnected};
 \end{tikzpicture}
 \\
-\small Figure 78:When vertex $v_3$ is removed, the graph becomes disconnected into separate components.
+\small Figure 78: When vertex $v_3$ is removed, the graph becomes disconnected, with three components $\{v_1\}$, $\{v_2\}$, and $\{v_4, v_5, v_6, v_7\}$.
 \label{fig:graph_G_minus_v3}
 \end{figure}
 
@@ -8728,15 +8726,15 @@ Let $G$ be a graph and $u,v$ be two vertices in $G$. Then the minimum number of 
     \node[vertex, fill=green!60] (u) at (a0) {$u$};
     \node[vertex, fill=green!60] (v) at (b2) {$v$};
     
-    % Highlight three disjoint paths
-    \draw[highlight, blue] (a0) -- (a4) -- (a3) -- (b3) -- (b0) -- (b2);
-    \draw[highlight, red] (a0) -- (b0) -- (b3) -- (b1) -- (b4) -- (b2);
+    % Highlight three internally disjoint paths
+    \draw[highlight, blue] (a0) -- (a4) -- (b4) -- (b2);
+    \draw[highlight, red] (a0) -- (b0) -- (b2);
     \draw[highlight, orange] (a0) -- (a1) -- (a2) -- (b2);
     
-    % Separator vertices
+    % Separator vertices: the three neighbors of u
     \node[separator] at (b0) {$b_0$};
     \node[separator] at (a1) {$a_1$};
-    \node[separator] at (b3) {$b_3$};
+    \node[separator] at (a4) {$a_4$};
     
     % Legend
     \node[right] at (3,-1) {\begin{tabular}{ll}
@@ -8751,7 +8749,7 @@ Let $G$ be a graph and $u,v$ be two vertices in $G$. Then the minimum number of 
     
 \end{tikzpicture}
 \\
-\small figure 87: {Application of Menger's Theorem to the Petersen graph. Three internally vertex-disjoint paths are highlighted between vertices $u$ and $v$. The minimum vertex separator (red vertices) has size 3, confirming that $\kappa(u,v) = \pi(u,v) = a$.}
+\small figure 87: {Application of Menger's Theorem to the Petersen graph. Three internally vertex-disjoint paths are highlighted between vertices $u$ and $v$. The minimum vertex separator $\{a_1, a_4, b_0\}$ (red vertices; these are the three neighbors of $u$) has size 3, confirming that $\kappa(u,v) = \pi(u,v) = 3$.}
 \label{fig:menger-petersen}
 \end{figure}
 
@@ -9028,7 +9026,7 @@ Consider a path graph $P_n$ with $n \geq 3$ vertices.
 \begin{example}[Cycle Graph]
 Consider a cycle graph $C_n$ with $n \geq 3$ vertices.
 \begin{itemize}
-  \item Vertex connectivity: $\kappa(C_n) = 2$, since we need to remove at least 2 vertices to disconnect the graph.
+  \item Vertex connectivity: $\kappa(C_n) = 2$, since removing one vertex leaves a path, while for $n \geq 4$ removing two non-adjacent vertices disconnects the graph (for $n = 3$, $C_3 = K_3$ and $\kappa(K_3) = 2$ by the convention $\kappa(K_n) = n-1$).
   \item Edge connectivity: $\lambda(C_n) = 2$, since we need to remove at least 2 edges to disconnect the graph.
 \end{itemize}
 \begin{center}
@@ -9038,8 +9036,8 @@ Consider a cycle graph $C_n$ with $n \geq 3$ vertices.
   \node[draw, circle, fill=blue!20] (2) at (60:1) {$v_2$};
   \node[draw, circle, fill=blue!20] (3) at (120:1) {$v_3$};
   \node[draw, circle, fill=blue!20] (4) at (180:1) {$v_4$};
-  \node[draw, circle, fill=blue!20] (5) at (240:1) {$v_5$};
-  \node[draw, circle, fill=red!40] (6) at (300:1) {$v_6$};
+  \node[draw, circle, fill=red!40] (5) at (240:1) {$v_5$};
+  \node[draw, circle, fill=blue!20] (6) at (300:1) {$v_6$};
   
   % Connect vertices in cycle
   \draw (1) -- (2) -- (3) -- (4) -- (5);
@@ -9047,7 +9045,7 @@ Consider a cycle graph $C_n$ with $n \geq 3$ vertices.
   \draw[red, ultra thick] (6) -- (1);
 \end{tikzpicture}
 
-\small Figure 92: Removing vertices $v_1$ and $v_6$ (in red) or edges $(v_5,v_6)$ and $(v_6,v_1)$ (red) disconnects the cycle graph, showing $\kappa(C_6) = \lambda(C_6) = 2$.
+\small Figure 92: Removing the non-adjacent vertices $v_1$ and $v_5$ (in red), which isolates $v_6$, or the edges $(v_5,v_6)$ and $(v_6,v_1)$ (red) disconnects the cycle graph, showing $\kappa(C_6) = \lambda(C_6) = 2$.
 \end{center}
 \end{example}
 
@@ -9055,7 +9053,7 @@ Consider a cycle graph $C_n$ with $n \geq 3$ vertices.
 \begin{example}[Wheel Graph]
 Consider a wheel graph $W_n$ with $n + 1$ vertices (a cycle with $n$ vertices plus a central vertex connected to all cycle vertices).
 \begin{itemize}
-  \item Vertex connectivity: $\kappa(W_n) = 3$ for $n \geq 4$, since removing the central vertex and any two adjacent cycle vertices disconnects the graph.
+  \item Vertex connectivity: $\kappa(W_n) = 3$ for $n \geq 4$, since removing the central vertex and two non-adjacent cycle vertices disconnects the graph, while removing any two vertices leaves a connected graph.
   \item Edge connectivity: $\lambda(W_n) = 3$ for $n \geq 4$, which equals the minimum degree of the graph.
 \end{itemize}
 \begin{center}
@@ -9064,41 +9062,41 @@ Consider a wheel graph $W_n$ with $n + 1$ vertices (a cycle with $n$ vertices pl
   \node[draw, circle, fill=red!40] (c) at (0,0) {$c$};
   \node[draw, circle, fill=blue!20] (1) at (18:1.2) {$v_1$};
   \node[draw, circle, fill=red!40] (2) at (90:1.2) {$v_2$};
-  \node[draw, circle, fill=red!40] (3) at (162:1.2) {$v_3$};
-  \node[draw, circle, fill=blue!20] (4) at (234:1.2) {$v_4$};
+  \node[draw, circle, fill=blue!20] (3) at (162:1.2) {$v_3$};
+  \node[draw, circle, fill=red!40] (4) at (234:1.2) {$v_4$};
   \node[draw, circle, fill=blue!20] (5) at (306:1.2) {$v_5$};
   
   % Connect vertices to form wheel
   \draw (1) -- (2);
   \draw[red, ultra thick] (2) -- (3);
-  \draw (3) -- (4);
+  \draw[red, ultra thick] (3) -- (4);
   \draw (4) -- (5);
   \draw (5) -- (1);
   
   \draw (c) -- (1);
   \draw (c) -- (2);
   \draw[red, ultra thick] (c) -- (3);
-  \draw[red, ultra thick] (c) -- (4);
+  \draw (c) -- (4);
   \draw (c) -- (5);
 \end{tikzpicture}
 
-\small Figure 93: Removing center $c$ and adjacent vertices $v_2$ and $v_3$ (in red) disconnects the wheel graph. Removing the three red edges also disconnects the graph, showing $\kappa(W_5) = \lambda(W_5) = 3$.
+\small Figure 93: Removing the center $c$ and the non-adjacent vertices $v_2$ and $v_4$ (in red) isolates $v_3$ and so disconnects the wheel graph. Removing the three red edges (the three edges at $v_3$) also disconnects the graph, showing $\kappa(W_5) = \lambda(W_5) = 3$.
 \end{center}
 \end{example}
 
 \begin{example}[Petersen Graph]
 The Petersen graph is a 3-regular graph with 10 vertices.
 \begin{itemize}
-  \item Vertex connectivity: $\kappa = 3$, since removing any 3 vertices can disconnect the graph, but no fewer will do so.
+  \item Vertex connectivity: $\kappa = 3$, since removing the 3 neighbors of any vertex disconnects the graph, but no fewer vertices will do so.
   \item Edge connectivity: $\lambda = 3$, matching the minimum degree.
 \end{itemize}
 \begin{center}
 \begin{tikzpicture}[scale=1.2]
   % Draw the Petersen graph
   % Outer pentagon
-  \node[draw, circle, fill=red!40] (o1) at (90-72*1:1.5) {$o_1$};
-  \node[draw, circle, fill=blue!20] (o2) at (90-72*2:1.5) {$o_2$};
-  \node[draw, circle, fill=red!40] (o3) at (90-72*3:1.5) {$o_3$};
+  \node[draw, circle, fill=blue!20] (o1) at (90-72*1:1.5) {$o_1$};
+  \node[draw, circle, fill=red!40] (o2) at (90-72*2:1.5) {$o_2$};
+  \node[draw, circle, fill=blue!20] (o3) at (90-72*3:1.5) {$o_3$};
   \node[draw, circle, fill=blue!20] (o4) at (90-72*4:1.5) {$o_4$};
   \node[draw, circle, fill=red!40] (o5) at (90-72*5:1.5) {$o_5$};
   
@@ -9106,45 +9104,50 @@ The Petersen graph is a 3-regular graph with 10 vertices.
   \foreach \i in {1,...,5} {
     \node[draw, circle, fill=blue!20] (i\i) at (90-72*\i:0.7) {$i_\i$};
   }
+  % Highlight i1, the third neighbor of o1
+  \node[draw, circle, fill=red!40] at (i1) {$i_1$};
   
   % Connect outer pentagon
   \foreach \i in {1,...,5} {
     \pgfmathtruncatemacro{\j}{mod(\i,5)+1}
     \draw (o\i) -- (o\j);
   }
+  % Highlight the two outer edges at o1
+  \draw[red, ultra thick] (o1) -- (o2);
+  \draw[red, ultra thick] (o5) -- (o1);
   
   % Connect inner vertices (star pattern)
   \draw (i1) -- (i3) -- (i5) -- (i2) -- (i4) -- (i1);
   
-  % Connect corresponding inner and outer vertices with some as edge cuts
-  \draw (o1) -- (i1);
-  \draw[red, ultra thick] (o2) -- (i2);
+  % Connect corresponding inner and outer vertices; the three edges at o1 form an edge cut
+  \draw[red, ultra thick] (o1) -- (i1);
+  \draw (o2) -- (i2);
   \draw (o3) -- (i3);
-  \draw[red, ultra thick] (o4) -- (i4);
-  \draw[red, ultra thick] (o5) -- (i5);
+  \draw (o4) -- (i4);
+  \draw (o5) -- (i5);
 \end{tikzpicture}
 
-\small Figure 94: Removing vertices $o_1$, $o_3$, and $o_5$ (in red) disconnects the Petersen graph. Removing the three red edges also disconnects the graph, showing $\kappa = \lambda = 3$.
+\small Figure 94: Removing the vertices $o_2$, $o_5$, and $i_1$ (in red), which are the three neighbors of $o_1$, isolates $o_1$ and so disconnects the Petersen graph. Removing the three red edges (the three edges at $o_1$) also disconnects the graph, showing $\kappa = \lambda = 3$.
 \end{center}
 \end{example}
 
 \begin{example}[Grid Graph $P_2 \times P_n$]
 Consider a $2 \times n$ grid graph (ladder graph) with $n \geq 2$.
 \begin{itemize}
-  \item Vertex connectivity: $\kappa = 2$, since removing any 2 vertices from different "rungs" can disconnect the graph.
-  \item Edge connectivity: $\lambda = 2$, since removing any 2 edges from different "rungs" can disconnect the graph.
+  \item Vertex connectivity: $\kappa = 2$, since removing the two ends of an interior rung (when $n \geq 3$), or the two neighbors of a corner vertex, disconnects the graph, while removing a single vertex never does.
+  \item Edge connectivity: $\lambda = 2$, since removing the two edges at a corner vertex, or the two rail edges between the same pair of consecutive rungs, disconnects the graph, while removing a single edge never does.
 \end{itemize}
 \begin{center}
 \begin{tikzpicture}[scale=1.2]
   % Draw a 2x5 ladder graph with vertex cut
   \foreach \i in {1,...,5} {
-    \ifnum\i=2
+    \ifnum\i=3
       \node[draw, circle, fill=red!40] (t\i) at (\i,0.7) {$t_\i$};
     \else
       \node[draw, circle, fill=blue!20] (t\i) at (\i,0.7) {$t_\i$};
     \fi
     
-    \ifnum\i=4
+    \ifnum\i=3
       \node[draw, circle, fill=red!40] (b\i) at (\i,0) {$b_\i$};
     \else
       \node[draw, circle, fill=blue!20] (b\i) at (\i,0) {$b_\i$};
@@ -9157,29 +9160,32 @@ Consider a $2 \times n$ grid graph (ladder graph) with $n \geq 2$.
     \draw (t\i) -- (t\j);
     \draw (b\i) -- (b\j);
   }
+  % Highlight the two rail edges between the fourth and fifth rungs (an edge cut)
+  \draw[red, ultra thick] (t4) -- (t5);
+  \draw[red, ultra thick] (b4) -- (b5);
   
-  % Connect vertices vertically with some as edge cuts
+  % Connect vertices vertically
   \draw (t1) -- (b1);
-  \draw[red, ultra thick] (t2) -- (b2);
+  \draw (t2) -- (b2);
   \draw (t3) -- (b3);
-  \draw[red, ultra thick] (t4) -- (b4);
+  \draw (t4) -- (b4);
   \draw (t5) -- (b5);
 \end{tikzpicture}
 
-\small Figure 95: Removing vertices $t_2$ and $b_4$ (in red) disconnects the grid graph. Removing edges $(t_2,b_2)$ and $(t_4,b_4)$ (red) also disconnects the graph, showing $\kappa = \lambda = 2$.
+\small Figure 95: Removing the vertices $t_3$ and $b_3$ of the middle rung (in red) disconnects the grid graph. Removing the edges $(t_4,t_5)$ and $(b_4,b_5)$ (red) also disconnects the graph, showing $\kappa = \lambda = 2$.
 \end{center}
 \end{example}
 
 \begin{example}[Graph with $\kappa < \lambda$]
-Consider the graph formed by two copies of $K_4$ joined by two independent edges.
+Consider the graph formed by two copies of $K_4$, on the vertex sets $\{a,b,c,d\}$ and $\{w,x,y,z\}$, joined by the three edges $aw$, $dw$, and $bx$.
 \begin{itemize}
-  \item Vertex connectivity: $\kappa = 2$, since removing the two endpoints of the connecting edges in one copy disconnects the graph.
-  \item Edge connectivity: $\lambda = 3$, since we must remove both connecting edges plus at least one more edge to disconnect the graph.
+  \item Vertex connectivity: $\kappa = 2$, since removing $b$ and $w$, which together meet all three connecting edges, disconnects the graph, while removing a single vertex always leaves a connecting edge.
+  \item Edge connectivity: $\lambda = 3$, since the three connecting edges form an edge cut, while any edge cut either separates two vertices of the same copy of $K_4$, and then contains at least $3$ edges of that copy, or separates the two copies, and then contains all three connecting edges.
 \end{itemize}
 
 \begin{center}
 \begin{tikzpicture}[scale=1.2]
-  % Draw K4 graphs joined by two edges
+  % Draw K4 graphs joined by three edges
   % Left K4
   \node[draw, circle, fill=blue!20] (l1) at (-2,1) {$a$};
   \node[draw, circle, fill=red!40] (l2) at (-2,-1) {$b$};
@@ -9195,7 +9201,7 @@ Consider the graph formed by two copies of $K_4$ joined by two independent edges
   % Connect left K4
   \draw (l1) -- (l2) -- (l3) -- (l4) -- (l1);
   \draw (l1) -- (l3);
-  \draw[red, ultra thick] (l2) -- (l4);
+  \draw (l2) -- (l4);
   
   % Connect right K4
   \draw (r1) -- (r2) -- (r3) -- (r4) -- (r1);
@@ -9204,10 +9210,11 @@ Consider the graph formed by two copies of $K_4$ joined by two independent edges
   
   % Connect the two K4 graphs
   \draw[red, ultra thick] (l1) -- (r1);
+  \draw[red, ultra thick] (l4) -- (r1);
   \draw[red, ultra thick] (l2) -- (r2);
 \end{tikzpicture}
 
-\small Figure 96 : Removing vertices $b$ and $w$ (in red) disconnects the graph, showing $\kappa = 2$. Removing the three red edges disconnects the graph, showing $\lambda = 3$.
+\small Figure 96 : Removing vertices $b$ and $w$ (in red) disconnects the graph, showing $\kappa = 2$. Removing the three red edges $aw$, $dw$, and $bx$ disconnects the graph, showing $\lambda = 3$.
 \end{center}
 \end{example}
 
@@ -9260,7 +9267,7 @@ For $u,v \in V(G)$, the minimum size $\lambda(u,v)$ of a $uv$-edge-separator equ
 \end{tikzpicture}
 \\
 
-\small Figure 97 : {Illustration of Menger's Theorem (Edge Form): The graph contains 4 edge-disjoint paths between $u$ and $v$ (shown in different colors). The minimum edge-separator (violet dashed line) cuts exactly 4 edges, demonstrating that $\lambda(u,v) = 4$.}
+\small Figure 97 : {Illustration of Menger's Theorem (Edge Form): The graph contains 4 edge-disjoint paths between $u$ and $v$ (shown in different colors); the two curved paths are two parallel edges joining $u$ and $v$, so this example is a multigraph (the edge form of Menger's Theorem also holds for multigraphs: subdividing every edge once reduces it to the simple case). The minimum edge-separator (violet dashed line) cuts exactly 4 edges, demonstrating that $\lambda(u,v) = 4$.}
 \label{fig:mengers-edge}
 \end{figure}
 
@@ -9340,54 +9347,41 @@ For the cycle graph $G_1$ shown:
 $\lambda(G_1) = 2$
 $\kappa(G_1) = 2$
 
-For the complete bipartite graph $G_2 = K_{5,7}$ (simplified version of $K_{12,12}$ for clarity):
+For the graph $G_2$ obtained from two disjoint copies of $K_{12}$ by adding $7$ edges between them, where the added edges have only $5$ distinct ends $a_1, \ldots, a_5$ in the first copy and $7$ distinct ends $b_1, \ldots, b_7$ in the second copy (the added edges are $a_ib_i$ for $1 \leq i \leq 5$, together with $a_5b_6$ and $a_5b_7$):
 
 \begin{figure}[h]
 \centering
-\begin{tikzpicture}[scale=1.2, transform shape]
-    % Draw left part (5 vertices)
+\begin{tikzpicture}[scale=1.0]
+    % The two copies of K_12, drawn schematically as ellipses
+    \draw (-2.5,0) ellipse (1.5cm and 2.6cm);
+    \draw (2.5,0) ellipse (1.5cm and 2.6cm);
+    \node at (-2.5,-3) {$K_{12}$};
+    \node at (2.5,-3) {$K_{12}$};
+
+    % The five ends a_1, ..., a_5 in the first copy
     \foreach \i in {1,...,5} {
-        \node[circle, draw, minimum size=0.6cm] (l\i) at (-2, {2.5 - \i}) {};
+        \node[circle, draw, inner sep=1.5pt] (a\i) at (-1.7, {2.4 - 0.8*\i}) {};
+        \node[left] at (a\i.west) {$a_{\i}$};
     }
-    
-    % Draw right part (7 vertices)
-    \foreach \i in {1,...,7} {
-        \node[circle, draw, minimum size=0.6cm] (r\i) at (2, {3 - \i}) {};
+
+    % The seven ends b_1, ..., b_7 in the second copy
+    \foreach \j in {1,...,7} {
+        \node[circle, draw, inner sep=1.5pt] (b\j) at (1.7, {2.4 - 0.6*\j}) {};
+        \node[right] at (b\j.east) {$b_{\j}$};
     }
-    
-    % Label the sides
-    \node[blue] at (-2, 2.3) {$d(v) = 7$};
-    \node[blue] at (2, 2.5) {$d(v) = 5$};
-    
-    % Connect all vertices between left and right parts (showing just some)
+
+    % The seven added edges
     \foreach \i in {1,...,5} {
-        \foreach \j in {1,...,7} {
-            \draw (l\i) -- (r\j);
-        }
+        \draw (a\i) -- (b\i);
     }
-    
-    % Highlight minimum vertex cut (5 vertices)
-    \foreach \i in {1,...,5} {
-        \node[circle, draw, pink, thick, minimum size=0.8cm] at (l\i) {};
-    }
-    
-    % Highlight some of the edge cut (7 edges)
-    \draw[orange, ultra thick, opacity=0.4] (l1) -- (r1);
-    \draw[orange, ultra thick, opacity=0.4] (l2) -- (r2);
-    \draw[orange, ultra thick, opacity=0.4] (l3) -- (r3);
-    \draw[orange, ultra thick, opacity=0.4] (l4) -- (r4);
-    \draw[orange, ultra thick, opacity=0.4] (l5) -- (r5);
-    \draw[orange, ultra thick, opacity=0.4] (l1) -- (r6);
-    \draw[orange, ultra thick, opacity=0.4] (l2) -- (r7);
-    
-    % Label the graph
-    
+    \draw (a5) -- (b6);
+    \draw (a5) -- (b7);
 \end{tikzpicture}
 \\
-\small Figure 99 : {A complete bipartite graph (simplified from $K_{12,12}$ to $K_{5,7}$ for clarity). The minimum vertex cut (vertices on left side, highlighted in pink) has size 5. The minimum edge cut (some edges highlighted in orange) has size 7. The minimum degree $\delta(G_2) = 5$.}
+\small Figure 99 : {The graph $G_2$: two copies of $K_{12}$ (drawn schematically) joined by $7$ edges whose ends are the $5$ vertices $a_1, \ldots, a_5$ of the first copy and the $7$ vertices $b_1, \ldots, b_7$ of the second copy. The set $\{a_1, \ldots, a_5\}$ is a minimum vertex cut (size 5), the $7$ added edges form a minimum edge cut (size 7), and every vertex that is not an end of an added edge has degree $11$.}
 \end{figure}
 
-For the actual $K_{12,12}$ graph described:
+For this graph $G_2$:
 $\lambda(G_2) = 7$
 $\kappa(G_2) = 5$
 $\delta(G_2) = 11$
