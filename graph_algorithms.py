@@ -1028,7 +1028,9 @@ class DeBruijnAlgorithms:
             else:
                 break
                 
-        return sequence
+        # The walk ends with the same n-1 zeros it started with; drop them to
+        # return the cyclic De Bruijn sequence of length 2^n.
+        return sequence[:1 << n]
     
     @staticmethod
     def prefer_opposite_algorithm(n: int) -> str:
@@ -1051,8 +1053,15 @@ class DeBruijnAlgorithms:
             last_bit = sequence[-1]
             opposite = '0' if last_bit == '1' else '1'
             
+            # Special case (Alhakim 2010): when the last n-1 bits are all 1,
+            # append 1 the first time (this creates 1^n) and 0 the second
+            # time.  The plain greedy rule never produces 1^n.
+            if n > 1 and sequence[-n+1:] == '1' * (n - 1):
+                bit = '1' if '1' * n not in seen else '0'
+                sequence += bit
+                seen.add(sequence[-n:])
             # Try opposite first
-            if sequence[-n+1:] + opposite not in seen:
+            elif sequence[-n+1:] + opposite not in seen:
                 sequence += opposite
                 seen.add(sequence[-n:])
             elif sequence[-n+1:] + last_bit not in seen:
@@ -1061,7 +1070,9 @@ class DeBruijnAlgorithms:
             else:
                 break
                 
-        return sequence
+        # The walk ends with the same n-1 zeros it started with; drop them to
+        # return the cyclic De Bruijn sequence of length 2^n.
+        return sequence[:1 << n]
     
     @staticmethod
     def fkm_algorithm(n: int) -> str:
@@ -1077,44 +1088,27 @@ class DeBruijnAlgorithms:
         Returns:
             De Bruijn sequence as string
         """
-        def lyndon_words(n):
-            """Generate Lyndon words of length ≤ n over binary alphabet."""
-            words = []
+        # Generate the prenecklaces a[1..n] in lexicographic order (recursive
+        # FKM / Ruskey-Savage-Wang scheme); p is the length of the longest
+        # Lyndon prefix.  When p divides n, a[1..p] is a Lyndon word whose
+        # length divides n (the aperiodic prefix of the necklace a[1..n]), and
+        # FKM concatenates exactly these words in lexicographic order.
+        a = [0] * (n + 1)
+        sequence = []
             
-            def gen(w, k):
-                if len(w) > n:
-                    return
-                if len(w) == n:
-                    if len(w) % k == 0:
-                        words.append(w)
-                    return
+        def gen(t, p):
+            if t > n:
+                if n % p == 0:
+                    sequence.extend(a[1:p + 1])
+                return
+            a[t] = a[t - p]
+            gen(t + 1, p)
+            for bit in range(a[t - p] + 1, 2):
+                a[t] = bit
+                gen(t + 1, t)
                     
-                gen(w + '0', len(w) + 1)
-                gen(w + '1', len(w) + 1)
-                
-            gen('', 1)
-            return words
-        
-        # Generate necklaces (representatives of equivalence classes)
-        necklaces = []
-        for length in range(1, n + 1):
-            for word in lyndon_words(length):
-                if len(word) == length and all(
-                    word[i:] + word[:i] >= word for i in range(1, len(word))
-                ):
-                    necklaces.append(word)
-        
-        # Sort lexicographically
-        necklaces.sort()
-        
-        # Extract last bits of aperiodic prefixes
-        sequence = ''
-        for necklace in necklaces:
-            if len(set(necklace[i:] + necklace[:i] for i in range(len(necklace)))) == len(necklace):
-                # Aperiodic: last bit is the contribution
-                sequence += necklace[-1]
-                
-        return sequence
+        gen(1, 1)
+        return ''.join(map(str, sequence))
     
     @staticmethod
     def create_debruijn_graph(n: int) -> Graph:
@@ -1132,15 +1126,16 @@ class DeBruijnAlgorithms:
         """
         graph = Graph(directed=True)
         
-        # Vertices are all binary strings of length n-1
+        # Vertices are all binary strings of length n-1 ('' when n = 1)
         for i in range(1 << (n - 1)):
-            vertex = format(i, f'0{n-1}b')
+            vertex = format(i, f'0{n-1}b') if n > 1 else ''
             graph.add_vertex(vertex)
             
-        # Edges: from vertex v to vertex w if v[1:] + b = w for some bit b
-        for vertex in graph.get_vertices():
+        # Edges: from vertex v to vertex w = (v + b)[1:] for each bit b;
+        # the edge stands for the n-bit string v + b
+        for vertex in list(graph.get_vertices()):
             for bit in ['0', '1']:
-                next_vertex = vertex[1:] + bit
+                next_vertex = (vertex + bit)[1:]
                 graph.add_edge(vertex, next_vertex, weight=1)
                 
         return graph
