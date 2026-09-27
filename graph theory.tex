@@ -10089,9 +10089,9 @@ Consider the cycle graph $C_5$ shown below:
     % Vertices of C5
     \node[circle, draw, fill=pink!40, minimum size=0.7cm] (v1) at (90:1.5) {$a$};
     \node[circle, draw, fill=blue!30, minimum size=0.7cm] (v2) at (162:1.5) {$b$};
-    \node[circle, draw, fill=blue!30, minimum size=0.7cm] (v3) at (234:1.5) {$c$};
+    \node[circle, draw, fill=pink!40, minimum size=0.7cm] (v3) at (234:1.5) {$c$};
     \node[circle, draw, fill=blue!30, minimum size=0.7cm] (v4) at (306:1.5) {$d$};
-    \node[circle, draw, fill=pink!40, minimum size=0.7cm] (v5) at (18:1.5) {$e$};
+    \node[circle, draw, fill=blue!30, minimum size=0.7cm] (v5) at (18:1.5) {$e$};
     
     % Edges of C5
     \draw (v1) -- (v2) -- (v3) -- (v4) -- (v5) -- (v1);
@@ -10129,10 +10129,8 @@ In the figure above:
     
     % Edge cover
     \draw[blue, thick, dashed] (v1) -- (v2);
-    \draw[blue, thick, dashed] (v2) -- (v3);
     \draw[blue, thick, dashed] (v3) -- (v4);
     \draw[blue, thick, dashed] (v4) -- (v5);
-    \draw[blue, thick, dashed] (v5) -- (v1);
 \end{tikzpicture}
 
 \small {Figure 109 : Graph $G = C_5$ with a maximum matching (solid red) and a minimum edge cover (dashed blue). \\
@@ -10320,10 +10318,8 @@ This completes the proof of the second part of Gallai's Theorem.
     
     % Other edges
     \draw[regular] (v2) -- (v3);
-    \draw[regular] (v1) -- (v5);
     \draw[regular] (v2) -- (v5);
     \draw[regular] (v3) -- (v6);
-    \draw[regular] (v4) -- (v6);
     
     % Labels and explanations
     \node[anchor=north] at (3,-1) {Maximum matching $M$ (thick blue edges)};
@@ -10460,7 +10456,7 @@ This condition is often called \emph{Hall's marriage condition} and can be intui
     
 \end{tikzpicture}
 
-\small Figure 112 : {Illustration of neighborhood $N(X)$ in a graph. The set $X = \{e, c\}$ (green vertices) has neighborhood $N(X) = \{a, b, d, f\}$ (blue vertices). Note that $|N(X)| = 4 > 2 = |X|$, satisfying Hall's condition for this subset.}
+\small Figure 112 : {Illustration of neighborhood $N(X)$ in a graph. The set $X = \{e, c\}$ (green vertices) has neighborhood $N(X) = \{a, b, d, f\}$ (blue vertices). Note that $|N(X)| = 4 > 2 = |X|$. This graph is not bipartite (for example, $a, b, e$ form a triangle), so it illustrates only the neighborhood of a set; Hall's condition and Hall's Theorem concern bipartite graphs.}
 \end{figure}
 
 \begin{example}
@@ -10612,7 +10608,7 @@ Therefore, $M$ is a perfect matching.
     \draw (a1) -- (b2);
     
     \draw (a2) -- (b1);
-    \draw (a2) -- (b3);
+    \draw (a2) -- (b4);
     
     \draw[blue, thick] (a3) -- (b2);
     \draw[blue, thick] (a3) -- (b3);
