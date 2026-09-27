@@ -13828,7 +13828,7 @@ where $\chi(G)$ is the chromatic number of $G$.
 \end{theorem}
 
 \begin{proof}
-Let $G$ be a graph with degeneracy $d$. By definition, there exists an ordering $v_1, v_2, \ldots, v_n$ of the vertices such that each vertex $v_i$ has at most $d$ neighbors among vertices $v_1, v_2, \ldots, v_{i-1}$.
+Let $G$ be a graph with degeneracy $d$. By the Equivalence of Degenerate Definitions theorem, there exists an ordering $v_1, v_2, \ldots, v_n$ of the vertices such that each vertex $v_i$ has at most $d$ neighbors among vertices $v_1, v_2, \ldots, v_{i-1}$.
 
 We can color $G$ using the greedy algorithm in this order. When we color vertex $v_i$, at most $d$ of its neighbors have already been colored. Therefore, at most $d$ colors are forbidden for $v_i$, and we can assign to $v_i$ a color from the set $\{1, 2, \ldots, d+1\}$ that is different from the colors of its already-colored neighbors.
 
@@ -13837,7 +13837,7 @@ This process produces a proper coloring of $G$ using at most $d+1$ colors. There
 
 \begin{example}[Degeneracy of Specific Graph Classes]
 \begin{itemize}
-    \item Trees and forests are 1-degenerate: Any subtree with at least two vertices has at least one leaf (vertex of degree 1).
+    \item Trees and forests are 1-degenerate: Every subgraph of a forest is a forest, and every forest with at least one vertex has an isolated vertex or a leaf (vertex of degree 1).
     
     \item Outerplanar graphs are 2-degenerate: Every outerplanar graph with $n \geq 3$ vertices has at least one vertex of degree at most 2.
     
@@ -14270,7 +14270,7 @@ Examples of sparse graphs include:
 For some special classes, other methods can use fewer colors than the bound $d+1$ of Algorithm~\ref{alg:sparse-graph-coloring}: a bipartite graph can be colored with 2 colors using a bipartition, which improves on the degeneracy bound when $d \geq 2$, and a planar graph can be colored with 4 colors by the Four Color Theorem, which improves on the degeneracy bound when $d \geq 4$.
 
 \begin{remark}[Application to Graph Mining]
-Computing all maximal cliques in a graph with degeneracy $d$ can be done in $O(3^{d/3} \cdot n \cdot d)$ time, making it tractable for graphs with small degeneracy even when the number of maximal cliques is exponential.
+Computing all maximal cliques in a graph with degeneracy $d$ can be done in $O(3^{d/3} \cdot n \cdot d)$ time, making it tractable for graphs with small degeneracy; this is nearly optimal, since an $n$-vertex graph with degeneracy $d$ can have $(n-d)3^{d/3}$ maximal cliques when $d$ is a multiple of 3 and $n \geq d+3$.
 \end{remark}
 
 \begin{lemma}[Acyclic Coloring and Degeneracy]
@@ -14292,25 +14292,25 @@ Brooks' Theorem states that if $G$ is a connected graph that is neither a comple
 \subsection{Algorithms for $d$-Degenerate Graphs}
 
 \begin{algorithm}
-\caption{Recognition of $d$-Degenerate Graphs}
+\caption{Recognition of $k$-Degenerate Graphs}
 \label{alg:k-degen-recognition}
 \begin{algorithmic}[1]
     \Procedure{Is$k$Degenerate}{$G = (V, E)$, $k$}
         \State Create a copy $G' \gets G$
         \While{$V(G') \neq \emptyset$}
             \State Find vertex $v \in V(G')$ with minimum degree
-            \If{$\deg_{G'}(v) > d$}
-                \State \Return \textbf{false} \Comment{Found a subgraph with minimum degree $> d$}
+            \If{$\deg_{G'}(v) > k$}
+                \State \Return \textbf{false} \Comment{Found a subgraph with minimum degree $> k$}
             \EndIf
             \State Remove $v$ from $G'$
         \EndWhile
-        \State \Return \textbf{true} \Comment{Every subgraph had a vertex with degree $\leq d$}
+        \State \Return \textbf{true} \Comment{Every subgraph had a vertex with degree $\leq k$}
     \EndProcedure
 \end{algorithmic}
 \end{algorithm}
 
-\begin{theorem}[Linear-time Recognition of $d$-degenerate Graphs]
-For a fixed value of $k$, determining whether a graph $G$ is $d$-degenerate can be done in linear time $O(|V| + |E|)$.
+\begin{theorem}[Linear-time Recognition of $k$-degenerate Graphs]
+For a fixed value of $k$, determining whether a graph $G$ is $k$-degenerate can be done in linear time $O(|V| + |E|)$.
 \end{theorem}
 
 \begin{lemma}[Clique Enumeration in $d$-Degenerate Graphs]
@@ -14395,12 +14395,12 @@ Since we perform this search for each of the $n$ vertices, and each recursive ca
 \end{proof}
 
 \subsection{Introduction to Scheduling Problems}
-\textbf{This bonus section explores an advanced application of degeneracy graphs, introducing scheduling problems and their relationship to the core concepts we've covered. While not essential for understanding the fundamental principles, this material provides valuable insights into how these concepts extend to practical optimization challenges. If you are taking Math 154, skip to page 200.}
+\textbf{This bonus section explores an advanced application of degenerate graphs, introducing scheduling problems and their relationship to the core concepts we've covered. While not essential for understanding the fundamental principles, this material provides valuable insights into how these concepts extend to practical optimization challenges. If you are taking Math 154, skip to page 200.}
 
 
 Scheduling problems and graph theory share a deep and mutually beneficial relationship. Many scheduling problems can be naturally formulated as graph problems, allowing graph-theoretic techniques to be applied to their analysis and solution. Conversely, certain graph problems arise naturally from scheduling contexts, leading to algorithms with practical applications.
 
-This document explores these connections, with a particular focus on how the concept of graph degeneracy relates to scheduling problems. We will see that $d$-degenerate graphs provide an important structural characterization that can be exploited in various scheduling contexts.
+This section explores these connections, with a particular focus on how the concept of graph degeneracy relates to scheduling problems. We will see that $d$-degenerate graphs provide an important structural characterization that can be exploited in various scheduling contexts.
 
 \begin{definition}[Precedence Graph]
 Given a scheduling problem with precedence constraints, the corresponding precedence graph $G = (V, E)$ has:
@@ -14527,9 +14527,9 @@ The concept of degeneracy has several important applications in scheduling probl
 \subsubsection*{Resource-Constrained Scheduling}
 
 \begin{theorem}
-For a scheduling problem where jobs correspond to vertices in a conflict graph $G$, if $G$ is $d$-degenerate, then the jobs can be scheduled using at most $k+1$ resources or time slots.
+For a scheduling problem where jobs correspond to vertices in a conflict graph $G$, if $G$ is $d$-degenerate, then the jobs can be scheduled using at most $d+1$ resources or time slots.
 \end{theorem}
-This follows directly from the fact that $d$-degenerate graphs are $(k+1)$-colorable, and a proper coloring corresponds to a valid schedule where jobs of the same color can be processed simultaneously.
+This follows directly from the fact that $d$-degenerate graphs are $(d+1)$-colorable, and a proper coloring corresponds to a valid schedule where jobs of the same color can be processed simultaneously.
 
 \begin{algorithm}
 \caption{Scheduling using Degeneracy Ordering}
@@ -14576,7 +14576,7 @@ However, degeneracy does not bound the number of jobs on which a single job depe
 One particularly important application of degeneracy in scheduling is in wireless networks.
 
 \begin{theorem}
-In a wireless network where nodes correspond to transmitters and edges represent interference between transmitters, if the interference graph is $d$-degenerate, then the transmitters can be scheduled in at most $k+1$ time slots without interference.
+In a wireless network where nodes correspond to transmitters and edges represent interference between transmitters, if the interference graph is $d$-degenerate, then the transmitters can be scheduled in at most $d+1$ time slots without interference.
 \end{theorem}
 
 \begin{example}
@@ -14658,20 +14658,6 @@ For a two-machine flow shop, the optimal schedule can be found using Johnson's a
     \item If $p_{j1} > p_{j2}$, put job $J_j$ in the latest position of the sequence that is still free.
 \end{enumerate}
 Both machines then process the jobs in the resulting sequence. Equivalently, the jobs with $p_{j1} \leq p_{j2}$ come first, in nondecreasing order of $p_{j1}$, followed by the remaining jobs in nonincreasing order of $p_{j2}$.
-\end{theorem}
-
-\begin{definition}[Disjunctive Graph]
-For job shop scheduling problems, the disjunctive graph model represents:
-\begin{itemize}
-    \item Vertices as operations
-    \item Conjunctive (directed) edges as precedence constraints within jobs
-    \item Disjunctive (undirected) edges as pairs of operations that must use the same machine
-\end{itemize}
-A feasible schedule corresponds to an orientation of the disjunctive edges that results in an acyclic graph.
-\end{definition}
-
-\begin{theorem}
-The makespan of a job shop schedule is equal to the length of the longest path in the corresponding disjunctive graph after orienting the disjunctive edges.
 \end{theorem}
 
 \begin{definition}[Disjunctive Graph]
