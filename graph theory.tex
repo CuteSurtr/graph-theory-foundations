@@ -18230,7 +18230,10 @@ $\alpha(G) \ge \sum_v 1/(d(v) + 1)$.
 \begin{theorem}[Hamiltonian paths in tournaments]
 The expected number of Hamiltonian paths in a tournament on $n$
 vertices (edges oriented uniformly at random) is $n!/2^{n - 1}$. In
-particular every tournament has at least one Hamiltonian path.
+particular some tournament on $n$ vertices has at least $n!/2^{n-1}$
+Hamiltonian paths (Szele, 1943). (That \emph{every} tournament has a
+Hamiltonian path is R\'edei's theorem, which needs a different argument:
+consider a longest directed path.)
 \end{theorem}
 
 \begin{proof}
@@ -18271,7 +18274,7 @@ Color edges of $K_n$ uniformly. Expected number of monochromatic
 $k$-cliques $X = 2\binom{n}{k} 2^{-\binom{k}{2}}$. Delete one vertex
 from each; the remainder witnesses $R(k, k) > n - X$. Optimize over
 $n$ to obtain the bound, improving Theorem~\ref{thm:erdos-ramsey} by
-a factor $2/e$.
+a factor $(1 + o(1))k/e$.
 \end{proof}
 
 \begin{theorem}[High girth, high chromatic number; Erd\H{o}s, 1959]\label{thm:girthchromatic}
@@ -18331,9 +18334,11 @@ tending to $0$ if $pn \to 0$, and to $1$ if $pn \to \infty$.
 \begin{proof}
 Let $X$ be the number of triangles. Then $\mathbb{E}[X] = \binom{n}{3} p^3$,
 so Markov gives $\Pr[X \ge 1] \to 0$ when $np \to 0$. For the other
-direction, $\mathrm{Var}(X) = O(n^4 p^5)$ and
-$(\mathbb{E} X)^2 = \Theta(n^6 p^6)$, so the Paley--Zygmund ratio
-tends to $1$ when $np \to \infty$.
+direction, $\mathrm{Var}(X) = O(n^3 p^3 + n^4 p^5)$ (the first term
+from $\sum_T \mathrm{Var}(\mathbf 1_T)$, the second from pairs of
+triangles sharing an edge) and $(\mathbb{E} X)^2 = \Theta(n^6 p^6)$, so
+$\mathrm{Var}(X)/(\mathbb{E}X)^2 = O\big((np)^{-3} + (n^2 p)^{-1}\big) \to 0$
+and the Paley--Zygmund ratio tends to $1$ when $np \to \infty$.
 \end{proof}
 
 \subsubsection{The Lov\'asz Local Lemma}
@@ -18448,14 +18453,18 @@ has at least $m$ common neighbors.
 \end{lemma}
 
 \begin{proof}[Proof sketch]
-Let $T$ be a random $t$-set and $U = \bigcap_{v \in T} N(v)$. Then
-$\mathbb{E}[|U|] \ge d^t/n^{t - 1}$. Expected number of bad $r$-sets
+Let $T$ be a sequence of $t$ vertices chosen uniformly at random
+\emph{with repetition} and $U = \bigcap_{v \in T} N(v)$. Then
+$\mathbb{E}[|U|] = \sum_{v} (d(v)/n)^t \ge d^t/n^{t - 1}$ by convexity.
+Expected number of bad $r$-sets
 inside $U$ is at most $\binom{n}{r}(m/n)^t$. Delete and apply
 linearity.
 \end{proof}
 
 \begin{corollary}[Bipartite Tur\'an via DRC]
-Every graph with at least $n^{2 - 1/t}$ edges contains $K_{t, t}$.
+Every graph on $n$ vertices with at least $2n^{2 - 1/t}$ edges contains
+$K_{t, t}$. (Theorem~\ref{thm:kst} gives the same conclusion already with
+$n^{2 - 1/t}$ edges.)
 \end{corollary}
 
 Dependent random choice powers modern proofs of Ramsey-type
