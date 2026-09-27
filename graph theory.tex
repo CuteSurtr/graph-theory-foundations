@@ -14166,7 +14166,7 @@ The following bounds on degeneracy hold:
     \item Trees and forests are 1-degenerate.
     \item $K_n$ (complete graph on $n$ vertices) is $(n-1)$-degenerate.
     \item Cycles $C_n$ are 2-degenerate.
-    \item Bipartite graphs that are not empty are 1-degenerate or 2-degenerate.
+    \item Bipartite graphs can have arbitrarily large degeneracy: for $1 \leq m \leq n$, the complete bipartite graph $K_{m,n}$ has degeneracy exactly $m$.
     \item A $k$-regular graph is $k$-degenerate.
 \end{enumerate}
 \end{theorem}
@@ -14196,11 +14196,13 @@ In $K_n$, every vertex has degree $n-1$. When we remove a vertex, we get $K_{n-1
 \end{proof}
 
 \begin{lemma}[Bipartite Graphs]
-A connected bipartite graph that is not a tree has degeneracy 2.
+A connected bipartite graph that is not a tree has degeneracy at least 2. However, the degeneracy of a bipartite graph can be arbitrarily large: for $1 \leq m \leq n$, the complete bipartite graph $K_{m,n}$ has degeneracy exactly $m$.
 \end{lemma}
 
 \begin{proof}
-A connected bipartite graph that is not a tree contains at least one cycle. This means there's at least one vertex with degree at least 2 in every induced subgraph. However, since the graph is bipartite, it cannot contain a $K_3$ (triangle), which means any induced subgraph must have a vertex of degree at most 2. Therefore, such bipartite graphs are 2-degenerate.
+A connected graph that is not a tree contains a cycle, and a cycle is a subgraph in which every vertex has degree 2. Hence such a graph is not 1-degenerate, and its degeneracy is at least 2.
+
+Now let $A$ and $B$ be the parts of $K_{m,n}$, with $|A| = m \leq n = |B|$. Every vertex of $K_{m,n}$ has degree $n \geq m$ or $m$, so $\delta(K_{m,n}) = m$ and the degeneracy is at least $m$. Conversely, let $H$ be any subgraph of $K_{m,n}$ with at least one vertex. If $H$ contains a vertex of $B$, that vertex has at most $|A| = m$ neighbors in $H$; otherwise all vertices of $H$ lie in $A$, and $H$ has no edges. In either case $H$ has a vertex of degree at most $m$, so $K_{m,n}$ is $m$-degenerate. For example, $K_{3,3}$ is a connected bipartite graph with degeneracy 3.
 \end{proof}
 
 \begin{lemma}[$k$-Regular Graphs]
@@ -14218,12 +14220,16 @@ For any non-negative integer function $f$ on the vertices of a graph $G$, there 
 \end{theorem}
 
 \begin{theorem}[Clustered Coloring of Bounded Degeneracy Graphs]
-For any $d$-degenerate graph $G$ and any positive integer $t$, the vertices of $G$ can be colored with $O(d^2 t)$ colors such that each color class induces a subgraph with components of size at most $t$.
+Let $d \geq 1$. Every $d$-degenerate graph can be properly colored with $d+1$ colors, so that every color class induces a subgraph whose components have size $1$. Allowing larger monochromatic components does not reduce this number: for every positive integer $t$ there is a $d$-degenerate graph that cannot be colored with $d$ colors so that each color class induces a subgraph with components of size at most $t$.
 \end{theorem}
 
 \begin{lemma}[$p$-Centered Coloring]
-A $d$-degenerate graph admits a $p$-centered coloring with $O(p d^p)$ colors, where a $p$-centered coloring is a vertex coloring such that for any connected subgraph $H$, either $H$ receives more than $p$ colors or there is a color that appears exactly once in $H$.
+A $p$-centered coloring is a vertex coloring such that for any connected subgraph $H$, either $H$ receives more than $p$ colors or there is a color that appears exactly once in $H$. The number of colors needed in a $p$-centered coloring cannot be bounded in terms of $p$ and the degeneracy alone: for every $k \geq 2$ there is a $2$-degenerate graph with no $2$-centered coloring using $k$ colors.
 \end{lemma}
+
+\begin{proof}
+A $2$-centered coloring is proper, since an edge whose ends have the same color is a connected subgraph that uses one color twice. It is also acyclic: in a proper coloring, a cycle that uses only two colors alternates between them, so it is a connected subgraph with at most two colors in which no color appears exactly once. By the lemma on acyclic coloring below, for every $k \geq 2$ there is a $2$-degenerate graph with no acyclic coloring using $k$ colors, and hence no $2$-centered coloring using $k$ colors.
+\end{proof}
 
 \begin{definition}[Sparse Graph]
 A graph $G = (V, E)$ is called \textbf{sparse} if $|E| = O(|V|)$, that is, the number of edges is asymptotically linear in the number of vertices. More precisely, a family of graphs is considered sparse if there exists a constant $c$ such that for all graphs $G$ in the family with $n$ vertices and $m$ edges, we have $m \leq cn$.
@@ -14275,9 +14281,17 @@ Examples of sparse graphs include:
 Computing all maximal cliques in a graph with degeneracy $d$ can be done in $O(3^{d/3} \cdot n \cdot d)$ time, making it tractable for graphs with small degeneracy even when the number of maximal cliques is exponential.
 \end{remark}
 
-\begin{lemma}[Acyclic Coloring via Degeneracy]
-A graph with degeneracy $d$ has an acyclic coloring with at most $4d$ colors, where an acyclic coloring is a proper coloring such that any two color classes induce a forest.
+\begin{lemma}[Acyclic Coloring and Degeneracy]
+An acyclic coloring is a proper coloring such that any two color classes induce a forest. The number of colors needed in an acyclic coloring is not bounded by any function of the degeneracy: for every $k \geq 2$ there is a $2$-degenerate graph with no acyclic coloring using $k$ colors.
 \end{lemma}
+
+\begin{proof}
+Start with $K_{k+1}$ and replace each edge $uv$ by $k$ new vertices, each adjacent to both $u$ and $v$ (the edge $uv$ itself is deleted); that is, each edge is replaced by a copy of $K_{2,k}$. Call the result $G'$. The original vertices are pairwise non-adjacent in $G'$ and every new vertex has degree 2, so every subgraph of $G'$ either has no edges or contains a new vertex, which has degree at most 2 in it. Hence $G'$ is 2-degenerate.
+
+Suppose $G'$ had an acyclic coloring with $k$ colors. Two of the $k+1$ original vertices, say $u$ and $v$, would receive the same color $a$. Their $k$ common neighbors must receive colors different from $a$, and no two of them can share a color $b$, since otherwise $u$, $v$ and these two common neighbors would form a cycle of length 4 using only the colors $a$ and $b$. Thus the $k$ common neighbors would need $k$ distinct colors other than $a$, which is impossible with only $k$ colors. Hence every acyclic coloring of $G'$ uses at least $k+1$ colors.
+\end{proof}
+
+In contrast, some sparse classes do have bounded acyclic chromatic number; for instance, every planar graph has an acyclic coloring with at most 5 colors (Borodin, 1979).
 
 \begin{remark}[Relationship to Brooks' Theorem]
 Brooks' Theorem states that if $G$ is a connected graph that is neither a complete graph nor an odd cycle, then $\chi(G) \leq \Delta(G)$. Since $d \leq \Delta$, the degeneracy bound $\chi(G) \leq d+1$ may be tighter in some cases.
@@ -14307,9 +14321,15 @@ Brooks' Theorem states that if $G$ is a connected graph that is neither a comple
 For a fixed value of $k$, determining whether a graph $G$ is $d$-degenerate can be done in linear time $O(|V| + |E|)$.
 \end{theorem}
 
-\begin{lemma}[Subgraph Enumeration in $d$-Degenerate Graphs]
-For a fixed pattern graph $H$ with $h$ vertices, the number of occurrences of $H$ as a subgraph in a $d$-degenerate graph $G$ with $n$ vertices is at most $O(n \cdot d^{h-1})$, and all such occurrences can be enumerated in time $O(n \cdot d^{h-1})$.
+\begin{lemma}[Clique Enumeration in $d$-Degenerate Graphs]
+For a fixed integer $h \geq 2$, the number of copies of the complete graph $K_h$ in a $d$-degenerate graph $G$ with $n$ vertices is at most $n\binom{d}{h-1} = O(n \cdot d^{h-1})$, and all such copies can be enumerated in time $O(n \cdot d^{h-1})$.
 \end{lemma}
+
+\begin{proof}[Sketch]
+Order the vertices so that each vertex has at most $d$ neighbors that come later in the order (the reverse of the ordering produced by Algorithm~\ref{alg:degeneracy}). Every copy of $K_h$ is counted at its earliest vertex $v$, and its other $h-1$ vertices form a subset of the at most $d$ later neighbors of $v$; hence each vertex is the earliest vertex of at most $\binom{d}{h-1}$ copies. For the running time, Chiba and Nishizeki (1985) list all copies of $K_h$ in $O(h\, a^{h-2} m)$ time, where $a \leq d$ is the arboricity of $G$ and $m \leq dn$; this is $O(n \cdot d^{h-1})$ for fixed $h$.
+\end{proof}
+
+The restriction to complete graphs is essential: for other patterns the number of copies need not be linear in $n$. For example, the star $K_{1,n-1}$ is $1$-degenerate but contains $\binom{n-1}{2}$ paths with three vertices, and $K_{2,n-2}$ is $2$-degenerate but contains $\binom{n-2}{2}$ cycles of length four.
 
 \begin{algorithm}
 \caption{Enumeration of Maximal Cliques in $d$-Degenerate Graphs}
@@ -14397,7 +14417,7 @@ Given a scheduling problem with precedence constraints, the corresponding preced
 \end{definition}
 
 \begin{example}
-In the single-machine scheduling problem with precedence constraints ($1|prec|\sum C_j$), the optimal schedule can be found in polynomial time if and only if the precedence graph is a series-parallel graph.
+The single-machine scheduling problem with precedence constraints ($1|prec|\sum C_j$) is NP-hard for general precedence graphs (Lenstra and Rinnooy Kan, 1978). If the precedence constraints are series-parallel, however, an optimal schedule can be found in polynomial time, even for the weighted objective $\sum w_j C_j$ (Lawler, 1978). Series-parallel precedence constraints are not the only polynomially solvable case: $1|prec|\sum w_j C_j$ can also be solved in polynomial time when the precedence order has dimension 2 (Amb\"uhl and Mastrolilli, 2009), a strictly larger class.
 \end{example}
 
 \subsubsection*{Conflict Graphs for Resource Conflicts}
@@ -14413,7 +14433,7 @@ Given a scheduling problem with resource constraints, the corresponding conflict
 \end{definition}
 
 \begin{theorem}
-The problem of scheduling jobs with incompatibility constraints to minimize makespan is equivalent to coloring the corresponding conflict graph, where each color represents a time slot.
+Suppose that every job has unit processing time and that any number of mutually compatible jobs may be processed in the same time slot. Then the problem of scheduling jobs with incompatibility constraints to minimize makespan is equivalent to coloring the corresponding conflict graph $G$, where each color represents a time slot; in particular, the minimum makespan equals $\chi(G)$.
 \end{theorem}
 
 \subsection*{Graph Algorithms in Scheduling}
@@ -14549,12 +14569,12 @@ Sparse dependency networks often arise in real-world scheduling problems due to:
 \end{itemize}
 
 
-If a precedence graph is $d$-degenerate, then:
+If the precedence graph, viewed as an undirected graph, is $d$-degenerate, then:
 \begin{itemize}
-    \item Each job depends on at most $k$ other jobs
-    \item The project can be organized into at most $k+1$ logical phases
-    \item Critical path analysis can be performed more efficiently by exploiting the degeneracy structure
+    \item The jobs can be partitioned into at most $d+1$ groups such that no two jobs in the same group are joined by a precedence constraint (a proper $(d+1)$-coloring)
+    \item Critical path analysis takes $O(n + m)$ time for $n$ jobs and $m$ precedence constraints, and a $d$-degenerate graph has $m \leq dn$ edges
 \end{itemize}
+However, degeneracy does not bound the number of jobs on which a single job depends: if one job depends on all $n-1$ other jobs and there are no other precedence constraints, the precedence graph is a star, which is $1$-degenerate. Nor does it bound the number of consecutive phases needed to respect the precedences: a chain of $n$ jobs, each depending on the previous one, is $1$-degenerate but requires $n$ phases.
 \subsubsection*{Wireless Transmission Scheduling}
 One particularly important application of degeneracy in scheduling is in wireless networks.
 
@@ -14564,12 +14584,12 @@ In a wireless network where nodes correspond to transmitters and edges represent
 
 \begin{example}
 
-Consider a wireless sensor network deployed in a planar environment. The interference graph of such a network is often planar or nearly planar, making it 5-degenerate. This means that, regardless of network size, transmissions can be scheduled in at most 6 time slots without interference.
+Consider a wireless sensor network deployed in a planar environment. If the interference graph of such a network is planar, then it is 5-degenerate. This means that, regardless of network size, transmissions can be scheduled in at most 6 time slots without interference. Graphs that are only ``nearly planar'' need not be 5-degenerate, however: for example, optimal 1-planar graphs (graphs that can be drawn so that each edge crosses at most one other edge, and that have the maximum possible number $4n-8$ of edges) have minimum degree 6.
 \end{example}
 
 \subsubsection*{Distributed Task Allocation}
 
-Degeneracy is also useful in distributed computing environments. In a distributed system where tasks are assigned to processors and the task dependency graph is $d$-degenerate, a valid task allocation can be found using at most $k+1$ communication rounds.
+Degeneracy is also useful in distributed computing environments. In a distributed system where tasks are assigned to processors and the graph of conflicts between tasks (pairs of tasks that cannot run at the same time) is $d$-degenerate, the tasks can be split into at most $d+1$ groups of pairwise non-conflicting tasks (a proper $(d+1)$-coloring), and the tasks in each group can be run simultaneously. Finding such a grouping by a distributed algorithm is not free, however: the number of communication rounds cannot be bounded by a function of $d$ alone, since any deterministic distributed algorithm that $3$-colors an $n$-cycle (a $2$-degenerate graph) needs at least $\frac{1}{2}\log^* n - 1$ rounds (Linial, 1992), where $\log^* n$ is the number of times the logarithm must be applied to $n$ to obtain a number at most $1$.
 
 \begin{algorithm}
 \caption{Distributed Task Scheduling for $d$-degenerate Dependency Graphs}
@@ -14601,13 +14621,12 @@ Degeneracy-based approaches offer several advantages for scheduling problems:
 \subsubsection*{Case Study: Project Scheduling with Limited Resources}
 
 \begin{example}[Software Development Project]
-Consider a software development project with tasks represented as vertices and dependencies as edges. The dependency graph is typically sparse and often $d$-degenerate for small $k$ due to modular design practices. Using the degeneracy ordering:
+Consider a software development project with tasks represented as vertices and dependencies as edges. The dependency graph is typically sparse and often $d$-degenerate for small $d$ due to modular design practices. Using the degeneracy ordering:
 
 \begin{itemize}
-    \item Tasks can be assigned to developers while respecting dependencies
-    \item The number of developers needed is bounded by the degeneracy plus one
-    \item Critical paths can be identified more efficiently
-    \item Resources can be allocated optimally based on the degeneracy structure
+    \item The tasks can be split into at most $d+1$ groups such that no two tasks in the same group are joined by a dependency (greedy coloring along the degeneracy ordering)
+    \item The bound $d+1$ is a guarantee, not an optimum: finding the minimum number of such groups is NP-hard in general (deciding 3-colorability is NP-complete even for 4-regular planar graphs, which are 4-degenerate)
+    \item Critical paths can be identified in $O(n+m)$ time for $n$ tasks and $m$ dependencies, and $m \leq dn$ for a $d$-degenerate graph
 \end{itemize}
 \end{example}
 \subsection*{Other Graph-Theoretic Approaches to Scheduling}
@@ -14693,7 +14712,7 @@ Schedule jobs that arrive over time without knowing future arrivals, to optimize
 \end{problem}
 
 \begin{theorem}
-For online scheduling of jobs on $m$ identical machines to minimize makespan, the competitive ratio of any deterministic algorithm is at least $1.5$.
+For online scheduling of jobs on $m \geq 2$ identical machines to minimize makespan, where the jobs are presented one at a time and each job must be assigned irrevocably to a machine as soon as it is presented, the competitive ratio of any deterministic algorithm is at least $1.5$.
 \end{theorem}
 
 \begin{algorithm}[H]
