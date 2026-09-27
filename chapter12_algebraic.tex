@@ -1324,9 +1324,12 @@ Ihara zeta.
 \begin{definition}[Non-backtracking walk; prime walk]
 A walk $w = v_0 e_1 v_1 e_2 v_2 \cdots e_k v_k$ in $G$ is
 \textbf{non-backtracking} if $e_{i+1} \ne \overline{e_i}$ for every
-$i$, where $\overline{e}$ denotes the reversed direction of edge $e$.
-A non-backtracking closed walk is \textbf{prime} (or \emph{primitive})
-if it is not a proper power of a shorter closed walk and we identify
+$1 \le i \le k - 1$, where $\overline{e}$ denotes the reversed direction
+of edge $e$. A non-backtracking closed walk ($v_k = v_0$) is
+\textbf{tailless} if also $e_1 \ne \overline{e_k}$, i.e.\ every cyclic
+rotation of it is again non-backtracking. A tailless non-backtracking
+closed walk is \textbf{prime} (or \emph{primitive})
+if it is not a proper power of a shorter closed walk, and we identify
 walks differing only by cyclic rotation. Let $\mathcal P(G)$ denote
 the set of equivalence classes of prime closed walks.
 \end{definition}
@@ -1364,8 +1367,8 @@ For a $d$-regular graph, the formula simplifies to
 Define the \textbf{non-backtracking matrix} $B \in \{0, 1\}^{2m \times 2m}$
 indexed by directed edges:
 $B_{(u,v),(v,w)} = 1$ iff $w \ne u$.
-The set of non-backtracking closed walks of length $k$ is exactly
-$\mathrm{tr}(B^k)$, so by the standard zeta-function identity
+The number of tailless non-backtracking closed walks of length $k$ is
+exactly $\mathrm{tr}(B^k)$, so by the standard zeta-function identity
 $Z_G(u) = 1/\det(I - u B)$. Bass's three-term identity then relates
 $\det(I - uB)$ to the smaller $n \times n$ determinant of
 Theorem~\ref{thm:iharabass}.
@@ -1374,13 +1377,18 @@ Theorem~\ref{thm:iharabass}.
 \subsubsection{Riemann Hypothesis for Graphs}
 
 \begin{definition}[Graph Riemann hypothesis]
-A $d$-regular graph $G$ \textbf{satisfies the Riemann Hypothesis}
+Let $G$ be a connected $d$-regular graph ($d \ge 2$). The poles of
+$Z_G(u)$ at $u = \pm 1$ and $u = \pm 1/(d - 1)$ are called
+\emph{trivial}. $G$ \textbf{satisfies the Riemann Hypothesis}
 (GRH) if all non-trivial poles of $Z_G(u)$ lie on the circle
 $|u| = 1/\sqrt{d - 1}$.
 \end{definition}
 
 \begin{theorem}[Ramanujan $\Leftrightarrow$ GRH]\label{thm:ramanujangrh}
-A connected $d$-regular graph $G$ is Ramanujan
+A connected $d$-regular graph $G$ satisfies the graph Riemann
+Hypothesis if and only if every eigenvalue $\lambda$ of $A$ with
+$|\lambda| \ne d$ satisfies $|\lambda| \le 2\sqrt{d - 1}$. In
+particular, a connected non-bipartite $d$-regular graph $G$ is Ramanujan
 (Definition~\ref{def:ramanujan} -- see \S 11.4) if and only if it
 satisfies the graph Riemann Hypothesis. Equivalently:
 \[
@@ -1390,12 +1398,15 @@ satisfies the graph Riemann Hypothesis. Equivalently:
 \end{theorem}
 
 \begin{proof}[Proof sketch]
-By Theorem~\ref{thm:iharabass}, the poles of $Z_G(u)$ for a
-$d$-regular graph are the reciprocals of the eigenvalues of $A$
-\emph{transformed} by the substitution
-$\lambda \mapsto u$ such that $\lambda = (1 + u^2(d - 1))/u$. Solving
-this quadratic, $|u| = 1/\sqrt{d-1}$ corresponds exactly to
-$|\lambda| \le 2\sqrt{d - 1}$.
+By Theorem~\ref{thm:iharabass},
+$Z_G(u)^{-1} = (1 - u^2)^{r - 1} \prod_{\lambda} \big(1 - \lambda u + (d - 1) u^2\big)$,
+the product over the eigenvalues $\lambda$ of $A$. The factor
+$(1 - u^2)^{r-1}$ gives only the trivial poles $u = \pm 1$, and
+$\lambda = \pm d$ gives the trivial poles $\pm 1$, $\pm 1/(d - 1)$. For
+any other $\lambda$ the two poles are the roots of
+$(d - 1)u^2 - \lambda u + 1 = 0$, whose product is $1/(d - 1)$: they are
+complex conjugates with $|u| = 1/\sqrt{d - 1}$ exactly when
+$\lambda^2 \le 4(d - 1)$, and otherwise real with different moduli.
 \end{proof}
 
 \begin{remark}[Non-backtracking spectrum and community detection]
@@ -1410,22 +1421,41 @@ spectral methods for community detection in stochastic block models.
 \subsubsection{Functional Equation and Special Values}
 
 \begin{theorem}[Functional equation]
-For a $d$-regular graph,
+Let $G$ be a connected $d$-regular graph with $n$ vertices and cycle
+rank $r$, and put $q = d - 1$. Then
 \[
-  Z_G(u) \cdot Z_G\!\left(\frac{1}{(d - 1) u}\right) = (\text{simple factor})
+  \xi_G(u) \;:=\; (1 + u)^{r - 1} (1 - u)^{r - 1 + n} (1 - q u)^{n}\, Z_G(u)
+  \qquad\text{satisfies}\qquad
+  \xi_G\!\left(\frac{1}{q u}\right) \;=\; \xi_G(u).
 \]
-analogous to the symmetry $\zeta(s) \leftrightarrow \zeta(1 - s)$ for
-Riemann zeta. The exact form involves $(1 - u^2)$, $((d-1)u^2 - 1)$,
-and powers depending on $r$.
+For $n$ even this can also be written (Terras) as
+$\Lambda_G(1/(qu)) = \Lambda_G(u)$ with
+$\Lambda_G(u) = (1 - u^2)^{r - 1 + n/2}(1 - q^2 u^2)^{n/2} Z_G(u)$.
+With $u = q^{-s}$ the substitution $u \mapsto 1/(qu)$ is
+$s \mapsto 1 - s$, the analogue of the symmetry
+$\zeta(s) \leftrightarrow \zeta(1 - s)$ for Riemann zeta. (Proof:
+substitute $u \mapsto 1/(qu)$ in Theorem~\ref{thm:iharabass}; each
+factor $1 - \lambda u + q u^2$ is multiplied by $(q u^2)^{-1}$. Note that
+it is the \emph{ratio} $Z_G(1/(qu))/Z_G(u)$, not the product, that is
+an elementary factor.)
 \end{theorem}
 
-\begin{theorem}[Special value $u = 1$]
-For a connected graph $G$,
+\begin{theorem}[The pole at $u = 1$; Hashimoto, Northshield]
+Let $G$ be a connected graph with cycle rank $r = m - n + 1 \ge 1$.
+Then $Z_G(1)^{-1} = 0$; more precisely, $Z_G(u)^{-1}$ vanishes at
+$u = 1$ to order at least $r$, and
 \[
-  Z_G(1)^{-1} \;=\; (-2)^r \cdot \tau(G),
+  \lim_{u \to 1} \frac{Z_G(u)^{-1}}{(1 - u)^{r}} \;=\; -\,2^{r} (r - 1)\, \tau(G),
+  \qquad\text{equivalently}\qquad
+  \frac{d^r}{du^r} Z_G(u)^{-1} \Big|_{u = 1} \;=\; r!\,(-1)^{r+1}\, 2^{r} (r - 1)\, \tau(G),
 \]
-where $\tau(G)$ is the number of spanning trees. This is a graph-zeta
-analogue of the class number formula.
+where $\tau(G)$ is the number of spanning trees. In particular, for
+$r \ge 2$ the zeta function has a pole of order exactly $r$ at
+$u = 1$. By Theorem~\ref{thm:iharabass} this amounts to
+\[
+  \frac{d}{du}\det\!\big(I - uA + u^2(D - I)\big)\Big|_{u = 1} \;=\; 2(m - n)\,\tau(G).
+\]
+This is a graph-zeta analogue of the class number formula.
 \end{theorem}
 
 \subsubsection{Exercises}
@@ -1479,14 +1509,14 @@ $[-2\sqrt{d - 1}, 2\sqrt{d - 1}]$.
 For the graph $K_4$, list all prime closed walks of length $\le 6$
 (up to cyclic rotation and inversion), grouped by length. Compute the
 first few coefficients of $\log Z_{K_4}(u) = \sum_k N_k u^k / k$
-where $N_k$ counts non-backtracking closed walks of length $k$.
+where $N_k$ counts tailless non-backtracking closed walks of length $k$.
 \end{exercise}
 
 \begin{exercise}
 Sketch the Hashimoto matrix $B$ for the triangle $K_3$, showing the
 $6 \times 6$ structure indexed by the $6$ directed edges. Verify by
-hand that $\det(I - uB) = (1 - u^2)(1 - u)^2(1 - 2u)(1 + u + 2u^2)$
-or whatever the correct factorisation is for $K_3$.
+hand that $\det(I - uB) = (1 - u^3)^2 = (1 - u)^2 (1 + u + u^2)^2$,
+in agreement with $Z_{C_3}(u) = (1 - u^3)^{-2}$.
 \end{exercise}
 
 %====================================================================
