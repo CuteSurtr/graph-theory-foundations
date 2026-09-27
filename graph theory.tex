@@ -17654,7 +17654,7 @@ account for the removed degrees.
 
 \begin{exercise}
 Show that the Tur\'an graph $T(n, r)$ has chromatic number exactly
-$r$. Deduce from Tur\'an's theorem the \emph{chromatic} density
+$r$ when $n \ge r$. Deduce from Tur\'an's theorem the \emph{chromatic} density
 bound: any graph on $n$ vertices with chromatic number at most $r$
 has at most $t(n, r)$ edges.
 \end{exercise}
@@ -17669,13 +17669,18 @@ graphs on $n$ vertices?
 
 \begin{exercise}
 Prove that every $K_4$-free graph on $n$ vertices contains an
-independent set of size $\ge \sqrt{n}$. (Hint: use Tur\'an's theorem
-on the complement.)
+independent set of size $\ge \lfloor n^{1/3} \rfloor$. (Hint: the
+neighborhood of any vertex spans a triangle-free graph, and a
+triangle-free graph on $m$ vertices has an independent set of size
+$\ge \lfloor \sqrt{m} \rfloor$; if every degree is below $n^{2/3}$, use
+Tur\'an's theorem on the complement.) Show that $\sqrt{n}$ would be false
+in general: the Paley graph on $17$ vertices is $K_4$-free with
+independence number $3 < \sqrt{17}$.
 \end{exercise}
 
 \begin{exercise}
-Prove the Erd\H{o}s--Ko--Rado-style bound
-$\mathrm{ex}(n, K_{2, 2}) \le \tfrac{1}{2}(1 + \sqrt{4n - 3})$
+Prove Reiman's bound
+$\mathrm{ex}(n, K_{2, 2}) \le \tfrac{n}{4}(1 + \sqrt{4n - 3})$
 directly, using the fact that any two vertices have at most one
 common neighbor in a $K_{2, 2}$-free graph.
 \end{exercise}
@@ -17689,9 +17694,10 @@ $6$. Verify that it achieves the Moore bound with equality.
 \paragraph{Hard Questions.}
 
 \begin{exercise}[Kruskal--Katona warm-up]
-Let $G$ be a graph on $n$ vertices with $m$ edges. Show that the
-number of triangles in $G$ is at most $\binom{m/(2^{1/2})}{3/2}$
-asymptotically; deduce a direct upper bound for $\mathrm{ex}(n, K_4)$.
+Let $G$ be a graph with $m$ edges, and write $m = \binom{x}{2}$ with
+real $x \ge 2$. Show that the number of triangles in $G$ is at most
+$\binom{x}{3} \le \tfrac{\sqrt{2}}{3}\, m^{3/2}$, with equality in the
+first inequality for $G = K_x$ when $x$ is an integer.
 \end{exercise}
 
 \begin{exercise}
@@ -17701,9 +17707,11 @@ Rademacher's theorem, a supersaturation result extending Mantel.)
 \end{exercise}
 
 \begin{exercise}
-Let $G$ be a graph with $|V(G)| = n$ and $\delta(G) \ge 2n/5$. Prove
-that $G$ contains a triangle. Construct a graph showing that
-$\delta \ge 2n/5$ cannot be weakened to $\delta \ge (2/5 - \varepsilon) n$.
+Let $G$ be a triangle-free graph with $|V(G)| = n$ and
+$\delta(G) > 2n/5$. Prove that $G$ is bipartite
+(Andr\'asfai--Erd\H{o}s--S\'os). Construct a triangle-free,
+non-bipartite graph with $\delta(G) = 2n/5$, showing that the hypothesis
+cannot be weakened to $\delta(G) \ge 2n/5$. (Hint: blow up $C_5$.)
 \end{exercise}
 
 \begin{exercise}[Erd\H{o}s--Gallai]
@@ -17719,11 +17727,13 @@ verify the formula $t(n, r) = \binom{n}{2} - \sum_i \binom{|V_i|}{2}$.
 \end{exercise}
 
 \begin{exercise}
-Draw a $4$-regular graph on $10$ vertices with girth $5$ that achieves
-the odd Moore bound $1 + 4 + 4 \cdot 3 = 17$ \emph{minus} the parity
-gap (so on $10$ vertices). The Petersen graph is the canonical
-example---draw it in the standard pentagon-pentagram form and label
-the girth witness.
+Draw a $3$-regular graph on $10$ vertices with girth $5$ that achieves
+the odd Moore bound $1 + 3 + 3 \cdot 2 = 10$ with equality. The Petersen
+graph is the canonical example---draw it in the standard
+pentagon-pentagram form and label the girth witness. (By
+Theorem~\ref{thm:moore}, a $4$-regular graph of girth $5$ needs at least
+$1 + 4 + 4 \cdot 3 = 17$ vertices; the smallest one, the Robertson graph,
+has $19$.)
 \end{exercise}
 
 \subsection{Ramsey Theory}
@@ -18114,26 +18124,33 @@ inductive proof of Theorem~\ref{thm:ramsey}.
 \paragraph{Medium Questions.}
 
 \begin{exercise}
-Prove that $R(s, t) + R(s, t - 1)$ cannot both be even, and use
-this to sharpen Theorem~\ref{thm:ramsey} to $R(s, t) < R(s - 1, t) + R(s, t - 1)$
-when both addends are even.
+Suppose $R(s - 1, t)$ and $R(s, t - 1)$ are both even, and let
+$N = R(s - 1, t) + R(s, t - 1) - 1$. Show that in a red/blue coloring of
+$K_N$ with no red $K_s$ and no blue $K_t$ every vertex would have red
+degree exactly $R(s - 1, t) - 1$, an odd number, contradicting the
+handshake lemma since $N$ is odd. Conclude that
+$R(s, t) < R(s - 1, t) + R(s, t - 1)$ when both addends are even.
 \end{exercise}
 
 \begin{exercise}
 Prove Schur's theorem for three colors by showing $R(3, 3, 3) \le 17$.
-(Due to Greenwood and Gleason; the exact value $R(3, 3, 3) = 17$
-requires the Kalbfleisch $K_{16}$ coloring.)
+(Due to Greenwood and Gleason, 1955, who also gave the $3$-coloring of
+$K_{16}$ without monochromatic triangles that shows $R(3, 3, 3) = 17$;
+Kalbfleisch and Stanton later showed there are exactly two such colorings.)
 \end{exercise}
 
 \begin{exercise}
-Deduce the infinite Ramsey theorem---every $2$-coloring of the edges
-of $K_\infty$ has an infinite monochromatic clique---from the finite
-version by a compactness argument.
+Prove the infinite Ramsey theorem---every $2$-coloring of the edges
+of $K_\infty$ has an infinite monochromatic clique---and deduce the
+finite version (Theorem~\ref{thm:ramsey}) from it by a compactness
+argument (K\H{o}nig's lemma).
 \end{exercise}
 
 \begin{exercise}
 Let $\chi(G)$ denote chromatic number. Show that
-$R(K_s, G) \le (s - 1)(\chi(G) - 1) + 1$ when $G$ is connected.
+$R(K_s, G) \ge (s - 1)(\chi(G) - 1) + 1$ for every graph $G$, and that
+$R(K_s, G) \ge (s - 1)(|V(G)| - 1) + 1$ when $G$ is connected
+(Chv\'atal--Harary).
 \end{exercise}
 
 \paragraph{Hard Questions.}
@@ -18163,14 +18180,15 @@ of $\{1, \dots, 8\}$ avoids one.
 \paragraph{Diagram Questions.}
 
 \begin{exercise}
-Reproduce the Greenwood--Gleason $K_{16}$ Kalbfleisch coloring as a
-$3$-coloring of $K_{16}$ with no monochromatic triangle. Hint: use
-the Paley graph on $\mathbb F_{16}$ for one color class and partition
-the remaining edges via additive characters.
+Reproduce the Greenwood--Gleason $3$-coloring of $K_{16}$ with no
+monochromatic triangle. Hint: the nonzero cubes form a subgroup $C$ of
+index $3$ in the multiplicative group $\mathbb F_{16}^{*}$; color the edge
+$xy$ by the coset of $C$ containing $x + y$ ($= x - y$). Each color class
+is a copy of the Clebsch graph.
 \end{exercise}
 
 \begin{exercise}
-Draw the bipartite blow-up coloring witnessing the Chv\'atal lower
+Draw the blow-up coloring witnessing the Chv\'atal lower
 bound $R(T, K_s) > (s - 1)(t - 1)$: $s - 1$ red cliques of size
 $t - 1$ joined blue across blocks. Verify directly that no red
 $T_t$ and no blue $K_s$ appears.
@@ -18504,9 +18522,10 @@ subgraph with at least $(1 - 1/k)m$ edges.
 \end{exercise}
 
 \begin{exercise}
-Show that every tournament on $n$ vertices has a dominating set of
-size at most $\lceil \log_2 n \rceil$. (Sample uniformly random
-$k$-sets and union-bound.)
+Show that every tournament on $n \ge 2$ vertices has a dominating set of
+size at most $\lceil \log_2 n \rceil$. (Hint: by averaging, some vertex
+beats at least $\lceil (n-1)/2 \rceil$ others; take it, discard it and
+the vertices it beats, and repeat.)
 \end{exercise}
 
 \begin{exercise}
@@ -18524,24 +18543,27 @@ its median.
 \end{exercise}
 
 \begin{exercise}
-Prove that every tournament contains at least $n!/2^{n - 1}$
-Hamiltonian paths (Szele). Use this to give a lower bound on the
-permanent of the all-$1/2$ matrix of size $n$.
+Prove that some tournament on $n$ vertices contains at least
+$n!/2^{n - 1}$ Hamiltonian paths (Szele), and show that the transitive
+tournament contains exactly one, so ``some'' cannot be replaced by
+``every''. (Alon showed, using Br\'egman's permanent inequality, that
+no tournament has more than $O(n^{3/2}\, n!/2^{n})$ Hamiltonian paths.)
 \end{exercise}
 
 \begin{exercise}
 Identify the regime $p = p(n)$ where the triangle count $X$ in
-$G(n,p)$ satisfies $X/\mathbb{E}[X] \to 1$ in probability via the
-Paley--Zygmund inequality.
+$G(n,p)$ satisfies $X/\mathbb{E}[X] \to 1$ in probability via
+Chebyshev's inequality (Theorem~\ref{thm:chebyshev}).
 \end{exercise}
 
 \paragraph{Hard Questions.}
 
 \begin{exercise}
-Use LLL to show that every graph $G$ of maximum degree $\Delta$ can
-be edge-coloured by at most $C \cdot \Delta$ colours such that each
-colour class is \emph{acyclic}. (This is Alon's acyclic chromatic
-theorem; $C = 64$ suffices.)
+Use LLL to show that every graph $G$ of maximum degree $\Delta$ has a
+\emph{proper} edge-colouring with at most $C \cdot \Delta$ colours in
+which the union of any two colour classes is \emph{acyclic} (no
+bichromatic cycle). (This is the acyclic edge-colouring theorem of Alon,
+McDiarmid, and Reed; $C = 64$ suffices.)
 \end{exercise}
 
 \begin{exercise}
@@ -18552,7 +18574,7 @@ for $J$ disjoint from the dependency neighborhood of $i$.
 
 \begin{exercise}
 Use dependent random choice (Lemma~\ref{lem:drc}) to prove:
-every $n$-vertex graph with $\ge n^{2 - 1/t}$ edges contains $K_{t, t}$.
+every $n$-vertex graph with $\ge 2n^{2 - 1/t}$ edges contains $K_{t, t}$.
 \end{exercise}
 
 \begin{exercise}
@@ -18562,8 +18584,12 @@ of $C_4$ in a graph with $m$ edges.
 
 \begin{exercise}
 Prove the second-moment concentration for subgraph counts: if
-$H$ has $v$ vertices and $e$ edges and $np^{e/v} \to \infty$, the
-number of copies of $H$ in $G(n, p)$ concentrates around its mean.
+$H$ has $v$ vertices and $e$ edges, $m^*(H) = \max_{H' \subseteq H} |E(H')|/|V(H')|$,
+and $np^{m^*(H)} \to \infty$, then the number $X_H$ of copies of $H$ in
+$G(n, p)$ satisfies $X_H/\mathbb{E}[X_H] \to 1$ in probability. (For
+balanced $H$, i.e.\ $m^*(H) = e/v$, the condition is $np^{e/v} \to \infty$;
+show by an example such as $K_4$ plus a pendant edge that
+$np^{e/v} \to \infty$ alone does not suffice.)
 \end{exercise}
 
 \paragraph{Diagram Questions.}
