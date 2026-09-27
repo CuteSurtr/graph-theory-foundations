@@ -13980,7 +13980,7 @@ This process produces a proper coloring of $G$ using at most $d+1$ colors. There
     
     % Initial graph
     \begin{scope}[shift={(-4,0)}]
-        \node[active] (v1) at (0,0) {$v_1$};
+        \node[remaining] (v1) at (0,0) {$v_1$};
         
         \node[remaining] (v2) at (2,0) {$v_2$};
         
@@ -13988,7 +13988,7 @@ This process produces a proper coloring of $G$ using at most $d+1$ colors. There
         
         \node[remaining] (v4) at (1,2.5) {$v_4$};
         
-        \node[remaining] (v5) at (-1,1.5) {$v_5$};
+        \node[active] (v5) at (-1,1.5) {$v_5$};
         
         \draw (v1) -- (v2) -- (v3) -- (v4) -- (v5) -- (v1);
         \draw (v1) -- (v3);
@@ -14058,11 +14058,11 @@ This process produces a proper coloring of $G$ using at most $d+1$ colors. There
         \draw[gray, dashed] (v2) -- (v4);
     
         
-        \node[draw=none] at (1,-1.5) {Final ordering: $L = [v_4, v_2, v_3, v_1, v_5]$};
+        \node[draw=none] at (1,-1.5) {Final ordering: $L = [v_4, v_3, v_2, v_1, v_5]$};
     \end{scope}
 \end{tikzpicture}
 \\
-\small Figure 147 : {Computation of degeneracy ordering: Vertices are removed in order of minimum degree, with the current minimum degree vertex highlighted in yellow. Blue numbers show current degrees, and red numbers show the final ordering positions.}
+\small Figure 147 : {Computation of degeneracy ordering: Vertices are removed in order of minimum degree, with the current minimum degree vertex highlighted in yellow. The vertices are removed in the order $v_5, v_1, v_2, v_3, v_4$, and the final ordering $L$ lists them in reverse order of removal.}
 \end{figure}
 
 \begin{lemma}[Tightness of Degeneracy Bound]
@@ -14264,18 +14264,10 @@ Examples of sparse graphs include:
     \EndFor
     
     \State \Return $\text{color}$ assignment
-    
-    \Statex
-    \State \textbf{Special cases:}
-    \If{$G$ is a tree}
-        \State Use 2 colors \Comment{Trees are bipartite}
-    \ElsIf{$G$ is bipartite}
-        \State Use 2 colors via bipartition
-    \ElsIf{$G$ is planar}
-        \State Use at most 4 colors \Comment{Four Color Theorem}
-    \EndIf
 \end{algorithmic}
 \end{algorithm}
+
+For some special classes, other methods can use fewer colors than the bound $d+1$ of Algorithm~\ref{alg:sparse-graph-coloring}: a bipartite graph can be colored with 2 colors using a bipartition, which improves on the degeneracy bound when $d \geq 2$, and a planar graph can be colored with 4 colors by the Four Color Theorem, which improves on the degeneracy bound when $d \geq 4$.
 
 \begin{remark}[Application to Graph Mining]
 Computing all maximal cliques in a graph with degeneracy $d$ can be done in $O(3^{d/3} \cdot n \cdot d)$ time, making it tractable for graphs with small degeneracy even when the number of maximal cliques is exponential.
@@ -14336,13 +14328,15 @@ The restriction to complete graphs is essential: for other patterns the number o
 \label{alg:enumerate-maximal-cliques}
 \begin{algorithmic}[1]
     \Procedure{EnumerateMaximalCliques}{$G = (V, E)$}
-        \State Compute a degeneracy ordering $L = [v_1, v_2, \ldots, v_n]$ of $G$
+        \State Compute a degeneracy ordering $L$ of $G$ (Algorithm~\ref{alg:degeneracy}), and let $v_1, v_2, \ldots, v_n$ be the vertices in the order in which they were removed, i.e., the reverse of $L$, so that each $v_i$ has at most $d$ neighbors $v_j$ with $j > i$
         \For{$i = n$ \textbf{downto} $1$}
             \State $N^+(v_i) \gets \{v_j \in N(v_i) : j > i\}$ \Comment{Forward neighbors in ordering}
             \State $G_i \gets G[N^+(v_i)]$ \Comment{Subgraph induced by forward neighbors}
-            \State $\mathcal{C}_i \gets \text{AllMaximalCliques}(G_i)$ \Comment{Recursive or known algorithm}
+            \State $\mathcal{C}_i \gets \text{AllMaximalCliques}(G_i)$ \Comment{$\mathcal{C}_i = \{\emptyset\}$ if $G_i$ is empty}
             \ForAll{cliques $C \in \mathcal{C}_i$}
-                \State \textbf{output} $C \cup \{v_i\}$ \Comment{Extend each clique with $v_i$}
+                \If{no $v_j$ with $j < i$ is adjacent to $v_i$ and to every vertex of $C$}
+                    \State \textbf{output} $C \cup \{v_i\}$ \Comment{A maximal clique of $G$}
+                \EndIf
             \EndFor
         \EndFor
     \EndProcedure
@@ -14358,7 +14352,7 @@ The Bron-Kerbosch algorithm with degeneracy ordering runs in $O(d \cdot n \cdot 
 \label{alg:bron-kerbosch-degenerate}
 \begin{algorithmic}[1]
     \Procedure{BronKerboschDegeneracy}{$G = (V, E)$}
-        \State Compute a degeneracy ordering $L = [v_1, v_2, \ldots, v_n]$ of $G$
+        \State Compute a degeneracy ordering $L$ of $G$ (Algorithm~\ref{alg:degeneracy}), and let $v_1, v_2, \ldots, v_n$ be the vertices in the order in which they were removed, i.e., the reverse of $L$, so that each $v_i$ has at most $d$ neighbors $v_j$ with $j > i$
         \State $\mathcal{C} \gets \emptyset$ \Comment{Initialize set of all maximal cliques}
         
         \For{$i = n$ \textbf{downto} $1$}
@@ -14391,9 +14385,9 @@ The Bron-Kerbosch algorithm with degeneracy ordering runs in $O(d \cdot n \cdot 
 
 
 \begin{proof}[Sketch]
-The algorithm processes each vertex in reverse degeneracy ordering. For each vertex $v_i$, we initiate a Bron-Kerbosch search with pivot from $\{v_i\}$ as the initial clique $R$, considering only neighbors that appear later in the ordering as potential additions ($P$).
+The algorithm processes the vertices in the order $v_n, v_{n-1}, \ldots, v_1$. For each vertex $v_i$, we initiate a Bron-Kerbosch search with pivot from $\{v_i\}$ as the initial clique $R$, considering only neighbors that appear later in the ordering as potential additions ($P$).
 
-Since we process vertices in degeneracy ordering, each vertex has at most $d$ neighbors that come later in the ordering. This limits the size of the potential vertex set $P$ to at most $d$ vertices.
+Since $v_1, v_2, \ldots, v_n$ is the order in which the vertices were removed, each vertex has at most $d$ neighbors that come later in the ordering. This limits the size of the potential vertex set $P$ to at most $d$ vertices.
 
 The Bron-Kerbosch algorithm with pivot has a worst-case time complexity of $O(3^{n/3})$ on a graph with $n$ vertices. When restricted to the subgraph of forward neighbors (of which there are at most $d$), this becomes $O(3^{d/3})$.
 
@@ -14512,8 +14506,11 @@ Degenerate graphs provide a powerful structural characterization that has signif
         \State Compute $\deg(v)$ for each vertex $v \in V$
         
         \While{$V$ is not empty}
-            \State Find vertex $v \in V$ with minimum degree
+            \State Find vertex $v \in V$ with minimum current degree $\deg(v)$
             \State $d \gets \max(d, \deg(v))$ \Comment{Update degeneracy}
+            \ForAll{neighbors $u$ of $v$ that remain in $G$}
+                \State $\deg(u) \gets \deg(u) - 1$ \Comment{Degrees refer to the remaining graph}
+            \EndFor
             \State Remove $v$ from $G$ and add it to the beginning of $L$
         \EndWhile
         
@@ -14599,7 +14596,7 @@ Degeneracy is also useful in distributed computing environments. In a distribute
     \Ensure A valid task schedule respecting dependencies
     
     \State Compute a degeneracy ordering $L = [v_1, v_2, \ldots, v_n]$ of $G$
-    \State Partition $L$ into layers $\{L_1, L_2, \ldots, L_m\}$ where each layer $L_i$ contains tasks that can be executed in parallel
+    \State Partition the tasks into layers $L_1, L_2, \ldots, L_m$ such that every task in $L_i$ depends only on tasks in $L_1 \cup \cdots \cup L_{i-1}$ (for example, $L_i$ consists of the tasks whose longest chain of prerequisite tasks has exactly $i-1$ tasks); the tasks in one layer can then be executed in parallel
     \State Assign tasks in layer $L_i$ to processors only after all tasks in layers $L_1, \ldots, L_{i-1}$ have completed
     
     \State \Return Layer-based schedule
@@ -14656,10 +14653,11 @@ Flow shop and job shop scheduling problems have natural graph-theoretic interpre
 \begin{theorem}[Johnson's Algorithm for $F_2||C_{max}$]
 For a two-machine flow shop, the optimal schedule can be found using Johnson's algorithm:
 \begin{enumerate}
-    \item Sort jobs such that $\min(p_{j1}, p_{j2}) \leq \min(p_{k1}, p_{k2})$ implies job $J_j$ precedes job $J_k$.
-    \item If $p_{j1} \leq p_{j2}$, schedule job $J_j$ as early as possible.
-    \item If $p_{j1} > p_{j2}$, schedule job $J_j$ as late as possible.
+    \item Consider the jobs one at a time in nondecreasing order of $\min(p_{j1}, p_{j2})$ (this is the order in which the jobs are placed into the sequence, not the order in which they are processed).
+    \item If $p_{j1} \leq p_{j2}$, put job $J_j$ in the earliest position of the sequence that is still free.
+    \item If $p_{j1} > p_{j2}$, put job $J_j$ in the latest position of the sequence that is still free.
 \end{enumerate}
+Both machines then process the jobs in the resulting sequence. Equivalently, the jobs with $p_{j1} \leq p_{j2}$ come first, in nondecreasing order of $p_{j1}$, followed by the remaining jobs in nonincreasing order of $p_{j2}$.
 \end{theorem}
 
 \begin{definition}[Disjunctive Graph]
