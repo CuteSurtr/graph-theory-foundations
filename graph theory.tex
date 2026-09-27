@@ -17776,8 +17776,10 @@ and concludes by induction using Pascal's identity.
 $R(k) \le \binom{2k - 2}{k - 1} \sim \dfrac{4^{k - 1}}{\sqrt{\pi k}}$.
 \end{corollary}
 
-\begin{theorem}[Erd\H{o}s--Szekeres refinement]
-When $s + t$ is odd, the bound above is strict: $R(s, t) \le \binom{s + t - 2}{s - 1} - 1$.
+\begin{theorem}[Greenwood--Gleason refinement, 1955]
+If $R(s - 1, t)$ and $R(s, t - 1)$ are both even, then the recursive bound
+is strict: $R(s, t) \le R(s - 1, t) + R(s, t - 1) - 1$. For example,
+$R(3, 4) \le R(2, 4) + R(3, 3) - 1 = 9$.
 \end{theorem}
 
 \begin{remark}[Small cases]
@@ -17862,11 +17864,11 @@ edges.
         \draw[blue] (w3) -- (w6);
         % Highlight red triangle
         \draw[rede, line width=2.5pt, opacity=0.4] (w1) -- (w3) -- (w5) -- cycle;
-        \node at (0,-2.6) {\small $K_6$: red $\triangle\,135$ unavoidable};
+        \node at (0,-2.6) {\small $K_6$: a monochromatic $\triangle$ is unavoidable};
     \end{scope}
 \end{tikzpicture}
 \\
-\small Figure 202: Witnessing $R(3,3) = 6$. Left: the unique (up to swap) good $K_5$ colouring. Right: every $2$-colouring of $K_6$ forces a monochromatic triangle.
+\small Figure 202: Witnessing $R(3,3) = 6$. Left: the unique (up to isomorphism) good $K_5$ colouring. Right: every $2$-colouring of $K_6$ forces a monochromatic triangle.
 \label{fig:r33}
 \end{figure}
 
@@ -17907,8 +17909,9 @@ improvement over the first-moment bound.
 $\dfrac{c \cdot k^2}{\log k} \le R(3, k) \le \dfrac{C \cdot k^2}{\log k}$.
 \end{theorem}
 
-The matching upper and lower bounds on $R(3, k)$ (Shearer and Kim,
-1995) are one of the crowning achievements of Ramsey theory; the
+The matching upper and lower bounds on $R(3, k)$ (Ajtai--Koml\'os--Szemer\'edi
+1980 and Shearer 1983 for the upper bound; Kim 1995 for the lower bound)
+are one of the crowning achievements of Ramsey theory; the
 lower bound uses a subtle \emph{semirandom} / random greedy
 construction.
 
@@ -17928,16 +17931,17 @@ For every tree $T$ on $t$ vertices and every $s \ge 2$,
 \end{theorem}
 
 \begin{proof}
-\emph{Upper bound.} Let $N = (s - 1)(t - 1) + 1$. Color the edges of
-$K_N$ red/blue. If the blue graph has chromatic number at least $s$,
-then it contains $K_s$ by the degeneracy consequence of the
-greedy-coloring argument (each tree is $1$-degenerate). Otherwise,
-$N$ vertices partition into $s - 1$ color classes of size $\ge 1$, one
-of which has $\ge t$ vertices. The red graph restricted to that class
-has minimum degree at least $t - 1$ (it is the ``red'' part of
-$K_t$'s subgraph on that class, which is all edges---blue class is
-an independent set in blue). Being $(t - 1)$-degenerate, it contains
-any tree on $t$ vertices.
+\emph{Upper bound.} Let $N = (s - 1)(t - 1) + 1$ and color the edges of
+$K_N$ red/blue with no blue $K_s$. Let $G$ be the red graph. Every $s$
+vertices span a red edge, so $\alpha(G) \le s - 1$ and hence
+$\chi(G) \ge N/(s - 1) > t - 1$, i.e.\ $\chi(G) \ge t$. Since greedy
+coloring along a degeneracy order gives
+$\chi(G) \le 1 + \max_{H \subseteq G} \delta(H)$, some subgraph
+$H \subseteq G$ has minimum degree at least $t - 1$. Such an $H$
+contains every tree $T$ on $t$ vertices: embed $T$ one vertex at a time,
+each new vertex being a leaf attached to an already embedded vertex $x$;
+at most $t - 2$ neighbors of $x$ are already used, so a free neighbor
+exists. Hence $G$ contains a red copy of $T$.
 
 \emph{Lower bound.} Partition $(s - 1)(t - 1)$ vertices into $s - 1$
 blocks of $t - 1$. Color within-block edges red and cross-block
@@ -17946,12 +17950,12 @@ tree on $t$ vertices fits), and the blue graph is $(s - 1)$-partite
 (no $K_s$).
 \end{proof}
 
-\begin{theorem}[Erd\H{o}s--Gallai; Chv\'atal--Harary]
+\begin{theorem}[Gerencs\'er--Gy\'arf\'as, 1967]
 For the path $P_t$ on $t$ vertices, $R(P_t, P_s) = t + \lfloor s/2 \rfloor - 1$
 for $t \ge s \ge 2$.
 \end{theorem}
 
-\begin{theorem}[Bondy--Erd\H{o}s]
+\begin{theorem}[Bondy--Erd\H{o}s; Rosta; Faudree--Schelp]
 For cycles of equal length, $R(C_n, C_n) = 2n - 1$ if $n$ is odd
 ($n \ge 5$), and $R(C_n, C_n) = 3n/2 - 1$ if $n$ is even ($n \ge 6$).
 \end{theorem}
@@ -17971,19 +17975,28 @@ the $k$-subsets of $\{1, \dots, N\}$ yields a red $s$-set (all
 $k$-subsets red) or a blue $t$-set.
 \end{definition}
 
-\begin{theorem}[Erd\H{o}s--Rado stepping-up lemma]
-$R_{k+1}(2s, 2t) \ge 2^{R_k(s, t) - 1}$.
+\begin{theorem}[Erd\H{o}s--Hajnal stepping-up lemma]
+Let $k \ge 3$ and $s > k$. If $R_k(s, s) > m$, then
+\[
+  R_{k+1}(2s + k - 4,\, 2s + k - 4) \;>\; 2^m.
+\]
 \end{theorem}
 
 \begin{corollary}
-$R_3(k, k) \ge 2^{c k^2}$ and $R_k(s, s) \ge \text{tower}_{k-1}(cs^2)$,
-where $\text{tower}_i$ is the iterated exponential.
+$R_3(k, k) \ge 2^{c k^2}$ (by a random coloring) and, applying the
+stepping-up lemma repeatedly, $R_k(s, s) \ge \text{tower}_{k-1}(cs^2)$
+for $k \ge 3$, where $\text{tower}_1(x) = x$ and
+$\text{tower}_{i+1}(x) = 2^{\text{tower}_i(x)}$.
 \end{corollary}
 
 \begin{remark}
-Surprisingly, the doubly-exponential lower bound for $R_3(k, k)$ is
-conjectured to be tight up to the constant in the exponent; this is
-one of the most fundamental open problems in Ramsey theory.
+For $3$-uniform hypergraphs the known bounds are
+$2^{c k^2} \le R_3(k, k) \le 2^{2^{c' k}}$ (Erd\H{o}s--Hajnal--Rado);
+the stepping-up lemma does not apply to the step from graphs to
+$3$-uniform hypergraphs. Erd\H{o}s, Hajnal, and Rado conjectured that the
+doubly-exponential \emph{upper} bound is tight up to the constant in the
+exponent; this is one of the most fundamental open problems in Ramsey
+theory.
 \end{remark}
 
 \subsubsection{Schur's Theorem and van der Waerden}
@@ -18011,8 +18024,12 @@ monochromatic arithmetic progression of length $\ell$.
 \begin{remark}
 Shelah gave primitive-recursive bounds on $W(k, \ell)$; Gowers's
 work on Szemer\'edi's theorem on arithmetic progressions in dense
-sets gave doubly-exponential bounds on $W$. The best known bounds
-are still astronomical.
+sets gave
+\[
+  W(k, \ell) \;\le\; 2^{2^{k^{2^{2^{\ell + 9}}}}},
+\]
+a tower of five exponentials. The best known bounds are still
+astronomical.
 \end{remark}
 
 \subsubsection{Erd\H{o}s--Szekeres: Happy Ending}
@@ -18028,15 +18045,23 @@ Let $(a_i)_{i=1}^n$ be the sequence with $n > (r - 1)(s - 1)$. For
 each $i$, let $x_i$ be the length of the longest increasing
 subsequence ending at $i$, and $y_i$ the longest decreasing.
 If $i < j$ and $a_i < a_j$ then $x_i < x_j$; if $a_i > a_j$ then
-$y_i < y_j$. So $(x_i, y_i)$ is injective and lies in
-$\{1, \dots, r - 1\} \times \{1, \dots, s - 1\}$ would give $n \le (r - 1)(s - 1)$,
-a contradiction.
+$y_i < y_j$. So $i \mapsto (x_i, y_i)$ is injective; if there were no
+increasing subsequence of length $r$ and no decreasing one of length
+$s$, it would map into $\{1, \dots, r - 1\} \times \{1, \dots, s - 1\}$,
+giving $n \le (r - 1)(s - 1)$, a contradiction.
 \end{proof}
 
-\begin{proof}[Proof 2: Ramsey]
-Apply $R(r, s) \le \binom{r + s - 2}{r - 1}$ to the graph with vertex
-set $\{1, \dots, n\}$ and edges $ij$ colored red if $a_i < a_j$ and
-blue otherwise.
+\begin{proof}[Proof 2: chains and antichains]
+Write $i \prec j$ if $i < j$ and $a_i < a_j$; this is a partial order on
+$\{1, \dots, n\}$ whose chains are increasing subsequences and whose
+antichains are decreasing subsequences. Suppose there is no chain of
+size $r$. The indices $i$ with a given value of $x_i$ (the length of the
+longest chain ending at $i$, as in Proof~1) form an antichain, since
+$i \prec j$ forces $x_i < x_j$; so the $n > (r - 1)(s - 1)$ indices split
+into at most $r - 1$ antichains (Mirsky's theorem), one of which has at
+least $s$ elements. (Coloring $ij$ red if $a_i < a_j$ and blue otherwise
+and quoting Theorem~\ref{thm:ramsey} would only give the weaker
+threshold $n \ge R(r, s)$; for $r = s = 3$ this is $6$, not $5$.)
 \end{proof}
 
 \begin{theorem}[Erd\H{o}s--Szekeres on points in general position]
@@ -18046,7 +18071,9 @@ in convex position.
 \end{theorem}
 
 The asymptotic $\mathrm{ES}(n) = 2^{n(1 + o(1))}$ was established by
-Suk in 2017, tightening a $75$-year-old bound.
+Suk (preprint 2016, published 2017), nearly settling the 1960 conjecture
+$\mathrm{ES}(n) = 2^{n-2} + 1$ of Erd\H{o}s and Szekeres and improving
+their 1935 upper bound $\binom{2n-4}{n-2} + 1$.
 
 \subsubsection{Canonical Ramsey and Induced Ramsey}
 
