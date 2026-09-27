@@ -86,6 +86,12 @@
 \newtheorem{conjecture}{Conjecture}
 \usetikzlibrary{matrix}
 
+% Wider number columns in the table of contents (room for numbers like 12.18)
+\makeatletter
+\renewcommand*\l@subsection{\@dottedtocline{2}{1.5em}{2.9em}}
+\renewcommand*\l@subsubsection{\@dottedtocline{3}{4.4em}{3.8em}}
+\makeatother
+
 % Title settings
 \title{\Huge\bfseries Introduction to Graph Theory \\[1em]
 \Large A comprehensive guide combining mathematical rigor, visualization, algorithmic implementations, and interview practices}
