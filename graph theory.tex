@@ -8207,7 +8207,7 @@ For a general connected graph $G$, we can identify its blocks as follows:
 \newpage
 
 \begin{example}
-If $T$ is a tree, then all blocks are $K_2$ (i.e., single edges).
+If $T$ is a tree with at least two vertices, then all blocks are $K_2$ (i.e., single edges).
 
 \begin{center}
 \begin{tikzpicture}[
@@ -8313,7 +8313,7 @@ A graph $G$ is 2-connected if and only if it has at least 3 vertices and $\mathc
 \end{theorem}
 
 \begin{corollary}
-A graph $G$ has no cut vertices if and only if either $G$ is disconnected and each component is 2-connected, or $G$ is connected and $\mathcal{B}(G)$ consists of a single vertex.
+A graph $G$ has no cut vertices (no vertex whose removal increases the number of components) if and only if every component $H$ of $G$ is $K_1$, $K_2$, or 2-connected; equivalently, if and only if $\mathcal{B}(H)$ consists of a single vertex for every component $H$ of $G$.
 \end{corollary}
 
 \begin{center}
@@ -8394,9 +8394,9 @@ V(C) &= \{v_1, B_1, v_2, B_2, \ldots, v_r, B_r\} \\
 E(C) &= \{\{v_1, B_1\}, \{B_1, v_2\}, \{v_2, B_2\}, \ldots, \{v_r, B_r\}, \{B_r, v_1\}\}
 \end{align*}
 
-We claim $B = B_1 \cup B_2 \cup \ldots \cup B_r \subseteq G$ has no cut vertex. This is a contradiction since each $B_i$ is a block, but properly contained in $B$.
+We claim $B = B_1 \cup B_2 \cup \ldots \cup B_r \subseteq G$ has no cut vertex. This is a contradiction since each $B_i$ is a block, but properly contained in $B$ (note that $r \geq 2$, because the bipartite graph $\mathcal{B}(G)$ has no multiple edges, so $C$ has length at least $4$).
 
-If we remove any vertex in this picture, we get a connected graph. So $B$ has no cut vertex.
+Indeed, $B$ is connected, since consecutive blocks $B_{i-1}$ and $B_i$ share the vertex $v_i$ (indices modulo $r$). Let $x$ be any vertex of $B$. Each $B_i - x$ is connected, because a block has no cut vertex. If $x$ is not one of $v_1, \ldots, v_r$, then consecutive blocks still share their common vertices, so $B - x$ is connected. If $x = v_i$, then the blocks $B_i, B_{i+1}, \ldots, B_r, B_1, \ldots, B_{i-1}$ are still linked in this order by the remaining vertices $v_{i+1}, \ldots, v_r, v_1, \ldots, v_{i-1}$, so again $B - x$ is connected. So $B$ has no cut vertex.
 
 So $\mathcal{B}(G)$ has no cycles; it is a tree.
 \end{proof}
@@ -8406,12 +8406,12 @@ So $\mathcal{B}(G)$ has no cycles; it is a tree.
 
 First, the block graph must be connected because the original graph is connected. If the block graph weren't connected, that would mean some blocks in the original graph couldn't be reached from others, contradicting our assumption that the original graph is connected. The key insight is understanding why the block graph cannot contain cycles. If it did contain a cycle, this cycle would alternate between blocks and cut vertices (since in the block graph, blocks connect only to cut vertices and vice versa). Following this cycle in the original graph would give us a sequence of blocks $B_1, B_2, \ldots, B_r$, where consecutive pairs share a cut vertex. If we take the union of all these blocks, $B = B_1 \cup B_2 \cup \cdots \cup B_r$, we'd get a larger subgraph. The contradiction arises because this union $B$ would have no cut vertex! Any vertex that was a cut vertex for one of the original blocks is no longer a cut vertex in the union, because the cycle structure provides an alternate path around any potential cut vertex. This contradicts the definition of blocks as maximal 2-connected subgraphs. We've found a strictly larger 2-connected subgraph containing one of our blocks, which is impossible by the definition of maximality. Since we've reached a contradiction, our assumption must be wrong—the block graph cannot contain any cycles. And a connected graph with no cycles is precisely the definition of a tree. In essence, the tree structure of the block graph reflects how the original graph is ``held together'' by its cut vertices. Each block is like a solid component, and the cut vertices are the connectors that bind these components together in a tree-like arrangement.
 
+A \textbf{tree of cycles} is a connected graph whose blocks are all cycles or $K_2$.
+
 \begin{theorem}
-    
+Let $G$ be a connected graph with at least two vertices containing no $\Theta$-graph. Then $G$ is a tree of cycles; that is, every block of $G$ is a cycle or $K_2$. (Such a graph need not be a tree or a cycle: two triangles sharing one vertex contain no $\Theta$-graph.)
 
-Let $G$ be a connected graph containing no $\Theta$-graph. Then $G$ is a tree or a cycle.
-
-A \textbf{$\Theta$-graph} is a graph consisting of three $uv$-paths $P$, $Q$ and $R$ such that 
+A \textbf{$\Theta$-graph} is a graph consisting of three $uv$-paths $P$, $Q$ and $R$ such that
 \begin{align*}
 V(P) \cap V(Q) &= \{u, v\} \\
 V(Q) \cap V(R) &= \{u, v\} \\
@@ -8419,17 +8419,16 @@ V(R) \cap V(P) &= \{u, v\}
 \end{align*}
 \end{theorem}
 
-
-A \textbf{tree of cycles} is a connected graph whose blocks are all cycles or $K_2$.
-
 \begin{proof}
-It is enough to prove every block of $G$ is a cycle or $K_2$, by the last theorem.
+Since $G$ is connected and has at least two vertices, no block of $G$ is an isolated vertex, so every block of $G$ is $K_2$ or 2-connected. By the definition of a tree of cycles, it is enough to prove that every block of $G$ is a cycle or $K_2$.
 
-Let $B$ be a block of $G$. If $B \neq K_2$ and $B \neq$ a cycle, then $B$ has a vertex of degree at least three.
+Let $B$ be a block of $G$. If $B \neq K_2$ and $B \neq$ a cycle, then $B$ is 2-connected, so every vertex has degree at least $2$ in $B$; since a connected graph in which every vertex has degree $2$ is a cycle, $B$ has a vertex $u$ with $d_B(u) \geq 3$.
 
-Block $B$ has a cycle $C$ containing $u$, where $d(u) \geq 3$.
+Block $B$ has a cycle $C$ containing $u$ (a 2-connected graph has no bridge, and an edge that is not a bridge lies on a cycle). Only two edges of $C$ meet $u$, so there is an edge $uw \in E(B) \setminus E(C)$.
 
-Since $u$ is not a cut vertex of $B$, $B - \{u\}$ is connected. So there is a path $P$ in $B - \{u\}$ from a neighbor of $u$ not in $C$ to a vertex $v$ on the cycle.
+If $w \in V(C)$, then the edge $uw$ and the two $uw$-paths $Q$ and $R$ with $Q \cup R = C$ form a $\Theta$-graph. This is a contradiction.
+
+If $w \notin V(C)$, then, since $u$ is not a cut vertex of $B$, $B - \{u\}$ is connected. So there is a path in $B - \{u\}$ from $w$ to a vertex of $C - \{u\}$; let $P'$ be a shortest such path and let $v$ be its last vertex. Then $P'$ meets $C$ only in $v$, so the path $P$ consisting of the edge $uw$ followed by $P'$ is a $uv$-path that meets $C$ only in $u$ and $v$.
 
 Now $P$, $Q$, $R$ form a $\Theta$-graph, where $Q \cup R = C$ and $Q$ and $R$ are $uv$-paths. This is a contradiction.
 
@@ -8437,19 +8436,19 @@ So $B = K_2$ or $B =$ a cycle.
 \end{proof}
 
 \medskip
-\noindent\textbf{In other words:} This proposition reveals something fascinating about graphs with a certain structural constraint. It tells us that if our graph doesn't contain a specific forbidden pattern (three distinct paths connecting the same two points), then the entire graph must be very simple - either just a tree or a single cycle.
+\noindent\textbf{In other words:} This proposition reveals something fascinating about graphs with a certain structural constraint. It tells us that if our graph doesn't contain a specific forbidden pattern (three internally disjoint paths connecting the same two points), then every block of the graph must be very simple - either just a single edge or a single cycle.
 
-Think about the forbidden pattern this way: imagine two cities connected by three completely separate roads. This creates a structure with multiple alternate routes between the same two points. What our theorem 54 says is that if a network doesn't have any such triple-path connections anywhere, the entire network must be either a tree (no loops at all) or just a single loop.
+Think about the forbidden pattern this way: imagine two cities connected by three completely separate roads. This creates a structure with multiple alternate routes between the same two points. What our theorem 54 says is that if a network doesn't have any such triple-path connections anywhere, then the network is built from single links and simple loops, glued together at cut vertices in a tree-like fashion. The network need not be a single tree or a single loop: two triangles sharing one vertex contain no triple-path connection, yet form neither a tree nor a cycle.
 
-The proof uses a clever approach based on our previous result about block graphs. Remember that blocks are the maximal 2-connected pieces of a graph. The key insight is showing that each block in our graph must be either just a single edge or a cycle - nothing more complex is possible.
+The proof uses the block structure of the graph. Remember that the blocks of a graph are its maximal connected subgraphs without a cut vertex; in a connected graph with at least two vertices, every block is either a single edge or a maximal 2-connected piece of the graph. The key insight is showing that each block in our graph must be either just a single edge or a cycle - nothing more complex is possible.
 
-Here's why: If any block were more complex than just an edge or cycle, it would contain a vertex connecting to at least three other vertices. This high-degree vertex would be part of some cycle, but would also connect to something outside this cycle. Since the block is 2-connected, we could find a path that avoids this vertex, connecting its "outside neighbor" to the original cycle. But this would create exactly the triple-path pattern we're not allowed to have!
+Here's why: If any block were more complex than just an edge or cycle, it would contain a vertex with at least three neighbors inside the block. This high-degree vertex would be part of some cycle of the block, and one of its edges would not be on this cycle. If that edge joins two vertices of the cycle, it is a chord, and the chord together with the two arcs of the cycle forms the triple-path pattern. Otherwise the edge leads to an "outside neighbor"; since the block is 2-connected, we could find a path that avoids the high-degree vertex, connecting its "outside neighbor" to the original cycle. But this would create exactly the triple-path pattern we're not allowed to have!
 
 This contradiction tells us each block must be just an edge or a cycle. When we connect these simple blocks together at cut vertices, we get what's called a "tree of cycles" - essentially a tree-like structure where the "nodes" are either single edges or cycles.
 
-Since the block graph forms a tree (from our previous theorem), the entire graph is either a single block (so just a cycle or a single edge) or multiple simple blocks arranged in a tree structure. Either way, the graph must be either a tree or a cycle, just as the proposition claims.
+Since the block graph forms a tree (from our previous theorem), the entire graph is either a single block (so just a cycle or a single edge) or several such blocks arranged in a tree structure. In particular, the graph is a tree exactly when all of its blocks are single edges, and it is a cycle exactly when it consists of a single block that is a cycle; in general it mixes both kinds of blocks.
 
-This elegant result completely characterizes graphs that avoid the triple-path pattern, showing they must have a remarkably simple structure.
+Conversely, a tree of cycles contains no $\Theta$-graph: a $\Theta$-graph has no cut vertex, so it would have to lie inside a single block, and neither an edge nor a cycle contains a $\Theta$-graph. So this result completely characterizes the connected graphs with at least two vertices that avoid the triple-path pattern: they are exactly the trees of cycles.
 
 \subsection{Menger's Theorem}
 
@@ -8472,43 +8471,19 @@ First, we prove that $\kappa(u,v) \geq \pi(u,v)$.
 
 Consider any set of $\pi(u,v)$ internally vertex-disjoint $uv$-paths. Any $uv$-separator $S$ must include at least one vertex from each path (excluding $u$ and $v$), otherwise there would still be a $uv$-path after removing $S$. Since the paths are internally vertex-disjoint, $S$ must contain at least $\pi(u,v)$ vertices. Therefore, $\kappa(u,v) \geq \pi(u,v)$.
 
-Next, we prove that $\kappa(u,v) \leq \pi(u,v)$ by using induction on $|E(G)|$.
+Next, we prove that $\kappa(u,v) \leq \pi(u,v)$. It is convenient to prove a more general statement about sets of vertices. Let $H$ be a graph and let $A, B \subseteq V(H)$. An \textit{$A$--$B$ path} is a path whose first vertex is its only vertex in $A$ and whose last vertex is its only vertex in $B$ (a single vertex of $A \cap B$ is an $A$--$B$ path of length $0$). A set $X \subseteq V(H)$ \textit{separates} $A$ from $B$ if every $A$--$B$ path in $H$ contains a vertex of $X$.
 
-\textbf{Base case:} If $G$ has no edges, then $\kappa(u,v) = 0 = \pi(u,v)$.
+\textbf{Claim.} If every set separating $A$ from $B$ in $H$ has at least $k$ vertices, then $H$ contains $k$ pairwise vertex-disjoint $A$--$B$ paths.
 
-\textbf{Inductive step:} Assume the theorem holds for all graphs with fewer than $|E(G)|$ edges.
+We prove the claim by induction on $|E(H)|$, for all $A$, $B$ and $k$ at once. (This is the first proof of Menger's Theorem in Diestel's \textit{Graph Theory}, Theorem 3.3.1.)
 
-If $\kappa(u,v) = 0$, then $u$ and $v$ are in different components, so $\pi(u,v) = 0$ and we're done.
+\textbf{Base case:} If $H$ has no edges, then the $A$--$B$ paths are exactly the single vertices of $A \cap B$, so $A \cap B$ separates $A$ from $B$. Hence $|A \cap B| \geq k$, and these single vertices give $k$ disjoint $A$--$B$ paths.
 
-If $\kappa(u,v) > 0$, then there exists at least one $uv$-path. Let $P$ be a shortest $uv$-path.
+\textbf{Inductive step:} Let $e = xy$ be an edge of $H$, and suppose, for a contradiction, that $H$ does not contain $k$ disjoint $A$--$B$ paths. Let $H/e$ be the graph obtained by contracting $e$, that is, by replacing $x$ and $y$ with a single new vertex $v_e$ that is adjacent to every other vertex adjacent to $x$ or to $y$; the vertex $v_e$ counts as a vertex of $A$ (of $B$) if $x$ or $y$ lies in $A$ (in $B$). If $H/e$ contained $k$ disjoint $A$--$B$ paths, at most one of them would contain $v_e$. Replacing $v_e$ on that path by $x$, by $y$, or by the edge $xy$ (suitably chosen) gives a path in $H$ that starts in $A$ and ends in $B$, and hence contains an $A$--$B$ path, while the other paths avoid $x$ and $y$ and are $A$--$B$ paths in $H$. This would give $k$ disjoint $A$--$B$ paths in $H$, so $H/e$ does not contain $k$ disjoint $A$--$B$ paths either. Since $H/e$ has fewer edges than $H$, the induction hypothesis gives a set $Y$ of fewer than $k$ vertices separating $A$ from $B$ in $H/e$. The set $Y$ must contain $v_e$, since otherwise $Y$ would separate $A$ from $B$ in $H$, which is impossible because $|Y| < k$. Therefore $X = (Y \setminus \{v_e\}) \cup \{x, y\}$ separates $A$ from $B$ in $H$, and $|X| \leq k$; by hypothesis, $|X| = k$.
 
-\textbf{Case 1:} If $P$ consists of just the edge $uv$, remove this edge to get graph $G'$. 
-By the induction hypothesis, $\kappa_{G'}(u,v) = \pi_{G'}(u,v)$. 
-Note that $\kappa_G(u,v) = \kappa_{G'}(u,v) + 1$ and $\pi_G(u,v) = \pi_{G'}(u,v) + 1$.
-So $\kappa_G(u,v) = \pi_G(u,v)$.
+Now consider $H - e$. Every $A$--$B$ path $P$ in $H$ meets $X$, and the initial segment of $P$ up to its first vertex in $X$ does not use $e$, because both ends of $e$ lie in $X$. So every set separating $A$ from $X$ in $H - e$ also separates $A$ from $B$ in $H$, and therefore has at least $k$ vertices. Since $H - e$ has fewer edges than $H$, the induction hypothesis gives $k$ disjoint $A$--$X$ paths in $H - e$, and in the same way $k$ disjoint $X$--$B$ paths in $H - e$. As $|X| = k$, each vertex of $X$ is an end of exactly one path of each family. A path of the first family and a path of the second family meet only in $X$, since a common vertex outside $X$ would give an $A$--$B$ walk in $H$ avoiding $X$. Joining the two families at the vertices of $X$ yields $k$ disjoint paths in $H$, each starting in $A$ and ending in $B$; each of them contains an $A$--$B$ path, so $H$ contains $k$ disjoint $A$--$B$ paths, a contradiction. This proves the claim.
 
-\textbf{Case 2:} If $P = (u, w_1, w_2, \ldots, w_k, v)$ where $k \geq 1$:
-
-Let's modify $G$ to create a new graph $G'$:
-\begin{itemize}
-    \item Remove edge $uw_1$
-    \item Add a new vertex $w'$
-    \item Add edges $uw'$ and $w'w_1$
-\end{itemize}
-
-This doesn't change $\kappa(u,v)$ or $\pi(u,v)$ because any $uv$-separator that contained $w_1$ can use $w'$ instead, and any set of disjoint paths can be modified accordingly.
-
-By repeating this process for each internal vertex of $P$, we get a graph where $P$ has been replaced by a path where all internal vertices have degree 2 (they only connect to their neighbors on the path).
-
-Now let's contract the path $P$ into a single edge $uv$ to get a graph $G''$. 
-
-By the induction hypothesis, $\kappa_{G''}(u,v) = \pi_{G''}(u,v)$.
-
-It can be shown that $\kappa_G(u,v) = \kappa_{G''}(u,v) + 1$ and $\pi_G(u,v) = \pi_{G''}(u,v) + 1$ (because $P$ provides one additional path, and any minimum separator must include one vertex from $P$).
-
-Therefore, $\kappa_G(u,v) = \pi_G(u,v)$.
-
-This completes the induction, proving that $\kappa(u,v) = \pi(u,v)$ for all graphs.
+Finally, let $u$ and $v$ be non-adjacent vertices of $G$ and let $k = \kappa(u,v)$. Apply the claim to $H = G - \{u,v\}$ with $A = N(u)$ and $B = N(v)$. If $X \subseteq V(H)$ separates $A$ from $B$ in $H$, then $X$ is a $uv$-separator in $G$: a $uv$-path in $G$ has the form $u x_1 x_2 \cdots x_m v$ with $x_1 \in A$ and $x_m \in B$, and if $x_j$ is its first vertex in $B$ and $x_i$ is the last vertex of $A$ among $x_1, \ldots, x_j$, then $x_i x_{i+1} \cdots x_j$ is an $A$--$B$ path, which meets $X$. Hence every set separating $A$ from $B$ in $H$ has at least $k$ vertices, and the claim gives $k$ disjoint $A$--$B$ paths $Q_1, \ldots, Q_k$ in $H$. Adding $u$ at the beginning and $v$ at the end of each $Q_i$ gives $k$ internally vertex-disjoint $uv$-paths in $G$. Therefore $\pi(u,v) \geq \kappa(u,v)$, and so $\kappa(u,v) = \pi(u,v)$ for all graphs.
 \end{proof}
 
 \begin{definition}
@@ -8785,7 +8760,7 @@ A graph $G$ is \textbf{$k$-connected} if and only if $|V(G)| > k$ and for every 
 \end{definition}
 
 \begin{lemma}
-A block is a 2-connected graph, except for $K_2$.
+A block is a 2-connected graph, except for $K_1$ (an isolated vertex) and $K_2$ (a bridge with its ends).
 \end{lemma}
 
 \begin{definition}
@@ -8891,7 +8866,7 @@ This lemma reveals an important property of minimal separators: every vertex in 
 \end{remark}
 
 \begin{corollary}
-For any non-adjacent vertices $u$ and $v$ in a graph $G$, the size of a minimum $uv$-separator equals the maximum number of internally disjoint $uv$-paths if and only if all internally disjoint $uv$-paths have minimum length.
+Let $u$ and $v$ be non-adjacent vertices in a graph $G$, let $S$ be a minimum $uv$-separator, and let $P_1, \ldots, P_k$ be a maximum family of internally disjoint $uv$-paths. Then each path $P_i$ contains exactly one vertex of $S$, and each vertex of $S$ lies on exactly one of the paths $P_i$.
 \end{corollary}
 
 
@@ -8910,15 +8885,15 @@ For any vertices $u, v \in V(G)$, non-adjacent, let $\kappa(u,v)$ be the minimum
 
 
 \begin{definition}
-A graph is $k$-connected if and only if $\kappa(u,v) \geq k$ for all $u,v$ in the graph.
+A graph $G$ that is not complete is $k$-connected if and only if $\kappa(u,v) \geq k$ for all non-adjacent $u,v$ in the graph; the complete graph $K_n$ is $k$-connected if and only if $n \geq k+1$.
 \end{definition}
 
 \begin{definition}
-A graph is $k$-connected if and only if it is $K_n$, $n \geq k+1$, or for any two vertices $u, v$ in the graph, there exist $k$ internally disjoint $uv$-paths.
+A graph with at least two vertices is $k$-connected if and only if it is $K_n$, $n \geq k+1$, or for any two distinct vertices $u, v$ in the graph, there exist $k$ internally disjoint $uv$-paths.
 \end{definition}
 
 \begin{lemma}[Whitney's Theorem]
-A graph is k-connected if and only if it has at least k+1 vertices and the removal of any set of fewer than k vertices leaves the remaining subgraph connected.
+A graph with at least 3 vertices is 2-connected if and only if any two distinct vertices are joined by at least two internally disjoint paths.
 \end{lemma}
 
 \begin{lemma}[Minimum Degree Bound]
@@ -8930,7 +8905,7 @@ If G is a k-connected graph and X is a set of at least k vertices, then from any
 \end{lemma}
 
 \begin{lemma}[Expansion Lemma]
-In a k-connected graph G, if S is a set of k vertices, then every component of $G - S$ has at least k neighbors in S.
+If G is a k-connected graph and $G'$ is obtained from G by adding a new vertex y with at least k neighbors in G, then $G'$ is k-connected.
 \end{lemma}
 
 \begin{definition}
@@ -9245,7 +9220,9 @@ A graph $G$ with at least $k+1$ vertices is $k$-connected if and only if for eve
 \end{corollary}
 
 \begin{proof}
-By Menger's Theorem, the minimum size of a $uv$-separator equals the maximum number of internally vertex-disjoint $uv$-paths. A graph is $k$-connected if and only if the removal of fewer than $k$ vertices does not disconnect the graph, which is equivalent to having at least $k$ internally vertex-disjoint paths between any pair of vertices.
+Suppose first that for every pair of distinct vertices $u$ and $v$ there are $k$ internally vertex-disjoint $uv$-paths, and let $S$ be a set of fewer than $k$ vertices. For any two vertices $u, v \notin S$, each vertex of $S$ is an internal vertex of at most one of these $k$ paths, so at least one of the paths avoids $S$. Hence $G - S$ is connected, and since $G$ has at least $k+1$ vertices, $G$ is $k$-connected.
+
+Conversely, let $G$ be $k$-connected and let $u \neq v$. If $u$ and $v$ are non-adjacent, then every $uv$-separator disconnects $G$, so $\kappa(u,v) \geq k$, and Menger's Theorem gives $k$ internally vertex-disjoint $uv$-paths. Now let $u$ and $v$ be adjacent, and let $G' = G - uv$ be the graph obtained by deleting the edge $uv$. Together with the edge $uv$, any $k-1$ internally disjoint $uv$-paths in $G'$ give $k$ such paths in $G$. Suppose $G'$ had no $k-1$ internally disjoint $uv$-paths. Since $u$ and $v$ are non-adjacent in $G'$, Menger's Theorem gives a $uv$-separator $X$ in $G'$ with $|X| \leq k-2$. Since $G$ has at least $k+1$ vertices, there is a vertex $w \notin X \cup \{u,v\}$. As $u$ and $v$ lie in different components of $G' - X$, the vertex $w$ lies in a different component from one of them, say from $u$ (the other case is symmetric). Then $u$ and $w$ lie in different components of $G - (X \cup \{v\})$, because the only edge of $G$ missing from $G'$ is $uv$, and it is deleted together with $v$. So removing the set $X \cup \{v\}$ of at most $k-1$ vertices disconnects $G$, contradicting that $G$ is $k$-connected.
 \end{proof}
 
 \begin{theorem}[Menger's Theorem - Edge Form]
@@ -9316,7 +9293,7 @@ The following statements are equivalent:
 \begin{enumerate}
 \item A graph is 2-edge-connected.
 \item A graph is connected and has no bridge.
-\item Every edge in the graph is part of at least one cycle.
+\item A graph is connected and every edge in the graph is part of at least one cycle.
 \end{enumerate}
 \end{theorem}
 
@@ -9422,8 +9399,7 @@ $\kappa(G) \leq \lambda(G) \leq \delta(G)$.
 \end{corollary}
 
 \begin{lemma}
-The vertex connectivity $\kappa(G)$ is
-$\min\{|X| : X \subseteq V(G) \text{ is a vertex cut}\}$.
+If $G$ is not a complete graph, then $\kappa(G) = \min\{|X| : X \subseteq V(G) \text{ is a vertex cut}\}$, where a vertex cut is a set $X$ such that $G - X$ is disconnected. (A complete graph $K_n$ has no vertex cut, and $\kappa(K_n) = n-1$.)
 \end{lemma}
 
 \begin{remark}
@@ -9456,15 +9432,14 @@ $$\kappa(u,v) = \max\{ k : \text{there are $k$ internally disjoint $uv$-paths}\}
 
 Note that internally disjoint $uv$-paths are also edge-disjoint.
 
-Using these facts, we can establish:
+Let $L$ be an edge cut with $|L| = \lambda(G)$, let $S$ be the vertex set of one component of $G - L$, and let $\bar{S} = V(G) \setminus S$. Every edge joining $S$ to $\bar{S}$ lies in $L$, and these edges alone already form an edge cut; so, by the minimality of $|L|$, $L$ is exactly the set of edges joining $S$ to $\bar{S}$.
 
-$$\kappa(G) \leq \min_{\{u,v\} \not\in E(G)} \max\{ k : \text{there are $k$ edge-disjoint $uv$-paths}\}$$
+\textbf{Case 1:} Some $u \in S$ and $v \in \bar{S}$ are non-adjacent. Every $uv$-path uses an edge of $L$, so there are at most $|L|$ edge-disjoint $uv$-paths, and hence at most $|L|$ internally disjoint $uv$-paths. Since a minimum $uv$-separator is a vertex cut of $G$, Menger's Theorem gives
+$$\kappa(G) \leq \kappa(u,v) \leq |L| = \lambda(G).$$
 
-$$\leq \min_{u,v} \min\{ |L| : L \subseteq E(G) \text{ is a $uv$-edge-separator}\}$$
-
-$$= \min\{ |L| : L \subseteq E(G) \text{ is an edge cut}\}$$
-
-$$= \lambda(G)$$
+\textbf{Case 2:} Every vertex of $S$ is adjacent to every vertex of $\bar{S}$. Then, with $n = |V(G)|$,
+$$\lambda(G) = |L| = |S| \cdot |\bar{S}| \geq |S| + |\bar{S}| - 1 = n - 1 \geq \kappa(G),$$
+where $|S| \cdot |\bar{S}| \geq |S| + |\bar{S}| - 1$ because $(|S| - 1)(|\bar{S}| - 1) \geq 0$, and $\kappa(G) \leq n - 1$ holds for every graph.
 
 Therefore, $\kappa(G) \leq \lambda(G)$.
 
@@ -9472,52 +9447,51 @@ This completes the proof.
 \end{proof}
 
 \begin{theorem}
-There exists a graph $G$ such that given $k \leq \ell \leq d$,
+For any integers $k$, $\ell$, $d$ with $1 \leq k \leq \ell \leq d$, there exists a graph $G$ with
 $\kappa(G) = k$, $\lambda(G) = \ell$, and $\delta(G) = d$.
 \end{theorem}
 
 \begin{proof}
-We construct a graph $G$ as follows:
+We construct a graph $G$ as follows (the theorem is due to Chartrand and Harary, 1968):
 
 \begin{enumerate}
-\item Start with two complete graphs $K_{k+1}$, which we will call $X$ and $Y$.
+\item Start with two disjoint complete graphs $K_{d+1}$, which we will call $X$ and $Y$.
 
-\item Select $k$ vertices $\{x_1, x_2, \ldots, x_k\}$ from $X$ and $k$ vertices $\{y_1, y_2, \ldots, y_k\}$ from $Y$.
+\item Select $k$ vertices $\{x_1, x_2, \ldots, x_k\}$ from $X$ and $\ell$ vertices $\{y_1, y_2, \ldots, y_\ell\}$ from $Y$; this is possible since $k \leq \ell \leq d < d+1$.
 
 \item Connect these selected vertices with edges such that:
   \begin{itemize}
-    \item There are exactly $(\ell-k)$ edges between vertex $x_i$ and vertex $y_i$ for $i = 1, 2, \ldots, k$
-    \item Additionally, add edges between $X$ and $Y$ to ensure each vertex has degree at least $d$
+    \item $x_i$ is joined to $y_i$ for $i = 1, 2, \ldots, k$
+    \item $x_k$ is joined to $y_i$ for $i = k+1, \ldots, \ell$
   \end{itemize}
-
-\item Finally, add self-loops or additional edges within $X$ and $Y$ as needed to ensure every vertex has degree exactly $d$.
 \end{enumerate}
+
+Thus exactly $\ell$ edges join $X$ to $Y$, every selected vertex is incident with at least one of them, and the $k$ edges $x_1y_1, \ldots, x_ky_k$ are pairwise disjoint.
 
 Now, we verify the three parameters:
 
 \textbf{For minimum degree $\delta(G)$:}\\
-By construction, every vertex has degree at least $d$, and we've ensured none has higher degree, so $\delta(G) = d$.
+Every vertex has degree $d$ inside its own copy of $K_{d+1}$, and the added edges only increase degrees. Since $k \leq d < d+1$, some vertex of $X$ is not selected, and its degree is exactly $d$. Hence $\delta(G) = d$.
 
 \textbf{For edge connectivity $\lambda(G)$:}\\
-The total number of edges between $X$ and $Y$ is $k \cdot (\ell-k) + k = k \cdot (\ell-k+1) = \ell$. 
-Removing these $\ell$ edges disconnects the graph into two components ($X$ and $Y$).
-We cannot disconnect the graph by removing fewer than $\ell$ edges because:
+Removing the $\ell$ edges between $X$ and $Y$ disconnects the graph into two components ($X$ and $Y$), so $\lambda(G) \leq \ell$.
+We cannot disconnect the graph by removing fewer than $\ell$ edges. Indeed, let $L$ be an edge cut and let $S$ be the vertex set of a component of $G - L$.
 \begin{itemize}
-  \item Within $X$ and $Y$, we have complete graphs $K_{k+1}$, which require more than $\ell$ edge removals to disconnect (since $k \leq \ell$)
-  \item Between $X$ and $Y$, we've constructed exactly $\ell$ edges
+  \item If $S$ contains some but not all vertices of $X$, say $j$ of them with $1 \leq j \leq d$, then $L$ contains the $j(d+1-j)$ edges of $X$ joining $S \cap X$ to $X \setminus S$, and $j(d+1-j) \geq d \geq \ell$ because $j(d+1-j) - d = (j-1)(d-j) \geq 0$. The same holds for $Y$.
+  \item Otherwise $S = X$ or $S = Y$, and $L$ contains all $\ell$ edges between $X$ and $Y$.
 \end{itemize}
 Therefore, $\lambda(G) = \ell$.
 
 \textbf{For vertex connectivity $\kappa(G)$:}\\
-If we remove the $k$ vertices $\{x_1, x_2, \ldots, x_k\}$ from $X$, the graph becomes disconnected because there are no remaining edges between $X$ and $Y$.
-We cannot disconnect the graph by removing fewer than $k$ vertices because:
+If we remove the $k$ vertices $\{x_1, x_2, \ldots, x_k\}$ from $X$, the graph becomes disconnected because there are no remaining edges between $X$ and $Y$, while both $Y$ and $X - \{x_1, \ldots, x_k\}$ (which has $d+1-k \geq 1$ vertices) remain. So $\kappa(G) \leq k$.
+We cannot disconnect the graph by removing a set $S$ of fewer than $k$ vertices because:
 \begin{itemize}
-  \item The $k$ vertices in $X$ that connect to $Y$ form a complete graph with other vertices in $X$
-  \item Removing fewer than $k$ vertices will leave at least one vertex in $X$ connected to $Y$
+  \item $X - S$ and $Y - S$ are nonempty complete graphs, hence connected
+  \item Each vertex of $S$ is an end of at most one of the $k$ disjoint edges $x_1y_1, \ldots, x_ky_k$, so at least one of these edges survives and joins $X - S$ to $Y - S$
 \end{itemize}
-Therefore, $\kappa(G) = k$.
+Therefore, since also $|V(G)| = 2d + 2 > k$, we have $\kappa(G) = k$.
 
-This completes the proof, showing that we can construct a graph $G$ with $\kappa(G) = k$, $\lambda(G) = \ell$, and $\delta(G) = d$ for any values satisfying $k \leq \ell \leq d$.
+This completes the proof, showing that we can construct a graph $G$ with $\kappa(G) = k$, $\lambda(G) = \ell$, and $\delta(G) = d$ for any integers satisfying $1 \leq k \leq \ell \leq d$.
 \end{proof}
 
 \subsection{Structure of Connected Graphs Exercises}
