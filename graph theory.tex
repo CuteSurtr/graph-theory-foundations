@@ -16305,8 +16305,8 @@ The complete graph $K_4$ is planar. Although it may initially appear to have cro
         \node[vertex] (D) at (0.5,0) {$v_4$};
 
         \draw[thick_edge, color=blue] (A) -- (B) -- (C) -- (D) -- (A);
-        \draw[thick_edge, color=green] (A) to[bend right=30] (C);
-        \draw[thick_edge, color=green] (B) to[bend left=40] (D);
+        \draw[thick_edge, color=green] (A) -- (C);
+        \draw[thick_edge, color=green] (B) .. controls (0,3.6) and (-1.8,1.6) .. (D);
 
         \node at (1,-0.8) {\small No crossings!};
     \end{scope}
@@ -16321,15 +16321,15 @@ $K_4$ is planar.
 
 \subsection{Faces of Planar Graphs}
 \begin{definition}
-If $G$ is a planar graph, then the \textit{faces} of $G$ are the connected regions of the plane that are disjoint from the drawing of $G$.
+If $G$ is a planar graph drawn in the plane without crossings, then the \textit{faces} of $G$ are the maximal connected regions of the plane that are disjoint from the drawing of $G$.
 \end{definition}
 
 \begin{definition}
-The \textit{degree} of a face $f$, denoted $\deg(f)$, is the length of the shortest closed walk containing all points on the boundary of $f$.
+The \textit{degree} of a face $f$, denoted $\deg(f)$, is the length of the shortest closed walk containing all points on the boundary of $f$. (If the boundary of $f$ is disconnected, which can happen only when $G$ is disconnected, then $\deg(f)$ is the sum of these lengths over the connected pieces of the boundary.)
 \end{definition}
 
 \begin{example}
-Consider a triangle with an additional edge:
+Consider a triangle $abc$ together with a vertex $d$ inside it joined to $b$ and $c$:
 
 \begin{figure}[ht]
 \centering
@@ -16346,17 +16346,20 @@ Consider a triangle with an additional edge:
     \draw[thick_edge, color=blue] (A) -- (B) -- (C) -- (A);
     \draw[thick_edge, color=red] (B) -- (D) -- (C);
 
-    % Face degrees
-    \node at (-2.2,1.5) {\small $\deg(f_1) = 4$};
-    \node at (2.2,1.5) {\small $\deg(f_2) = 4$};
-    \node at (0,-1.8) {\small $\deg(f_3) = 4$};
+    % Faces and their degrees
+    \node at (0,1.3) {\small $f_1$};
+    \node at (0,0.2) {\small $f_2$};
+    \node at (-1.6,1.4) {\small $f_3$};
+    \node at (-2.2,2.2) {\small $\deg(f_1) = 4$};
+    \node at (2.2,2.2) {\small $\deg(f_2) = 3$};
+    \node at (0,-0.8) {\small $\deg(f_3) = 3$};
 \end{tikzpicture}
 \\
-\small Figure 150: Triangle with additional edge showing three faces
+\small Figure 150: Triangle with an additional path $b\,d\,c$, showing three faces
 \label{fig:faces_example}
 \end{figure}
 
-Each face has degree 4. Note that edges $bd$ and $dc$ are each counted once for faces $f_1$ and $f_2$, but edges $ab$, $ac$, and $bc$ are shared with the outer face.
+The face $f_1$ is bounded by the closed walk $a\,b\,d\,c\,a$, so $\deg(f_1) = 4$; the face $f_2$ is bounded by the triangle $b\,d\,c\,b$, so $\deg(f_2) = 3$; and the outer face $f_3$ is bounded by the triangle $a\,b\,c\,a$, so $\deg(f_3) = 3$. Each edge is counted exactly twice: $bd$ and $dc$ once for $f_1$ and once for $f_2$; $ab$ and $ac$ once for $f_1$ and once for the outer face $f_3$; and $bc$ once for $f_2$ and once for $f_3$.
 \end{example}
 
 \subsection{Fundamental Theorems}
@@ -16396,7 +16399,7 @@ Verification with the triangle example above:
     \node at (-0.8,0.4) {\small $e_4$};
     \node at (0.8,0.4) {\small $e_5$};
 
-    \node at (0,-1.5) {\small $\sum \deg(f) = 4 + 4 + 4 = 12 = 2 \times 5 = 2|E|$};
+    \node at (0,-1.5) {\small $\sum \deg(f) = 4 + 3 + 3 = 10 = 2 \times 5 = 2|E|$};
 \end{tikzpicture}
 \\
 \small Figure 151: Verification of Handshaking Lemma for Faces
@@ -16507,9 +16510,9 @@ Planar vs Non-planar comparison:
         \node[vertex] (F) at (-2,1) {$f$};
 
         \draw[thick_edge, color=green] (A) -- (B) -- (C) -- (D) -- (E) -- (F) -- (A);
-        \draw[thick_edge, color=blue] (A) -- (D);
-        \draw[thick_edge, color=blue] (B) -- (E);
-        \draw[thick_edge, color=blue] (C) -- (F);
+        \draw[thick_edge, color=blue] (A) -- (C);
+        \draw[thick_edge, color=blue] (C) -- (E);
+        \draw[thick_edge, color=blue] (E) -- (A);
 
         \node at (0,-2.8) {\small Planar: $|V|=6$, $|E|=9$};
         \node at (0,-3.3) {\small Satisfies: $9 \leq 3(6-2) = 12$ (valid)};
