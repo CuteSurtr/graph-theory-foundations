@@ -7668,80 +7668,6 @@ A bipartite graph $G = (X \cup Y, E)$ is \textit{biregular} (also called \textit
 
 \subsection{Chapter 5 Exercises}
 
-\subsubsection{Easy Questions}
-\begin{enumerate}
-\item State the theorem on minimum cycle length in a graph with minimum degree $k \geq 2$. What is the guaranteed minimum cycle length?
-
-\item In a graph with minimum degree 5, what is the minimum cycle length guaranteed by the long cycle theorem?
-
-\item Prove that a graph with maximum degree 2 cannot have a cycle of length greater than the number of vertices.
-
-\item What is the minimum cycle length in a 3-regular graph with 8 vertices? Is this bound tight? Explain.
-
-\item Explain why the minimum cycle length in a graph must be at least 3.
-
-\item Find the length of the longest cycle in the graph $K_{2,4}$ (complete bipartite graph with partite sets of sizes 2 and 4).
-
-\item Prove that any graph with minimum degree $\delta(G) \geq 2$ must contain at least one cycle.
-\end{enumerate}
-
-\subsubsection{Medium Questions}
-\begin{enumerate}\setcounter{enumi}{7}
-\item Let $P$ be a longest path in a graph $G$ with minimum degree $k \geq 2$. Prove that the endpoints of $P$ have all their neighbors on $P$.
-
-\item Explain why the bound in the long cycle theorem is tight by constructing an example of a graph with minimum degree $k$ where the longest cycle has length exactly $k+1$.
-
-\item Prove that in a 2-connected graph with minimum degree $k \geq 2$, there exists a cycle of length at least $\min\{2k, n\}$.
-
-\item A graph $G$ has minimum degree $k=3$. Describe an algorithm to find a cycle of length at least $k+1=4$ in $G$.
-
-\item Let $G$ be a graph with minimum degree $\delta(G) = 3$. If $G$ has exactly 6 vertices, show that $G$ must contain a cycle of length at least 4.
-
-\item Find the relationship between the length of the longest cycle in a graph $G$ and the length of the longest cycle in its complement $\overline{G}$.
-
-\item Prove that in a Hamiltonian graph, the length of the longest cycle is exactly $n$. Then show that the converse is not true by providing a counterexample.
-\end{enumerate}
-
-\subsubsection{Hard Questions}
-\begin{enumerate}\setcounter{enumi}{14}
-\item Let $G$ be a graph with minimum degree $\delta(G) \geq \frac{n}{r+1} + 1$ where $r \geq 2$. Prove that $G$ contains a cycle of length at least $r+2$.
-
-\item Prove or disprove: if $G$ is a $k$-connected graph with minimum degree $\delta(G) \geq k+1$, then $G$ contains a cycle of length at least $2k+2$.
-
-\item Let $G$ be a graph with minimum degree $k \geq 2$. Prove that if $G$ has girth $g$ (the length of its shortest cycle), then $G$ has a cycle of length at least $\min\{2k, g+k-1\}$.
-
-\item Design an algorithm to find the longest cycle in a graph $G$. Analyze its time complexity and explain why finding the longest cycle is generally an NP-hard problem.
-
-\item Let $G$ be a graph with $n$ vertices and let $\lambda(G)$ denote the length of the longest cycle in $G$. Prove that if $\delta(G) > \frac{n}{2}$, then $\lambda(G) \geq 2\delta(G)$ unless $G$ is Hamiltonian.
-
-\item Prove that if $G$ is a 3-connected cubic graph (3-regular), then $G$ contains a cycle of length at least $4\log n$.
-\end{enumerate}
-
-\subsubsection{Diagram Questions}
-\begin{enumerate}\setcounter{enumi}{20}
-\item Draw a graph with 8 vertices and minimum degree 3 that contains a cycle of length exactly 4 but no longer cycles. Mark the cycle in your diagram.
-
-\item Illustrate the proof technique of the long cycle theorem by drawing:
-\begin{enumerate}
-\item A longest path $P$ in a graph with endpoints $u$ and $v$
-\item The neighbors of $v$ on the path $P$
-\item The earliest neighbor of $v$ on the path
-\item The resulting cycle formed by the theorem
-\end{enumerate}
-Label all relevant vertices and explain each step.
-
-\item Draw a star graph $K_{1,4}$ and explain why the longest cycle in this graph has length 3. Then add one edge to create a cycle of length 4, and explain why this is now the longest possible cycle.
-
-\item Create a sequence of graphs $G_3, G_4, G_5$ where each $G_k$ has minimum degree $k$ and contains a cycle of length exactly $k+1$. Draw each graph and highlight the longest cycle in each.
-
-\item Draw the Petersen graph and identify the longest cycle in it. Explain why this graph does not have a Hamiltonian cycle despite having minimum degree 3.
-
-\item Draw a graph where the bound from the long cycle theorem is not tight, i.e., a graph with minimum degree $k$ where the minimum cycle length is strictly greater than $k+1$. Explain why this happens in your example.
-
-\item Illustrate the relationship between the minimum degree and cycle length by drawing three different graphs with 6 vertices that have minimum degrees 2, 3, and 4 respectively. For each graph, highlight the longest cycle and discuss how the minimum degree affects the cycle length.
-\end{enumerate}
-
-
 \subsubsection{Visual Questions}
 \begin{enumerate}
 \item For each of the following graphs, determine whether it is a tree and explain your reasoning:
@@ -7797,7 +7723,7 @@ Find all leaves, identify the center of the tree, and determine its diameter.
 
 \item Draw all non-isomorphic trees with exactly 5 vertices.
 
-\item Given the following weighted tree, find a minimum spanning tree and calculate its total weight:
+\item Given the following weighted graph, find a minimum spanning tree and calculate its total weight:
 \begin{center}
 \begin{tikzpicture}[scale=0.8]
     \node[draw, circle] (a) at (0,2) {a};
@@ -7874,7 +7800,7 @@ Illustrate step by step how Kruskal's algorithm would find a minimum spanning tr
 
 \item Draw a graph with exactly one bridge and explain how to identify it using the depth-first search algorithm. Show the discovery time and low values for each vertex.
 
-\item Construct a graph with 7 vertices where the removal of any 2 vertices disconnects the graph, but the removal of any single vertex does not. Explain how this relates to vertex connectivity.
+\item Construct a graph with 7 vertices where the removal of some pair of vertices disconnects the graph, but the removal of any single vertex does not. Explain how this relates to vertex connectivity.
 
 \item Illustrate Prim's algorithm step-by-step on the following weighted graph, starting from vertex A:
 \begin{center}
@@ -7900,7 +7826,7 @@ Illustrate step by step how Kruskal's algorithm would find a minimum spanning tr
 \end{enumerate}
 
 
-\begin{enumerate}\setcounter{enumi}{11}
+\begin{enumerate}\setcounter{enumi}{10}
 \item For the following graph, perform both BFS and DFS starting from vertex A. Show the resulting traversal order and the BFS/DFS trees:
 \begin{center}
 \begin{tikzpicture}[scale=0.8]
@@ -8007,10 +7933,10 @@ Perform a DFS traversal starting from vertex A and classify each edge as a tree 
 \end{center}
 \end{enumerate}
 
-\begin{enumerate}\setcounter{enumi}{5}
+\begin{enumerate}\setcounter{enumi}{15}
 \item Draw a directed graph with at least 8 vertices that has exactly 3 strongly connected components. Use DFS to identify these components.
 
-\item Create a graph where the BFS tree and DFS tree (starting from the same vertex) are completely different. Highlight both trees in your diagram.
+\item Create a graph where the BFS tree and DFS tree (starting from the same vertex) are as different as possible. Highlight both trees in your diagram, and explain why the two trees must always share at least one edge.
 
 \item Illustrate the concept of DFS numbering and low values by drawing a graph with at least one bridge and one articulation point. Show the DFS tree with discovery times and low values for each vertex.
 
