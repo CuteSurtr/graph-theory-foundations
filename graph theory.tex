@@ -8129,7 +8129,7 @@ Let $G$ be a connected graph. A vertex $v \in V(G)$ is called a \textit{cut vert
     \node at (5,-0.5) {$C_5 - \{v\}$ is $P_4$};
 \end{tikzpicture}
 \\
-\small Figure 80:Cycle graph $C_5$ with vertex $v$ highlighted. Removing any vertex from $C_5$ results in a path graph $P_4$.
+\small Figure 80:Cycle graph $C_5$ with vertex $v$ marked; the other four (highlighted) vertices form $C_5 - \{v\}$. Removing any vertex from $C_5$ results in a path graph $P_4$.
 \label{fig:C5_no_cut_vertices}
 \end{figure}
 
@@ -8139,7 +8139,7 @@ A block in a graph $G$ is a maximal connected subgraph with no cut vertex.
 
 
 \begin{lemma}
-Every block of a graph is either a maximal 2-connected subgraph, or a bridge (an edge whose removal disconnects the graph), or an isolated vertex.
+Every block of a graph is either a maximal 2-connected subgraph, or a bridge (an edge whose removal increases the number of components), or an isolated vertex.
 \end{lemma}
 
 \begin{remark}
@@ -8294,7 +8294,7 @@ Consider the following graph $G$ with three blocks and two cut vertices:
     \node at (-1,0.8) {$G$};
 \end{tikzpicture}
 \\
-\small Figure 83: The cut vertices are $\{v_3, v_6\}$. The blocks are $B_1, B_2, B_3$. The block-cutpoint graph $\mathcal{B}(G)$ 
+\small Figure 83: The cut vertices are $\{v_3, v_6\}$. The blocks are $B_1, B_2, B_3$. The block-cutpoint graph $\mathcal{B}(G)$ is shown below.
 \end{center}
 \end{example}
 
@@ -8374,7 +8374,7 @@ A graph $G$ is 2-connected if and only if $G$ has at least three vertices and $\
 \end{corollary}
 
 \begin{corollary}[Distance Property]
-The distance between any two blocks $B_i$ and $B_j$ in $\mathcal{B}(G)$ is equal to twice the minimum number of cut vertices that must be traversed to go from a vertex in $B_i$ to a vertex in $B_j$ in $G$.
+The distance between any two blocks $B_i$ and $B_j$ in $\mathcal{B}(G)$ is equal to twice the number of cut vertices that every path from a vertex in $B_i$ to a vertex in $B_j$ in $G$ must pass through.
 \end{corollary}
 
 \begin{theorem}
@@ -8402,7 +8402,7 @@ So $\mathcal{B}(G)$ has no cycles; it is a tree.
 \medskip
 \noindent\textbf{intuition:} This proof demonstrates why the block graph must be a tree. When we construct a block graph from our original graph, we're creating a structure that shows how the blocks and cut vertices are connected to each other.
 
-First, the block graph must be connected because the original graph is connected. If the block graph weren't connected, that would mean some blocks in the original graph couldn't be reached from others, contradicting our assumption that the original graph is connected. The key insight is understanding why the block graph cannot contain cycles. If it did contain a cycle, this cycle would alternate between blocks and cut vertices (since in the block graph, blocks connect only to cut vertices and vice versa). Following this cycle in the original graph would give us a sequence of blocks $B_1, B_2, \ldots, B_r$, where consecutive pairs share a cut vertex. If we take the union of all these blocks, $B = B_1 \cup B_2 \cup \cdots \cup B_r$, we'd get a larger subgraph. The contradiction arises because this union $B$ would have no cut vertex! Any vertex that was a cut vertex for one of the original blocks is no longer a cut vertex in the union, because the cycle structure provides an alternate path around any potential cut vertex. This contradicts the definition of blocks as maximal 2-connected subgraphs. We've found a strictly larger 2-connected subgraph containing one of our blocks, which is impossible by the definition of maximality. Since we've reached a contradiction, our assumption must be wrong—the block graph cannot contain any cycles. And a connected graph with no cycles is precisely the definition of a tree. In essence, the tree structure of the block graph reflects how the original graph is ``held together'' by its cut vertices. Each block is like a solid component, and the cut vertices are the connectors that bind these components together in a tree-like arrangement.
+First, the block graph must be connected because the original graph is connected. If the block graph weren't connected, that would mean some blocks in the original graph couldn't be reached from others, contradicting our assumption that the original graph is connected. The key insight is understanding why the block graph cannot contain cycles. If it did contain a cycle, this cycle would alternate between blocks and cut vertices (since in the block graph, blocks connect only to cut vertices and vice versa). Following this cycle in the original graph would give us a sequence of blocks $B_1, B_2, \ldots, B_r$, where consecutive pairs share a cut vertex. If we take the union of all these blocks, $B = B_1 \cup B_2 \cup \cdots \cup B_r$, we'd get a larger subgraph. The contradiction arises because this union $B$ would have no cut vertex! Any vertex that was a cut vertex for one of the original blocks is no longer a cut vertex in the union, because the cycle structure provides an alternate path around any potential cut vertex. This contradicts the maximality in the definition of a block (a maximal connected subgraph without a cut vertex). We've found a strictly larger connected subgraph without a cut vertex containing one of our blocks, which is impossible by the definition of maximality. Since we've reached a contradiction, our assumption must be wrong—the block graph cannot contain any cycles. And a connected graph with no cycles is precisely the definition of a tree. In essence, the tree structure of the block graph reflects how the original graph is ``held together'' by its cut vertices. Each block is like a solid component, and the cut vertices are the connectors that bind these components together in a tree-like arrangement.
 
 A \textbf{tree of cycles} is a connected graph whose blocks are all cycles or $K_2$.
 
@@ -8490,7 +8490,7 @@ For $u,v \in V(G)$, a $uv$-edge-separator is a set $L \subseteq E(G)$ such that 
 
 
 \begin{theorem}[Menger's Theorem - Edge Form]
-Let $G$ be a graph and $u,v$ be two vertices in $G$. Then the minimum number of edges whose removal disconnects $u$ from $v$ equals the maximum number of pairwise edge-disjoint $u$-$v$ paths in $G$.
+Let $G$ be a graph and $u,v$ be two distinct vertices in $G$. Then the minimum number of edges whose removal disconnects $u$ from $v$ equals the maximum number of pairwise edge-disjoint $u$-$v$ paths in $G$.
 \end{theorem}
 
 \begin{figure}[ht]
@@ -8762,7 +8762,7 @@ A block is a 2-connected graph, except for $K_1$ (an isolated vertex) and $K_2$ 
 \end{lemma}
 
 \begin{definition}
-A \textbf{$uv$-separator} in a graph $G$ with non-adjacent vertices $u, v \in V(G)$ is a set $X \subseteq V(G)$ such that $u$ and $v$ are in different components of $G - X$.
+A \textbf{$uv$-separator} in a graph $G$ with non-adjacent vertices $u, v \in V(G)$ is a set $X \subseteq V(G) \setminus \{u,v\}$ such that $u$ and $v$ are in different components of $G - X$.
 \end{definition}
 
 \begin{figure}[ht]
@@ -8852,7 +8852,7 @@ Intuitively, an edge-cut is a collection of edges that, when removed from the gr
 \end{remark}
 
 \begin{remark}
-To understand a $uv$-edge-separator, imagine two specific locations in a transportation network (vertices $u$ and $v$). A $uv$-edge-separator is the smallest set of roads (edges) that, if closed, would make it impossible to travel between these two locations. The size of this separator tells us how robust the connection is between $u$ and $v$—a larger separator means more alternative routes exist. Menger's Theorem elegantly shows that this robustness measure exactly equals the maximum number of separate paths we can find between $u$ and $v$.
+To understand a $uv$-edge-separator, imagine two specific locations in a transportation network (vertices $u$ and $v$). A minimum $uv$-edge-separator is a smallest set of roads (edges) that, if closed, would make it impossible to travel between these two locations. The size of this separator tells us how robust the connection is between $u$ and $v$—a larger separator means more alternative routes exist. Menger's Theorem elegantly shows that this robustness measure exactly equals the maximum number of separate paths we can find between $u$ and $v$.
 \end{remark}
 
 \begin{lemma}
@@ -8916,13 +8916,13 @@ Two paths are \textit{edge-disjoint} if they do not share any edges (though they
 
 
 \begin{theorem}[Menger's Theorem (Edge Form)]
-For any vertices $u,v \in V(G)$, the minimum size $\lambda(u,v)$ of a $uv$-edge-separator equals the maximum number of edge-disjoint $uv$-paths in $G$.
+For any distinct vertices $u,v \in V(G)$, the minimum size $\lambda(u,v)$ of a $uv$-edge-separator equals the maximum number of edge-disjoint $uv$-paths in $G$.
 \end{theorem}
 
 This theorem has several important implications:
 
 \begin{corollary}
-A graph $G$ is $k$-edge-connected if and only if for every pair of vertices $u,v \in V(G)$, there exist at least $k$ edge-disjoint paths between $u$ and $v$.
+A graph $G$ is $k$-edge-connected if and only if for every pair of distinct vertices $u,v \in V(G)$, there exist at least $k$ edge-disjoint paths between $u$ and $v$.
 \end{corollary}
 
 \begin{example}[Cycle Graph]
@@ -9233,7 +9233,7 @@ Conversely, let $G$ be $k$-connected and let $u \neq v$. If $u$ and $v$ are non-
 \end{proof}
 
 \begin{theorem}[Menger's Theorem - Edge Form]
-For $u,v \in V(G)$, the minimum size $\lambda(u,v)$ of a $uv$-edge-separator equals the maximum number of edge-disjoint $uv$-paths in $G$.
+For distinct $u,v \in V(G)$, the minimum size $\lambda(u,v)$ of a $uv$-edge-separator equals the maximum number of edge-disjoint $uv$-paths in $G$.
 \end{theorem}
 
 \begin{figure}
@@ -9276,7 +9276,7 @@ If $G$ is a connected graph with a bridge, then $\lambda(u,v) = 1$ when $\{u,v\}
 \end{theorem}
 
 \begin{corollary}
-If $G$ is connected with no bridge, then $\lambda(u,v) \geq 2$ for every $\{u,v\} \subseteq V(G)$.
+If $G$ is connected with no bridge, then $\lambda(u,v) \geq 2$ for all distinct $u,v \in V(G)$.
 \end{corollary}
 
 \begin{definition}
