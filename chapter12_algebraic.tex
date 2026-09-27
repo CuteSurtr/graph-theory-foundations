@@ -8,77 +8,77 @@ algebra, a Chow ring) with a concrete graph-theoretic payoff
 (real-rootedness of the matchings polynomial, the chromatic symmetric
 function, log-concavity of the chromatic polynomial, rapid mixing of
 matroid Markov chains). The chapter is largely independent of
-Chapter~11 but freely cites spectral results from \S 11.4.
+Chapter~\ref{sec:advanced-topics} but freely cites spectral results from \S\ref{subsec:spectral}.
 
 \subsubsection*{Roadmap and graph-theoretic motivation}
 
 \begin{itemize}
-  \item \S 12.1 \textbf{Matchings polynomial / Heilmann--Lieb.} A
+  \item \S\ref{subsec:matchings-polynomial} \textbf{Matchings polynomial / Heilmann--Lieb.} A
         graph polynomial whose roots are always real. Generalises the
         adjacency-spectrum theorem from forests to all graphs;
         implies the absence of phase transitions in the
         monomer--dimer model.
-  \item \S 12.2 \textbf{Equitable partitions / interlacing.} Symmetry
+  \item \S\ref{subsec:equitable-partitions} \textbf{Equitable partitions / interlacing.} Symmetry
         groups of a graph induce equitable partitions; their quotient
         matrices give explicit eigenvalues. Yields the Hoffman /
         Haemers ratio bounds for $\alpha(G)$ and $\chi(G)$.
-  \item \S 12.3 \textbf{Distance-regular graphs / association schemes.}
+  \item \S\ref{subsec:drg} \textbf{Distance-regular graphs / association schemes.}
         Algebraic generalisation of strongly regular graphs.
         Underlies Delsarte's LP bound for codes (Hamming scheme) and
         Erd\H{o}s--Ko--Rado-type results (Johnson scheme).
-  \item \S 12.4 \textbf{Cayley graphs.} Eigenvalues of $\mathrm{Cay}(\Gamma, S)$
+  \item \S\ref{subsec:cayley} \textbf{Cayley graphs.} Eigenvalues of $\mathrm{Cay}(\Gamma, S)$
         from characters of $\Gamma$; explicit Ramanujan graph
         constructions; the spectral source for nearly all
         deterministic expanders.
-  \item \S 12.5 \textbf{Tutte polynomial / matroids.} Universal
+  \item \S\ref{subsec:tutte-polynomial} \textbf{Tutte polynomial / matroids.} Universal
         deletion--contraction graph invariant; specialises to
         chromatic, flow, reliability, Ising, Jones polynomials. The
         matroid framework abstracts cycle/bond duality.
-  \item \S 12.6 \textbf{Heaps of pieces.} Walk generating functions on
+  \item \S\ref{subsec:heaps} \textbf{Heaps of pieces.} Walk generating functions on
         graphs as continued fractions; heap-theoretic view of the
         matchings polynomial; bridge to orthogonal polynomial theory.
-  \item \S 12.7 \textbf{Ihara zeta function.} Graph Riemann zeta whose
+  \item \S\ref{subsec:ihara} \textbf{Ihara zeta function.} Graph Riemann zeta whose
         ``Riemann hypothesis'' equals the Ramanujan property for
         connected non-bipartite regular graphs;
         Hashimoto non-backtracking matrix is the foundation of modern
         spectral community detection.
-  \item \S 12.8 \textbf{Combinatorial Hopf algebras.} Schmitt's graph
+  \item \S\ref{subsec:hopf} \textbf{Combinatorial Hopf algebras.} Schmitt's graph
         Hopf algebra recovers Stanley's chromatic symmetric function
         via the Aguiar--Bergeron--Sottile universal property;
         Stanley--Stembridge conjecture and Hikita's recent proof.
-  \item \S 12.9 \textbf{Hodge theory of matroids.} Adiprasito--Huh--Katz
+  \item \S\ref{subsec:hodge} \textbf{Hodge theory of matroids.} Adiprasito--Huh--Katz
         prove the chromatic polynomial coefficients are log-concave by
         importing K\"ahler-package machinery into combinatorics.
-  \item \S 12.10 \textbf{Permanent and \#P.} Counting perfect matchings
+  \item \S\ref{subsec:permanent} \textbf{Permanent and \#P.} Counting perfect matchings
         is \#P-complete; the Jerrum--Sinclair--Vigoda FPRAS for the
         permanent uses a Markov chain on perfect and near-perfect
         matchings; holographic algorithms reduce certain counting
         problems to counting perfect matchings in planar graphs, i.e.\
         to Pfaffians (FKT).
-  \item \S 12.11 \textbf{Weisfeiler--Leman and graph isomorphism.}
+  \item \S\ref{subsec:weisfeiler-leman} \textbf{Weisfeiler--Leman and graph isomorphism.}
         Color refinement, the $k$-WL hierarchy, the
         Cai--F\"urer--Immerman counterexample, Babai's quasipolynomial
         algorithm, and the connection to graph neural network
         expressivity.
-  \item \S 12.12 \textbf{Cluster algebras from quivers.} Quivers as
+  \item \S\ref{subsec:cluster-algebras} \textbf{Cluster algebras from quivers.} Quivers as
         directed graphs; mutation and cluster variables; cluster
         algebras of finite type and the Cartan--Killing classification;
         triangulations of surfaces.
-  \item \S 12.13 \textbf{Chip-firing, sandpiles, and Riemann--Roch for
+  \item \S\ref{subsec:chip-firing} \textbf{Chip-firing, sandpiles, and Riemann--Roch for
         graphs.} The sandpile group (the degree-zero Picard group) of a
         graph; Baker--Norine
         Riemann--Roch theorem; explicit graph-theoretic analogues of
         algebraic-geometric intersection theory.
-  \item \S 12.14 \textbf{Random walks via representation theory.}
+  \item \S\ref{subsec:random-walks-rep} \textbf{Random walks via representation theory.}
         Diaconis--Shahshahani upper-bound lemma; cutoff phenomenon;
         explicit mixing-time bounds for the riffle shuffle, the
         hypercube, and Cayley graphs of the symmetric group.
-  \item \S 12.15 \textbf{Electrical networks and effective
+  \item \S\ref{subsec:electrical} \textbf{Electrical networks and effective
         resistance.} Resistor networks dual to random walks; the
         spanning-tree-counting / commute-time / hitting-time identities
         of Chandra--Raghavan--Ruzzo--Smolensky; the
         Koebe--Andreev--Thurston circle packing theorem.
-  \item \S 12.16 \textbf{Crystal graphs and the plactic monoid.}
+  \item \S\ref{subsec:crystals} \textbf{Crystal graphs and the plactic monoid.}
         Kashiwara crystals as edge-labelled graphs whose connected
         components encode irreducible $\mathfrak{gl}_n$-representations;
         Knuth equivalence and the plactic structure on words.
@@ -99,7 +99,7 @@ Bump, \emph{Lie Groups} (2nd ed., 2013) for crystal bases.
 Selected research papers and theses are cited inline throughout.
 
 %====================================================================
-\subsection{The Matchings Polynomial and the Heilmann--Lieb Theorem}
+\subsection{The Matchings Polynomial and the Heilmann--Lieb Theorem}\label{subsec:matchings-polynomial}
 %====================================================================
 
 The adjacency-matrix characteristic polynomial $\phi(G, x) = \det(xI - A(G))$
@@ -365,7 +365,7 @@ matching polynomial roots).
 \end{exercise}
 
 %====================================================================
-\subsection{Equitable Partitions and Quotient Interlacing}
+\subsection{Equitable Partitions and Quotient Interlacing}\label{subsec:equitable-partitions}
 %====================================================================
 
 Equitable partitions provide a systematic way to extract eigenvalues
@@ -563,7 +563,7 @@ write its tridiagonal quotient matrix.
 %====================================================================
 
 Distance-regular graphs (DRGs) sit at the algebraic core of extremal
-combinatorics: they include all connected strongly regular graphs (Section 11.4),
+combinatorics: they include all connected strongly regular graphs (Section~\ref{subsec:spectral}),
 the Hamming and Johnson graphs (which underlie coding theory and
 the Erd\H{o}s--Ko--Rado problem), and the foundational examples of
 finite geometry. Their unified algebraic theory is the language of
@@ -724,7 +724,7 @@ intersection array. Compare with the array of the Petersen graph.
 Show that every connected strongly regular graph with parameters
 $(n, k, \lambda, \mu)$ that is not complete is distance-regular of
 diameter $2$ with intersection array $\{k, k - 1 - \lambda; 1, \mu\}$.
-(Both hypotheses are needed with the definition of \S 11.4: $2K_3$ is
+(Both hypotheses are needed with the definition of \S\ref{subsec:spectral}: $2K_3$ is
 strongly regular with parameters $(6, 2, 1, 0)$ but disconnected, and
 $K_n$ has diameter $1$.)
 \end{exercise}
@@ -773,7 +773,7 @@ multiplication table $A_i A_j = \sum_k p_{ij}^k A_k$.
 \end{exercise}
 
 %====================================================================
-\subsection{Cayley Graphs and Vertex-Transitive Graphs}
+\subsection{Cayley Graphs and Vertex-Transitive Graphs}\label{subsec:cayley}
 %====================================================================
 
 Cayley graphs encode group structure as graph structure. Their
@@ -957,7 +957,7 @@ corresponding eigenvalues are $2 \cos(2\pi/5)$ and $2 \cos(4\pi/5)$.
 \end{exercise}
 
 %====================================================================
-\subsection{The Tutte Polynomial and Graphic Matroids}
+\subsection{The Tutte Polynomial and Graphic Matroids}\label{subsec:tutte-polynomial}
 %====================================================================
 
 The Tutte polynomial $T_G(x, y)$ is the universal multiplicative
@@ -1072,7 +1072,7 @@ to the characteristic polynomial of every matroid representable over
 some field, using intersection theory on toric varieties; the
 Rota--Heron--Welsh conjecture in full generality (arbitrary matroids)
 was proved only later by Adiprasito--Huh--Katz (2018), via Hodge
-theory for the Chow ring of a matroid (\S 12.9).
+theory for the Chow ring of a matroid (\S\ref{subsec:hodge}).
 
 \subsubsection{Graphic Matroids and Cycle/Bond Duality}
 
@@ -1205,7 +1205,7 @@ Theorem~\ref{thm:whitneybc}.
 \end{exercise}
 
 %====================================================================
-\subsection{Heaps of Pieces and Walk Generating Functions}
+\subsection{Heaps of Pieces and Walk Generating Functions}\label{subsec:heaps}
 %====================================================================
 
 This graduate-level section develops Viennot's theory of \emph{heaps
@@ -1214,8 +1214,8 @@ walks, matchings, and orthogonal polynomial moments on graphs. The
 central theorems---Cartier--Foata's master inversion formula and
 Flajolet's continued-fraction expansion---convert combinatorial counts
 into rational and continued-fraction expressions, providing the
-algebraic skeleton behind the matchings polynomial of \S 12.1 and the
-Ihara zeta function of \S 12.7.
+algebraic skeleton behind the matchings polynomial of \S\ref{subsec:matchings-polynomial} and the
+Ihara zeta function of \S\ref{subsec:ihara}.
 
 \subsubsection{Commutation Monoids and Heaps}
 
@@ -1426,7 +1426,7 @@ gives $W_4(K_4) = $ number of closed walks of length $4$ in $K_4$
 \end{exercise}
 
 %====================================================================
-\subsection{The Ihara Zeta Function of a Graph}
+\subsection{The Ihara Zeta Function of a Graph}\label{subsec:ihara}
 %====================================================================
 
 The Ihara zeta function is the graph-theoretic analogue of the
@@ -1435,7 +1435,7 @@ context of $p$-adic groups and rediscovered combinatorially by
 Sunada, Hashimoto, Bass, and Stark--Terras, it packages \emph{prime
 non-backtracking closed walks} into a generating function whose
 poles encode spectral properties of the graph. For connected
-non-bipartite regular graphs, the Ramanujan property of \S 11.4 turns
+non-bipartite regular graphs, the Ramanujan property of \S\ref{subsec:spectral} turns
 out to be exactly the ``Riemann hypothesis'' for the Ihara zeta.
 
 \subsubsection{Non-Backtracking Walks and Primes}
@@ -1508,7 +1508,7 @@ A connected $d$-regular graph $G$ satisfies the graph Riemann
 Hypothesis if and only if every eigenvalue $\lambda$ of $A$ with
 $|\lambda| \ne d$ satisfies $|\lambda| \le 2\sqrt{d - 1}$. In
 particular, a connected non-bipartite $d$-regular graph $G$ is Ramanujan
-(Definition~\ref{def:ramanujan} -- see \S 11.4) if and only if it
+(Definition~\ref{def:ramanujan} -- see \S\ref{subsec:spectral}) if and only if it
 satisfies the graph Riemann Hypothesis. Equivalently:
 \[
   G \text{ Ramanujan} \;\Longleftrightarrow\;
@@ -1639,7 +1639,7 @@ in agreement with $Z_{C_3}(u) = (1 - u^3)^{-2}$.
 \end{exercise}
 
 %====================================================================
-\subsection{Combinatorial Hopf Algebras of Graphs}
+\subsection{Combinatorial Hopf Algebras of Graphs}\label{subsec:hopf}
 %====================================================================
 
 A \emph{combinatorial Hopf algebra} packages a family of combinatorial
@@ -1851,7 +1851,7 @@ star $S_3$.
 \end{exercise}
 
 %====================================================================
-\subsection{Hodge Theory of Matroids and Log-Concavity}
+\subsection{Hodge Theory of Matroids and Log-Concavity}\label{subsec:hodge}
 %====================================================================
 
 The chromatic polynomial of a graph---and more generally the
@@ -2096,7 +2096,7 @@ $U_{2, 4}$.
 \end{exercise}
 
 %====================================================================
-\subsection{The Permanent, Matching Counting, and \#P-Hardness}
+\subsection{The Permanent, Matching Counting, and \#P-Hardness}\label{subsec:permanent}
 %====================================================================
 
 \paragraph{Graph-theoretic motivation.}
@@ -2108,7 +2108,7 @@ This single observation places the seemingly innocuous problem
 complexity-theoretic hierarchy: it is the canonical \#P-complete
 problem (Valiant, 1979), in stark contrast to ``decide whether $G$
 has a perfect matching'' (which is in $\mathsf P$ by the Hopcroft--Karp
-algorithm of \S 7).
+algorithm of \S\ref{sec:matchings}).
 
 \subsubsection{The Permanent and Bipartite Matchings}
 
@@ -2319,7 +2319,7 @@ and verify the Pfaffian count $\#\text{perfect matchings} = 0$
 \end{exercise}
 
 %====================================================================
-\subsection{Weisfeiler--Leman, Color Refinement, and Graph Isomorphism}
+\subsection{Weisfeiler--Leman, Color Refinement, and Graph Isomorphism}\label{subsec:weisfeiler-leman}
 %====================================================================
 
 \paragraph{Graph-theoretic motivation.}
@@ -2474,7 +2474,7 @@ verify that $k$-WL on the resulting graphs does not distinguish them.
 Prove that 1-WL is equivalent to vertex colour-refinement
 \emph{in the sense of equitable partitions}: the stable colouring of
 1-WL on $G$ corresponds to the coarsest equitable partition of $V(G)$.
-Connect this to the spectrum of the quotient matrix from \S 12.2.
+Connect this to the spectrum of the quotient matrix from \S\ref{subsec:equitable-partitions}.
 \end{exercise}
 
 \paragraph{Diagram Questions.}
@@ -2495,7 +2495,7 @@ that 1-WL fails to distinguish them.
 \end{exercise}
 
 %====================================================================
-\subsection{Cluster Algebras from Quivers}
+\subsection{Cluster Algebras from Quivers}\label{subsec:cluster-algebras}
 %====================================================================
 
 \paragraph{Graph-theoretic motivation.}
@@ -2668,7 +2668,7 @@ corresponding vertex.
 \end{exercise}
 
 %====================================================================
-\subsection{Chip-Firing, Sandpile Groups, and Riemann--Roch for Graphs}
+\subsection{Chip-Firing, Sandpile Groups, and Riemann--Roch for Graphs}\label{subsec:chip-firing}
 %====================================================================
 
 \paragraph{Graph-theoretic motivation.}
@@ -2768,7 +2768,7 @@ Caporaso--Viviani).
 
 \begin{itemize}
   \item \textbf{Spanning trees}: $|K(G)| = \tau(G)$ recovers
-        Kirchhoff (\S 11.4) by the Matrix-Tree theorem applied to
+        Kirchhoff (\S\ref{subsec:spectral}) by the Matrix-Tree theorem applied to
         the Laplacian.
   \item \textbf{Counting recurrent configurations}: the sandpile
         group elements are in bijection with \emph{recurrent}
@@ -2847,7 +2847,7 @@ group explicitly via Smith normal form.
 \end{exercise}
 
 %====================================================================
-\subsection{Random Walks via Representation Theory}
+\subsection{Random Walks via Representation Theory}\label{subsec:random-walks-rep}
 %====================================================================
 
 \paragraph{Graph-theoretic motivation.}
@@ -2860,7 +2860,7 @@ single inequality controlling total-variation distance to stationarity
 in terms of representation-theoretic data. The technique is the
 modern engine for bounding mixing times of card-shuffling, lattice
 walks, and the Markov chains used in the FPRAS algorithms of
-\S 12.10.
+\S\ref{subsec:permanent}.
 
 \subsubsection{The Upper Bound Lemma}
 
@@ -3021,7 +3021,7 @@ $\mu^{*1}, \mu^{*2}, \mu^{*3}$.
 \end{exercise}
 
 %====================================================================
-\subsection{Electrical Networks and Effective Resistance}
+\subsection{Electrical Networks and Effective Resistance}\label{subsec:electrical}
 %====================================================================
 
 \paragraph{Graph-theoretic motivation.}
@@ -3181,7 +3181,7 @@ Verify Kirchhoff's current law at each internal vertex.
 \end{exercise}
 
 %====================================================================
-\subsection{Crystal Graphs and the Plactic Monoid}
+\subsection{Crystal Graphs and the Plactic Monoid}\label{subsec:crystals}
 %====================================================================
 
 \paragraph{Graph-theoretic motivation.}

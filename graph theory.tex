@@ -120,7 +120,7 @@
 \pagenumbering{arabic}
 
 
-\section{Basic Classes of Graphs}
+\section{Basic Classes of Graphs}\label{sec:basic-classes}
 
 \subsection{Cycles}
 \begin{definition}
@@ -1805,7 +1805,7 @@ $\{3,4\}$, $\{4,5\}$, $\{4,6\}$, $\{5,6\}$.
 \end{center}
 
 \item Draw all possible spanning trees of the following graph:
-(Hint 1: Refer to the definition of a spanning tree in Chapter 5-2)
+(Hint 1: Refer to the definition of a spanning tree in Section~\ref{subsec:tree-characterization})
 
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
@@ -1925,7 +1925,7 @@ $\{3,4\}$, $\{4,5\}$, $\{4,6\}$, $\{5,6\}$.
 \begin{enumerate}[label=\alph*)]
     \item Prove that it does not contain a cycle of length 3
     \item Find all cycles of length 5
-    \item Show that the graph is not bipartite (Hint : Chapter 5-9)
+    \item Show that the graph is not bipartite (Hint : Section~\ref{subsec:bipartiteness})
 \end{enumerate}
 
 \end{enumerate}
@@ -2621,7 +2621,7 @@ The adjacency matrix $A$ of the De Bruijn graph $G(k, n)$ has the following prop
     \begin{equation}
         \text{Number of Eulerian circuits} = t_w \prod_{v \in V} (d^+(v) - 1)!
     \end{equation}
-    where $t_w$ is the number of oriented spanning trees rooted at vertex $w$ (see the definition of a spanning tree in Chapter 5).
+    where $t_w$ is the number of oriented spanning trees rooted at vertex $w$ (see the definition of a spanning tree in Chapter~\ref{sec:trees}).
 \end{enumerate}
 \end{properties}
 
@@ -2829,7 +2829,7 @@ The Prefer-Opposite algorithm correctly generates a binary De Bruijn sequence of
 Every binary De Bruijn sequence of order $n$ contains exactly $2^{n-1}$ zeros and $2^{n-1}$ ones (its bits are the first bits of its $2^n$ windows, and exactly half of all $n$-bit strings begin with $1$), so the two algorithms do not differ in the overall balance of 0s and 1s. They differ in how the bits are arranged: the Prefer-1 sequence begins with the long runs $0^n 1^n$, while the Prefer-Opposite sequence begins with $n$ alternating bits $0101\cdots$; in fact its run-length encoding is the lexicographically smallest among all binary De Bruijn sequences of order $n$ that begin with $0$. This approach can be generalized to larger alphabets by defining a suitable notion of ``opposite.''
 \end{remark}
 \begin{theorem}[Cycle-Joining Algorithm]
-The cycle-joining method constructs a De Bruijn sequence $B(k, n)$ by first generating all disjoint cycles of a nonsingular feedback shift register (for example the pure cycling register, whose cycles are the necklaces of length $n$), then identifying a spanning tree (see the definition of a spanning tree in Chapter 5) of the cycle graph, and systematically joining cycles according to the spanning tree to form a single cycle containing all states. Two cycles are joined at a pair of conjugate states, that is, two states that differ only in their first symbol and lie on different cycles: interchanging the successors of these two states merges the two cycles into one. Huang (1990) gave a construction of this kind for binary De Bruijn sequences, based on the cycles of the complemented cycling register.
+The cycle-joining method constructs a De Bruijn sequence $B(k, n)$ by first generating all disjoint cycles of a nonsingular feedback shift register (for example the pure cycling register, whose cycles are the necklaces of length $n$), then identifying a spanning tree (see the definition of a spanning tree in Chapter~\ref{sec:trees}) of the cycle graph, and systematically joining cycles according to the spanning tree to form a single cycle containing all states. Two cycles are joined at a pair of conjugate states, that is, two states that differ only in their first symbol and lie on different cycles: interchanging the successors of these two states merges the two cycles into one. Huang (1990) gave a construction of this kind for binary De Bruijn sequences, based on the cycles of the complemented cycling register.
 \end{theorem}
 
 \begin{algorithm}
@@ -2895,7 +2895,7 @@ The cycle-joining method provides a general approach that works for any alphabet
 \end{remark}
 
 \begin{remark}[\textit{On Spanning Trees}]
-The foundational concepts of spanning trees are addressed in Section~5.2 as part of our characterization of trees. Readers may find this material particularly relevant for understanding the tree-based algorithms presented in subsequent sections, including breadth-first search and depth-first search (Section~5.3), as well as Prim's and Kruskal's algorithms (Sections~5.4 and~5.5). Those unfamiliar with tree structures may wish to review the fundamental properties outlined in Section~5.1 before proceeding.
+The foundational concepts of spanning trees are addressed in Section~\ref{subsec:tree-characterization} as part of our characterization of trees. Readers may find this material particularly relevant for understanding the tree-based algorithms presented in subsequent sections, including breadth-first search and depth-first search (Section~\ref{subsec:bfs-dfs}), as well as Prim's and Kruskal's algorithms (Sections~\ref{subsec:prim} and~\ref{subsec:kruskal}). Those unfamiliar with tree structures may wish to review the fundamental properties outlined in Section~\ref{subsec:trees-forests-bridges} before proceeding.
 \end{remark}
 
 
@@ -3044,12 +3044,6 @@ For any alphabet size $k$ and order $n$, the De Bruijn graph $B(k,n)$ has exactl
 \end{lemma}
 \begin{proof}
 Each vertex in $B(k,n)$ represents a sequence of $n$ symbols from an alphabet of size $k$, giving exactly $k^n$ possible vertices. From each vertex, there are $k$ possible transitions (one for each symbol in the alphabet), resulting in exactly $k \cdot k^n = k^{n+1}$ edges.
-\end{proof}
-\begin{lemma}[Connection to Eulerian Circuits]
-A De Bruijn sequence $B(k,n)$ corresponds exactly to an Eulerian circuit in the De Bruijn graph $B(k,n-1)$.
-\end{lemma}
-\begin{proof}[Proof sketch]
-Each edge in the De Bruijn graph $B(k,n-1)$ represents the transition from one $(n-1)$-length sequence to another by appending a symbol and removing the first symbol. Following an Eulerian circuit through all edges generates each possible $n$-length sequence exactly once, which is precisely the definition of a De Bruijn sequence.
 \end{proof}
 \begin{remark}[Relationship to Universal Cycles]
 De Bruijn sequences are a special case of universal cycles, which are cyclic sequences where each object from a set appears exactly once as a consecutive substring. When the objects are all possible $n$-tuples from a $k$-symbol alphabet, the universal cycle is precisely a De Bruijn sequence of order $n$.
@@ -3380,7 +3374,7 @@ Both cases are impossible, so the Petersen graph cannot contain a Hamiltonian cy
 
 % Complete Graph definition
 \begin{remark}[Complete Graphs]
-Recall that a complete graph $K_n$, introduced in Chapter 1, is a simple graph where every pair of vertices is connected by an edge. This property makes complete graphs particularly important for studying Hamiltonian cycles.
+Recall that a complete graph $K_n$, introduced in Chapter~\ref{sec:basic-classes}, is a simple graph where every pair of vertices is connected by an edge. This property makes complete graphs particularly important for studying Hamiltonian cycles.
 \end{remark}
 
 \begin{figure}[H]
@@ -4956,9 +4950,9 @@ Label all relevant vertices and explain each step.
 \end{enumerate}
 
 \pagebreak
-\section{Trees and Forests}
+\section{Trees and Forests}\label{sec:trees}
 
-\subsection{Trees, Forests, and Bridges}
+\subsection{Trees, Forests, and Bridges}\label{subsec:trees-forests-bridges}
 
 \begin{definition}[Tree]
 A tree is a connected graph with no cycles.
@@ -5172,7 +5166,7 @@ If $G$ is a tree, then every edge is a bridge.
 A bridge is also sometimes called a cut-edge or isthmus. The presence of bridges in a graph indicates potential vulnerabilities in network connectivity. In applications such as communication networks, bridges represent critical connections whose failure would partition the network.
 \end{remark}
 
-\subsection{Characterization of Trees}
+\subsection{Characterization of Trees}\label{subsec:tree-characterization}
 
 \begin{lemma}[Tree Characterization]
 For a graph $G$, the following conditions are equivalent:
@@ -5386,7 +5380,7 @@ If $T$ is a spanning tree of graph $G$, then:
 \end{enumerate}
 \end{theorem}
 
-\subsection{Breadth-First Search and Depth-First Search Algorithms}
+\subsection{Breadth-First Search and Depth-First Search Algorithms}\label{subsec:bfs-dfs}
 
 \begin{definition}
 If $u, v \in V(G)$, then the distance between $u$ and $v$, denoted $d_G(u,v)$, is the length of a shortest $u,v$-path, or infinity if $u$ and $v$ are in different components of $G$.
@@ -5923,7 +5917,7 @@ The different traversal orders suggest optimal algorithms for different applicat
 \end{remark}
 
 \pagebreak
-\subsection{Prim's Algorithm}
+\subsection{Prim's Algorithm}\label{subsec:prim}
 
 \begin{definition}[Subtree]
 Given a tree $T = (V, E)$, a subtree $T' = (V', E')$ is a connected subgraph of $T$ that is itself a tree. Formally, $T'$ is a subtree of $T$ if:
@@ -6200,7 +6194,7 @@ If all edge weights in a connected graph are distinct, then the minimum spanning
 
 \pagebreak
 
-\subsection{Kruskal's Algorithm}
+\subsection{Kruskal's Algorithm}\label{subsec:kruskal}
 
 \begin{definition}[Kruskal's Algorithm]
 Kruskal's algorithm is a greedy algorithm that finds a minimum spanning tree for a connected weighted undirected graph. It builds the minimum spanning tree by adding edges in order of increasing weight, skipping edges that would create a cycle. The algorithm proceeds as follows:
@@ -7171,7 +7165,7 @@ Starting with the weighted graph shown in Figure~\ref{fig:bellman-ford-example},
 \label{fig:bellman-ford-example}
 \end{figure}
 
-\begin{algorithm}
+\begin{algorithm}[H]
 \caption{Bellman-Ford Algorithm}
 \begin{algorithmic}[1]
 \Procedure{BellmanFord}{$G = (V, E), w, s$}
@@ -7315,7 +7309,7 @@ Simple implementation & Floyd-Warshall & Conceptually simpler with fewer impleme
 \newpage
 
 
-\subsection{Bipartiteness}
+\subsection{Bipartiteness}\label{subsec:bipartiteness}
 
 \begin{definition}[Bipartite Graph]
 A graph $G = (V, E)$ is bipartite if its vertex set $V$ can be partitioned into two disjoint sets $U$ and $W$ such that every edge in $E$ connects a vertex in $U$ to a vertex in $W$. Equivalently, a graph is bipartite if and only if it does not contain any cycles of odd length.
@@ -8300,7 +8294,7 @@ First, the block graph must be connected because the original graph is connected
 
 A \textbf{tree of cycles} is a connected graph whose blocks are all cycles or $K_2$.
 
-\begin{theorem}
+\begin{theorem}\label{thm:theta-free}
 Let $G$ be a connected graph with at least two vertices containing no $\Theta$-graph. Then $G$ is a tree of cycles; that is, every block of $G$ is a cycle or $K_2$. (Such a graph need not be a tree or a cycle: two triangles sharing one vertex contain no $\Theta$-graph.)
 
 A \textbf{$\Theta$-graph} is a graph consisting of three $uv$-paths $P$, $Q$ and $R$ such that
@@ -8330,7 +8324,7 @@ So $B = K_2$ or $B =$ a cycle.
 \medskip
 \noindent\textbf{In other words:} This proposition reveals something fascinating about graphs with a certain structural constraint. It tells us that if our graph doesn't contain a specific forbidden pattern (three internally disjoint paths connecting the same two points), then every block of the graph must be very simple - either just a single edge or a single cycle.
 
-Think about the forbidden pattern this way: imagine two cities connected by three completely separate roads. This creates a structure with multiple alternate routes between the same two points. What our theorem 54 says is that if a network doesn't have any such triple-path connections anywhere, then the network is built from single links and simple loops, glued together at cut vertices in a tree-like fashion. The network need not be a single tree or a single loop: two triangles sharing one vertex contain no triple-path connection, yet form neither a tree nor a cycle.
+Think about the forbidden pattern this way: imagine two cities connected by three completely separate roads. This creates a structure with multiple alternate routes between the same two points. What our Theorem~\ref{thm:theta-free} says is that if a network doesn't have any such triple-path connections anywhere, then the network is built from single links and simple loops, glued together at cut vertices in a tree-like fashion. The network need not be a single tree or a single loop: two triangles sharing one vertex contain no triple-path connection, yet form neither a tree nor a cycle.
 
 The proof uses the block structure of the graph. Remember that the blocks of a graph are its maximal connected subgraphs without a cut vertex; in a connected graph with at least two vertices, every block is either a single edge or a maximal 2-connected piece of the graph. The key insight is showing that each block in our graph must be either just a single edge or a cycle - nothing more complex is possible.
 
@@ -8785,7 +8779,7 @@ A graph with at least two vertices is $k$-connected if and only if it is $K_n$, 
 A graph with at least 3 vertices is 2-connected if and only if any two distinct vertices are joined by at least two internally disjoint paths.
 \end{lemma}
 
-\begin{lemma}[Minimum Degree Bound]
+\begin{lemma}[Minimum Degree Bound]\label{lem:min-degree-bound}
 For any graph G, $\kappa(G) \leq \lambda(G) \leq \delta(G)$, where $\kappa(G)$ is the vertex connectivity, $\lambda(G)$ is the edge connectivity, and $\delta(G)$ is the minimum degree of G.
 \end{lemma}
 
@@ -9319,7 +9313,7 @@ Recall that a graph $G$ is $k$-edge-connected if and only if
 $\lambda(G) \geq k$.
 \end{remark}
 
-\begin{proof}[Proof of Lemma 51 (Minimum Degree Bound)]
+\begin{proof}[Proof of Lemma~\ref{lem:min-degree-bound} (Minimum Degree Bound)]
 Recall that for any graph $G$, we need to prove that $\kappa(G) \leq \lambda(G) \leq \delta(G)$, where $\kappa(G)$ is the vertex connectivity, $\lambda(G)$ is the edge connectivity, and $\delta(G)$ is the minimum degree of $G$.
 
 We first prove $\lambda(G) \leq \delta(G)$. Consider any vertex $v \in V(G)$ with $d(v) = \delta(G)$. 
@@ -9495,7 +9489,7 @@ This completes the proof, showing that we can construct a graph $G$ with $\kappa
 \pagebreak
 \newpage
 
-\section{Matchings and Factors}
+\section{Matchings and Factors}\label{sec:matchings}
 
 \begin{definition}[Matching]
 A matching in a graph is a set of vertex disjoint edges in the graph.
@@ -11563,7 +11557,7 @@ The Hungarian Algorithm (also known as the Kuhn-Munkres algorithm) is a combinat
 
 The algorithm works by iteratively improving a feasible vertex labeling and a matching until optimality is achieved. It maintains a set of feasible vertex labels $l: U \cup V \rightarrow \mathbb{R}$ that satisfy the condition $l(u) + l(v) \leq w(u,v)$ for all $(u,v) \in E$ (for minimization) or $l(u) + l(v) \geq w(u,v)$ (for maximization). The time complexity of the Hungarian Algorithm is $O(|V|^3)$.
 \end{definition}
-\begin{algorithm}
+\begin{algorithm}[H]
 \caption{Hungarian Algorithm (Minimization Version)}
 \begin{algorithmic}[1]
 \Require Complete bipartite graph $G = (U \cup V, E)$ with $|U| = |V| = n$ and weights $w: E \rightarrow \mathbb{R}$
@@ -12075,7 +12069,7 @@ Both theorems are manifestations of LP duality:
 
 \subsubsection{Medium Questions}
 \begin{enumerate}[start=8]
-\item Prove that every $k$-regular bipartite graph with $k \geq 1$ has a perfect matching, and deduce that its edge set can be partitioned into $k$ perfect matchings.
+\item\label{q:regular-bipartite-pm} Prove that every $k$-regular bipartite graph with $k \geq 1$ has a perfect matching, and deduce that its edge set can be partitioned into $k$ perfect matchings.
 
 \item Prove the König-Ore formula $\nu(G) = |A| - \max_{S \subseteq A}\{|S| - |N(S)|\}$ for a bipartite graph $G$ with parts $A$ and $B$. (Hint: add $d = \max_{S \subseteq A}\{|S| - |N(S)|\}$ new vertices to $B$, each adjacent to every vertex of $A$, and apply Hall's theorem.)
 
@@ -12096,11 +12090,11 @@ where entry $(i,j)$ is the cost of assigning worker $i$ to job $j$. (Answer: wor
 \begin{enumerate}[start=14]
 \item Prove Petersen's theorem from Tutte's theorem: every 3-regular graph with no bridges has a perfect matching.
 
-\item Construct a 3-regular graph with no perfect matching and verify that it violates Tutte's condition. (Hint: take $K_4$, subdivide one of its edges by a new vertex $x$, make three copies of this 5-vertex graph, and join the three copies of $x$ to one new vertex.)
+\item\label{q:cubic-no-pm} Construct a 3-regular graph with no perfect matching and verify that it violates Tutte's condition. (Hint: take $K_4$, subdivide one of its edges by a new vertex $x$, make three copies of this 5-vertex graph, and join the three copies of $x$ to one new vertex.)
 
 \item Prove the Tutte-Berge formula from Tutte's theorem. (Hint: let $d = \max_{S \subseteq V}\{\text{odd}(G-S) - |S|\}$ and join a complete graph $K_d$ to every vertex of $G$.)
 
-\item Prove Petersen's 2-factor theorem: every $2k$-regular graph with $k \geq 1$ has a 2-factor, i.e.\ a spanning 2-regular subgraph. (Hint: orient each component along an Eulerian circuit, form a bipartite graph with a copy $v^+$ and a copy $v^-$ of each vertex $v$ and an edge $u^+v^-$ for each arc $uv$, and apply Question 8.)
+\item Prove Petersen's 2-factor theorem: every $2k$-regular graph with $k \geq 1$ has a 2-factor, i.e.\ a spanning 2-regular subgraph. (Hint: orient each component along an Eulerian circuit, form a bipartite graph with a copy $v^+$ and a copy $v^-$ of each vertex $v$ and an edge $u^+v^-$ for each arc $uv$, and apply Question~\ref{q:regular-bipartite-pm}.)
 
 \item Prove Berge's theorem: a matching $M$ in a graph $G$ is maximum if and only if $G$ has no $M$-augmenting path. (Hint: consider the components of $M \oplus M^*$ for a maximum matching $M^*$.)
 \end{enumerate}
@@ -12109,7 +12103,7 @@ where entry $(i,j)$ is the cost of assigning worker $i$ to job $j$. (Answer: wor
 \begin{enumerate}[start=19]
 \item Draw a bipartite graph with parts $A = \{a_1, a_2, a_3, a_4\}$ and $B = \{b_1, b_2, b_3, b_4\}$ that has no perfect matching, and mark a set $X \subseteq A$ with $|N(X)| < |X|$.
 
-\item Draw the 16-vertex 3-regular graph of Question 15, mark its three bridges, and mark a set $S$ of vertices such that $G - S$ has more than $|S|$ odd components.
+\item Draw the 16-vertex 3-regular graph of Question~\ref{q:cubic-no-pm}, mark its three bridges, and mark a set $S$ of vertices such that $G - S$ has more than $|S|$ odd components.
 \end{enumerate}
 
 \pagebreak
@@ -13859,7 +13853,7 @@ The restriction to complete graphs is essential: for other patterns the number o
 The Bron-Kerbosch algorithm with degeneracy ordering runs in $O(d \cdot n \cdot 3^{d/3})$ time on a $d$-degenerate graph with $n$ vertices.
 \end{theorem}
 
-\begin{algorithm}
+\begin{algorithm}[H]
 \caption{Bron-Kerbosch Algorithm for $d$-Degenerate Graphs}
 \label{alg:bron-kerbosch-degenerate}
 \begin{algorithmic}[1]
@@ -13907,7 +13901,7 @@ Since we perform this search for each of the $n$ vertices, and each recursive ca
 \end{proof}
 
 \subsection{Introduction to Scheduling Problems}
-\textbf{This bonus section explores an advanced application of degenerate graphs, introducing scheduling problems and their relationship to the core concepts we've covered. While not essential for understanding the fundamental principles, this material provides valuable insights into how these concepts extend to practical optimization challenges. If you are taking Math 154, skip to page 200.}
+\textbf{This bonus section explores an advanced application of degenerate graphs, introducing scheduling problems and their relationship to the core concepts we've covered. While not essential for understanding the fundamental principles, this material provides valuable insights into how these concepts extend to practical optimization challenges. If you are taking Math 154, skip to page~\pageref{subsec:scheduling-problem}.}
 
 
 Scheduling problems and graph theory share a deep and mutually beneficial relationship. Many scheduling problems can be naturally formulated as graph problems, allowing graph-theoretic techniques to be applied to their analysis and solution. Conversely, certain graph problems arise naturally from scheduling contexts, leading to algorithms with practical applications.
@@ -15572,7 +15566,7 @@ When selecting algorithms, consider these empirical observations:
 \end{itemize}
 \end{remark}
 
-\section*{Scheduling Problem}
+\subsection*{Scheduling Problem}\phantomsection\label{subsec:scheduling-problem}
 
 Suppose we have students $s_1, s_2, \ldots, s_m$, each has to write a set $E_1, E_2, \ldots, E_m$ of exams.
 
@@ -16110,7 +16104,7 @@ The comb polygon demonstrates that the bound $\lfloor n/3 \rfloor$ is tight. It 
 
 % Add brace to show one tooth
 \draw[decorate,decoration={brace,amplitude=5pt}] (0.5,2.2) -- (2,2.2);
-\node[above] at (1.25,2.4) {\small One ``tooth''};
+\node[left] at (0.3,2.3) {\small One ``tooth''};
 \end{tikzpicture}
 \end{center}
 
@@ -17122,7 +17116,7 @@ and identify the next augmenting path.
 \end{exercise}
 
 \clearpage
-\section{Advanced Topics in Graph Theory}
+\section{Advanced Topics in Graph Theory}\label{sec:advanced-topics}
 
 The remainder of the book is a tour of topics commonly taught in
 first-year graduate courses on graph theory and combinatorics. Each
@@ -18528,7 +18522,7 @@ and the surviving sparse independent-set witness for high
 chromatic number.
 \end{exercise}
 
-\subsection{Spectral Graph Theory}
+\subsection{Spectral Graph Theory}\label{subsec:spectral}
 
 Spectral graph theory studies the eigenvalues and eigenvectors of
 matrices associated with a graph---primarily the adjacency matrix
