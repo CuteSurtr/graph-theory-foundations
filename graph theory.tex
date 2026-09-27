@@ -13042,90 +13042,53 @@ The performance of the greedy algorithm strongly depends on the chosen vertex or
 \end{figure}
 
 \begin{proof}[Complete Proof of Brooks' Theorem]
-We proceed by cases, considering different graph structures. Throughout the proof, we construct a specific vertex ordering that enables an effective application of the greedy coloring algorithm.
+We follow the proof of Lov\'asz (1975). The idea is to run the greedy coloring algorithm with the colors $1, 2, \ldots, \Delta$ in an order in which every vertex except the last one still has an uncolored neighbor at the moment it is colored. Such a vertex has at most $\Delta - 1$ colored neighbors, so one of the $\Delta$ colors is free for it; only the last vertex needs a separate argument.
 
 \textbf{Case 1:} If $G$ is a complete graph $K_{\Delta+1}$ with $\Delta+1$ vertices, then each vertex is adjacent to all other vertices. A proper coloring requires each vertex to have a distinct color, so $\chi(G) = \Delta+1$. This establishes the first exception in the theorem.
 
-\textbf{Case 2:} If $G$ is an odd cycle, then $\Delta = 2$ and $\chi(G) = 3 = \Delta+1$. This establishes the second exception.
+\textbf{Case 2:} If $\Delta \leq 2$, then $G$ is a path or a cycle. If $G$ is an odd cycle, then $\chi(G) = 3 = \Delta+1$; this is the second exception, and it cannot occur when $\Delta \geq 3$. If $G$ is an even cycle or a path with at least three vertices, then coloring the vertices alternately with two colors shows that $\chi(G) = 2 = \Delta$. (A path with at most two vertices is $K_1$ or $K_2$, which is covered by Case 1.)
 
-\textbf{Case 3:} If $G$ is an even cycle, then $\Delta = 2$ and $\chi(G) = 2 = \Delta$, which satisfies the theorem.
+From now on we assume that $\Delta \geq 3$ and that $G$ is not a complete graph, and we show that $\chi(G) \leq \Delta$.
 
-\textbf{Case 4:} The main case is when $G$ is not a complete graph and not a cycle, with $\Delta \geq 3$. We need to show that $\chi(G) \leq \Delta$.
-
-Since $G$ is not a complete graph, there exist two vertices $u$ and $v$ that are not adjacent. We first handle the case where removing the edge $(u,v)$ would disconnect the graph.
-
-\textbf{Subcase 4.1:} Suppose there is no path from $u$ to $v$ in $G - \{(u,v)\}$. Then $G - \{(u,v)\}$ has two connected components $G_1$ (containing $u$) and $G_2$ (containing $v$).
-
-By the induction hypothesis, we can color $G_1$ and $G_2$ with at most $\Delta$ colors each. By permuting the colors if necessary, we can ensure that these colorings are compatible, giving a $\Delta$-coloring of $G$.
-
-\textbf{Subcase 4.2:} The key case is when $G$ is 2-connected (removing any edge doesn't disconnect the graph) and not a complete graph or an odd cycle.
-
-We choose a specific vertex $v_0$ with degree at most $\Delta-1$ (such a vertex must exist since $G$ is not a complete graph). Let $N(v_0) = \{v_1, v_2, \ldots, v_m\}$ be its neighbors, where $m \leq \Delta-1$.
-
-We construct a carefully chosen ordering of the vertices:
-\begin{itemize}
-    \item Start with $v_0$
-    \item Then include its neighbors $v_1, v_2, \ldots, v_m$
-    \item Finally, add the remaining vertices in any order
-\end{itemize}
+\textbf{Case 3: $G$ is not regular.} Choose a vertex $v_0$ with $d(v_0) \leq \Delta - 1$, and list the vertices as $v_0, v_1, \ldots, v_{n-1}$ in order of nondecreasing distance from $v_0$ (for example, in the order in which breadth-first search from $v_0$ reaches them). Apply the greedy coloring algorithm in the \textit{reverse} order $v_{n-1}, v_{n-2}, \ldots, v_1, v_0$. When a vertex $v_i$ with $i \geq 1$ is colored, the neighbor of $v_i$ that follows it on a shortest path from $v_i$ to $v_0$ is closer to $v_0$, so it appears earlier in the list and is still uncolored. Hence at most $\Delta - 1$ neighbors of $v_i$ are colored, and one of the $\Delta$ colors is free for $v_i$. Finally, $v_0$ has at most $\Delta - 1$ neighbors altogether, so a color is free for $v_0$ as well.
 
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture}[scale=0.9, node distance=2cm]
-    % Initial vertex v0
-    \node[circle, draw, fill=yellow!40, minimum size=0.7cm] (v0) at (0,0) {$v_0$};
-    
-    % Neighbors of v0
-    \node[circle, draw, fill=orange!30, minimum size=0.7cm] (v1) at (-2,1.5) {$v_1$};
-    \node[circle, draw, fill=orange!30, minimum size=0.7cm] (v2) at (0,2) {$v_2$};
-    \node[circle, draw, fill=orange!30, minimum size=0.7cm] (v3) at (2,1.5) {$v_3$};
-    
-    % Other vertices
-    \node[circle, draw, fill=lightgray, minimum size=0.7cm] (v4) at (-2.5,-1) {$v_4$};
-    \node[circle, draw, fill=lightgray, minimum size=0.7cm] (v5) at (0,-2) {$v_5$};
-    \node[circle, draw, fill=lightgray, minimum size=0.7cm] (v6) at (2.5,-1) {$v_6$};
-    
-    % Edges from v0 to its neighbors
+\begin{tikzpicture}[scale=0.9]
+    % A graph with Delta = 3 in which d(v_0) = 2 < Delta
+    \node[circle, draw, minimum size=0.7cm] (v0) at (0,0) {$v_0$};
+    \node[circle, draw, minimum size=0.7cm] (v1) at (-2,1.5) {$v_1$};
+    \node[circle, draw, minimum size=0.7cm] (v2) at (0,2) {$v_2$};
+    \node[circle, draw, minimum size=0.7cm] (v3) at (2,1.5) {$v_3$};
+    \node[circle, draw, minimum size=0.7cm] (v4) at (-2.5,-1) {$v_4$};
+    \node[circle, draw, minimum size=0.7cm] (v5) at (0,-2) {$v_5$};
+    \node[circle, draw, minimum size=0.7cm] (v6) at (2.5,-1) {$v_6$};
+
     \draw (v0) -- (v1);
     \draw (v0) -- (v2);
-    \draw (v0) -- (v3);
-    
-    % Other edges
     \draw (v1) -- (v2);
     \draw (v2) -- (v3);
     \draw (v1) -- (v4);
     \draw (v4) -- (v5);
     \draw (v5) -- (v6);
     \draw (v6) -- (v3);
-    
-    % Labels
-    \node[text=blue, font=\bfseries] at (0,-4) {Vertex Ordering: $v_0, v_1, v_2, v_3, v_4, v_5, v_6$};
-    
-    % Highlight the ordering
-    \draw[->, red, thick] (v0) to[out=-135, in=90] (-3.5,-1) to[out=-90, in=-135] (v4);
-    \draw[->, red, thick] (v4) to[out=-45, in=180] (-1,-3) to[out=0, in=-135] (v5);
-    \draw[->, red, thick] (v5) to[out=-45, in=180] (1.5,-3) to[out=0, in=-135] (v6);
+
+    \node at (0,-3.2) {Vertex ordering: $v_0, v_1, v_2, v_3, v_4, v_5, v_6$};
 \end{tikzpicture}
 \\
-\small Figure 138 : {Construction of a specific vertex ordering for Brooks' Theorem, starting with a vertex $v_0$ of degree $< \Delta$, followed by its neighbors, and then the remaining vertices.}
+\small Figure 138 : {Case 3 of the proof for a graph with $\Delta = 3$. The vertex $v_0$ has degree $2 < \Delta$, and the vertices are listed in order of nondecreasing distance from $v_0$ (distance 1: $v_1, v_2$; distance 2: $v_3, v_4$; distance 3: $v_5, v_6$). The greedy algorithm colors them in the reverse order $v_6, v_5, \ldots, v_0$.}
 \end{figure}
 
-Now we apply the greedy coloring algorithm in the \textit{reverse} of this order: we color $v_n, v_{n-1}, \ldots, v_1, v_0$. 
+\textbf{Case 4: $G$ has a cut vertex $x$.} Let $H_1, \ldots, H_r$ ($r \geq 2$) be the components of $G - x$, and let $G_j$ be the subgraph of $G$ induced by $V(H_j) \cup \{x\}$. Each $G_j$ is connected with maximum degree at most $\Delta$, and $x$ has fewer than $\Delta$ neighbors in $G_j$, because $x$ also has a neighbor in every other component of $G - x$. The argument of Case 3, applied to $G_j$ with $v_0 = x$, colors $G_j$ properly with colors from $\{1, \ldots, \Delta\}$. After permuting the colors in each $G_j$ so that $x$ receives color 1 every time, these colorings combine into a proper $\Delta$-coloring of $G$.
 
-\textbf{Coloring analysis:}
+\textbf{Case 5: $G$ is $\Delta$-regular and 2-connected.} We first find vertices $u$, $v$, $w$ with $uv, vw \in E(G)$ and $uw \notin E(G)$ such that $G - \{u, w\}$ is connected.
 \begin{itemize}
-    \item For each vertex $v_i$ where $i > m$ (i.e., not a neighbor of $v_0$), when we color it, it has at most $\Delta$ neighbors, and not all of them have been colored yet. So we need at most $\Delta-1$ colors to avoid conflicts, and can use one of the $\Delta$ available colors.
-    
-    \item For each vertex $v_i$ where $1 \leq i \leq m$ (i.e., a neighbor of $v_0$), we consider whether it's adjacent to all previous vertices $v_j$ for $j < i$. If not, then we can color it with at most $\Delta-1$ colors, again allowing us to stay within $\Delta$ colors.
-    
-    \item The key insight is that the vertices $v_1, v_2, \ldots, v_m$ cannot form a complete subgraph (as this would make $G$ a complete graph). Therefore, there exist two vertices in this set, say $v_i$ and $v_j$ with $i < j$, that are not adjacent.
-    
-    \item When coloring $v_j$, it is not adjacent to $v_i$, so it sees at most $\Delta-1$ colors among its colored neighbors. This means we can color $v_j$ within our $\Delta$ color budget.
-    
-    \item Finally, vertex $v_0$ has only $m \leq \Delta-1$ neighbors, all of which have been colored. Therefore, at least one of the $\Delta$ colors is available for $v_0$.
+    \item If $G - \{a, b\}$ is connected for every two vertices $a$ and $b$, let $u$ and $w$ be two vertices at distance 2 (they exist because $G$ is connected but not complete), and let $v$ be a common neighbor of $u$ and $w$.
+    \item Otherwise, choose vertices $v$ and $x$ such that $G - \{v, x\}$ is disconnected. Since $G$ is 2-connected, $G - v$ is connected, and $x$ is a cut vertex of $G - v$. The block-cutpoint graph of $G - v$ is a tree with at least two block vertices, so it has at least two leaves. Every cut vertex lies in at least two blocks, so these leaves are blocks $B_1$ and $B_2$ of $G - v$, and each of them contains exactly one cut vertex of $G - v$, say $z_1 \in B_1$ and $z_2 \in B_2$. If $v$ had no neighbor in $B_1 - z_1$, then $z_1$ would be a cut vertex of $G$, which is impossible; so $v$ has a neighbor $u \in B_1 - z_1$, and similarly a neighbor $w \in B_2 - z_2$. Each of $u$ and $w$ lies in only one block of $G - v$, and these blocks are different, so $u$ and $w$ are not adjacent. All neighbors of $u$ in $G - v$ lie in $B_1 - u$, which is connected (a block is 2-connected or a single edge), so $G - \{v, u\}$ is connected; similarly, all neighbors of $w$ in $G - \{v, u\}$ lie in $B_2 - w$, which is connected and does not contain $u$, so $G - \{v, u, w\}$ is connected. Since $d(v) = \Delta \geq 3$, the vertex $v$ has a neighbor other than $u$ and $w$, and hence $G - \{u, w\}$ is connected.
 \end{itemize}
+Now give both $u$ and $w$ color 1. List the vertices of the connected graph $G - \{u, w\}$ in order of nondecreasing distance from $v$ in $G - \{u, w\}$, starting with $v$, and color them greedily in the reverse order, so that $v$ is colored last. As in Case 3, every vertex other than $v$ still has an uncolored neighbor when it is colored, so at most $\Delta - 1$ colors appear on its colored neighbors. Finally, $v$ has $\Delta$ neighbors, but two of them, $u$ and $w$, have the same color, so at most $\Delta - 1$ colors appear on the neighbors of $v$, and a color is free for $v$.
 
-This careful construction ensures that at each step of the greedy algorithm, each vertex has at least one color available from the set of $\Delta$ colors. Therefore, we can color the entire graph with at most $\Delta$ colors, completing the proof.
+In Cases 3, 4, and 5 the graph $G$ has a proper coloring with at most $\Delta$ colors, which completes the proof.
 \end{proof}
 
 \begin{figure}[ht]
@@ -13144,7 +13107,7 @@ This careful construction ensures that at each step of the greedy algorithm, eac
     \draw (v1) -- (v2) -- (v3) -- (v4) -- (v5) -- (v1);
     \draw (v1) -- (v6) -- (v2);
     
-    \node at (1,-3) {A 3-regular graph colored with 3 colors};
+    \node at (1,-3) {A graph with $\Delta = 3$ colored with 3 colors};
 \end{tikzpicture}
 \quad
 \begin{tikzpicture}[scale=0.9]
@@ -13161,43 +13124,47 @@ This careful construction ensures that at each step of the greedy algorithm, eac
     \node at (1,-1) {$K_4$ - requires 4 colors};
 \end{tikzpicture}
 \\
-\small Figure 139 : {Comparison of a 3-regular graph (left) that satisfies Brooks' Theorem and can be colored with $\Delta = 3$ colors, and $K_4$ (right) which requires $\Delta + 1 = 4$ colors.}
+\small Figure 139 : {Comparison of a graph with maximum degree 3 (left) that satisfies Brooks' Theorem and can be colored with $\Delta = 3$ colors, and $K_4$ (right) which requires $\Delta + 1 = 4$ colors.}
 \end{figure}
 
-We now apply the greedy coloring algorithm in \textit{reverse} order, starting with $v_6$ and ending with $v_0$:
+We now apply the greedy coloring algorithm to the graph of Figure 138 in the \textit{reverse} order, starting with $v_6$ and ending with $v_0$:
 
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
-    % Final colored graph
-    \node[circle, draw, fill=red!30, minimum size=0.7cm] (v0) at (0,0) {$v_0$};
-    \node[circle, draw, fill=blue!30, minimum size=0.7cm] (v1) at (-1.5,1) {$v_1$};
-    \node[circle, draw, fill=red!30, minimum size=0.7cm] (v2) at (0,2) {$v_2$};
-    \node[circle, draw, fill=green!30, minimum size=0.7cm] (v3) at (1.5,1) {$v_3$};
-    \node[circle, draw, fill=red!30, minimum size=0.7cm] (v4) at (-2,-1) {$v_4$};
-    \node[circle, draw, fill=green!30, minimum size=0.7cm] (v5) at (0,-2) {$v_5$};
-    \node[circle, draw, fill=blue!30, minimum size=0.7cm] (v6) at (2,-1) {$v_6$};
-    
-    % Edges
-    \draw (v0) -- (v1) -- (v2) -- (v3) -- (v0);
-    \draw (v1) -- (v4) -- (v5) -- (v6) -- (v3);
-    \draw (v0) -- (v5);
-    
-    \node at (0,-3) {Figure 140 : Final coloring using $\Delta = 3$ colors};
+    % Final coloring of the graph of Figure 138; the number next to each vertex is its color
+    \node[circle, draw, minimum size=0.7cm, label={below:$3$}] (v0) at (0,0) {$v_0$};
+    \node[circle, draw, minimum size=0.7cm, label={above left:$2$}] (v1) at (-2,1.5) {$v_1$};
+    \node[circle, draw, minimum size=0.7cm, label={above:$1$}] (v2) at (0,2) {$v_2$};
+    \node[circle, draw, minimum size=0.7cm, label={above right:$2$}] (v3) at (2,1.5) {$v_3$};
+    \node[circle, draw, minimum size=0.7cm, label={left:$1$}] (v4) at (-2.5,-1) {$v_4$};
+    \node[circle, draw, minimum size=0.7cm, label={below:$2$}] (v5) at (0,-2) {$v_5$};
+    \node[circle, draw, minimum size=0.7cm, label={right:$1$}] (v6) at (2.5,-1) {$v_6$};
+
+    \draw (v0) -- (v1);
+    \draw (v0) -- (v2);
+    \draw (v1) -- (v2);
+    \draw (v2) -- (v3);
+    \draw (v1) -- (v4);
+    \draw (v4) -- (v5);
+    \draw (v5) -- (v6);
+    \draw (v6) -- (v3);
+
+    \node[align=center] at (0,-3.4) {Figure 140 : Final coloring using $\Delta = 3$ colors\\(the number next to each vertex is its color)};
 \end{tikzpicture}
 \end{center}
 
 The coloring process works as follows:
 \begin{enumerate}
-    \item Color $v_6$ with color 1 (blue)
-    \item Color $v_4$ with color 1 (red)
-    \item Color $v_2$ with color 1 (red)
-    \item Color $v_5$ with color 2 (green) - since it's adjacent to $v_4$ which has color 1
-    \item Color $v_3$ with color 2 (green) - avoiding colors of adjacent vertices
-    \item Color $v_1$ with color 3 (blue) - avoiding colors of adjacent vertices
-    \item Color $v_0$ with color 1 (red) - it's adjacent to vertices with colors 2 and 3
+    \item Color $v_6$ with color 1 - none of its neighbors is colored yet
+    \item Color $v_5$ with color 2 - since it is adjacent to $v_6$, which has color 1
+    \item Color $v_4$ with color 1 - its only colored neighbor, $v_5$, has color 2
+    \item Color $v_3$ with color 2 - its only colored neighbor, $v_6$, has color 1
+    \item Color $v_2$ with color 1 - its only colored neighbor, $v_3$, has color 2
+    \item Color $v_1$ with color 2 - its colored neighbors $v_2$ and $v_4$ both have color 1
+    \item Color $v_0$ with color 3 - it is adjacent to $v_1$ (color 2) and $v_2$ (color 1); since $d(v_0) = 2 < \Delta$, a color is still free
 \end{enumerate}
 
-This demonstrates that the graph can be colored with $\Delta = 3$ colors, confirming Brooks' Theorem.
+This demonstrates that the graph can be colored with $\Delta = 3$ colors, as Brooks' Theorem guarantees.
 
 \begin{figure}[ht]
 \centering
@@ -13234,7 +13201,7 @@ This demonstrates that the graph can be colored with $\Delta = 3$ colors, confir
 \end{figure}
 
 \begin{example}[Application of Brooks' Theorem]
-Consider a graph $G$ with maximum degree $\Delta = 3$ that is neither a complete graph ($K_4$) nor an odd cycle. By Brooks' Theorem, $\chi(G) \leq 3$, meaning we can color the vertices using at most 3 colors.
+Consider a connected graph $G$ with maximum degree $\Delta = 3$ that is not the complete graph $K_4$ (it cannot be an odd cycle, since odd cycles have $\Delta = 2$). By Brooks' Theorem, $\chi(G) \leq 3$, meaning we can color the vertices using at most 3 colors.
 
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
@@ -13242,18 +13209,17 @@ Consider a graph $G$ with maximum degree $\Delta = 3$ that is neither a complete
     \node[circle, draw, fill=red!30, minimum size=0.7cm] (v1) at (0,0) {$v_1$};
     \node[circle, draw, fill=blue!30, minimum size=0.7cm] (v2) at (2,0) {$v_2$};
     \node[circle, draw, fill=green!30, minimum size=0.7cm] (v3) at (2,2) {$v_3$};
-    \node[circle, draw, fill=red!30, minimum size=0.7cm] (v4) at (0,2) {$v_4$};
-    \node[circle, draw, fill=blue!30, minimum size=0.7cm] (v5) at (1,3) {$v_5$};
+    \node[circle, draw, fill=blue!30, minimum size=0.7cm] (v4) at (0,2) {$v_4$};
+    \node[circle, draw, fill=red!30, minimum size=0.7cm] (v5) at (1,3) {$v_5$};
     
     \draw (v1) -- (v2) -- (v3) -- (v4) -- (v1);
     \draw (v3) -- (v5) -- (v4);
-    \draw (v1) -- (v3);
     
     \node at (1,-1) {Figure 142 : $G$ with $\Delta = 3$, $\chi(G) = 3$};
 \end{tikzpicture}
 \end{center}
 
-Each vertex in this example has degree at most 3, and the graph is neither $K_4$ nor an odd cycle. As predicted by Brooks' Theorem, it can be colored with exactly 3 colors.
+Each vertex in this example has degree at most 3, and the graph is connected and is neither $K_4$ nor an odd cycle. As predicted by Brooks' Theorem, it can be colored with 3 colors; it needs exactly 3 colors because it contains the triangle $v_3 v_4 v_5$.
 \end{example}
 
 \begin{remark}[What Brooks' Theorem Gives for Edge-Coloring]
