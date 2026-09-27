@@ -9855,7 +9855,7 @@ Suppose we have persons $p_1, \ldots, p_n$ and jobs $j_1, j_2, \ldots, j_m$.
 
 Place an edge $\{p_i, j_k\}$ if person $p_i$ can do job $j_k$.
 
-What is the maximum number of jobs that can be done, if each person is assigned exactly one job, and each job is done by one person?
+What is the maximum number of jobs that can be done, if each person is assigned at most one job, and each job is done by at most one person?
 \end{problem}
 
 \begin{figure}[h]
@@ -10035,7 +10035,7 @@ We can verify these relationships in our $C_7$ example:
 \end{remark}
 
 \begin{remark}
-An independent set $S$ is a maximum independent set if and only if its complement $V(G) \setminus S$ is a minimum vertex cover. This follows directly from Gallai's Theorem.
+An independent set $S$ is a maximum independent set if and only if its complement $V(G) \setminus S$ is a minimum vertex cover. This follows directly from Gallai's Lemma below.
 \end{remark}
 
 \begin{lemma}[Gallai's Lemma]
@@ -10187,7 +10187,7 @@ And if $G$ has no isolated vertices:
 \alpha'(G) + \beta'(G) = |V(G)|
 \end{equation}
 
-\textbf{Proof of the first part:}
+\textbf{Proof that $\alpha(G) + \beta(G) = |V(G)|$:}
 
 Let $I$ be a maximum independent set in $G$, so $|I| = \alpha(G)$.
 
@@ -10213,7 +10213,7 @@ Combining the last two displayed inequalities, we get:
 \alpha(G) + \beta(G) = |V(G)|
 \end{equation}
 
-\textbf{Proof of the second part:}
+\textbf{Proof that $\alpha'(G) + \beta'(G) = |V(G)|$:}
 
 Suppose now $G$ has no isolated vertices. Let $M$ be a maximum matching in $G$, so $|E(M)| = \alpha'(G)$.
 
@@ -10248,7 +10248,7 @@ Combining these inequalities:
 \alpha'(G) + \beta'(G) = |V(G)|
 \end{equation}
 
-This completes the proof First part of Gallai's Lemma.
+This is the first part of Gallai's Lemma; the matching used for the second inequality is constructed in the proof below.
 \begin{proof}[Proof of $\alpha'(G) + \beta'(G) = |V(G)|$ for graphs with no isolated vertices]
 Suppose $G$ has no isolated vertices. Let $M$ be a maximum matching in $G$, so $|E(M)| = \alpha'(G)$.
 
@@ -10289,7 +10289,7 @@ From inequalities (1) and (2), we conclude:
 \alpha'(G) + \beta'(G) = |V(G)|
 \end{equation}
 
-This completes the proof of the second part of Gallai's Theorem.
+This completes the proof of the first part of Gallai's Lemma.
 \end{proof}
 
 
@@ -10391,7 +10391,7 @@ For bipartite graphs, Tutte's condition simplifies to Hall's Marriage Theorem, w
 \begin{theorem}[König-Ore Formula]
 Let $G(A, B)$ be a bipartite graph. Then
 \[
-\nu(G, A) = \max_{S \subset A} \{|S| - |N(S)|\}.
+\nu(G, A) = \max_{S \subseteq A} \{|S| - |N(S)|\}.
 \]
 where:
 \begin{itemize}
@@ -10402,7 +10402,7 @@ where:
 \end{theorem}
 
 \begin{theorem}[Relationship to König-Ore Formula]
-For bipartite graphs $G = (A \cup B, E)$ with $|A| = |B|$, Tutte's condition becomes equivalent to the König-Ore formula, as:
+For bipartite graphs $G = (A \cup B, E)$ with $|A| = |B|$, Tutte's condition becomes equivalent to Hall's condition (the case of deficiency $0$ in the König-Ore formula), as:
 \[
 \text{odd}(G - S) \leq |S| \quad \text{for all } S \subseteq V
 \]
@@ -10418,7 +10418,7 @@ A bipartite graph $G(A, B)$ has a matching that covers all vertices in $A$ if an
 \end{corollary}
 
 \begin{remark}
-This is also known as Hall's Marriage Theorem when expressed in the contrapositive form, which states that a bipartite graph $G(A, B)$ has a matching covering all vertices in $A$ if and only if for all $S \subseteq A$, $|N(S)| \geq |S|$.
+This is also known as Hall's Marriage Theorem, which states that a bipartite graph $G(A, B)$ has a matching covering all vertices in $A$ if and only if for all $S \subseteq A$, $|N(S)| \geq |S|$.
 \end{remark}
 
 \begin{remark}
