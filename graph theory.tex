@@ -13762,6 +13762,10 @@ Shannon originally developed this result in the context of analyzing switching n
 \label{fig:2degenerate}
 \end{figure}
 
+\begin{definition}[$d$-Degenerate Graph]
+Let $d \geq 0$ be an integer. A graph $G$ is called \textbf{$d$-degenerate} if every subgraph of $G$ (with at least one vertex) has a vertex of degree at most $d$. The smallest integer $d$ such that $G$ is $d$-degenerate is called the \textbf{degeneracy} of $G$. Note that a $d$-degenerate graph is also $d'$-degenerate for every $d' \geq d$.
+\end{definition}
+
 \begin{theorem}[Equivalence of Degenerate Definitions]
 The following statements are equivalent for a graph $G$:
 \begin{enumerate}
@@ -13772,25 +13776,21 @@ The following statements are equivalent for a graph $G$:
 \end{theorem}
 
 \begin{proof}
-$(1 \Rightarrow 2)$: This follows directly from the definition of $d$-degeneracy.
+$(1 \Rightarrow 2)$: Every induced subgraph is a subgraph, so this follows directly from the definition of $d$-degeneracy.
 
-$(2 \Rightarrow 3)$: We can construct the required ordering as follows:
+$(2 \Rightarrow 3)$: We first remove the vertices one at a time:
 \begin{itemize}
 \item Start with the original graph $G$.
-\item Find a vertex $v_1$ with degree at most $d$ (which exists by assumption).
-\item Remove $v_1$ from $G$ to get $G'$.
-\item Find a vertex $v_2$ with degree at most $d$ in $G'$ (which exists since $G'$ is an induced subgraph of $G$).
-\item Continue this process until all vertices are ordered.
+\item Find a vertex $u_1$ with degree at most $d$ (which exists by assumption).
+\item Remove $u_1$ from $G$ to get $G'$.
+\item Find a vertex $u_2$ with degree at most $d$ in $G'$ (which exists since $G'$ is an induced subgraph of $G$).
+\item Continue this process until all vertices have been removed.
 \end{itemize}
 
-In the resulting ordering $v_1, v_2, \ldots, v_n$, each vertex $v_i$ has at most $d$ neighbors among $v_{i+1}, \ldots, v_n$ (since when we selected $v_i$, it had degree at most $d$ in the remaining graph).
+When $u_j$ was selected, it had degree at most $d$ in the remaining graph, so each $u_j$ has at most $d$ neighbors among $u_{j+1}, \ldots, u_n$. Now list the vertices in the reverse order of removal: $v_i = u_{n+1-i}$ for $i = 1, \ldots, n$. The neighbors of $v_i$ among $v_1, \ldots, v_{i-1}$ are exactly its neighbors that were removed after it, so each $v_i$ has at most $d$ neighbors among $v_1, v_2, \ldots, v_{i-1}$.
 
-$(3 \Rightarrow 1)$: Let $v_1, v_2, \ldots, v_n$ be an ordering where each $v_i$ has at most $d$ neighbors among $v_{i+1}, \ldots, v_n$. For any induced subgraph $H$ of $G$, consider the vertex in $H$ that appears first in this ordering. This vertex has at most $d$ neighbors in $H$, proving that $H$ has a vertex of degree at most $d$.
+$(3 \Rightarrow 1)$: Let $v_1, v_2, \ldots, v_n$ be an ordering where each $v_i$ has at most $d$ neighbors among $v_1, \ldots, v_{i-1}$. Let $H$ be any subgraph of $G$ with at least one vertex, and let $v_i$ be the vertex of $H$ that appears last in this ordering. Every neighbor of $v_i$ in $H$ comes before $v_i$ in the ordering, so $v_i$ has at most $d$ neighbors in $H$. Hence every subgraph of $G$ has a vertex of degree at most $d$, that is, $G$ is $d$-degenerate.
 \end{proof}
-
-\begin{definition}[$d$-Degenerate Graph]
-A graph $G$ is called \textbf{$d$-degenerate} if $d$ is the smallest integer such that $G$ is $d$-degenerate according to the above definition. The parameter $d$ is called the \textbf{degeneracy} of $G$.
-\end{definition}
 
 \begin{theorem}[Characterization of $d$-Degeneracy]
 The degeneracy $d$ of a graph $G$ is equal to:
@@ -14088,7 +14088,7 @@ For any graph $G$ with degeneracy $d$ and clique number $\omega(G)$:
 \end{lemma}
 
 \begin{proof}
-In a clique of size $k$, every vertex has degree $k-1$. Therefore, any subgraph containing a clique of size $\omega(G)$ has minimum degree at least $\omega(G)-1$. Since $d = \max_{H \subseteq G} \delta(H)$, we have $\omega(G) - 1 \leq d$, which gives $\omega(G) \leq d + 1$.
+Let $K$ be a clique of size $\omega(G)$ in $G$. In the subgraph $K$, every vertex has degree $\omega(G)-1$, so $\delta(K) = \omega(G)-1$. Since $d = \max_{H \subseteq G} \delta(H)$, we have $\omega(G) - 1 \leq d$, which gives $\omega(G) \leq d + 1$.
 \end{proof}
 
 \begin{algorithm}
@@ -14176,7 +14176,7 @@ Every tree $T$ is 1-degenerate.
 \end{lemma}
 
 \begin{proof}
-Every tree with at least two vertices has at least one leaf (vertex of degree 1). Any subtree of a tree is also a tree, so every subtree has a leaf. Therefore, every subtree has a vertex of degree at most 1, making the tree 1-degenerate.
+Every subgraph of a tree is a forest. A forest with at least one vertex either has an isolated vertex (of degree 0), or has a component with at least two vertices; this component is a tree and therefore has a leaf (a vertex of degree 1). Hence every subgraph of a tree has a vertex of degree at most 1, making the tree 1-degenerate.
 \end{proof}
 
 \begin{lemma}[Cycles are 2-Degenerate]
@@ -14204,11 +14204,11 @@ A connected bipartite graph that is not a tree contains at least one cycle. This
 \end{proof}
 
 \begin{lemma}[$k$-Regular Graphs]
-A $k$-regular graph is $d$-degenerate.
+A $k$-regular graph is $k$-degenerate; in fact, its degeneracy is exactly $k$.
 \end{lemma}
 
 \begin{proof}
-In a $k$-regular graph, every vertex has degree exactly $k$. When we remove any vertex, the degree of its neighbors decreases by 1, so the minimum degree in the resulting graph is at most $k-1$. Continuing this process, we can always find a vertex of degree at most $k$ in any subgraph, making the graph $d$-degenerate.
+Every subgraph $H$ of a $k$-regular graph $G$ has maximum degree at most $k$, so $H$ has a vertex of degree at most $k$; hence $G$ is $k$-degenerate. On the other hand, $G$ itself is a subgraph in which every vertex has degree $k$, so $G$ is not $(k-1)$-degenerate. Therefore the degeneracy of $G$ is exactly $k$.
 \end{proof}
 
 \subsection{Extensions and Applications}
