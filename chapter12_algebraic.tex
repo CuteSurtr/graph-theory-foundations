@@ -14,7 +14,7 @@ The chapter is organized as follows.
 
 \begin{itemize}
   \item Section~\ref{subsec:matchings-polynomial}: \textbf{Matchings polynomial / Heilmann--Lieb.} A
-        graph polynomial whose roots are always real. Generalises the
+        graph polynomial whose roots are always real. Generalizes the
         adjacency-spectrum theorem from forests to all graphs;
         implies the absence of phase transitions in the
         monomer--dimer model.
@@ -23,7 +23,7 @@ The chapter is organized as follows.
         matrices give explicit eigenvalues. Yields the Hoffman /
         Haemers ratio bounds for $\alpha(G)$ and $\chi(G)$.
   \item Section~\ref{subsec:drg}: \textbf{Distance-regular graphs / association schemes.}
-        Algebraic generalisation of strongly regular graphs.
+        Algebraic generalization of strongly regular graphs.
         Underlies Delsarte's LP bound for codes (Hamming scheme) and
         Erd\H{o}s--Ko--Rado-type results (Johnson scheme).
   \item Section~\ref{subsec:cayley}: \textbf{Cayley graphs.} Eigenvalues of $\mathrm{Cay}(\Gamma, S)$
@@ -31,7 +31,7 @@ The chapter is organized as follows.
         constructions; the spectral source for nearly all
         deterministic expanders.
   \item Section~\ref{subsec:tutte-polynomial}: \textbf{Tutte polynomial / matroids.} Universal
-        deletion--contraction graph invariant; specialises to
+        deletion--contraction graph invariant; specializes to
         chromatic, flow, reliability, Ising, Jones polynomials. The
         matroid framework abstracts cycle/bond duality.
   \item Section~\ref{subsec:heaps}: \textbf{Heaps of pieces.} Walk generating functions on
@@ -79,7 +79,7 @@ The chapter is organized as follows.
         of Chandra--Raghavan--Ruzzo--Smolensky; the
         Koebe--Andreev--Thurston circle packing theorem.
   \item Section~\ref{subsec:crystals}: \textbf{Crystal graphs and the plactic monoid.}
-        Kashiwara crystals as edge-labelled graphs whose connected
+        Kashiwara crystals as edge-labeled graphs whose connected
         components encode irreducible $\mathfrak{gl}_n$-representations;
         Knuth equivalence and the plactic structure on words.
 \end{itemize}
@@ -368,7 +368,7 @@ adjacency eigenvalue $\lambda_n$. Then
 \begin{proof}
 Let $S \subseteq V(G)$ be a maximum independent set, $s = |S|$, and
 consider the partition $(S, V \setminus S)$; since $k \ge 1$ we have
-$s < n$. Every vertex of $S$ has all $k$ neighbours in $V \setminus S$,
+$s < n$. Every vertex of $S$ has all $k$ neighbors in $V \setminus S$,
 so $e(S, V \setminus S) = ks$ and the normalized quotient is
 \[
   \hat B = \begin{pmatrix} 0 & k \\[2pt] \dfrac{ks}{n - s} & k - \dfrac{ks}{n - s} \end{pmatrix}.
@@ -432,7 +432,7 @@ $i$ in $G$,
   \qquad
   b_i \;=\; |N(v) \cap G_{i+1}(u)|,
 \]
-i.e.\ the neighbours of $v$ counted by their distance from $u$ depend
+i.e.\ the neighbors of $v$ counted by their distance from $u$ depend
 only on $i$. The sequence
 \[
   \iota(G) \;=\; \{b_0, b_1, \ldots, b_{d-1};\; c_1, c_2, \ldots, c_d\}
@@ -944,7 +944,7 @@ Corollary~\ref{cor:viennot} explains the appearance of the matchings
 polynomial $\mu(G, x)$ as a reciprocal: heaps of edges (words in the
 edges modulo commutation of vertex-disjoint edges) are dual to
 matchings in a precise generating-function sense, and this
-perspective immediately generalises to $q$-analogues used in
+perspective immediately generalizes to $q$-analogues used in
 mathematical physics. The inversion formula by itself does \emph{not}
 yield the real-rootedness in the Heilmann--Lieb theorem
 (\ref{thm:hl}): Theorem~\ref{thm:cartierfoata} holds for every
@@ -1207,7 +1207,7 @@ The ring $\Lambda$ of symmetric functions is a graded connected
 Hopf algebra: the coproduct is $\Delta(p_n) = p_n \otimes 1 + 1 \otimes p_n$
 on the power-sum basis (i.e.\ the $p_n$ are \emph{primitive}). It is
 self-dual: $\Lambda \cong \Lambda^*$ as Hopf algebras, with the Hall
-inner product realising the duality.
+inner product realizing the duality.
 \end{example}
 
 \subsubsection{The Graph Hopf Algebra of Schmitt}
@@ -1217,7 +1217,7 @@ Let $\mathcal G_n$ be the set of (isomorphism classes of) finite
 simple graphs with vertex set $[n]$, and let
 $\mathcal G = \bigoplus_{n \ge 0} k\, \mathcal G_n$. Define:
 \begin{itemize}
-  \item Product: $G \cdot H = G \sqcup H$ (disjoint union, relabelled).
+  \item Product: $G \cdot H = G \sqcup H$ (disjoint union, relabeled).
   \item Coproduct:
         $\Delta(G) = \sum_{S \subseteq V(G)} G[S] \otimes G[V \setminus S]$,
         the sum over all bipartitions of $V(G)$ into induced subgraphs.
@@ -1306,13 +1306,13 @@ Gessel).
 \begin{example}[Matroids]
 Schmitt's matroid Hopf algebra has $\Delta(M) = \sum_{A \subseteq E(M)} M|_A \otimes M/A$
 and maps to QSym via the rank generating function. The image recovers
-the Tutte polynomial as a quasisymmetric specialisation.
+the Tutte polynomial as a quasisymmetric specialization.
 \end{example}
 
 \begin{example}[The Connes--Kreimer Hopf algebra of trees]
-Used in renormalisation theory of quantum field theory. Coproduct
+Used in renormalization theory of quantum field theory. Coproduct
 extracts admissible cuts of a rooted tree; antipode encodes the
-``BPHZ'' renormalisation procedure.
+``BPHZ'' renormalization procedure.
 \end{example}
 
 %====================================================================
@@ -1665,25 +1665,25 @@ $\mathrm{quasipoly}(n) = n^{O((\log n)^c)}$ time, placing
 it in a rare complexity-theoretic position between $\mathsf{P}$ and
 \textsf{NP-hard}. The algebraic core of every modern GI algorithm
 is the \emph{Weisfeiler--Leman} (WL) hierarchy: an iterative
-colour-refinement procedure that captures graph invariants of
+color-refinement procedure that captures graph invariants of
 increasing strength.
 
 \subsubsection{Color Refinement (1-WL)}
 
 \begin{definition}[Color refinement / 1-WL]\label{def:cr}
-Initialize each vertex of $G$ with the colour $c^0(v) = $ degree of
+Initialize each vertex of $G$ with the color $c^0(v) = $ degree of
 $v$. At iteration $t \ge 1$, set
 \[
   c^t(v) \;=\; \mathrm{hash}\big(c^{t-1}(v),\, \{\!\{c^{t-1}(u) : u \in N(v)\}\!\}\big),
 \]
 where $\{\!\{ \cdot \}\!\}$ is a multiset and $\mathrm{hash}$ is any
-injective encoding of (vertex-colour, neighbour-multiset) pairs.
-Iterate until the partition of $V(G)$ by colours stabilises (in at
+injective encoding of (vertex-color, neighbor-multiset) pairs.
+Iterate until the partition of $V(G)$ by colors stabilizes (in at
 most $|V(G)|$ rounds).
 \end{definition}
 
 \begin{theorem}[1-WL test]\label{thm:1wl}
-Two graphs $G, H$ are \textbf{1-WL distinguishable} if the colour
+Two graphs $G, H$ are \textbf{1-WL distinguishable} if the color
 multisets of $G$ and $H$ differ at some iteration. If $G$ and $H$ are
 1-WL indistinguishable, they have the same degree sequence and many
 finer invariants---but they may still be non-isomorphic.
@@ -1702,12 +1702,12 @@ $k$-WL is strictly weaker than graph isomorphism testing.
 \begin{definition}[$k$-dimensional WL]\label{def:kwl}
 For $k \ge 2$, $k$-WL operates on \emph{$k$-tuples} of vertices.
 Initialize $c^0(\vec v) = $ isomorphism type of the induced subgraph
-on $\{v_1, \ldots, v_k\}$ (with labelled vertices). At iteration $t$,
+on $\{v_1, \ldots, v_k\}$ (with labeled vertices). At iteration $t$,
 \[
   c^t(\vec v) \;=\; \mathrm{hash}\big(c^{t-1}(\vec v),\, \big(\{\!\{c^{t-1}(\vec v[i \to w]) : w \in V\}\!\}\big)_{i = 1}^{k}\big),
 \]
 where $\vec v[i \to w]$ replaces the $i$-th coordinate of $\vec v$
-with $w$. Iterate until stabilisation.
+with $w$. Iterate until stabilization.
 \end{definition}
 
 \begin{theorem}[Cai--F\"urer--Immerman, 1992]\label{thm:cfi}
@@ -1805,7 +1805,7 @@ new matrix $B'$ with entries
 \]
 Equivalently, in terms of the quiver: reverse all arrows incident to
 vertex $k$, and for every directed path $i \to k \to j$ add a new
-arrow $i \to j$ (cancelling against any existing $j \to i$ arrows).
+arrow $i \to j$ (canceling against any existing $j \to i$ arrows).
 $\mu_k^2 = \mathrm{id}$.
 \end{definition}
 
@@ -1873,7 +1873,7 @@ triangulation correspond exactly to mutations of the quiver.
 \begin{example}[Hexagon triangulations]
 For the hexagon (the disk with $6$ marked boundary points), the
 cluster algebra is of type $A_3$. Its $14$ triangulations correspond
-to the $14$ clusters; flips between them realise mutation.
+to the $14$ clusters; flips between them realize mutation.
 \end{example}
 
 %====================================================================
@@ -1887,7 +1887,7 @@ group---the \emph{sandpile group} (also called the degree-zero \emph{Picard
 group}, \emph{critical group}, or \emph{Jacobian}). Baker and
 Norine (2007) discovered that this group satisfies a graph-theoretic
 analogue of the \emph{Riemann--Roch theorem} for divisors on a
-Riemann surface. Chip firing thus realises a small but rigorous
+Riemann surface. Chip firing thus realizes a small but rigorous
 version of intersection theory in pure combinatorics, and bridges
 graph theory with algebraic geometry, tropical geometry, and the
 theory of metric graphs.
@@ -1983,7 +1983,7 @@ Caporaso--Viviani).
         chip-firing configurations, whose number is
         $T_G(1, 1) = \tau(G)$; counted by their number of chips, they
         have generating function equal, up to a power of $y$, to the
-        Tutte polynomial specialisation $T_G(1, y)$ (Merino L\'opez,
+        Tutte polynomial specialization $T_G(1, y)$ (Merino L\'opez,
         1997).
   \item \textbf{Random spanning trees}: Wilson's algorithm
         (\emph{loop-erased random walk}) generates a uniform spanning
@@ -2001,7 +2001,7 @@ Caporaso--Viviani).
 %====================================================================
 
 Theorem~\ref{thm:cayleyabelian} computed eigenvalues of abelian
-Cayley graphs from characters; the same idea, generalised to
+Cayley graphs from characters; the same idea, generalized to
 non-abelian groups, gives the sharpest known mixing-time bounds for
 random walks on highly symmetric graphs. The
 \emph{Diaconis--Shahshahani upper bound lemma} packages this into a
@@ -2021,7 +2021,7 @@ $k$ steps, the law is $\mu^{*k}$ (the $k$-fold convolution power).
 \end{definition}
 
 \begin{theorem}[Diaconis--Shahshahani upper bound lemma, 1981]\label{thm:dsubl}
-Let $\Gamma$ be a finite group with normalised Haar measure $U$ and
+Let $\Gamma$ be a finite group with normalized Haar measure $U$ and
 $\mu$ a symmetric probability measure on $\Gamma$ supported on a
 generating set. For every $k \ge 0$,
 \[
@@ -2214,7 +2214,7 @@ vertices with maximum degree $\Delta$ has $\lambda_2(L) \le 8\Delta/n$.
 \subsection{Crystal Graphs and the Plactic Monoid}\label{subsec:crystals}
 %====================================================================
 
-A \emph{crystal} is an edge-labelled directed graph (introduced by
+A \emph{crystal} is an edge-labeled directed graph (introduced by
 Kashiwara, 1990) whose connected components encode the irreducible
 representations of a Lie algebra. For type $A$ ($\mathfrak{gl}_n$),
 crystal graphs are explicitly the graphs on \emph{semistandard
@@ -2310,11 +2310,11 @@ $B(\lambda) \hookrightarrow B(\mu) \otimes B(\nu)$.
 
 \subsubsection{Connection to Graph Theory}
 
-The crystal graph of $B(\lambda)$ is an edge-labelled directed graph
+The crystal graph of $B(\lambda)$ is an edge-labeled directed graph
 on $s_\lambda(1, \ldots, 1) = |\mathrm{SSYT}(\lambda, n)|$ vertices. As a \emph{graph}:
 \begin{itemize}
   \item Connectivity = irreducibility of the underlying representation.
-  \item As an edge-labelled directed graph, $B(\lambda)$ has only the
+  \item As an edge-labeled directed graph, $B(\lambda)$ has only the
         trivial automorphism (an automorphism must fix the unique
         highest-weight vertex and commute with every $\widetilde f_i$).
         The Weyl group $S_n$ of $\mathrm{GL}_n$ acts on the vertex set
@@ -2323,7 +2323,7 @@ on $s_\lambda(1, \ldots, 1) = |\mathrm{SSYT}(\lambda, n)|$ vertices. As a \emph{
   \item Counting the highest-weight vertices (those with no incoming
         edge) of weight $\nu$ in $B(\lambda) \otimes B(\mu)$ recovers
         the Littlewood--Richardson coefficient $c^{\nu}_{\lambda\mu}$.
-  \item Specialisation to the standard alphabet recovers the
+  \item Specialization to the standard alphabet recovers the
         \emph{RSK correspondence} bijection between permutations and
         pairs of standard tableaux---a foundational result that
         connects the symmetric group $S_n$ to combinatorial graph
@@ -2367,7 +2367,7 @@ the Jones polynomial connection.
 \paragraph{Chromatic symmetric function.} Stanley's original paper,
 ``A symmetric function generalization of the chromatic polynomial of
 a graph'' (\emph{Adv.\ Math.}, 1995), is short and self-contained.
-Recent partial progress on the tree conjecture is summarised in
+Recent partial progress on the tree conjecture is summarized in
 Aliste-Prieto--Martin--Wagner--Zamora, ``Chromatic symmetric functions
 and polynomial invariants of trees'' (\emph{Bull.\ Lond.\ Math.\ Soc.},
 2024), and references therein.
@@ -2517,7 +2517,7 @@ plactic monoid: Lascoux--Sch\"utzenberger, ``Le mono\"\i de plaxique''
 K\"obler--Sch\"oning--Tor\'an, \emph{The Graph Isomorphism Problem:
 Its Structural Complexity} (Birkh\"auser, 1993), is a comprehensive
 treatment. Babai's ``Group, graphs, algorithms: the graph isomorphism
-problem'' (ICM, 2018) summarises the post-2015 algorithmic landscape.
+problem'' (ICM, 2018) summarizes the post-2015 algorithmic landscape.
 
 \paragraph{General references.} The standard references for the chapter
 as a whole are Godsil--Royle, \emph{Algebraic Graph Theory} (2001);
@@ -2631,7 +2631,7 @@ its biadjacency matrix is the all-ones $3 \times 3$ matrix $J_3$, so
 $\mathrm{perm}(J_3) = 3! = 6$.
 
 \item Apply 1-WL to the cycle $C_4$ and to the disjoint union of two $C_3$'s.
-Confirm that 1-WL produces different colour multisets, distinguishing
+Confirm that 1-WL produces different color multisets, distinguishing
 the graphs.
 
 \item Show that 1-WL cannot distinguish the cycle $C_6$ from the disjoint
@@ -2747,7 +2747,7 @@ directly from the definition, then show that the unique character-preserving
 map $\mathcal G \to \mathrm{QSym}$ produces the same symmetric function.
 
 \item Show that the chromatic polynomial $\chi_G(k)$ is the principal
-specialisation of $X_G$:
+specialization of $X_G$:
 $\chi_G(k) = X_G(1, 1, \ldots, 1, 0, 0, \ldots)$ with $k$ ones.
 
 \item Prove that log-concavity is preserved under \emph{Hadamard products}:
@@ -2886,7 +2886,7 @@ Theorem~\ref{thm:cartierfoata} on the cycle commutation
 graph $C^{\mathrm{cyc}}(G)$, and use
 $\sum_{k \ge 1} \mathrm{tr}(A^k) z^k = -z \frac{d}{dz} \log \det(I - zA)$.
 
-\item Generalise Flajolet's theorem to closed walks on a weighted bipartite
+\item Generalize Flajolet's theorem to closed walks on a weighted bipartite
 graph: derive the Stieltjes continued fraction
 $\sum m_k z^k = 1/(1 - c_1 z/(1 - c_2 z/(1 - \cdots)))$ and identify
 the corresponding orthogonal polynomials.
@@ -2917,7 +2917,7 @@ rank $2$ on $3$ elements explicitly, including its Stanley--Reisner
 relations. Verify Poincar\'e duality and Hard Lefschetz directly.
 
 \item Show that the matroid Hodge--Riemann relations of
-Theorem~\ref{thm:hodgepkg} reduce, in the case of a realisable
+Theorem~\ref{thm:hodgepkg} reduce, in the case of a realizable
 matroid, to the Hodge--Riemann relations on the cohomology of the
 De Concini--Procesi wonderful compactification.
 
@@ -2936,8 +2936,8 @@ a $d$-regular bipartite graph by $(d!)^{n/d}$.
 \item State the precise CFI gadget construction (Theorem~\ref{thm:cfi}) and
 verify that $k$-WL on the resulting graphs does not distinguish them.
 
-\item Prove that 1-WL is equivalent to vertex colour-refinement
-\emph{in the sense of equitable partitions}: the stable colouring of
+\item Prove that 1-WL is equivalent to vertex color-refinement
+\emph{in the sense of equitable partitions}: the stable coloring of
 1-WL on $G$ corresponds to the coarsest equitable partition of $V(G)$.
 Connect this to the spectrum of the quotient matrix from Section~\ref{subsec:equitable-partitions}.
 
@@ -3023,7 +3023,7 @@ multiplication table $A_i A_j = \sum_k p_{ij}^k A_k$.
 \item Draw $\mathrm{Cay}(\mathbb Z_2^3, \{e_1, e_2, e_3\}) = Q_3$ and label
 the eigenvectors $\chi_T$ for each $T \subseteq \{1, 2, 3\}$. Color
 each vertex by the sign $\chi_T(g) = \pm 1$ for $T = \{1, 2\}$ and
-verify that this colouring is balanced and orthogonal to the all-ones
+verify that this coloring is balanced and orthogonal to the all-ones
 vector.
 
 \item Draw the Cayley graph of $\mathbb Z_5$ with generating set
@@ -3097,18 +3097,18 @@ and verify the Pfaffian count $\#\text{perfect matchings} = 0$
 (impossible because of the odd-vertex parity).
 
 \item Draw the trace of 1-WL on the Petersen graph: at each iteration, label
-each vertex with its current colour. Observe that the algorithm
-stabilises in $\le 2$ iterations with a single colour class, as it must
+each vertex with its current color. Observe that the algorithm
+stabilizes in $\le 2$ iterations with a single color class, as it must
 for every vertex-transitive graph. Explain why this does \emph{not}
 confirm vertex-transitivity: the $3$-regular Frucht graph also receives
-a single colour, yet its only automorphism is the identity.
+a single color, yet its only automorphism is the identity.
 
 \item For a small CFI gadget on $4$ vertices, draw both graphs and label
-the vertices with their 1-WL colours after stabilisation. Verify
+the vertices with their 1-WL colors after stabilization. Verify
 that 1-WL fails to distinguish them.
 
 \item Draw the cluster exchange graph (vertices = clusters) of type $A_2$:
-$5$ vertices, each connected to its two neighbours by an edge labeled
+$5$ vertices, each connected to its two neighbors by an edge labeled
 with the mutation index. Verify it is the pentagon.
 
 \item Sketch a triangulation of the hexagon with $3$ diagonals and the
@@ -3118,7 +3118,7 @@ corresponding vertex.
 
 \item Draw a chip-firing trajectory on $K_4$ starting from
 $D_0 = 5 v_1 + 0 v_2 + 0 v_3 + 0 v_4$ until the configuration
-stabilises. Identify the resulting divisor as a representative of an
+stabilizes. Identify the resulting divisor as a representative of an
 element of $K(K_4)$.
 
 \item For the complete bipartite graph $K_{2, 3}$, draw all $12$ spanning
