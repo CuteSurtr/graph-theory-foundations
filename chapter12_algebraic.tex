@@ -16,7 +16,7 @@ Chapter~11 but freely cites spectral results from \S 11.4.
   \item \S 12.1 \textbf{Matchings polynomial / Heilmann--Lieb.} A
         graph polynomial whose roots are always real. Generalises the
         adjacency-spectrum theorem from forests to all graphs;
-        equivalent to the absence of phase transition in the
+        implies the absence of phase transitions in the
         monomer--dimer model.
   \item \S 12.2 \textbf{Equitable partitions / interlacing.} Symmetry
         groups of a graph induce equitable partitions; their quotient
@@ -49,9 +49,11 @@ Chapter~11 but freely cites spectral results from \S 11.4.
         prove the chromatic polynomial coefficients are log-concave by
         importing K\"ahler-package machinery into combinatorics.
   \item \S 12.10 \textbf{Permanent and \#P.} Counting perfect matchings
-        is \#P-complete; Jerrum--Sinclair--Vigoda FPRAS uses Markov
-        chains on the matching lattice; holographic algorithms map
-        graph problems to permanents.
+        is \#P-complete; the Jerrum--Sinclair--Vigoda FPRAS for the
+        permanent uses a Markov chain on perfect and near-perfect
+        matchings; holographic algorithms reduce certain counting
+        problems to counting perfect matchings in planar graphs, i.e.\
+        to Pfaffians (FKT).
   \item \S 12.11 \textbf{Weisfeiler--Leman and graph isomorphism.}
         Color refinement, the $k$-WL hierarchy, the
         Cai--F\"urer--Immerman counterexample, Babai's quasipolynomial
@@ -72,8 +74,8 @@ Chapter~11 but freely cites spectral results from \S 11.4.
   \item \S 12.15 \textbf{Electrical networks and effective
         resistance.} Resistor networks dual to random walks; the
         spanning-tree-counting / commute-time / hitting-time identities
-        of Chandra--Raghavan--Ruzzo--Smolensky; Schramm--Lov\'asz on
-        circle packings.
+        of Chandra--Raghavan--Ruzzo--Smolensky; the
+        Koebe--Andreev--Thurston circle packing theorem.
   \item \S 12.16 \textbf{Crystal graphs and the plactic monoid.}
         Kashiwara crystals as edge-labelled graphs whose connected
         components encode irreducible $\mathfrak{gl}_n$-representations;
@@ -312,10 +314,16 @@ $|M| = 0$.
 
 \begin{exercise}
 Show that $\mu(G \cup H, x) = \mu(G, x) \cdot \mu(H, x)$ for the
-disjoint union of $G$ and $H$. Use this to compute the matchings
-polynomial of the $5$-cube $Q_5$ from $\mu(Q_4, x)$ and $\mu(K_2, x)$
-(Hint: $Q_5 = Q_4 \,\square\, K_2$ requires more work; treat it as
-two copies of $Q_4$ joined by a matching).
+disjoint union of $G$ and $H$, and use this to compute $\mu(mK_2, x)$.
+Then show that there is no such shortcut for Cartesian products:
+$C_4 \cup K_1$ and the tree obtained from $K_{1,3}$ by subdividing one
+edge both have matchings polynomial $x^5 - 4x^3 + 2x$, but their
+Cartesian products with $K_2$ have different matchings polynomials.
+(So $\mu(Q_5, x)$, where $Q_5 = Q_4 \,\square\, K_2$ is two copies of
+$Q_4$ joined by a perfect matching, cannot be computed from
+$\mu(Q_4, x)$ and $\mu(K_2, x)$ by a general rule; apply the edge
+recurrence of Theorem~\ref{thm:matchrec} to the $16$ edges joining the
+two copies instead.)
 \end{exercise}
 
 \paragraph{Hard Questions.}
@@ -327,19 +335,23 @@ $T(G, u)$ at the root, then inducting on the depth of expansion.
 \end{exercise}
 
 \begin{exercise}
-Use the Heilmann--Lieb theorem to deduce that the partition function
-$Z_G(\lambda) = \sum_M \lambda^{|M|}$ has no real positive zeros for
-$\lambda > 0$. Conclude that $\log Z_G(\lambda)$ is real-analytic on
-$(0, \infty)$.
+Use the Heilmann--Lieb theorem and the identity
+$\mu(G, x) = x^{n} Z_G(-x^{-2})$ to show that every zero of the partition
+function $Z_G(\lambda) = \sum_M \lambda^{|M|}$ is real and negative and,
+when $\Delta \ge 2$, lies in $(-\infty, -1/(4(\Delta - 1)))$. Conclude
+that $\log Z_G$ extends holomorphically to the slit plane
+$\mathbb C \setminus (-\infty, -1/(4(\Delta - 1))]$, a zero-free region
+for $Z_G$ that does not depend on the number of vertices of $G$.
 \end{exercise}
 
 \paragraph{Diagram Questions.}
 
 \begin{exercise}
 Draw the path-tree $T(C_4, v)$ for any vertex $v$ of the $4$-cycle
-$C_4$. Verify that $T(C_4, v)$ is the infinite $2$-regular tree
-truncated to depth at most $4$, and write out the first few terms of
-its characteristic polynomial.
+$C_4$. Verify that $T(C_4, v)$ is the path $P_7$ with $v$ in the middle
+(the infinite $2$-regular tree truncated at depth $3$), compute its
+characteristic polynomial, and check that it is divisible by
+$\mu(C_4, x)$.
 \end{exercise}
 
 \begin{exercise}
@@ -707,9 +719,12 @@ intersection array. Compare with the array of the Petersen graph.
 \end{exercise}
 
 \begin{exercise}
-Show that every strongly regular graph with parameters
-$(n, k, \lambda, \mu)$ is distance-regular of diameter $2$ with
-intersection array $\{k, k - 1 - \lambda; 1, \mu\}$.
+Show that every connected strongly regular graph with parameters
+$(n, k, \lambda, \mu)$ that is not complete is distance-regular of
+diameter $2$ with intersection array $\{k, k - 1 - \lambda; 1, \mu\}$.
+(Both hypotheses are needed with the definition of \S 11.4: $2K_3$ is
+strongly regular with parameters $(6, 2, 1, 0)$ but disconnected, and
+$K_n$ has diameter $1$.)
 \end{exercise}
 
 \paragraph{Medium Questions.}
@@ -720,9 +735,10 @@ Verify directly using Definition~\ref{def:drg}.
 \end{exercise}
 
 \begin{exercise}
-Verify that for the Johnson scheme $J(5, 2)$, the graph $R_1$ is the
+Verify that for the Johnson scheme $J(5, 2)$, the graph $R_2$ is the
 Petersen graph (vertices: $2$-subsets of $[5]$; edges: disjoint
-$2$-subsets).
+$2$-subsets), while $R_1$ is its complement, the triangular graph
+$T(5) = J(5, 2)$.
 \end{exercise}
 
 \paragraph{Hard Questions.}
@@ -899,12 +915,15 @@ $Q_3$ has at least two non-equivalent presentations as a Cayley graph.
 \paragraph{Hard Questions.}
 
 \begin{exercise}
-Prove that for any abelian group $\Gamma$ and symmetric generating
-set $S$, the second-largest eigenvalue $\lambda_2$ of $\mathrm{Cay}(\Gamma, S)$
-satisfies
-$\lambda_2 \ge |S| - 2 \pi^2 \cdot (|S|/\mathrm{diam}(X))^2 / 4$.
-Conclude that abelian Cayley graphs cannot be expanders if the
-generating set has bounded size.
+Let $\Gamma$ be a finite abelian group of order $N$ and $S$ a symmetric
+generating set with $|S| = d$. Prove that for every integer $m \ge 2$
+with $m^{d} < N$, the second-largest eigenvalue $\lambda_2$ of
+$\mathrm{Cay}(\Gamma, S)$ satisfies $\lambda_2 \ge d \cos(2\pi/m)$.
+(Hint: write $\chi(s) = e^{2\pi i \theta_\chi(s)}$ and apply the
+pigeonhole principle to the $N$ points $(\theta_\chi(s))_{s \in S}$,
+$\chi \in \widehat{\Gamma}$, of the torus $(\mathbb R/\mathbb Z)^{d}$ cut
+into $m^{d}$ boxes of side $1/m$.) Conclude that abelian Cayley graphs
+cannot be expanders if the generating set has bounded size.
 \end{exercise}
 
 \begin{exercise}
@@ -1141,7 +1160,7 @@ those containing $e$ and those not.
 
 \begin{exercise}
 Show that $T_G(2, 1) = $ number of spanning forests of $G$,
-$T_G(1, 1) = $ number of spanning trees, and
+$T_G(1, 1) = $ number of spanning trees (for connected $G$), and
 $T_G(2, 0) = $ number of acyclic orientations of $G$ (Stanley).
 \end{exercise}
 
@@ -1154,9 +1173,12 @@ edge.
 \end{exercise}
 
 \begin{exercise}
-Show that the chromatic polynomial $\chi_G(k)$ has all real roots iff
-$G$ is a chordal graph. (Hint: chromatic polynomials of chordal graphs
-factor into linear pieces by perfect elimination ordering.)
+Show that if $G$ is chordal, then every root of $\chi_G(k)$ is a
+non-negative integer. (Hint: chromatic polynomials of chordal graphs
+factor into linear pieces by a perfect elimination ordering.) Show that
+the converse fails: if $H$ is obtained from $K_6$ minus an edge $ab$ by
+adding a new vertex adjacent to exactly $a$ and $b$, then $H$ has an
+induced $4$-cycle, yet $\chi_H(k) = k(k-1)(k-2)(k-3)^3(k-4)$.
 \end{exercise}
 
 \paragraph{Diagram Questions.}
