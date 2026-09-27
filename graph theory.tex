@@ -3520,7 +3520,7 @@ The number of distinct Hamiltonian cycles in a complete graph $K_n$ is $\frac{(n
     \item $K_3$ has exactly 1 Hamiltonian cycle (up to equivalence)
     \item $K_4$ has exactly 3 Hamiltonian cycles
     \item $K_5$ has exactly 12 Hamiltonian cycles
-    \item $K_{10}$ has approximately 181,440 distinct Hamiltonian cycles
+    \item $K_{10}$ has exactly 181,440 distinct Hamiltonian cycles
 \end{itemize}
 This rapid growth illustrates why brute-force approaches to the TSP quickly become impractical as the number of vertices increases.
 \end{example}
@@ -3740,7 +3740,7 @@ Consider the complete bipartite graph $K_{m,m+1}$ with $m \geq 2$. This graph ha
 Dirac's Theorem provides a simple sufficient condition for Hamiltonicity that can be verified in linear time, making it valuable in network design applications where robustness requires the existence of a cycle visiting all nodes.
 \end{remark}
 \begin{remark}[Related Results]
-Dirac's Theorem was generalized by Ore (1960), who showed that a graph is Hamiltonian if, for every pair of non-adjacent vertices $u$ and $v$, we have $\deg(u) + \deg(v) \geq n$. This is a strictly stronger result, as there exist graphs that satisfy Ore's condition but not Dirac's.
+Dirac's Theorem was generalized by Ore (1960), who showed that a graph with $n \geq 3$ vertices is Hamiltonian if, for every pair of non-adjacent vertices $u$ and $v$, we have $\deg(u) + \deg(v) \geq n$. This is a strictly stronger result, as there exist graphs that satisfy Ore's condition but not Dirac's.
 \end{remark}
 \subsection{Examples of Dirac's Theorem}
 \begin{example}[Minimum degree exactly $\frac{n}{2}$]
@@ -3814,7 +3814,7 @@ Not all cubic graphs are Hamiltonian. The Petersen graph is a well-known 3-regul
     % Outer cycle
     \draw (v1) -- (v2) -- (v3) -- (v4) -- (v5) -- (v6) -- (v7) -- (v8) -- (v1);
     
-    % Additional edges to ensure each vertex has degree 4
+    % Additional edges: each vertex gets degree 3
     \draw (v1) -- (v5);
     \draw (v2) -- (v6);
     \draw (v3) -- (v7);
@@ -3837,11 +3837,11 @@ A circulant graph $\text{Circ}(n; S)$ is a graph with vertex set $\{0, 1, 2, \ld
 \begin{definition}[Graph Toughness]
 The toughness $t(G)$ of a graph $G$ is defined as:
 \[t(G) = \min \left\{\frac{|S|}{c(G-S)} : S \subset V(G), c(G-S) > 1 \right\}\]
-where $c(G-S)$ is the number of connected components in the graph after removing vertex set $S$. Intuitively, toughness measures how difficult it is to disconnect a graph by removing vertices.
+where $c(G-S)$ is the number of connected components in the graph after removing vertex set $S$. Intuitively, toughness measures how difficult it is to disconnect a graph by removing vertices. (A complete graph has no such set $S$; by convention $t(K_n) = \infty$.)
 \end{definition}
 
 \begin{theorem}[Circulant Graphs and Hamiltonicity]
-The graph shown in Figure 51 is an example of a circulant graph $\text{Circ}(8;\{1,4\})$. A circulant graph with $n$ vertices is Hamiltonian if and only if it is connected.
+The graph shown in Figure 51 is an example of a circulant graph $\text{Circ}(8;\{1,4\})$. A circulant graph with $n \geq 3$ vertices is Hamiltonian if and only if it is connected.
 \end{theorem}
 
 \begin{problem}
@@ -4156,7 +4156,7 @@ $i$ & $d_i \leq i?$ & If yes, $d_{n-i} \geq n-i?$ \\
 
 
 \begin{lemma}[Bondy-Chvátal Closure]
-Let $G$ be a graph with $n$ vertices. The \emph{Chvátal closure} of $G$, denoted $cl(G)$, is obtained by repeatedly adding edges between non-adjacent vertices $u$ and $v$ whenever $\deg(u) + \deg(v) \geq n$. This process is continued until no more edges can be added.
+Let $G$ be a graph with $n$ vertices. The \emph{Bondy-Chvátal closure} (or simply the \emph{closure}) of $G$, denoted $cl(G)$, is obtained by repeatedly adding edges between non-adjacent vertices $u$ and $v$ whenever $\deg(u) + \deg(v) \geq n$. This process is continued until no more edges can be added.
 \end{lemma}
 
 \begin{corollary}[Bondy-Chvátal Theorem]
@@ -4397,7 +4397,7 @@ exponential time.
 & x_{ij} \in \{0,1\} \quad \forall i,j \in \{1,2,\ldots,n\}
 \end{align}
 
-where $x_{ij} = 1$ if the path includes the edge from vertex $i$ to vertex $j$, and 0 otherwise.
+where $x_{ij} = 1$ if the tour includes the edge from vertex $i$ to vertex $j$, and 0 otherwise.
 
 
 \begin{corollary}
@@ -4631,7 +4631,7 @@ For instances where exact solutions are impractical, the following approximation
 
 \item For a graph with 10 vertices, which is stronger: Dirac's condition or Ore's condition? Give an example of a graph that satisfies one but not the other.
 
-\item Prove that if a graph has a Hamiltonian path with endpoints $u$ and $v$, and $\{u,v\} \in E(G)$, then $G$ has a Hamiltonian cycle.
+\item Prove that if a graph with $n \geq 3$ vertices has a Hamiltonian path with endpoints $u$ and $v$, and $\{u,v\} \in E(G)$, then $G$ has a Hamiltonian cycle.
 
 \item Explain the relationship between a graph's toughness and its Hamiltonian properties.
 
@@ -4646,7 +4646,7 @@ For instances where exact solutions are impractical, the following approximation
 \begin{enumerate}\setcounter{enumi}{18}
 \item Construct a graph that has minimum degree $\left\lfloor\frac{n}{2}\right\rfloor - 1$ and is not Hamiltonian.
 
-\item Prove that if a graph $G$ has connectivity $\kappa(G) \geq \alpha(G)$ (independence number), then $G$ is Hamiltonian.
+\item Prove that if a graph $G$ with $n \geq 3$ vertices has connectivity $\kappa(G) \geq \alpha(G)$ (independence number), then $G$ is Hamiltonian.
 
 \item Prove that the factor-2 approximation of the MST-based algorithm for metric TSP is tight by constructing an example.
 
