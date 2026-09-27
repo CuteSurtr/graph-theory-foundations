@@ -16196,7 +16196,7 @@ In the example,
 
 \item Show that determining whether a graph is 3-colorable is NP-complete, while determining whether a graph is 2-colorable is polynomial-time solvable.
 
-\item Let $G$ be a graph with girth $g$ (length of shortest cycle) and chromatic number $k$. Prove that $G$ has at least $1 + \Delta + \Delta(\Delta-1) + \cdots + \Delta(\Delta-1)^{\lfloor g/2 \rfloor - 1}$ vertices.
+\item Let $G$ be a graph with minimum degree $\delta \geq 2$ and girth $g$ (length of shortest cycle). Prove that $G$ has at least $1 + \delta + \delta(\delta-1) + \cdots + \delta(\delta-1)^{\lfloor (g-1)/2 \rfloor - 1}$ vertices. (For even $g$ this can be improved to $2\big(1 + (\delta-1) + \cdots + (\delta-1)^{g/2 - 1}\big)$; compare Theorem~\ref{thm:moore}.)
 
 \item Prove Shannon's theorem: For any graph $G$, $\chi'(G) \leq \lfloor \frac{3\Delta}{2} \rfloor$ where $\Delta$ is the maximum degree.
 
@@ -16204,7 +16204,7 @@ In the example,
 
 \item Design a polynomial-time algorithm to find the chromatic index of a bipartite graph. Analyze its time complexity.
 
-\item Prove that if $G$ is a graph with $\chi(G) = k$ and $\alpha(G) = \ell$ (independence number), then $n \geq k \cdot \ell$.
+\item Prove that if $G$ is a graph with $n$ vertices, $\chi(G) = k$ and $\alpha(G) = \ell$ (independence number), then $n \leq k \cdot \ell$.
 
 \item Investigate the relationship between the chromatic number and the fractional chromatic number. Show that they can differ by an arbitrarily large factor.
 \end{enumerate}
