@@ -18680,13 +18680,13 @@ vectors of the components form a $0$-eigenspace basis.
 \end{proof}
 
 \begin{proposition}[Regular case]
-If $G$ is $d$-regular, then $L = dI - A$, so $\mu_i = d - \lambda_{n + 1 - i}$.
+If $G$ is $d$-regular, then $L = dI - A$, so $\mu_i = d - \lambda_i$.
 In particular $\lambda_1 = d$ and $\lambda_n \ge -d$.
 \end{proposition}
 
 \begin{theorem}[Bipartiteness and $\lambda_n = -d$]
-A $d$-regular graph $G$ is bipartite if and only if $\lambda_n = -d$.
-The multiplicity of $-d$ equals the number of bipartite connected
+A connected $d$-regular graph $G$ is bipartite if and only if $\lambda_n = -d$.
+In general, the multiplicity of $-d$ equals the number of bipartite connected
 components.
 \end{theorem}
 
@@ -18726,9 +18726,10 @@ Let $M \ge 0$ be a non-negative irreducible matrix. Then:
   \item The spectral radius $\rho(M)$ is a simple eigenvalue.
   \item There exists a strictly positive eigenvector $v > 0$ for
         $\rho(M)$.
-  \item $\rho(M) \ge |\tau|$ for every eigenvalue $\tau$, with strict
-        inequality unless the period of $M$'s underlying digraph
-        divides $\arg(\tau/\rho)$.
+  \item $\rho(M) \ge |\tau|$ for every eigenvalue $\tau$; if $h$ is the
+        period of $M$'s underlying digraph, the eigenvalues with
+        $|\tau| = \rho(M)$ are exactly $\rho(M)\, e^{2\pi i k/h}$,
+        $k = 0, 1, \dots, h - 1$.
 \end{enumerate}
 \end{theorem}
 
@@ -18743,8 +18744,10 @@ iff $G$ is regular.
 \end{corollary}
 
 \begin{proof}
-Take $x = \mathbf 1/\sqrt n$. Then $R_A(\mathbf 1) = \bar d \le \lambda_1$
-by Courant--Fischer.
+Take $x = \mathbf 1$. Then $R_A(\mathbf 1) = \bar d \le \lambda_1$
+by Courant--Fischer; equality forces $\mathbf 1$ to be a
+$\lambda_1$-eigenvector, i.e.\ $G$ regular. Conversely, if $G$ is
+$d$-regular then $\lambda_1 = d = \bar d$.
 \end{proof}
 
 \subsubsection{The Matrix-Tree Theorem}
@@ -18823,15 +18826,22 @@ spectral analogue of the Federer--Fleming isoperimetric trick.
 
 \begin{definition}[Expander]
 An infinite family $\{G_n\}$ of $d$-regular graphs is a
-\textbf{(one-sided) spectral expander} if $\max\{\lambda_2(G_n), -\lambda_n(G_n)\} \le \lambda$
-for a fixed $\lambda < d$. It is a \textbf{combinatorial expander} if
-$h(G_n) \ge c > 0$. By Cheeger (Theorem~\ref{thm:cheeger}), the two
-notions are equivalent up to quantitative parameters.
+\textbf{one-sided spectral expander} if $\lambda_2(G_n) \le \lambda$ for a
+fixed $\lambda < d$, and a \textbf{two-sided spectral expander} if
+$\max\{\lambda_2(G_n), -\lambda_n(G_n)\} \le \lambda$ for a fixed $\lambda < d$
+(each $G_n$ is then a \emph{$\lambda$-expander}). It is a
+\textbf{combinatorial expander} if
+$h(G_n) \ge c > 0$. By Cheeger (Theorem~\ref{thm:cheeger}), being a
+combinatorial expander is equivalent to being a one-sided spectral
+expander, up to quantitative parameters; two-sided expansion is strictly
+stronger (a bipartite graph has $\lambda_n = -d$ but may have large $h$).
 \end{definition}
 
 \begin{theorem}[Expander Mixing Lemma]\label{thm:emixing}
 Let $G$ be $d$-regular on $n$ vertices with
-$|\lambda| = \max(|\lambda_2|, |\lambda_n|)$. For all $S, T \subseteq V$,
+$|\lambda| = \max(|\lambda_2|, |\lambda_n|)$. For all $S, T \subseteq V$
+(where $|E(S, T)|$ counts the pairs $(s, t) \in S \times T$ with $st \in E$,
+so that $|E(S, T)| = \mathbf 1_S^\top A \mathbf 1_T$),
 \[
   \Big|\, |E(S, T)| - \frac{d |S| |T|}{n} \,\Big|
   \;\le\; |\lambda|\sqrt{|S| |T|}.
@@ -18857,6 +18867,9 @@ For every $d$-regular graph on $n$ vertices,
 \begin{definition}[Ramanujan graph]\label{def:ramanujan}
 A $d$-regular graph $G$ is \textbf{Ramanujan} if
 $\max(\lambda_2, -\lambda_n) \le 2\sqrt{d - 1}$.
+A bipartite $d$-regular graph has $\lambda_n = -d$, so for $d \ge 3$ it is
+never Ramanujan in this sense; it is called a \textbf{bipartite Ramanujan
+graph} if $|\lambda_i| \le 2\sqrt{d - 1}$ for $2 \le i \le n - 1$.
 \end{definition}
 
 \begin{theorem}[Lubotzky--Phillips--Sarnak; Margulis, 1988]
@@ -18865,13 +18878,18 @@ family of $(p + 1)$-regular Ramanujan graphs.
 \end{theorem}
 
 \begin{theorem}[Marcus--Spielman--Srivastava, 2015]
-For every $d \ge 3$ and every $n$ divisible by some small integer,
-there is a $d$-regular bipartite Ramanujan graph on $n$ vertices.
+For every $d \ge 3$ there is an infinite family of $d$-regular
+bipartite Ramanujan graphs.
 \end{theorem}
 
-Marcus--Spielman--Srivastava introduced the \emph{interlacing
-polynomials} method to solve the Kadison--Singer problem; the
-Ramanujan construction was a byproduct.
+Marcus--Spielman--Srivastava introduced the method of \emph{interlacing
+families} of polynomials to prove this: they showed that every
+$d$-regular graph has a $2$-lift (a double cover) whose new eigenvalues
+are all at most $2\sqrt{d - 1}$, a weak form of a conjecture of Bilu and
+Linial, and applied such lifts repeatedly starting from $K_{d,d}$. Shortly
+afterwards they used the same method to solve the Kadison--Singer problem.
+In a sequel they showed that $d$-regular bipartite Ramanujan multigraphs
+exist on $2n$ vertices for every $n \ge 1$ and every $d \ge 3$.
 
 \subsubsection{Random Walks and Mixing}
 
@@ -18882,24 +18900,30 @@ is $\{\lambda_i/d\}$.
 \end{definition}
 
 \begin{theorem}[Mixing time bound]\label{thm:mixing}
-For a connected non-bipartite $d$-regular graph $G$, the simple
+Let $G$ be a connected non-bipartite $d$-regular graph and
+$\lambda_* = \max(|\lambda_2|, |\lambda_n|) < d$. The simple
 random walk has total variation mixing time
 \[
-  t_{\mathrm{mix}}(\varepsilon) \;\le\; \frac{\log(n/\varepsilon)}{1 - \lambda_2/d}.
+  t_{\mathrm{mix}}(\varepsilon) \;\le\; \frac{\log(n/\varepsilon)}{1 - \lambda_*/d}.
 \]
 \end{theorem}
 
 \begin{proof}[Proof sketch]
 The stationary distribution is uniform. The second-largest absolute
-eigenvalue governs the spectral gap; by the spectral decomposition
-$P^t$ converges to $\mathbf 1 \mathbf 1^\top/n$ at rate $(\lambda_2/d)^t$.
+eigenvalue $\lambda_*/d$ of $P$ governs the convergence: by the spectral
+decomposition $P^t$ converges to $\mathbf 1 \mathbf 1^\top/n$ at rate
+$(\lambda_*/d)^t \le e^{-t(1 - \lambda_*/d)}$.
 The $\log(n/\varepsilon)$ factor absorbs the $L^2 \to L^1$ conversion.
+(The one-sided gap $1 - \lambda_2/d$ does not suffice: if $\lambda_n$ is close
+to $-d$ the walk nearly alternates between two sides. For the lazy walk
+$(I + P)/2$, whose eigenvalues $(1 + \lambda_i/d)/2$ are non-negative, one may
+use $1 - \lambda_2/d$ at the cost of a factor $2$.)
 \end{proof}
 
 \subsubsection{Hoffman's Bound and Chromatic Number}
 
 \begin{theorem}[Hoffman's bound]\label{thm:hoffman}
-For any graph $G$,
+For any graph $G$ with at least one edge,
 \[
   \chi(G) \;\ge\; 1 - \frac{\lambda_1(A)}{\lambda_n(A)}.
 \]
@@ -18915,7 +18939,7 @@ the bound.
 \end{proof}
 
 \begin{theorem}[Independence number bound]
-For a regular graph,
+For a regular graph with at least one edge,
 \[
   \alpha(G) \;\le\; \frac{-\lambda_n}{\lambda_1 - \lambda_n} \cdot n.
 \]
@@ -18924,7 +18948,8 @@ For a regular graph,
 \subsubsection{Strongly Regular Graphs}
 
 \begin{definition}[Strongly regular]
-A graph $G$ on $n$ vertices is \textbf{strongly regular} with
+A graph $G$ on $n$ vertices, neither complete nor edgeless, is
+\textbf{strongly regular} with
 parameters $(n, k, \lambda, \mu)$ if it is $k$-regular, every pair
 of adjacent vertices has $\lambda$ common neighbors, and every pair
 of non-adjacent vertices has $\mu$ common neighbors.
@@ -19027,8 +19052,11 @@ applying interlacing to any independent-set partition.
 \end{exercise}
 
 \begin{exercise}
-Use the expander mixing lemma to give an alternate proof of
-Cheeger's upper bound: $h(G) \le \sqrt{2 d \mu_2}$.
+Show that the proof of the expander mixing lemma actually gives
+$\big|\, |E(S, T)| - d|S||T|/n \,\big| \le |\lambda|\sqrt{|S|(1 - |S|/n)\,|T|(1 - |T|/n)}$,
+and apply it with $T = V \setminus S$ to prove the lower bound
+$h(G) \ge (d - |\lambda|)/2$. Explain why the expander mixing lemma
+cannot give Cheeger's upper bound $h(G) \le \sqrt{2 d \mu_2}$.
 \end{exercise}
 
 \paragraph{Hard Questions.}
