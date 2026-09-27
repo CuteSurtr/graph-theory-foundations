@@ -12934,7 +12934,7 @@ Note that the cliques $Q_v$ overlap, so in general they do not partition $V(L(G)
 Brooks' Theorem is a fundamental result in graph coloring that refines the trivial upper bound on the vertex chromatic number.
 
 \begin{theorem}[Brooks' Theorem, 1941]
-Let $G$ be a connected simple graph with maximum degree $\Delta \geq 3$. Then:
+Let $G$ be a connected simple graph with maximum degree $\Delta$. Then:
 \begin{equation}
 \chi(G) \leq \Delta
 \end{equation}
@@ -15784,7 +15784,7 @@ In the example,
 
 \item Let $G$ be a graph with minimum degree $\delta \geq 2$ and girth $g$ (length of shortest cycle). Prove that $G$ has at least $1 + \delta + \delta(\delta-1) + \cdots + \delta(\delta-1)^{\lfloor (g-1)/2 \rfloor - 1}$ vertices. (For even $g$ this can be improved to $2\big(1 + (\delta-1) + \cdots + (\delta-1)^{g/2 - 1}\big)$; compare Theorem~\ref{thm:moore}.)
 
-\item Prove Shannon's theorem: For any graph $G$, $\chi'(G) \leq \lfloor \frac{3\Delta}{2} \rfloor$ where $\Delta$ is the maximum degree.
+\item Prove Shannon's theorem: For any loopless multigraph $G$, $\chi'(G) \leq \lfloor \frac{3\Delta}{2} \rfloor$ where $\Delta$ is the maximum degree.
 
 \item Let $G$ be a graph such that every subgraph of $G$ has degeneracy at most $k$. Prove that $\chi(G) \leq k + 1$ and that this bound is tight.
 
@@ -15815,7 +15815,7 @@ In the example,
 
 \item Draw two different graphs, both with maximum degree 3, where one is Class 1 and the other is Class 2. Show the edge colorings for both.
 
-\item Illustrate Shannon's bound by drawing a graph where the chromatic index is close to $\frac{3\Delta}{2}$. Show the edge coloring that achieves this bound.
+\item Illustrate Shannon's bound by drawing a multigraph (for example, a Shannon multigraph) whose chromatic index is close to $\frac{3\Delta}{2}$. Show the edge coloring that achieves this bound.
 \end{enumerate}
 
 
