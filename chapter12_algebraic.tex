@@ -1526,13 +1526,15 @@ in agreement with $Z_{C_3}(u) = (1 - u^3)^{-2}$.
 A \emph{combinatorial Hopf algebra} packages a family of combinatorial
 objects together with operations of \emph{merging} (product) and
 \emph{splitting} (coproduct) compatible with one another. The graph
-Hopf algebra of Schmitt (1994) and the chromatic Hopf algebra of
-Stanley (1995) put the chromatic polynomial and chromatic symmetric
-function into a clean algebraic frame---and the
+Hopf algebra of Schmitt (1994) puts the chromatic polynomial and
+Stanley's chromatic symmetric function (1995) into a clean algebraic
+frame---and the
 Aguiar--Bergeron--Sottile theorem (2006) shows that this frame is
-\emph{universal}: every combinatorial Hopf algebra has a canonical
-character, and the chromatic symmetric function is the image of the
-graph Hopf algebra under it.
+\emph{universal}: every combinatorial Hopf algebra (a graded connected
+Hopf algebra equipped with a character) has a unique
+character-preserving morphism to the quasisymmetric functions, and the
+chromatic symmetric function is the image of a graph under this
+morphism for the chromatic character.
 
 \subsubsection{Hopf Algebras: A Five-Line Reminder}
 
@@ -1549,7 +1551,7 @@ equipped with linear maps:
 satisfying the standard compatibility axioms (the antipode
 satisfies $\mu(S \otimes \mathrm{id})\Delta = \mu(\mathrm{id} \otimes S)\Delta = \eta \varepsilon$).
 A Hopf algebra is \textbf{graded} if $H = \bigoplus_{n \ge 0} H_n$
-with all structure maps respecting the grading and $H_0 = k$, and is
+with all structure maps respecting the grading, and is
 \textbf{connected} if $H_0 = k \cdot 1$.
 \end{definition}
 
@@ -1578,15 +1580,16 @@ Then $(\mathcal G, \mu, \Delta, \eta, \varepsilon)$ is a graded
 connected commutative cocommutative Hopf algebra.
 \end{definition}
 
-\begin{theorem}[Antipode formula; Schmitt, Humpert--Martin]
+\begin{theorem}[Antipode formula; Humpert--Martin, 2012]
 The antipode of $\mathcal G$ admits a cancellation-free formula:
 \[
-  S(G) \;=\; \sum_{F : \mathrm{flat}} (-1)^{c(F)} \, a(F) \, G/F,
+  S(G) \;=\; \sum_{F : \mathrm{flat}} (-1)^{c(F)} \, a(G/F) \, G_F,
 \]
-where the sum is over flats $F$ of the cycle matroid of $G$, $c(F)$
-is the number of bonds of $F$, $a(F)$ is the number of acyclic
-orientations of the contraction $G/F$, and $G/F$ is the quotient
-graph.
+where the sum is over flats $F$ of the cycle matroid of $G$,
+$G_F = (V(G), F)$ is the spanning subgraph with edge set $F$, $c(F)$ is
+the number of connected components of $G_F$ (so
+$c(F) = |V(G)| - \mathrm{rk}(F)$), and $a(G/F)$ is the number of acyclic
+orientations of the contraction $G/F$.
 \end{theorem}
 
 \subsubsection{Characters and the Aguiar--Bergeron--Sottile Theorem}
@@ -1602,7 +1605,7 @@ The Hopf algebra $\mathrm{QSym}$ of quasisymmetric functions, equipped
 with the character $\zeta_Q : F_\alpha \mapsto [\alpha = (n)]$ (the
 ``forget compositions'' character), is the \textbf{terminal object}
 in the category of combinatorial Hopf algebras: for every
-$(H, \zeta_H)$, there is a unique Hopf algebra map $\Psi : H \to \mathrm{QSym}$
+$(H, \zeta_H)$, there is a unique morphism of graded Hopf algebras $\Psi : H \to \mathrm{QSym}$
 making
 \[
   \zeta_Q \circ \Psi \;=\; \zeta_H.
@@ -1619,7 +1622,7 @@ $\zeta_{\mathrm{chr}}$ is a character on $\mathcal G$.
 \end{definition}
 
 \begin{theorem}[Stanley, 1995; ABS reformulation]\label{thm:stanleychr}
-The unique Hopf algebra morphism $\Psi : \mathcal G \to \mathrm{QSym}$
+The unique graded Hopf algebra morphism $\Psi : \mathcal G \to \mathrm{QSym}$
 satisfying $\zeta_Q \circ \Psi = \zeta_{\mathrm{chr}}$ sends $G$ to the
 \textbf{chromatic symmetric function}:
 \[
@@ -1628,13 +1631,20 @@ satisfying $\zeta_Q \circ \Psi = \zeta_{\mathrm{chr}}$ sends $G$ to the
 In particular $X_G$ is symmetric (not merely quasisymmetric).
 \end{theorem}
 
-\begin{remark}[Schur positivity is open]
-Stanley conjectured (and verified for small $n$) that $X_G$ is a
-non-negative integer combination of Schur functions $s_\lambda$ for
-broad classes of graphs (e.g.\ \emph{claw-free} graphs and
-\emph{$(3+1)$-free} graphs). This is the celebrated
-\textbf{Stanley--Stembridge conjecture}, recently proved by
-Hikita (2024).
+\begin{remark}[Positivity of $X_G$]
+The celebrated \textbf{Stanley--Stembridge conjecture} (1993) asserts
+that if $G$ is the incomparability graph of a $(3+1)$-free poset, then
+$X_G$ is a non-negative integer combination of the \emph{elementary}
+symmetric functions $e_\lambda$; it was proved by Hikita (2024). The
+weaker statement that such $X_G$ is a non-negative combination of
+Schur functions $s_\lambda$ was proved by Gasharov (1996). The
+conjecture, recorded by Stanley (1998), that $X_G$ is Schur positive
+for every \emph{claw-free} graph $G$ is false: in 2026
+Matherne--Morales and, independently, Prajapati found claw-free
+counterexamples on $12$ vertices. For instance, if $G$ is the line
+graph of the graph obtained from a $4$-cycle by attaching triangles at
+two opposite vertices and pendant edges at the other two, then
+$[s_{(3,3,3,3)}]\, X_G = -64$.
 \end{remark}
 
 \subsubsection{Other Combinatorial Hopf Algebras}
@@ -1691,12 +1701,13 @@ $\chi_G(k) = X_G(1, 1, \ldots, 1, 0, 0, \ldots)$ with $k$ ones.
 \paragraph{Hard Questions.}
 
 \begin{exercise}
-Prove the antipode formula for $\mathcal G$ (Schmitt's formula): for
-any graph $G$,
-$S(G) = \sum_{F} (-1)^{|E(F)|} \,
-\mu(\hat 0, F)\, G/F$
-where the sum is over flats of the bond lattice and $\mu$ is the
-M\"obius function.
+Prove the Humpert--Martin antipode formula for $\mathcal G$ stated in
+this section. (Hint: start from Schmitt's formula
+$S(G) = \sum_{\pi} (-1)^{|\pi|}\, |\pi|!\, G_\pi$, the sum over set
+partitions $\pi$ of $V(G)$, where $G_\pi$ is the disjoint union of the
+induced subgraphs on the blocks; group the terms according to the flat
+$F = E(G_\pi)$, and use Stanley's theorem
+$\chi_H(-1) = (-1)^{|V(H)|}\, a(H)$ with $H = G/F$.)
 \end{exercise}
 
 \begin{exercise}
@@ -1708,7 +1719,7 @@ formula for the order complex of a poset.
 \paragraph{Diagram Questions.}
 
 \begin{exercise}
-Draw all $8$ pairs of induced subgraphs of $C_4 = $ the $4$-cycle that
+Draw all $2^4 = 16$ pairs of induced subgraphs of $C_4 = $ the $4$-cycle that
 appear in $\Delta(C_4)$. Group them by the size of the left factor and
 verify the $\Delta$ sum.
 \end{exercise}
@@ -1726,10 +1737,12 @@ star $S_3$.
 
 The chromatic polynomial of a graph---and more generally the
 characteristic polynomial of a matroid---has integer coefficients with
-\emph{alternating signs} (Whitney, 1932). Stanley conjectured in 1980
-that these coefficients in absolute value form a \emph{log-concave}
-sequence, and Mason conjectured the same for the $f$-vector of any
-matroid. Both conjectures are now theorems, proved using
+\emph{alternating signs} (Whitney, 1932). Read (1968) conjectured that
+these coefficients in absolute value are unimodal and Hoggar (1974)
+that they form a \emph{log-concave} sequence; Rota, Heron and Welsh
+extended the conjecture to characteristic polynomials of all
+matroids, and Welsh and Mason conjectured log-concavity for the
+$f$-vector of any matroid. Both conjectures are now theorems, proved using
 combinatorial Hodge theory by Adiprasito--Huh--Katz (2018), bringing
 algebraic-geometric machinery to bear on a purely combinatorial
 question. This section is the most advanced in the chapter and
@@ -1752,16 +1765,20 @@ characteristic polynomial, where $w_i \ge 0$ are the
 is a log-concave sequence with no internal zeros.
 \end{theorem}
 
-\begin{corollary}[Stanley's chromatic log-concavity, 1980]
+\begin{corollary}[Read--Hoggar conjecture; Huh, 2012]
 For any graph $G$ on $n$ vertices, the coefficients of the chromatic
 polynomial $\chi_G(k) = \sum_{i = 0}^{n - 1} (-1)^i a_i k^{n - i}$
 satisfy $a_i^2 \ge a_{i - 1} a_{i + 1}$.
 \end{corollary}
 
-\begin{corollary}[Mason's conjecture; Adiprasito--Huh--Katz; Anari--Liu--Oveis Gharan--Vinzant; Br\"and\'en--Huh, all 2018]
-For any matroid $M$, the $f$-vector $(f_0, f_1, \ldots, f_r)$
-counting independent sets by size is ultra-log-concave.
-\end{corollary}
+\begin{theorem}[Mason's conjecture; Anari--Liu--Oveis Gharan--Vinzant; Br\"and\'en--Huh, 2018]
+For any matroid $M$ on a ground set $E$ with $|E| = n$, the $f$-vector
+$(f_0, f_1, \ldots, f_r)$ counting independent sets by size is
+ultra-log-concave in the sense that $f_i / \binom{n}{i}$ is
+log-concave (here $n = |E|$, not the rank $r$). The weaker statement
+that $(f_i)$ itself is log-concave was proved by
+Adiprasito--Huh--Katz.
+\end{theorem}
 
 \subsubsection{The Chow Ring of a Matroid}
 
@@ -1781,9 +1798,21 @@ where:
         (the \textbf{linear relations}).
 \end{itemize}
 The grading places $\deg(x_F) = 1$. The ring is concentrated in
-degrees $0, 1, \ldots, r - 1$, and
-$\dim_{\mathbb Q} A^k(M) \otimes \mathbb Q$ is the (signed) coefficient
-$|w_k|$ of the characteristic polynomial.
+degrees $0, 1, \ldots, r - 1$, and $A^{r-1}(M)_{\mathbb R}$ is
+one-dimensional: there is a unique linear isomorphism
+$\mathrm{deg} : A^{r-1}(M)_{\mathbb R} \to \mathbb R$ with
+$\mathrm{deg}(x_{F_1} x_{F_2} \cdots x_{F_{r-1}}) = 1$ for every flag
+$F_1 \subsetneq F_2 \subsetneq \cdots \subsetneq F_{r-1}$ of nonempty
+proper flats. The Whitney numbers are \emph{not} the dimensions
+$\dim A^k(M)$, which are palindromic by Poincar\'e duality (e.g.\ for
+$U_{3,4}$ they are $1, 7, 1$, while $(w_0, \ldots, w_3) = (1, 4, 6, 3)$).
+Instead they come from intersection numbers. Fix $i \in E$ and let
+$\alpha = \sum_{F \ni i} x_F$ and $\beta = \sum_{F \not\ni i} x_F$
+(sums over nonempty proper flats; neither class depends on $i$). Then
+the reduced characteristic polynomial
+$\chi_M(t)/(t - 1) = \sum_{k = 0}^{r - 1} (-1)^k \mu^k\, t^{r - 1 - k}$
+satisfies $\mu^k = \mathrm{deg}(\alpha^{r - 1 - k} \beta^k)$
+(Adiprasito--Huh--Katz), and $w_k = \mu^k + \mu^{k-1}$.
 \end{definition}
 
 \begin{theorem}[Adiprasito--Huh--Katz Hodge package]\label{thm:hodgepkg}
@@ -1808,22 +1837,39 @@ geometry:
 \subsubsection{From Hodge--Riemann to Log-Concavity}
 
 \begin{theorem}[How HR implies log-concavity]\label{thm:hrlc}
-Let $A = \bigoplus A^k$ be a graded ring satisfying the Hodge--Riemann
-relations with respect to $\ell \in A^1$, and let $\alpha, \beta \in A^1$
-have non-negative pairings with $\ell$. Then for any $0 \le k \le r - 2$,
+Let $M$ be a loopless matroid of rank $r \ge 3$ and let
+$\ell_1, \ell_2 \in A^1(M)_{\mathbb R}$, where $\ell_2$ is \emph{nef}
+(a limit of strictly convex elements). Then
 \[
-  \mathrm{deg}(\alpha \beta \ell^{r - 2 - k}) \cdot \mathrm{deg}(\alpha \beta \ell^{r - 2 - k})
-  \;\ge\; \mathrm{deg}(\alpha^2 \ell^{r - 2 - k}) \cdot \mathrm{deg}(\beta^2 \ell^{r - 2 - k}).
+  \mathrm{deg}(\ell_1 \ell_2^{\,r - 2})^2
+  \;\ge\; \mathrm{deg}(\ell_1^2\, \ell_2^{\,r - 3}) \cdot \mathrm{deg}(\ell_2^{\,r - 1}).
 \]
-This Cauchy--Schwarz-type inequality is precisely the log-concavity
-relation for the corresponding combinatorial sequence.
+The classes $\alpha, \beta$ of Definition~\ref{def:chowring} are nef,
+and for $\ell_1 = \alpha$, $\ell_2 = \beta$ this Cauchy--Schwarz-type
+inequality reads $(\mu^{r-2})^2 \ge \mu^{r-3} \mu^{r-1}$. Applying it to
+the truncations of $M$ gives $(\mu^k)^2 \ge \mu^{k-1} \mu^{k+1}$ for
+$1 \le k \le r - 2$, and Theorem~\ref{thm:ahk} follows because
+$\chi_M(t)$ is $(t - 1)$ times the reduced characteristic polynomial
+and the convolution of two log-concave sequences is log-concave.
 \end{theorem}
 
 \begin{proof}[Proof sketch of Theorem~\ref{thm:hrlc}]
-The Hodge--Riemann relations imply that the bilinear form
-$Q(\eta_1, \eta_2) = \mathrm{deg}(\eta_1 \cdot \eta_2 \cdot \ell^{r - 2 - k})$
-on $A^1$ has signature $(1, \dim A^1 - 1)$. The reverse Cauchy--Schwarz
-for forms of this signature gives the log-concavity statement.
+First let $\ell_2$ be strictly convex, and put
+$Q(\eta_1, \eta_2) = \mathrm{deg}(\eta_1 \eta_2 \ell_2^{r - 3})$ on $A^1$.
+By Hard Lefschetz, $A^1 = \mathbb R \ell_2 \oplus P^1$ with
+$P^1 = \ker(\ell_2^{r-2} \cdot - : A^1 \to A^{r-1})$, and
+$Q(\ell_2, P^1) = 0$; by the Hodge--Riemann relations in degrees $0$
+and $1$, $Q(\ell_2, \ell_2) > 0$ and $Q$ is negative definite on $P^1$.
+So $Q$ has signature $(1, \dim A^1 - 1)$. If $\ell_1, \ell_2$ are
+linearly independent, the restriction of $Q$ to
+$\mathrm{span}(\ell_1, \ell_2)$ contains the positive vector $\ell_2$
+but is not positive definite; hence the Gram determinant
+$Q(\ell_1, \ell_1) Q(\ell_2, \ell_2) - Q(\ell_1, \ell_2)^2$ is $\le 0$
+(it is $0$ if they are dependent), which is the inequality. For nef
+$\ell_2$, apply this to $\ell_2 + t\ell$ with $\ell$ strictly convex and
+let $t \to 0$. (A positivity hypothesis is essential: for nonzero
+$Q$-orthogonal $\eta_1, \eta_2 \in P^1$ one has
+$Q(\eta_1, \eta_1) Q(\eta_2, \eta_2) > 0 = Q(\eta_1, \eta_2)^2$.)
 \end{proof}
 
 \begin{remark}[The Hodge--Riemann elephant in the room]
@@ -1844,15 +1890,21 @@ an intricate inductive flip argument on the lattice of flats.
 \begin{theorem}[Anari--Liu--Oveis Gharan--Vinzant, 2019]\label{thm:specind}
 Let $M$ be a matroid of rank $r$ on $n$ elements and let $\mu$ be the
 uniform distribution on bases of $M$. The down-up walk on bases of
-$M$ has spectral gap $\Omega(1/r)$ and mixes in time
-$O(r \log n)$.
+$M$ has spectral gap at least $1/r$, and started from any basis it is
+within total variation distance $\varepsilon$ of $\mu$ after at most
+$r \log(n^r/\varepsilon) \le r^2 \log(n/\varepsilon)$ steps.
 \end{theorem}
 
 \begin{remark}
 Theorem~\ref{thm:specind} resolved a conjecture of Mihail--Vazirani
-(1989) on rapid mixing for the bases-exchange walk. The proof uses
-the matroid \emph{log-concavity} from Theorem~\ref{thm:ahk} together
-with a new technique called \textbf{spectral independence}, which has
+(1989) that the bases-exchange graph of every matroid has edge
+expansion at least $1$. The proof combines the (strong)
+\emph{log-concavity} of the basis generating polynomial of $M$---which
+Anari--Oveis Gharan--Vinzant derived from the Hodge--Riemann relations
+of Adiprasito--Huh--Katz---with the local-to-global spectral bounds of
+Kaufman--Oppenheim for high-dimensional expanders.
+Anari--Liu--Oveis Gharan (2020) developed this viewpoint into the
+technique of \textbf{spectral independence}, which has
 since become foundational in the modern probabilistic method (e.g.\
 for sampling proper colorings, independent sets, and Ising / Potts
 models).
@@ -1863,7 +1915,7 @@ models).
 \paragraph{Easy Questions.}
 
 \begin{exercise}
-Verify Stanley's log-concavity conjecture by hand for the chromatic
+Verify the Read--Hoggar log-concavity conjecture by hand for the chromatic
 polynomial of $C_4$:
 $\chi_{C_4}(k) = (k - 1)^4 + (k - 1) = k^4 - 4k^3 + 6k^2 - 4k + (k - 1) + 1$.
 Identify the absolute coefficients and check $a_i^2 \ge a_{i-1} a_{i+1}$.
@@ -1909,9 +1961,12 @@ De Concini--Procesi wonderful compactification.
 
 \begin{exercise}
 Draw the lattice of flats of the cycle matroid of $K_4$ (which is
-the Boolean lattice $B_3$). Identify the Whitney numbers
-$w_i = $ number of flats of rank $i$, and verify
-$(1, 7, 6, 1)$ is log-concave.
+the partition lattice $\Pi_4$, with $15$ elements). Identify the
+Whitney numbers of the second kind $W_i = $ number of flats of rank
+$i$, and verify that $(W_0, W_1, W_2, W_3) = (1, 6, 7, 1)$ is
+log-concave. Compare with the Whitney numbers of the first kind
+$(w_0, w_1, w_2, w_3) = (1, 6, 11, 6)$ read off from
+$\chi_{M(K_4)}(t) = (t - 1)(t - 2)(t - 3)$.
 \end{exercise}
 
 \begin{exercise}
