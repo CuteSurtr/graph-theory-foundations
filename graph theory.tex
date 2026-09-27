@@ -19141,11 +19141,14 @@ Every non-trivial monotone graph property has a threshold function
 
 \begin{proof}[Proof sketch]
 Let $q(n, p)$ be the probability that $G(n, p)$ has $P$. Monotonicity
-of $P$ and a coupling argument show $q$ is non-decreasing in $p$.
-Define $t(n)$ by $q(n, t(n)) = 1/2$. A two-round argument with
-$k = C \log(1/\delta)$ independent copies shows that boosting $p$ to
-$kt(n)$ makes $q$ exceed $1 - \delta$ while halving $p$ below
-$t(n)/k$ makes $q$ drop below $\delta$.
+of $P$ and a coupling argument show $q$ is non-decreasing in $p$
+(it is a polynomial increasing from $0$ to $1$).
+Define $t(n)$ by $q(n, t(n)) = 1/2$. The union of $k$ independent copies
+of $G(n, p)$ is distributed as $G(n, 1 - (1 - p)^k)$, which is contained in
+$G(n, kp)$ under a coupling. With $p = t(n)$ this gives
+$q(n, k t(n)) \ge 1 - 2^{-k} \ge 1 - \delta$ once $k \ge \log_2(1/\delta)$.
+With $p = t(n)/k$ it gives $1/2 = q(n, t(n)) \ge 1 - (1 - q(n, t(n)/k))^k$,
+so $q(n, t(n)/k) \le 1 - 2^{-1/k} \le (\ln 2)/k \le \delta$ once $k \ge 1/\delta$.
 \end{proof}
 
 \subsubsection{Subgraph Thresholds}
@@ -19190,13 +19193,13 @@ fixed $k$, the number of vertices of degree $k$ is
 $(1 + o(1)) n e^{-c} c^k/k!$ with high probability.
 \end{theorem}
 
-\begin{corollary}[Maximum and minimum degree]
+\begin{corollary}[Maximum degree]
 For $p = c/n$ with $c > 0$ fixed, $\Delta(G(n, p)) = (1 + o(1))\log n / \log\log n$ whp.
 \end{corollary}
 
 \subsubsection{Threshold for Connectivity}
 
-\begin{theorem}[Erd\H{o}s--R\'enyi, 1960]\label{thm:connthresh}
+\begin{theorem}[Erd\H{o}s--R\'enyi, 1959]\label{thm:connthresh}
 Let $p = (\log n + c_n)/n$. Then
 \[
   \Pr[G(n, p) \text{ is connected}] \;\to\;
@@ -19208,15 +19211,20 @@ Let $p = (\log n + c_n)/n$. Then
 
 \begin{proof}[Proof sketch]
 \emph{Isolated vertices.} Let $X_0$ count isolated vertices.
-$\mathbb{E}[X_0] = n(1 - p)^{n - 1} = e^{\log n - pn + O(1/n)} = e^{-c_n + o(1)}$.
-Second-moment analysis gives $\mathrm{Var}(X_0) = (1 + o(1))\mathbb{E}[X_0]$,
-so $X_0$ is asymptotically Poisson$(e^{-c})$; in particular
-$\Pr[X_0 = 0] \to e^{-e^{-c}}$.
+$\mathbb{E}[X_0] = n(1 - p)^{n - 1} = e^{\log n - pn + O(\log^2 n/n)} = e^{-c_n + o(1)}$.
+More generally, for each fixed $r$ the factorial moment
+\[
+  \mathbb{E}[X_0(X_0 - 1)\cdots(X_0 - r + 1)]
+  = n(n - 1)\cdots(n - r + 1)\,(1 - p)^{r(n - r) + \binom{r}{2}}
+\]
+tends to $e^{-rc}$, so by the method of moments $X_0$ is asymptotically
+Poisson$(e^{-c})$; in particular $\Pr[X_0 = 0] \to e^{-e^{-c}}$.
 
 \emph{Connected iff no isolated.} Show that whp at $p \sim \log n/n$
-the only obstruction to connectivity is isolated vertices: any
-component of size $2 \le k \le n/2$ requires too many edges, and by
-union bound over $k$ the probability tends to $0$.
+the only obstruction to connectivity is isolated vertices: a
+component of size $2 \le k \le n/2$ must contain a spanning tree and send
+no edges to the other $n - k$ vertices, and by a
+union bound over $k$ the probability of such a component tends to $0$.
 \end{proof}
 
 \begin{corollary}[Koml\'os--Szemer\'edi; Bollob\'as]
@@ -19256,11 +19264,13 @@ intersect.
 \end{proof}
 
 \begin{remark}[Critical window]
-Bollob\'as, and independently \L uczak, identified the critical
-window $p = (1 + \lambda n^{-1/3})/n$, inside which
-$|C_{\max}|/n^{2/3}$ converges to a universal random variable. This
-was later refined by Aldous (1997) to a continuum-tree limit
-description.
+Bollob\'as and \L uczak identified the critical
+window $p = (1 + \lambda n^{-1/3})/n$, inside which $|C_{\max}|$ is of
+order $n^{2/3}$. Aldous (1997) proved that $|C_{\max}|/n^{2/3}$ (indeed the
+whole sequence of rescaled component sizes) converges in distribution,
+describing the limit through excursions of a Brownian motion with
+parabolic drift; the continuum (metric-space) limit of the components
+themselves was obtained by Addario-Berry, Broutin and Goldschmidt (2012).
 \end{remark}
 
 \subsubsection{Chromatic Number of $G(n, p)$}
@@ -19277,11 +19287,16 @@ iteratively removes independent sets of size near the maximum and
 applies Azuma's inequality for concentration.
 \end{proof}
 
-\begin{theorem}[Shamir--Spencer two-point concentration]
-For any $p$ with $p n^{5/6} \to \infty$, there exist integer-valued
-sequences $a_n$ such that
+\begin{theorem}[Shamir--Spencer, 1987; \L uczak, 1991]
+Let $\alpha > 5/6$ be fixed and $p = n^{-\alpha}$. Then there exist
+integer-valued sequences $a_n$ such that
 $\chi(G(n, p)) \in \{a_n, a_n + 1\}$ whp.
 \end{theorem}
+
+Alon and Krivelevich (1997) extended this two-point concentration to
+every fixed $\alpha > 1/2$. For dense random graphs nothing of the kind
+holds: Heckel (2021) showed that $\chi(G(n, 1/2))$ is, for infinitely many
+$n$, not concentrated on fewer than $n^{1/4 - \varepsilon}$ consecutive values.
 
 \subsubsection{Hamiltonicity}
 
@@ -19301,9 +19316,10 @@ combined with a ``no small bad sets'' lemma via expansion.
 
 \begin{theorem}[Wormald, 1999]
 For any fixed $d \ge 3$, the random $d$-regular graph $G_{n, d}$ is
-Hamiltonian whp, has chromatic number in $\{3, 4\}$ whp (for $d = 3$;
-larger for larger $d$), and has spectral gap bounded away from zero
-whp.
+Hamiltonian whp, has chromatic number $3$ whp for $d = 3$ (by Brooks'
+theorem, since $G_{n,3}$ is whp connected and contains an odd cycle),
+with $\chi(G_{n,d}) \sim d/(2\log d)$ as $d$ grows, and has spectral gap
+bounded away from zero whp.
 \end{theorem}
 
 \begin{theorem}[Friedman, 2008]
@@ -19325,16 +19341,19 @@ $u$ with probability proportional to $d(u)$.
 
 \begin{theorem}[Bollob\'as--Riordan--Spencer--Tusn\'ady, 2001]
 In the BA model with $m \ge 1$, the fraction of vertices with degree
-exactly $k$ converges in probability to $c_m k^{-3}$ for each fixed
-$k$: a power-law (\emph{scale-free}) degree distribution.
+exactly $k$ converges in probability to
+$\alpha_{m,k} = 2m(m + 1)/\big(k(k + 1)(k + 2)\big)$ for each fixed $k \ge m$.
+Since $\alpha_{m,k} \sim 2m(m + 1)\, k^{-3}$ as $k \to \infty$, this is a
+power-law (\emph{scale-free}) degree distribution with exponent $3$.
 \end{theorem}
 
 \subsubsection{Small Subgraph Central Limit Theorem}
 
-\begin{theorem}[Rucinski, 1988]
-Let $H$ be a fixed graph and let $X_H = X_H(n, p)$ count copies of
-$H$ in $G(n, p)$. If $pn^{|V(H)|/|E(H)|} \to \infty$ and
-$n^2(1 - p) \to \infty$, then
+\begin{theorem}[Ruci\'nski, 1988]
+Let $H$ be a fixed graph with at least one edge and let $X_H = X_H(n, p)$
+count copies of $H$ in $G(n, p)$. If $p\, n^{1/m^*(H)} \to \infty$ (with
+$m^*(H)$ the maximum subgraph density) and
+$n^2(1 - p) \to \infty$, then (and only then)
 \[
   \frac{X_H - \mathbb{E}[X_H]}{\sqrt{\mathrm{Var}(X_H)}} \;\xrightarrow{d}\; \mathcal{N}(0, 1).
 \]
@@ -19345,9 +19364,10 @@ $n^2(1 - p) \to \infty$, then
 \paragraph{Easy Questions.}
 
 \begin{exercise}
-Use the first-moment method to prove that the threshold for
-$G(n, p)$ to contain a triangle is $p = 1/n$: show
-$\mathbb{E}[\#K_3] = \binom{n}{3} p^3$ and apply Markov.
+Prove that the threshold for $G(n, p)$ to contain a triangle is
+$p = 1/n$: show $\mathbb{E}[\#K_3] = \binom{n}{3} p^3$ and apply Markov's
+inequality (first moment) for the $0$-statement, and use Chebyshev's
+inequality (second moment) for the $1$-statement.
 \end{exercise}
 
 \begin{exercise}
@@ -19368,8 +19388,9 @@ matching lower bound.)
 \end{exercise}
 
 \begin{exercise}
-Prove Theorem~\ref{thm:bt} (Bollob\'as--Thomason) assuming monotonicity
-and using the Janson inequalities.
+Prove Theorem~\ref{thm:bt} (Bollob\'as--Thomason) assuming monotonicity,
+using the fact that the union of $k$ independent copies of $G(n, p)$ is
+distributed as $G(n, 1 - (1 - p)^k)$.
 \end{exercise}
 
 \begin{exercise}
@@ -19381,14 +19402,19 @@ $n \cdot k^{k - 2} e^{-k}/k!$. (Use Cayley's formula.)
 \paragraph{Hard Questions.}
 
 \begin{exercise}
-Prove that for $p n^{2/3} \to \infty$, the number of triangles in
-$G(n, p)$ is asymptotically normal. (Variance computation plus
-Stein's method or the method of moments.)
+Prove that if $p n^{2/3} \to \infty$ and $n^2(1 - p) \to \infty$, the
+number of triangles in $G(n, p)$ is asymptotically normal. (Variance
+computation plus Stein's method or the method of moments. By
+Ruci\'nski's theorem, $np \to \infty$ and $n^2(1 - p) \to \infty$ already suffice.)
 \end{exercise}
 
 \begin{exercise}
-Show that for $p = c/n$ with $c > 1$, the diameter of the giant
-component of $G(n, p)$ is $(1 + o(1))\log n / \log c$ whp.
+Show that for $p = c/n$ with $c > 1$, the distance between two uniformly
+random vertices of the giant component of $G(n, p)$ is
+$(1 + o(1))\log n / \log c$ whp. (The diameter of the giant is larger:
+Fernholz--Ramachandran and Riordan--Wormald showed that it is
+$(1 + o(1))\big(\log n/\log c + 2\log n/\log(1/c_*)\big)$ whp, where
+$c_* < 1$ satisfies $c_* e^{-c_*} = c e^{-c}$.)
 \end{exercise}
 
 \begin{exercise}
@@ -19417,8 +19443,9 @@ Theorem~\ref{thm:giant}.
 \begin{exercise}
 Draw a sample $G(8, 1/2)$ and identify by inspection: the largest
 component, all isolated vertices, the maximum and minimum degree.
-Compare with the expectations $\mathbb{E}[X_0] = 8 \cdot (1/2)^7$
-and $\mathbb{E}[\Delta] \approx \log_2 8$.
+Compare with the expectations $\mathbb{E}[X_0] = 8 \cdot (1/2)^7 = 1/16$
+and $\mathbb{E}[d(v)] = 7/2$ (so $\mathbb{E}[\Delta] \ge 7/2$; in fact
+$\mathbb{E}[\Delta] \approx 5.2$).
 \end{exercise}
 
 \subsection{Szemer\'edi's Regularity Lemma}
@@ -20196,9 +20223,10 @@ and comment on how it scales with $n$.
 \end{exercise}
 
 \begin{exercise}
-Use the first-moment method to prove that the threshold for
-$G(n, p)$ to contain a triangle is $p = 1/n$: show
-$\mathbb{E}[\# K_3] = \binom{n}{3} p^3$ and apply Markov's inequality.
+Prove that the threshold for $G(n, p)$ to contain a triangle is
+$p = 1/n$: show $\mathbb{E}[\#K_3] = \binom{n}{3} p^3$ and apply Markov's
+inequality (first moment) for the $0$-statement, and use Chebyshev's
+inequality (second moment) for the $1$-statement.
 \end{exercise}
 
 \begin{exercise}
