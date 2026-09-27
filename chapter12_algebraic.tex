@@ -136,13 +136,19 @@ For any edge $e = uv$ and any vertex $u$ of $G$,
 \end{theorem}
 
 \begin{proof}
-For the first identity, partition $k$-matchings of $G$ by whether
-$e \in M$. Matchings not containing $e$ are $k$-matchings of $G \setminus e$,
-contributing $\mu(G \setminus e, x)$. Matchings containing $e$ are
-$(k - 1)$-matchings of $G \setminus \{u, v\}$, contributing
-$x^2 \mu(G \setminus \{u, v\}, x) / x^2 = \mu(G \setminus \{u, v\}, x)$
-once the sign is tracked. The vertex recurrence is the edge recurrence
-summed over all edges incident to $u$.
+For the first identity, split the $k$-matchings $M$ of $G$ according to
+whether $e \in M$. Those with $e \notin M$ are exactly the $k$-matchings
+of $G \setminus e$, which has the same $n$ vertices, so they contribute
+$\mu(G \setminus e, x)$. Those with $e \in M$ correspond bijectively,
+via $M \mapsto M \setminus \{e\}$, to the $(k - 1)$-matchings of
+$G \setminus \{u, v\}$, which has $n - 2$ vertices; since
+$(-1)^k x^{n - 2k} = -(-1)^{k - 1} x^{(n - 2) - 2(k - 1)}$, they
+contribute $-\mu(G \setminus \{u, v\}, x)$. For the vertex recurrence,
+apply the edge recurrence successively to the edges $uv_1, \ldots, uv_d$
+at $u$: deleting $uv_1, \ldots, uv_{j-1}$ does not change
+$G \setminus \{u, v_j\}$, and once all these edges are deleted $u$ is an
+isolated vertex, so the remaining graph has matchings polynomial
+$x\,\mu(G \setminus u, x)$.
 \end{proof}
 
 \begin{proposition}[Matching polynomial of a forest]\label{prop:matchforest}
@@ -160,17 +166,23 @@ $(-1)^{|M|} x^{n - 2|M|}$. Summing matches Definition~\ref{def:matchpoly}.
 
 \subsubsection{The Path-Tree Construction}
 
-The fundamental insight of Godsil and Heilmann--Lieb is that for any
+The fundamental insight of Godsil (1981) is that for any
 graph $G$ with a distinguished vertex $u$, one can build a tree
 $T(G, u)$ whose characteristic polynomial controls the matchings
 polynomial of $G$.
 
 \begin{definition}[Path-tree]\label{def:pathtree}
 Let $G$ be a graph and $u \in V(G)$. The \textbf{path-tree}
-$T(G, u)$ is the rooted tree whose vertices are the non-backtracking
-walks $u = v_0 \to v_1 \to \cdots \to v_k$ in $G$ starting at $u$,
-and whose edges connect each walk of length $k$ to its $(k+1)$-step
-extensions in $G$.
+$T(G, u)$ is the rooted tree whose vertices are the \emph{paths}
+$u = v_0 \to v_1 \to \cdots \to v_k$ in $G$ starting at $u$ (the
+$v_i$ are pairwise distinct; the root is the trivial path $u$),
+and whose edges connect each path of length $k$ to its extensions
+by one further vertex, i.e.\ to the paths of length $k + 1$ of which
+it is the maximal proper subpath. Thus $T(G, u)$ is finite, has depth
+at most $|V(G)| - 1$, and is isomorphic to $G$ when $G$ is a tree.
+(Allowing all non-backtracking walks instead would give the universal
+cover of $G$, which is infinite as soon as the component of $u$
+contains a cycle.)
 \end{definition}
 
 \begin{theorem}[Godsil's path-tree identity]\label{thm:pathtree}
@@ -180,42 +192,74 @@ For any vertex $u$ of $G$,
   \;=\; \frac{\mu(T(G, u) \setminus u, x)}{\mu(T(G, u), x)}.
 \]
 In words, the ratio is identical to the corresponding ratio for the
-characteristic polynomials of the path-tree.
+characteristic polynomials of the path-tree. Moreover, if $G$ is
+connected, then $\mu(G, x)$ divides $\mu(T(G, u), x)$.
 \end{theorem}
 
 \begin{corollary}[Reduction to a tree]\label{cor:rootreduce}
-Every root of $\mu(G, x)$ is a root of $\phi(T(G, u), x)$ for any
-choice of $u$. Since $T(G, u)$ is a tree,
+If $G$ is connected, every root of $\mu(G, x)$ is a root of
+$\phi(T(G, u), x)$ for any choice of $u$. Since $T(G, u)$ is a tree,
 $\phi(T(G, u), x)$ has only real roots; therefore so does
-$\mu(G, x)$.
+$\mu(G, x)$. For disconnected $G$, apply this to each component and
+use $\mu(G_1 \cup G_2, x) = \mu(G_1, x)\,\mu(G_2, x)$. (Connectivity
+is needed in the first sentence: for $G = K_1 \cup K_2$ with $u$ the
+isolated vertex, $T(G, u) = K_1$ and $\phi(T(G, u), x) = x$, while
+$\mu(G, x) = x(x^2 - 1)$.)
 \end{corollary}
 
 \subsubsection{The Heilmann--Lieb Theorem}
 
 \begin{theorem}[Heilmann--Lieb, 1972]\label{thm:hl}
-Let $G$ be a graph with maximum degree $\Delta$. Then all roots of
+Let $G$ be a graph with maximum degree $\Delta \ge 2$. Then all roots of
 $\mu(G, x)$ are real, and they lie in the open interval
-$(-2\sqrt{\Delta - 1},\; 2\sqrt{\Delta - 1})$.
+$(-2\sqrt{\Delta - 1},\; 2\sqrt{\Delta - 1})$. (If $\Delta \le 1$, then
+$G$ is a matching plus isolated vertices and every root of $\mu(G, x)$
+lies in $\{-1, 0, 1\}$.)
 \end{theorem}
 
 \begin{proof}[Proof sketch]
-Reality follows from Corollary~\ref{cor:rootreduce}. For the bound,
-observe that the path-tree $T(G, u)$ has maximum degree at most
-$\Delta$, so its adjacency spectrum is contained in
-$[-2\sqrt{\Delta - 1}, 2\sqrt{\Delta - 1}]$ by the Alon--Boppana
-analysis of the universal cover. Strict inclusion in the open interval
-follows from the fact that $T(G, u)$ is finite and the spectral radius
-of any finite tree of bounded degree $\Delta$ is strictly less than
-$2\sqrt{\Delta - 1}$.
+Reality follows from Corollary~\ref{cor:rootreduce}. For the bound it
+suffices, by the same corollary, to take a component $G'$ of $G$ and a
+vertex $u$ of $G'$ and to show that every eigenvalue of the tree
+$T = T(G', u)$ has absolute value less than $2\sqrt{\Delta - 1}$; this is
+clear if $T$ is a single vertex, so assume it is not. The root of $T$
+has $\deg(u) \le \Delta$ children, and every other vertex of $T$ (a path
+ending at $w$) has one parent and at most $\deg(w) - 1 \le \Delta - 1$
+children. Let $h(p)$ be the depth of $p$ in $T$ and put
+$D = \mathrm{diag}\big((\Delta - 1)^{h(p)/2}\big)$. In the non-negative
+matrix $M = D A(T) D^{-1}$, the row of the root has at most $\Delta$
+entries, each equal to $1/\sqrt{\Delta - 1}$; any other row has one entry
+$\sqrt{\Delta - 1}$ (its parent) and at most $\Delta - 1$ entries
+$1/\sqrt{\Delta - 1}$ (its children). Since
+$\Delta/\sqrt{\Delta - 1} \le 2\sqrt{\Delta - 1}$ for $\Delta \ge 2$, every
+row sum $r_p$ of $M$ satisfies $r_p \le 2\sqrt{\Delta - 1}$, and
+$r_p = \sqrt{\Delta - 1}$ when $p$ is a leaf other than the root. Let
+$\rho$ be the largest eigenvalue of $A(T)$ and $v > 0$ a Perron
+eigenvector (Theorem~\ref{thm:perron}). Then $w = D^{-1} v > 0$
+satisfies $w^\top M = \rho\, w^\top$, so
+$\rho \sum_p w_p = \sum_p w_p r_p < 2\sqrt{\Delta - 1} \sum_p w_p$.
+Hence every eigenvalue $\theta$ of $A(T)$ satisfies
+$|\theta| \le \rho < 2\sqrt{\Delta - 1}$. (The constant
+$2\sqrt{\Delta - 1}$ is the spectral radius of the infinite
+$\Delta$-regular tree; the Alon--Boppana theorem, a \emph{lower} bound
+on $\lambda_2$ of $\Delta$-regular graphs, plays no role here.)
 \end{proof}
 
 \begin{remark}[Statistical-physics interpretation]
 The matchings polynomial is, up to substitution, the partition function
-of the \emph{monomer--dimer model} on $G$:
-$Z_G(\lambda) = \sum_M \lambda^{|M|}$ where the sum runs over all
-matchings. Theorem~\ref{thm:hl} implies $Z_G(\lambda) > 0$ for all real
-$\lambda \ge 0$, so the monomer--dimer model has \emph{no phase transition}
-on any finite graph.
+of the \emph{monomer--dimer model} on $G$: if
+$Z_G(\lambda) = \sum_M \lambda^{|M|}$, where the sum runs over all
+matchings, then $\mu(G, x) = x^{n} Z_G(-x^{-2})$. Positivity of
+$Z_G(\lambda)$ for real $\lambda \ge 0$ is trivial (all coefficients are
+positive). The content of Theorem~\ref{thm:hl} is that every zero of
+$Z_G$ is real and negative, and (for $\Delta \ge 2$) lies in
+$(-\infty, -1/(4(\Delta - 1)))$, uniformly over all graphs of maximum
+degree at most $\Delta$. Since a finite system never has a phase
+transition ($\log Z_G$ is always real-analytic on $(0, \infty)$), what
+matters is the thermodynamic limit; Heilmann and Lieb used this
+location of the zeros, valid for graphs of every size, to show that
+monomer--dimer systems have \emph{no phase transition} at any positive
+dimer activity.
 \end{remark}
 
 \subsubsection{Special Cases and Classical Polynomials}
@@ -226,7 +270,9 @@ on any finite graph.
   \item $\mu(K_n, x)$ is (up to scaling) the Hermite polynomial $H_n(x)$.
   \item $\mu(P_n, x)$ is the Chebyshev polynomial of the second kind
         $U_n(x/2)$.
-  \item $\mu(K_{m, n}, x)$ is (up to scaling) a Laguerre polynomial.
+  \item $\mu(K_{m, n}, x) = (-1)^n n!\, x^{m - n} L_n^{(m - n)}(x^2)$ for
+        $m \ge n$, where $L_n^{(\alpha)}$ is a generalized Laguerre
+        polynomial.
 \end{itemize}
 \end{theorem}
 
