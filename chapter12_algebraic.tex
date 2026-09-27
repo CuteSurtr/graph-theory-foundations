@@ -1110,9 +1110,13 @@ $ab \sim ba$ for every $\{a, b\} \in E_C$.
 \end{definition}
 
 \begin{definition}[Heap of pieces]
-A \textbf{heap} on $C$ is an equivalence class of words in $M(C)$.
-Pictorially: drop pieces one by one; two pieces $a, b$ rest at the
-same height iff they commute (i.e.\ $\{a, b\} \in E_C$). A piece
+A \textbf{heap} on $C$ is an element of $M(C)$, i.e.\ an equivalence
+class of words in $A^*$. Pictorially: drop the letters of a word one by
+one; each piece falls until it lands on a previously dropped piece with
+which it does \emph{not} commute (or on the floor). Thus pieces $a, b$
+with $\{a, b\} \in E_C$ never block each other, while non-commuting
+pieces (including two copies of the same piece) are stacked in the
+order in which they were dropped. A piece
 \textbf{is at the bottom} of a heap $H$ if it has no piece below it.
 A heap is \textbf{trivial} if all its pieces are at the bottom (i.e.\
 pairwise commuting).
@@ -1124,8 +1128,7 @@ $C = $ the \emph{non-incidence graph} of $E(G)$ (edges $a, b$
 commute iff they share no vertex). Then trivial heaps on $A$ are
 exactly \textbf{matchings} of $G$. General heaps correspond to
 sequences of edges placed with the constraint that overlapping edges
-must respect a temporal order---i.e.\ \emph{lozenge tilings} of an
-edge-disjoint pile.
+must respect a temporal order.
 \end{example}
 
 \subsubsection{The Cartier--Foata Master Theorem}
@@ -1151,37 +1154,52 @@ For a graph $G$ with edge weights $w : E(G) \to R$, define the
 \textbf{weighted matchings polynomial}
 $\mu_w(G, z) = \sum_M (-1)^{|M|} \prod_{e \in M} w(e)\, z^{|M|}$,
 the sum over all matchings $M \subseteq E(G)$. Then the generating
-function of all heaps of edges (i.e.\ all walks-of-edges respecting
-non-incidence) is exactly $1 / \mu_w(G, z)$.
+function of all heaps of edges (i.e.\ all words in the edges modulo
+commutation of vertex-disjoint edges) is exactly $1 / \mu_w(G, z)$.
 \end{corollary}
 
 \begin{remark}
 Corollary~\ref{cor:viennot} explains the appearance of the matchings
-polynomial $\mu(G, x)$ as a reciprocal: walks-on-edges satisfying
-the heap commutation rule are dual to matchings in a precise
-generating-function sense. This perspective recovers the
-Heilmann--Lieb theorem (\ref{thm:hl}) without recourse to the
-path-tree, and immediately generalises to $q$-analogues used in
-mathematical physics.
+polynomial $\mu(G, x)$ as a reciprocal: heaps of edges (words in the
+edges modulo commutation of vertex-disjoint edges) are dual to
+matchings in a precise generating-function sense, and this
+perspective immediately generalises to $q$-analogues used in
+mathematical physics. The inversion formula by itself does \emph{not}
+yield the real-rootedness in the Heilmann--Lieb theorem
+(\ref{thm:hl}): Theorem~\ref{thm:cartierfoata} holds for every
+commutation graph, including ones whose trivial-heap polynomial has
+non-real zeros (e.g.\ taking as pieces the vertices of the claw
+$K_{1,3}$, commuting iff non-adjacent, gives
+$\mathcal T(z) = 1 - 4z + 3z^2 - z^3$). Real-rootedness needs an extra
+argument such as the path-tree.
 \end{remark}
 
 \subsubsection{Walks on Graphs as Heaps of Cycles}
 
 \begin{definition}[Cycle heap]
 For a graph $G$, the \textbf{cycle commutation graph} $C^{\mathrm{cyc}}(G)$
-has vertex set $\mathcal C(G) = $ the set of (unoriented) simple
-cycles of $G$. Two cycles commute (are connected in $C^{\mathrm{cyc}}$)
-iff they are vertex-disjoint.
+has vertex set $\mathcal C(G) = $ the set of \emph{oriented} cycles of
+$G$, i.e.\ the directed cycles of the digraph obtained by replacing each
+edge $uv$ by the two arcs $u \to v$ and $v \to u$: for every edge $uv$
+the $2$-cycle $u \to v \to u$, and for every simple cycle of length
+$\ge 3$ its two orientations. The \textbf{length} $\ell(\gamma)$ of a
+cycle is its number of arcs. Two cycles commute (are connected in
+$C^{\mathrm{cyc}}$) iff they are vertex-disjoint.
 \end{definition}
 
-\begin{theorem}[Sherman--Burgoyne; Viennot]\label{thm:cyclesheap}
-The number of closed walks of length $k$ in $G$ equals
+\begin{theorem}[Walks and heaps of cycles; Cartier--Foata, Viennot]\label{thm:cyclesheap}
+Let $Q(z) = \sum_{T} (-1)^{\#\text{cycles}(T)} z^{\ell(T)}$, the sum
+over trivial heaps $T$ of $C^{\mathrm{cyc}}(G)$ (families of pairwise
+vertex-disjoint oriented cycles; $\ell(T)$ is the total length). Then
+$Q(z) = \det(I - zA)$, the generating function of all heaps of cycles
+(weighted by $z^{\text{total length}}$) is $1/Q(z)$ by
+Theorem~\ref{thm:cartierfoata}, and for $k \ge 1$ the number of closed
+walks of length $k$ in $G$ is
 \[
-  W_k(G) \;=\; [z^k]\, \frac{P(z)}{Q(z)},
+  W_k(G) \;=\; \mathrm{tr}(A^k) \;=\; [z^k]\, \frac{P(z)}{Q(z)},
+  \qquad\text{where}\qquad
+  P(z) \;=\; -z\, Q'(z) \;=\; \sum_{T} (-1)^{\#\text{cycles}(T) - 1}\, \ell(T)\, z^{\ell(T)}.
 \]
-where $P(z)$ and $Q(z)$ are the generating functions of trivial heaps
-of cycles, weighted respectively by $z^{\mathrm{length}}$ and
-$(-1)^{\#\text{cycles}} z^{\mathrm{length}}$.
 \end{theorem}
 
 This formula expresses the trace $\mathrm{tr}(A^k)$ as a sum over
@@ -1191,9 +1209,12 @@ Lindstr\"om--Gessel--Viennot lemma.
 \subsubsection{Flajolet's Continued-Fraction Theorem}
 
 \begin{theorem}[Flajolet, 1980]\label{thm:flajolet}
-Let $G$ be the path graph $\{0, 1, 2, \ldots\}$ with weighted self-loops
-$b_n$ at vertex $n$ and weighted edges $\lambda_n$ between $n - 1$ and
-$n$. The generating function of weighted closed walks at $0$ is the
+Let $G$ be the path graph $\{0, 1, 2, \ldots\}$ with a self-loop of
+weight $b_n$ at vertex $n$, in which each step from $n$ down to $n - 1$
+has weight $\lambda_n$ and each step from $n - 1$ up to $n$ has weight
+$1$ (any up/down weights with product $\lambda_n$ give the same result);
+the weight of a walk is the product of the weights of its steps.
+The generating function of weighted closed walks at $0$ is the
 Jacobi continued fraction
 \[
   \sum_{k \ge 0} m_k z^k \;=\; \cfrac{1}{1 - b_0 z - \cfrac{\lambda_1 z^2}{1 - b_1 z - \cfrac{\lambda_2 z^2}{1 - b_2 z - \ddots}}},
@@ -1218,16 +1239,19 @@ Hermite, of $P_n$ is Chebyshev, of $K_{m,n}$ is Laguerre.
 
 \begin{exercise}
 List all heaps of pieces on the path commutation graph $C = P_3$ with
-pieces $\{a, b, c\}$ and weights $w(a) = w(b) = w(c) = 1$, of total
+pieces $\{a, b, c\}$ (so $a$ commutes with $b$, and $b$ with $c$) and
+weights $w(a) = w(b) = w(c) = 1$, of total
 size $\le 3$. Verify the trivial-heap generating function
-$\mathcal T(z) = 1 - 3z + z^2$ and the master theorem
-$\mathcal H(z) = 1/(1 - 3z + z^2)$.
+$\mathcal T(z) = 1 - 3z + 2z^2$ and the master theorem
+$\mathcal H(z) = 1/(1 - 3z + 2z^2)$.
 \end{exercise}
 
 \begin{exercise}
-For the matching polynomial of $K_3$, verify that
-$1/\mu(K_3, z) = 1/(1 - 3z^2)$ in formal power series, and interpret
-the coefficients as counts of weighted heaps of edges in $K_3$.
+For the weighted matchings polynomial of $K_3$ with unit weights
+(Corollary~\ref{cor:viennot}), verify that
+$1/\mu_w(K_3, z) = 1/(1 - 3z) = \sum_{k \ge 0} 3^k z^k$ in formal power
+series, and interpret the coefficients as counts of heaps of edges in
+$K_3$ (no two edges of $K_3$ commute).
 \end{exercise}
 
 \paragraph{Medium Questions.}
@@ -1247,9 +1271,12 @@ Hermite polynomials, $\sum_k (2k - 1)!! \, z^{2k}$.
 \paragraph{Hard Questions.}
 
 \begin{exercise}
-Prove Theorem~\ref{thm:cyclesheap} by induction on the trivial-heap
-size, using Theorem~\ref{thm:cartierfoata} on the cycle commutation
-graph $C^{\mathrm{cyc}}(G)$.
+Prove Theorem~\ref{thm:cyclesheap}: expand $\det(I - zA)$ over
+permutations (the non-trivial cycles of a permutation form a family of
+vertex-disjoint oriented cycles) to obtain $Q(z) = \det(I - zA)$, apply
+Theorem~\ref{thm:cartierfoata} on the cycle commutation
+graph $C^{\mathrm{cyc}}(G)$, and use
+$\sum_{k \ge 1} \mathrm{tr}(A^k) z^k = -z \frac{d}{dz} \log \det(I - zA)$.
 \end{exercise}
 
 \begin{exercise}
@@ -1270,8 +1297,11 @@ $a, b, c$ with $a \sim b$ and $c$ isolated). Sketch the heap as a
 
 \begin{exercise}
 Sketch the cycle commutation graph $C^{\mathrm{cyc}}(K_4)$. Identify
-the simple cycles of $K_4$ (four $C_3$'s, three $C_4$'s) and the
-disjointness relations between them. Verify Theorem~\ref{thm:cyclesheap}
+the oriented cycles of $K_4$ (six $2$-cycles, one for each edge; eight
+oriented triangles; six oriented $4$-cycles) and the disjointness
+relations between them (the only vertex-disjoint pairs are the three
+pairs of $2$-cycles on opposite edges), so that
+$Q(z) = 1 - 6z^2 - 8z^3 - 3z^4 = \det(I - zA(K_4))$. Verify Theorem~\ref{thm:cyclesheap}
 gives $W_4(K_4) = $ number of closed walks of length $4$ in $K_4$
 ($= \mathrm{tr}(A(K_4)^4) = 3^4 + (-1)^4 + (-1)^4 + (-1)^4 = 84$).
 \end{exercise}
