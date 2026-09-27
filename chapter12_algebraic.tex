@@ -8,95 +8,82 @@ algebra, a Chow ring) with a concrete graph-theoretic payoff
 (real-rootedness of the matchings polynomial, the chromatic symmetric
 function, log-concavity of the chromatic polynomial, rapid mixing of
 matroid Markov chains). The chapter is largely independent of
-Chapter~\ref{sec:advanced-topics} but freely cites spectral results from \S\ref{subsec:spectral}.
+Chapter~\ref{sec:advanced-topics} but freely cites spectral results from Section~\ref{subsec:spectral}.
 
-\subsubsection*{Roadmap and graph-theoretic motivation}
+The chapter is organized as follows.
 
 \begin{itemize}
-  \item \S\ref{subsec:matchings-polynomial} \textbf{Matchings polynomial / Heilmann--Lieb.} A
+  \item Section~\ref{subsec:matchings-polynomial}: \textbf{Matchings polynomial / Heilmann--Lieb.} A
         graph polynomial whose roots are always real. Generalises the
         adjacency-spectrum theorem from forests to all graphs;
         implies the absence of phase transitions in the
         monomer--dimer model.
-  \item \S\ref{subsec:equitable-partitions} \textbf{Equitable partitions / interlacing.} Symmetry
+  \item Section~\ref{subsec:equitable-partitions}: \textbf{Equitable partitions / interlacing.} Symmetry
         groups of a graph induce equitable partitions; their quotient
         matrices give explicit eigenvalues. Yields the Hoffman /
         Haemers ratio bounds for $\alpha(G)$ and $\chi(G)$.
-  \item \S\ref{subsec:drg} \textbf{Distance-regular graphs / association schemes.}
+  \item Section~\ref{subsec:drg}: \textbf{Distance-regular graphs / association schemes.}
         Algebraic generalisation of strongly regular graphs.
         Underlies Delsarte's LP bound for codes (Hamming scheme) and
         Erd\H{o}s--Ko--Rado-type results (Johnson scheme).
-  \item \S\ref{subsec:cayley} \textbf{Cayley graphs.} Eigenvalues of $\mathrm{Cay}(\Gamma, S)$
+  \item Section~\ref{subsec:cayley}: \textbf{Cayley graphs.} Eigenvalues of $\mathrm{Cay}(\Gamma, S)$
         from characters of $\Gamma$; explicit Ramanujan graph
         constructions; the spectral source for nearly all
         deterministic expanders.
-  \item \S\ref{subsec:tutte-polynomial} \textbf{Tutte polynomial / matroids.} Universal
+  \item Section~\ref{subsec:tutte-polynomial}: \textbf{Tutte polynomial / matroids.} Universal
         deletion--contraction graph invariant; specialises to
         chromatic, flow, reliability, Ising, Jones polynomials. The
         matroid framework abstracts cycle/bond duality.
-  \item \S\ref{subsec:heaps} \textbf{Heaps of pieces.} Walk generating functions on
+  \item Section~\ref{subsec:heaps}: \textbf{Heaps of pieces.} Walk generating functions on
         graphs as continued fractions; heap-theoretic view of the
         matchings polynomial; bridge to orthogonal polynomial theory.
-  \item \S\ref{subsec:ihara} \textbf{Ihara zeta function.} Graph Riemann zeta whose
+  \item Section~\ref{subsec:ihara}: \textbf{Ihara zeta function.} Graph Riemann zeta whose
         ``Riemann hypothesis'' equals the Ramanujan property for
         connected non-bipartite regular graphs;
         Hashimoto non-backtracking matrix is the foundation of modern
         spectral community detection.
-  \item \S\ref{subsec:hopf} \textbf{Combinatorial Hopf algebras.} Schmitt's graph
+  \item Section~\ref{subsec:hopf}: \textbf{Combinatorial Hopf algebras.} Schmitt's graph
         Hopf algebra recovers Stanley's chromatic symmetric function
         via the Aguiar--Bergeron--Sottile universal property;
         Stanley--Stembridge conjecture and Hikita's recent proof.
-  \item \S\ref{subsec:hodge} \textbf{Hodge theory of matroids.} Adiprasito--Huh--Katz
+  \item Section~\ref{subsec:hodge}: \textbf{Hodge theory of matroids.} Adiprasito--Huh--Katz
         prove the chromatic polynomial coefficients are log-concave by
         importing K\"ahler-package machinery into combinatorics.
-  \item \S\ref{subsec:permanent} \textbf{Permanent and \#P.} Counting perfect matchings
+  \item Section~\ref{subsec:permanent}: \textbf{Permanent and \#P.} Counting perfect matchings
         is \#P-complete; the Jerrum--Sinclair--Vigoda FPRAS for the
         permanent uses a Markov chain on perfect and near-perfect
         matchings; holographic algorithms reduce certain counting
         problems to counting perfect matchings in planar graphs, i.e.\
         to Pfaffians (FKT).
-  \item \S\ref{subsec:weisfeiler-leman} \textbf{Weisfeiler--Leman and graph isomorphism.}
+  \item Section~\ref{subsec:weisfeiler-leman}: \textbf{Weisfeiler--Leman and graph isomorphism.}
         Color refinement, the $k$-WL hierarchy, the
         Cai--F\"urer--Immerman counterexample, Babai's quasipolynomial
         algorithm, and the connection to graph neural network
         expressivity.
-  \item \S\ref{subsec:cluster-algebras} \textbf{Cluster algebras from quivers.} Quivers as
+  \item Section~\ref{subsec:cluster-algebras}: \textbf{Cluster algebras from quivers.} Quivers as
         directed graphs; mutation and cluster variables; cluster
         algebras of finite type and the Cartan--Killing classification;
         triangulations of surfaces.
-  \item \S\ref{subsec:chip-firing} \textbf{Chip-firing, sandpiles, and Riemann--Roch for
+  \item Section~\ref{subsec:chip-firing}: \textbf{Chip-firing, sandpiles, and Riemann--Roch for
         graphs.} The sandpile group (the degree-zero Picard group) of a
         graph; Baker--Norine
         Riemann--Roch theorem; explicit graph-theoretic analogues of
         algebraic-geometric intersection theory.
-  \item \S\ref{subsec:random-walks-rep} \textbf{Random walks via representation theory.}
+  \item Section~\ref{subsec:random-walks-rep}: \textbf{Random walks via representation theory.}
         Diaconis--Shahshahani upper-bound lemma; cutoff phenomenon;
         explicit mixing-time bounds for the riffle shuffle, the
         hypercube, and Cayley graphs of the symmetric group.
-  \item \S\ref{subsec:electrical} \textbf{Electrical networks and effective
+  \item Section~\ref{subsec:electrical}: \textbf{Electrical networks and effective
         resistance.} Resistor networks dual to random walks; the
         spanning-tree-counting / commute-time / hitting-time identities
         of Chandra--Raghavan--Ruzzo--Smolensky; the
         Koebe--Andreev--Thurston circle packing theorem.
-  \item \S\ref{subsec:crystals} \textbf{Crystal graphs and the plactic monoid.}
+  \item Section~\ref{subsec:crystals}: \textbf{Crystal graphs and the plactic monoid.}
         Kashiwara crystals as edge-labelled graphs whose connected
         components encode irreducible $\mathfrak{gl}_n$-representations;
         Knuth equivalence and the plactic structure on words.
 \end{itemize}
 
-\paragraph{References (canonical).}
-Godsil--Royle, \emph{Algebraic Graph Theory} (2001);
-Godsil, \emph{Algebraic Combinatorics} (1993);
-Stanley, \emph{Algebraic Combinatorics: Walks, Trees, Tableaux} (UTM,
-2013); Garsia--Egecioglu, \emph{Lectures in Algebraic Combinatorics}
-(2020); Brouwer--Haemers, \emph{Spectra of Graphs} (2012);
-Brouwer--Cohen--Neumaier, \emph{Distance-Regular Graphs} (1989);
-Bannai--Ito, \emph{Algebraic Combinatorics I} (1984); Oxley,
-\emph{Matroid Theory} (2nd ed., 2011); Diaconis,
-\emph{Group Representations in Probability and Statistics} (1988);
-Lyons--Peres, \emph{Probability on Trees and Networks} (2016);
-Bump, \emph{Lie Groups} (2nd ed., 2013) for crystal bases.
-Selected research papers and theses are cited inline throughout.
 
 %====================================================================
 \subsection{The Matchings Polynomial and the Heilmann--Lieb Theorem}\label{subsec:matchings-polynomial}
@@ -810,7 +797,7 @@ to the characteristic polynomial of every matroid representable over
 some field, using intersection theory on toric varieties; the
 Rota--Heron--Welsh conjecture in full generality (arbitrary matroids)
 was proved only later by Adiprasito--Huh--Katz (2018), via Hodge
-theory for the Chow ring of a matroid (\S\ref{subsec:hodge}).
+theory for the Chow ring of a matroid (Section~\ref{subsec:hodge}).
 
 \subsubsection{Graphic Matroids and Cycle/Bond Duality}
 
@@ -889,8 +876,8 @@ walks, matchings, and orthogonal polynomial moments on graphs. The
 central theorems---Cartier--Foata's master inversion formula and
 Flajolet's continued-fraction expansion---convert combinatorial counts
 into rational and continued-fraction expressions, providing the
-algebraic skeleton behind the matchings polynomial of \S\ref{subsec:matchings-polynomial} and the
-Ihara zeta function of \S\ref{subsec:ihara}.
+algebraic skeleton behind the matchings polynomial of Section~\ref{subsec:matchings-polynomial} and the
+Ihara zeta function of Section~\ref{subsec:ihara}.
 
 \subsubsection{Commutation Monoids and Heaps}
 
@@ -1037,7 +1024,7 @@ context of $p$-adic groups and rediscovered combinatorially by
 Sunada, Hashimoto, Bass, and Stark--Terras, it packages \emph{prime
 non-backtracking closed walks} into a generating function whose
 poles encode spectral properties of the graph. For connected
-non-bipartite regular graphs, the Ramanujan property of \S\ref{subsec:spectral} turns
+non-bipartite regular graphs, the Ramanujan property of Section~\ref{subsec:spectral} turns
 out to be exactly the ``Riemann hypothesis'' for the Ihara zeta.
 
 \subsubsection{Non-Backtracking Walks and Primes}
@@ -1110,7 +1097,7 @@ A connected $d$-regular graph $G$ satisfies the graph Riemann
 Hypothesis if and only if every eigenvalue $\lambda$ of $A$ with
 $|\lambda| \ne d$ satisfies $|\lambda| \le 2\sqrt{d - 1}$. In
 particular, a connected non-bipartite $d$-regular graph $G$ is Ramanujan
-(Definition~\ref{def:ramanujan} -- see \S\ref{subsec:spectral}) if and only if it
+(Definition~\ref{def:ramanujan} -- see Section~\ref{subsec:spectral}) if and only if it
 satisfies the graph Riemann Hypothesis. Equivalently:
 \[
   G \text{ Ramanujan} \;\Longleftrightarrow\;
@@ -1511,7 +1498,6 @@ models).
 \subsection{The Permanent, Matching Counting, and \#P-Hardness}\label{subsec:permanent}
 %====================================================================
 
-\paragraph{Graph-theoretic motivation.}
 The number of perfect matchings of a bipartite graph equals the
 \emph{permanent} of its biadjacency matrix---an algebraic invariant
 that looks like the determinant but lacks its sign cancellations.
@@ -1520,7 +1506,7 @@ This single observation places the seemingly innocuous problem
 complexity-theoretic hierarchy: it is the canonical \#P-complete
 problem (Valiant, 1979), in stark contrast to ``decide whether $G$
 has a perfect matching'' (which is in $\mathsf P$ by the Hopcroft--Karp
-algorithm of \S\ref{sec:matchings}).
+algorithm of Chapter~\ref{sec:matchings}).
 
 \subsubsection{The Permanent and Bipartite Matchings}
 
@@ -1669,7 +1655,6 @@ entries all lie between a fixed $\delta > 0$ and $1$ (Barvinok, 2017).
 \subsection{Weisfeiler--Leman, Color Refinement, and Graph Isomorphism}\label{subsec:weisfeiler-leman}
 %====================================================================
 
-\paragraph{Graph-theoretic motivation.}
 Two graphs $G$ and $H$ are \emph{isomorphic} if there is a bijection
 of vertices preserving adjacency. Deciding graph isomorphism (GI) is
 the classical problem of testing structural equality of graphs;
@@ -1785,7 +1770,6 @@ is now standard background in graph machine learning.
 \subsection{Cluster Algebras from Quivers}\label{subsec:cluster-algebras}
 %====================================================================
 
-\paragraph{Graph-theoretic motivation.}
 A \emph{quiver} is just a directed graph (with multiple edges allowed
 but no self-loops or oriented $2$-cycles). Out of any such graph,
 Fomin and Zelevinsky (2002) conjured an algebraic structure---a
@@ -1896,7 +1880,6 @@ to the $14$ clusters; flips between them realise mutation.
 \subsection{Chip-Firing, Sandpile Groups, and Riemann--Roch for Graphs}\label{subsec:chip-firing}
 %====================================================================
 
-\paragraph{Graph-theoretic motivation.}
 On any finite graph, a deceptively simple game called \emph{chip
 firing} (or the \emph{abelian sandpile model}) gives rise to a
 discrete dynamical system whose orbit space is a finite abelian
@@ -1993,7 +1976,7 @@ Caporaso--Viviani).
 
 \begin{itemize}
   \item \textbf{Spanning trees}: $|K(G)| = \tau(G)$ recovers
-        Kirchhoff (\S\ref{subsec:spectral}) by the Matrix-Tree theorem applied to
+        Kirchhoff (Section~\ref{subsec:spectral}) by the Matrix-Tree theorem applied to
         the Laplacian.
   \item \textbf{Counting recurrent configurations}: the sandpile
         group elements are in bijection with \emph{recurrent}
@@ -2017,7 +2000,6 @@ Caporaso--Viviani).
 \subsection{Random Walks via Representation Theory}\label{subsec:random-walks-rep}
 %====================================================================
 
-\paragraph{Graph-theoretic motivation.}
 Theorem~\ref{thm:cayleyabelian} computed eigenvalues of abelian
 Cayley graphs from characters; the same idea, generalised to
 non-abelian groups, gives the sharpest known mixing-time bounds for
@@ -2027,7 +2009,7 @@ single inequality controlling total-variation distance to stationarity
 in terms of representation-theoretic data. The technique is the
 modern engine for bounding mixing times of card-shuffling, lattice
 walks, and the Markov chains used in the FPRAS algorithms of
-\S\ref{subsec:permanent}.
+Section~\ref{subsec:permanent}.
 
 \subsubsection{The Upper Bound Lemma}
 
@@ -2128,7 +2110,6 @@ exhibits cutoff is a well-known open problem (a conjecture of Peres).
 \subsection{Electrical Networks and Effective Resistance}\label{subsec:electrical}
 %====================================================================
 
-\paragraph{Graph-theoretic motivation.}
 Treat each edge of a graph as a unit resistor; the resulting
 electrical network is dual to the simple random walk. Many
 graph-theoretic invariants---spanning tree counts, hitting times,
@@ -2233,7 +2214,6 @@ vertices with maximum degree $\Delta$ has $\lambda_2(L) \le 8\Delta/n$.
 \subsection{Crystal Graphs and the Plactic Monoid}\label{subsec:crystals}
 %====================================================================
 
-\paragraph{Graph-theoretic motivation.}
 A \emph{crystal} is an edge-labelled directed graph (introduced by
 Kashiwara, 1990) whose connected components encode the irreducible
 representations of a Lie algebra. For type $A$ ($\mathfrak{gl}_n$),
@@ -2539,7 +2519,18 @@ Its Structural Complexity} (Birkh\"auser, 1993), is a comprehensive
 treatment. Babai's ``Group, graphs, algorithms: the graph isomorphism
 problem'' (ICM, 2018) summarises the post-2015 algorithmic landscape.
 
-\paragraph{General references.} Stanley's
+\paragraph{General references.} The standard references for the chapter
+as a whole are Godsil--Royle, \emph{Algebraic Graph Theory} (2001);
+Godsil, \emph{Algebraic Combinatorics} (1993);
+Stanley, \emph{Algebraic Combinatorics: Walks, Trees, Tableaux} (UTM,
+2013); Garsia--E\u{g}ecio\u{g}lu, \emph{Lectures in Algebraic Combinatorics}
+(2020); Brouwer--Haemers, \emph{Spectra of Graphs} (2012);
+Brouwer--Cohen--Neumaier, \emph{Distance-Regular Graphs} (1989);
+Bannai--Ito, \emph{Algebraic Combinatorics I} (1984); Oxley,
+\emph{Matroid Theory} (2nd ed., 2011); Diaconis,
+\emph{Group Representations in Probability and Statistics} (1988);
+Lyons--Peres, \emph{Probability on Trees and Networks} (2016);
+and Bump, \emph{Lie Groups} (2nd ed., 2013) for crystal bases. Selected research papers and theses are cited inline throughout. Stanley's
 \emph{Enumerative Combinatorics} (Vols.\ I and II, 2nd eds.) covers
 much of the underlying combinatorial machinery. Lov\'asz's
 \emph{Combinatorial Problems and Exercises} (2nd ed., 1993) is a
@@ -2573,7 +2564,7 @@ intersection array. Compare with the array of the Petersen graph.
 \item Show that every connected strongly regular graph with parameters
 $(n, k, \lambda, \mu)$ that is not complete is distance-regular of
 diameter $2$ with intersection array $\{k, k - 1 - \lambda; 1, \mu\}$.
-(Both hypotheses are needed with the definition of \S\ref{subsec:spectral}: $2K_3$ is
+(Both hypotheses are needed with the definition of Section~\ref{subsec:spectral}: $2K_3$ is
 strongly regular with parameters $(6, 2, 1, 0)$ but disconnected, and
 $K_n$ has diameter $1$.)
 
@@ -2948,7 +2939,7 @@ verify that $k$-WL on the resulting graphs does not distinguish them.
 \item Prove that 1-WL is equivalent to vertex colour-refinement
 \emph{in the sense of equitable partitions}: the stable colouring of
 1-WL on $G$ corresponds to the coarsest equitable partition of $V(G)$.
-Connect this to the spectrum of the quotient matrix from \S\ref{subsec:equitable-partitions}.
+Connect this to the spectrum of the quotient matrix from Section~\ref{subsec:equitable-partitions}.
 
 \item Prove that any two adjacent triangulations of a polygon (differing
 by one diagonal flip) correspond to clusters related by a single
