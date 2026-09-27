@@ -19488,20 +19488,28 @@ deterministic constructions such as Paley graphs.
 \end{remark}
 
 \begin{proposition}[Sliceability]
-If $(X, Y)$ is $\varepsilon$-regular with density $d$, $X' \subseteq X$ with
-$|X'| \ge \varepsilon |X|$, $Y' \subseteq Y$ with $|Y'| \ge \varepsilon |Y|$,
-then $(X', Y')$ is $2\varepsilon$-regular with density in $[d - \varepsilon, d + \varepsilon]$.
+Let $\alpha \ge \varepsilon$. If $(X, Y)$ is $\varepsilon$-regular with density
+$d$, $X' \subseteq X$ with $|X'| \ge \alpha |X|$, $Y' \subseteq Y$ with
+$|Y'| \ge \alpha |Y|$, then $(X', Y')$ is
+$\max\{2\varepsilon, \varepsilon/\alpha\}$-regular with density in
+$[d - \varepsilon, d + \varepsilon]$. (For $\alpha = \varepsilon$ this gives
+nothing, and indeed $(X', Y')$ need not be $2\varepsilon$-regular then.)
 \end{proposition}
 
 \begin{lemma}[Typical degree in a regular pair]\label{lem:regulartypical}
-If $(X, Y)$ is $\varepsilon$-regular with density $d$, then all but at
-most $\varepsilon|X|$ vertices $x \in X$ have $|N(x) \cap Y| \in [(d - \varepsilon)|Y|, (d + \varepsilon)|Y|]$.
+If $(X, Y)$ is $\varepsilon$-regular with density $d$, then at most
+$\varepsilon|X|$ vertices $x \in X$ have $|N(x) \cap Y| < (d - \varepsilon)|Y|$,
+and at most $\varepsilon|X|$ have $|N(x) \cap Y| > (d + \varepsilon)|Y|$. Hence all
+but at most $2\varepsilon|X|$ vertices $x \in X$ have
+$|N(x) \cap Y| \in [(d - \varepsilon)|Y|, (d + \varepsilon)|Y|]$.
 \end{lemma}
 
 \begin{proof}
 Suppose more than $\varepsilon|X|$ vertices have $|N(x) \cap Y| < (d - \varepsilon)|Y|$.
 Let $X'$ be that exceptional set. Then $d(X', Y) < d - \varepsilon$, but
 $|X'| \ge \varepsilon|X|, |Y| \ge \varepsilon|Y|$, contradicting $\varepsilon$-regularity.
+The bound for vertices with more than $(d + \varepsilon)|Y|$ neighbors is
+symmetric.
 \end{proof}
 
 \subsubsection{The Regularity Lemma}
@@ -19583,21 +19591,40 @@ partition has $k \ge \mathrm{tower}(1/\varepsilon^{1/16})$.
 
 \begin{theorem}[Counting Lemma]\label{thm:counting}
 Let $H$ be a graph with vertex set $\{1, \dots, h\}$ and $m$ edges.
-Suppose $V_1, \dots, V_h$ are vertex sets in $G$ such that for every
+Suppose $V_1, \dots, V_h$ are disjoint vertex sets in $G$ such that for every
 $ij \in E(H)$, the pair $(V_i, V_j)$ is $\varepsilon$-regular with density
-$d_{ij} \ge 2\varepsilon$. Then the number of labeled copies of $H$ in $G$
-with vertex $i$ in $V_i$ is
+$d_{ij}$. Then the number $N(H; V_1, \dots, V_h)$ of labeled copies of $H$
+in $G$ with vertex $i$ in $V_i$ satisfies
 \[
-  N(H; V_1, \dots, V_h) \;=\; \Big(1 \pm O(\varepsilon)\Big)
-     \Bigg( \prod_{ij \in E(H)} d_{ij} \Bigg) \prod_{i = 1}^{h} |V_i|.
+  \Bigg|\, N(H; V_1, \dots, V_h) -
+     \Bigg( \prod_{ij \in E(H)} d_{ij} \Bigg) \prod_{i = 1}^{h} |V_i| \,\Bigg|
+  \;\le\; m \varepsilon \prod_{i = 1}^{h} |V_i|.
+\]
+Moreover, if $H = K_3$ and $d_{12}, d_{13}, d_{23} \ge 2\varepsilon$, then
+\[
+  N(K_3; V_1, V_2, V_3) \;\ge\; (1 - 2\varepsilon)(d_{12} - \varepsilon)
+     (d_{13} - \varepsilon)(d_{23} - \varepsilon)\, |V_1||V_2||V_3|.
 \]
 \end{theorem}
 
-\begin{proof}[Proof sketch by induction on $h$]
-Embed vertices of $H$ into $V_1, \dots, V_h$ greedily. For each choice
-of $V_1, \dots, V_{i - 1}$ embedded, Lemma~\ref{lem:regulartypical}
-controls the typical common neighborhood intersection in $V_i$ to
-within factor $(1 \pm O(\varepsilon))$; multiply across all $m$ edges.
+\begin{proof}[Proof sketch]
+For the first bound induct on $m$ (the case $m = 0$ is trivial). Delete an
+edge $ab$ from $H$ to obtain $H'$, and fix images of all vertices other
+than $a, b$; let $A \subseteq V_a$ and $B \subseteq V_b$ be the admissible
+images of $a$ and $b$. If $|A| \ge \varepsilon|V_a|$ and
+$|B| \ge \varepsilon|V_b|$, then $\varepsilon$-regularity gives
+$\big|e(A, B) - d_{ab}|A||B|\big| \le \varepsilon|A||B|$; otherwise both $e(A, B)$
+and $d_{ab}|A||B|$ lie in $[0, |A||B|]$ and $|A||B| < \varepsilon|V_a||V_b|$.
+Summing over the fixed images gives
+$|N(H; V_1, \dots, V_h) - d_{ab} N(H'; V_1, \dots, V_h)| \le \varepsilon \prod_i |V_i|$,
+and induction (with $d_{ab} \le 1$) finishes. For the triangle bound, by
+Lemma~\ref{lem:regulartypical} (applied to $(V_1, V_2)$ and to $(V_1, V_3)$)
+all but at most $2\varepsilon|V_1|$ vertices
+$x \in V_1$ have at least $(d_{12} - \varepsilon)|V_2| \ge \varepsilon|V_2|$
+neighbors in $V_2$ and at least $(d_{13} - \varepsilon)|V_3| \ge \varepsilon|V_3|$
+neighbors in $V_3$; by $\varepsilon$-regularity of $(V_2, V_3)$ the number of
+edges between these two neighborhoods is at least $(d_{23} - \varepsilon)$
+times the product of their sizes, and each such edge closes a triangle with $x$.
 \end{proof}
 
 \subsubsection{The Removal Lemma}
@@ -19609,16 +19636,28 @@ $G$ can be made triangle-free by removing at most $\eta n^2$ edges.
 \end{theorem}
 
 \begin{proof}
-Apply Theorem~\ref{thm:srl} with $\varepsilon = \eta/4$ to obtain a regular
-partition $V_1, \dots, V_k$. Remove: (a) all edges inside any single
-part, (b) all edges between pairs that are not $\varepsilon$-regular, (c)
-all edges across regular pairs of density $< 2\varepsilon$. Total edges
-removed: at most $\eta n^2$. Now claim the resulting graph is
+We may assume $\eta \le 1$. Let $\varepsilon = \eta/5$, $m_0 = \lceil 5/\eta \rceil$
+and $M = M(\varepsilon, m_0)$ as in Theorem~\ref{thm:srl}. The estimates below
+hold for all $n \ge n_1$, where $n_1$ depends only on $\eta$; if $n < n_1$ and
+$\delta < n_1^{-3}$, then $G$ has no triangles at all and there is nothing to
+prove. For
+$n \ge n_1$ take an $\varepsilon$-regular partition
+$V_0 \cup V_1 \cup \cdots \cup V_k$ with $m_0 \le k \le M$. Remove: (a) all
+edges incident to $V_0$ and all edges inside any single part $V_i$, (b) all
+edges between pairs that are not $\varepsilon$-regular, (c) all edges across
+regular pairs of density $< 2\varepsilon$. Since $|V_0| \le \varepsilon n$ and
+$|V_i| \le n/k + 1$, these are at most $\varepsilon n^2 + n^2/(2k)$,
+$\varepsilon n^2$ and $\varepsilon n^2$ edges respectively, up to an error
+$O(Mn)$; as $n^2/(2k) \le \eta n^2/10$, the total is at most
+$0.7\,\eta n^2 + O(Mn) \le \eta n^2$. Now claim the resulting graph is
 triangle-free. Otherwise a triangle $v_1 v_2 v_3$ with
-$v_i \in V_{i'}$ survives; then $V_{1'}, V_{2'}, V_{3'}$ form a
-triangle of regular-dense pairs, and by
-Theorem~\ref{thm:counting} there are $\ge c \cdot n^3$ triangles in
-$G$ for some $c = c(\eta)$. Choose $\delta < c$.
+$v_i \in V_{i'}$ survives; the parts $V_{1'}, V_{2'}, V_{3'}$ are distinct
+and different from $V_0$, and they form a triangle of $\varepsilon$-regular
+pairs of density $\ge 2\varepsilon$. By the triangle case of
+Theorem~\ref{thm:counting} there are at least
+$(1 - 2\varepsilon)\varepsilon^3 |V_{1'}||V_{2'}||V_{3'}| \ge c \cdot n^3$
+triangles in $G$, where $c = \varepsilon^3/(16 M^3)$ (using
+$|V_{i'}| \ge n/(2M)$). Choose $\delta < \min\{c, n_1^{-3}\}$.
 \end{proof}
 
 \begin{theorem}[General Graph Removal Lemma; Erd\H{o}s--Frankl--R\"odl]
@@ -19636,37 +19675,49 @@ $\{1, 2, \dots, N\}$ with $N \ge N_0$ and at least $\alpha N$
 elements contains a non-trivial $3$-term arithmetic progression.
 \end{theorem}
 
-\begin{proof}[Proof via triangle removal; Ruzsa]
+\begin{proof}[Proof via triangle removal; Ruzsa--Szemer\'edi]
 Let $A \subseteq [N]$ have density $\alpha$. Build the \emph{Ruzsa
 3-AP graph} $G_A$ with vertex set $X \cup Y \cup Z$ where each copy
 is $[3N]$. Edges: $(x, y) \in X \times Y$ iff $y - x \in A$;
 $(y, z) \in Y \times Z$ iff $z - y \in A$; $(x, z) \in X \times Z$
-iff $(z - x)/2 \in A$. Triangles $(x, y, z)$ with $x + z = 2y$
-correspond to $3$-APs $(y - x, y, y + (z - y))$ within $A$.
+iff $(z - x)/2 \in A$. A triangle $(x, y, z)$ yields the elements
+$y - x$, $(z - x)/2$, $z - y$ of $A$, which form a $3$-AP (the middle
+one is the average of the other two); this $3$-AP is trivial exactly
+when $x + z = 2y$.
 
-$G_A$ has $9 N^2$ vertices and $\Theta(\alpha N^2)$ edges, and
-trivial triangles (all three vertices encoding the same AP element)
-give $\Theta(\alpha N^2)$ vertex-disjoint triangles. By
-Theorem~\ref{thm:triangleremoval}, any edge-removal making $G_A$
-triangle-free requires $\Omega(N^2)$ edges, so $G_A$ must have
-$\Omega(N^3)$ triangles---yielding a non-trivial 3-AP in $A$.
+$G_A$ has $9N$ vertices and $\Theta(\alpha N^2)$ edges. The trivial
+triangles $(x, x + a, x + 2a)$ with $x \in [N]$, $a \in A$ number at
+least $\alpha N^2$ and are pairwise \emph{edge-disjoint} (any edge of such
+a triangle determines $x$ and $a$). Hence any edge-removal making $G_A$
+triangle-free requires at least $\alpha N^2 > (\alpha/100)(9N)^2$ edges, so
+by Theorem~\ref{thm:triangleremoval} with $\eta = \alpha/100$ the graph $G_A$
+has more than $\delta (9N)^3 = \Omega(N^3)$ triangles.
+At most $3N|A| = O(N^2)$ of them are trivial, so for large $N$ some
+triangle is non-trivial---yielding a non-trivial 3-AP in $A$.
 \end{proof}
 
 \subsubsection{The Blow-up Lemma}
 
 \begin{theorem}[Koml\'os--S\'ark\"ozy--Szemer\'edi blow-up lemma, 1997]
-Let $H$ be a graph of bounded maximum degree $\Delta$ and $d \in (0, 1)$.
-If $G$ contains a ``super-regular''  blown-up version of an auxiliary
-graph $R$, then every graph $H$ with $\chi(H) \le r$ and $\Delta(H) \le \Delta$
-can be embedded into $G$, provided $|V(H)| \le |V(G)|$ and
-$r \le |V(R)|$.
+For every graph $R$ on vertex set $\{1, \dots, r\}$ and all $\delta > 0$,
+$\Delta \ge 1$ there is $\varepsilon = \varepsilon(\delta, \Delta, r) > 0$ such
+that the following holds. Let $V_1, \dots, V_r$ be disjoint sets, let $R^{\ast}$
+be the graph on $V_1 \cup \cdots \cup V_r$ in which $V_i$ and $V_j$ are completely
+joined whenever $ij \in E(R)$, and let $G \subseteq R^{\ast}$ be a spanning
+subgraph in which every pair $(V_i, V_j)$, $ij \in E(R)$, is
+\emph{$(\varepsilon, \delta)$-super-regular}: $e(X, Y) > \delta|X||Y|$ whenever
+$X \subseteq V_i$, $Y \subseteq V_j$, $|X| > \varepsilon|V_i|$, $|Y| > \varepsilon|V_j|$,
+and every vertex of $V_i$ has more than $\delta|V_j|$ neighbors in $V_j$ and
+vice versa. Then every graph $H$ with $\Delta(H) \le \Delta$ that is a
+subgraph of $R^{\ast}$ is also a subgraph of $G$.
 \end{theorem}
 
 The blow-up lemma is the counterpart of the counting lemma when one
 wants to embed a \emph{spanning} or nearly-spanning subgraph rather
-than count all copies of a fixed $H$. It is the key ingredient in
-P\'osa-style extremal-chromatic theorems and in the resolution of
-the Bollob\'as--Koml\'os tiling conjecture.
+than count all copies of a fixed $H$. It is a key ingredient in the
+proofs (for large $n$) of the P\'osa--Seymour conjecture on powers of
+Hamilton cycles, the Alon--Yuster and Koml\'os tiling conjectures, and
+the Bollob\'as--Koml\'os bandwidth conjecture.
 
 \subsubsection{Graphons and the Limit Theory}
 
@@ -19692,14 +19743,21 @@ testing and extremal graph theory.
 \begin{theorem}[Alon--Shapira: testability of hereditary properties]
 Every hereditary graph property $\mathcal P$ is \emph{testable} with
 one-sided error: there is an algorithm which, given oracle access to
-a graph $G$ and a parameter $\varepsilon$, queries $O(\mathrm{poly}(1/\varepsilon))$
-edges of $G$ and (a) accepts if $G \in \mathcal P$, (b) rejects with
+a graph $G$ and a parameter $\varepsilon$, queries a number of vertex pairs
+of $G$ bounded by a function $q_{\mathcal P}(\varepsilon)$ of $\varepsilon$ alone
+(independent of $|V(G)|$) and (a) accepts if $G \in \mathcal P$, (b) rejects with
 probability $\ge 2/3$ if $G$ is $\varepsilon$-far from $\mathcal P$.
 \end{theorem}
 
 The proof relies directly on the regularity lemma and the
 graph-removal lemma: a large graph $\varepsilon$-far from $\mathcal P$ must
-contain ``many'' forbidden subgraphs, detectable by sampling.
+contain ``many'' forbidden subgraphs, detectable by sampling. The
+resulting bounds on $q_{\mathcal P}(\varepsilon)$ are enormous, and in general
+$q_{\mathcal P}$ cannot be polynomial in $1/\varepsilon$: already for
+triangle-freeness the query complexity of one-sided testers is
+super-polynomial (via Behrend's construction), and Alon showed that
+$H$-freeness can be tested with one-sided error using
+$\mathrm{poly}(1/\varepsilon)$ queries if and only if $H$ is bipartite.
 
 \subsubsection{Exercises}
 
@@ -19725,13 +19783,14 @@ theorem.
 \begin{exercise}
 Prove that the triangle removal lemma implies the corner theorem
 (Ajtai--Szemer\'edi): every subset of $[N]^2$ of positive density
-contains a \emph{corner} $\{(x, y), (x + d, y), (x, y + d)\}$.
+contains, for $N$ large, a \emph{corner} $\{(x, y), (x + d, y), (x, y + d)\}$ with $d > 0$.
 \end{exercise}
 
 \begin{exercise}
-Prove Mantel's theorem via the triangle removal lemma: every graph
-with more than $(1/4 + \varepsilon) n^2$ edges contains $\Omega(n^3)$
-triangles, contradicting $\mathrm{ex}(n, K_3) \le n^2/4$.
+Use the triangle removal lemma together with Mantel's theorem
+$\mathrm{ex}(n, K_3) \le n^2/4$ to prove the supersaturation statement: every
+graph with more than $(1/4 + \varepsilon) n^2$ edges contains $\Omega(n^3)$
+triangles.
 \end{exercise}
 
 \begin{exercise}
@@ -19749,10 +19808,11 @@ stability theorem.
 \paragraph{Hard Questions.}
 
 \begin{exercise}
-Using the triangle removal lemma, prove the following Behrend-type
-complement: there exist subsets of $[N]$ of size $N/\exp(\sqrt{\log N})$
-with no 3-AP. Conclude that $\delta(\eta)$ in the removal lemma must
-satisfy $\delta \le \exp(-\mathrm{poly}(1/\eta))$.
+Using Behrend's construction of a subset of $[N]$ of size
+$N/\exp(O(\sqrt{\log N}))$ with no 3-AP, together with the Ruzsa $3$-AP
+graph, show that $\delta(\eta)$ in the triangle removal lemma must satisfy
+$\delta \le \eta^{c \log(1/\eta)}$ for some absolute constant $c > 0$ and all
+small $\eta$; in particular $\delta$ cannot be taken polynomial in $\eta$.
 \end{exercise}
 
 \begin{exercise}
